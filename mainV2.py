@@ -11,6 +11,7 @@ import argparse
 import math
 import os
 from dataclasses import dataclass, field
+from types import SimpleNamespace
 
 os.environ.setdefault("PYGAME_HIDE_SUPPORT_PROMPT", "1")
 import numpy as np
@@ -18,24 +19,31 @@ import gymnasium as gym
 import highway_env  # noqa: F401 -- registers highway-v0
 
 
-ROLES = ("ego", "lead", "rear", "left_front", "left_rear", "right_front",
-         "right_rear", "task_target", "intruder")
-LANES = ("current", "left", "right", "origin_lane", "passing_lane")
-PAIRS = tuple(dict.fromkeys(
-    [("ego", r) for r in ROLES[1:]] + [(r, "ego") for r in ROLES[1:]]))
-# Deliberately bounded groundings, rather than a Cartesian role alphabet.
+ROLES = ("lead", "rear", "left_front", "left_rear", "right_front",
+         "right_rear", "intruder")
+LANES = ("left", "right", "passing_lane")
+FRONT_ROLES = ("lead", "left_front", "right_front", "intruder")
+REAR_ROLES = ("rear", "left_rear", "right_rear")
+# Side neighbours occupy their side lane; pinned passing-lane membership can
+# describe progress through an overtake. No Cartesian role/lane product.
+OCCUPANCY_GROUNDINGS = (
+    ("lead", "passing_lane"), ("rear", "passing_lane"),
+    ("left_front", "left"), ("left_rear", "left"),
+    ("right_front", "right"), ("right_rear", "right"),
+    ("intruder", "left"), ("intruder", "right"),
+    ("intruder", "passing_lane"))
 REGISTRY = (
     [("present", (r,)) for r in ROLES]
     + [("lane_exists", (l,)) for l in LANES]
-    + [(p, (r, l)) for p in ("in_lane", "lane_settled")
-       for r, ls in [("ego", LANES), ("task_target", LANES),
-                     ("intruder", ("current",))] for l in ls]
-    + [(p, pair) for p in ("ahead_of", "slower_than", "closing_on", "gap_critical")
-       for pair in PAIRS]
-    + [(p, (r,)) for p in ("braking", "accelerating") for r in ROLES]
+    + [("in_lane", grounding) for grounding in OCCUPANCY_GROUNDINGS]
+    + [("ahead_of", (r, "ego")) for r in FRONT_ROLES]
+    + [("slower_than", (r, "ego")) for r in ROLES]
+    + [("closing_on", ("ego", r)) for r in FRONT_ROLES]
+    + [("closing_on", (r, "ego")) for r in REAR_ROLES]
+    + [("braking", (r,)) for r in ROLES]
     + [(p, ("ego", l)) for p in ("front_gap_adequate", "rear_gap_adequate") for l in LANES]
-    + [("moving_into", (r, l)) for r, ls in
-       [("ego", LANES), ("intruder", ("current",))] for l in ls]
+    + [("moving_into", ("intruder", "ego_lane"))]
+    + [("danger_zone", ("ego", "lead"))]
     + [("crashed", ("ego",))])
 
 
@@ -43,11 +51,9 @@ REGISTRY = (
 class Config:
     speed_difference: float = .5
     closing_threshold: float = .5
+    ttc_danger: float = 2.
     acceleration_threshold: float = .5
-    critical_ttc: float = 2.
-    settled_offset: float = .25
-    settled_lateral_speed: float = .2
-    settled_heading: float = .05
+    motion_offset_threshold: float = .25
     d0: float = 5.
     tau: float = 1.2
     tau_c: float = 1.
@@ -131,8 +137,7 @@ def resolve_relative_lanes(snapshot):
     lanes = all_lanes(snapshot.road)
     # Highway road topology numbers side lanes from left to right; use only
     # the immediate neighbours on this edge, never world-coordinate signs.
-    return {"current": idx if idx in lanes else None,
-            "left": (*idx[:2], idx[2] - 1) if (*idx[:2], idx[2] - 1) in lanes else None,
+    return {"left": (*idx[:2], idx[2] - 1) if (*idx[:2], idx[2] - 1) in lanes else None,
             "right": (*idx[:2], idx[2] + 1) if (*idx[:2], idx[2] + 1) in lanes else None}
 
 
@@ -188,40 +193,36 @@ def moving_into(vehicle, lane, config):
     m = lateral_motion(vehicle, lane)
     return (abs(m["lateral_speed"]) > config.motion_threshold
             and m["offset"] * m["lateral_speed"] < 0
-            and abs(m["offset"]) > config.settled_offset)
+            and abs(m["offset"]) > config.motion_offset_threshold)
 
 
 @dataclass
 class TaskContext:
-    origin_lane: tuple | None = None
     passing_lane: tuple | None = None
-    target_id: int | None = None
 
     def rebind(self, snapshot):
-        refs = resolve_relative_lanes(snapshot)
-        self.origin_lane, self.passing_lane = refs["current"], refs["left"]
-        lane = all_lanes(snapshot.road).get(self.origin_lane)
-        target = nearest_ahead(snapshot.ego, lane, snapshot.vehicles)
-        self.target_id = target.uid if target else None
+        self.passing_lane = resolve_relative_lanes(snapshot)["left"]
 
 
 def bind_roles(snapshot, task_context, config=Config()):
     refs = resolve_relative_lanes(snapshot)
-    refs.update(origin_lane=task_context.origin_lane, passing_lane=task_context.passing_lane)
+    refs.update(passing_lane=task_context.passing_lane)
     lanes = all_lanes(snapshot.road)
     roles = dict.fromkeys(ROLES)
     roles["ego"] = snapshot.ego
-    for name, front, rear in (("current", "lead", "rear"),
-                              ("left", "left_front", "left_rear"),
-                              ("right", "right_front", "right_rear")):
-        lane = lanes.get(refs[name])
+    # Ego remains an internal reference, outside the alphabet's role list.
+    for idx, front, rear in ((snapshot.ego.lane_index, "lead", "rear"),
+                              (refs["left"], "left_front", "left_rear"),
+                              (refs["right"], "right_front", "right_rear")):
+        lane = lanes.get(idx)
         roles[front] = nearest_ahead(snapshot.ego, lane, snapshot.vehicles)
         roles[rear] = nearest_behind(snapshot.ego, lane, snapshot.vehicles)
-    roles["task_target"] = next((v for v in snapshot.vehicles if v.uid == task_context.target_id), None)
-    current = lanes.get(refs["current"])
+    current = lanes.get(snapshot.ego.lane_index)
     if current is not None:
         entrants = [v for v in snapshot.vehicles if v.uid != snapshot.ego.uid
                     and np.linalg.norm(v.position - snapshot.ego.position) <= config.intruder_distance
+                    and any(occupies(v, lanes[idx]) for idx in (refs["left"], refs["right"])
+                            if idx in lanes)
                     and moving_into(v, current, config)]
         # Earliest lateral footprint arrival, then smallest longitudinal
         # clearance magnitude, then episode ID: deterministic conflict priority.
@@ -338,9 +339,9 @@ def evaluate_predicates(snapshot, bindings, config, memory):
             value = refs[args[0]] in lanes
         elif predicate == "crashed":
             value = a.crashed
-        elif predicate in ("braking", "accelerating") and a:
+        elif predicate == "braking" and a:
             acc = measurements["acceleration"][args[0]]
-            value = acc < -config.acceleration_threshold if predicate == "braking" else acc > config.acceleration_threshold
+            value = acc < -config.acceleration_threshold
         elif predicate in ("front_gap_adequate", "rear_gap_adequate"):
             l = args[1]
             side = predicate.split("_")[0]
@@ -349,22 +350,18 @@ def evaluate_predicates(snapshot, bindings, config, memory):
             old = memory.hysteresis.get(key, False)
             value = True if margin > config.gap_on else False if margin < config.gap_off else old
             memory.hysteresis[key] = value
-        elif predicate in ("in_lane", "lane_settled", "moving_into") and a:
-            lane = lanes.get(refs[args[1]])
+        elif predicate in ("in_lane", "moving_into") and a:
+            lane = lanes.get(snapshot.ego.lane_index if args[1] == "ego_lane" else refs[args[1]])
             if lane:
                 m = lateral_motion(a, lane)
                 measurements["motion"][','.join(args)] = m
                 if predicate == "in_lane":
                     value = occupies(a, lane)
-                elif predicate == "moving_into":
-                    value = moving_into(a, lane, config)
                 else:
-                    value = (occupies(a, lane) and abs(m["offset"]) <= config.settled_offset
-                             and abs(m["lateral_speed"]) <= config.settled_lateral_speed
-                             and abs(m["heading_error"]) <= config.settled_heading)
+                    value = moving_into(a, lane, config)
         elif len(args) == 2 and a and roles.get(args[1]):
             b = roles[args[1]]
-            lane = lanes.get(refs["current"])
+            lane = lanes.get(snapshot.ego.lane_index)
             if lane:
                 gap = longitudinal_clearance(a, b, lane)
                 closing = closing_speed(a, b, lane)
@@ -377,9 +374,12 @@ def evaluate_predicates(snapshot, bindings, config, memory):
                 elif predicate == "slower_than":
                     value = closing < -config.speed_difference
                 elif predicate == "closing_on":
-                    value = relevant and follows and gap > 0 and closing > config.closing_threshold
-                elif predicate == "gap_critical":
-                    value = relevant and follows and ttc < config.critical_ttc
+                    # Side-lane approaches use projected longitudinal order/speed;
+                    # shared occupancy is required only for collision risk.
+                    value = follows and gap > 0 and closing > config.closing_threshold
+                elif predicate == "danger_zone":
+                    value = relevant and follows and (gap <= 0 or
+                        (closing > config.closing_threshold and ttc < config.ttc_danger))
         values[ap] = bool(value)
     memory.occupants = {r: v.uid if v else None for r, v in roles.items()}
     memory.previous, memory.time = snapshot, snapshot.time
@@ -444,9 +444,8 @@ class Simulator:
     def rebind(self):
         self.task.rebind(self.snapshot)
         # Re-evaluate at this same time without advancing acceleration history.
-        self.memory.occupants.pop("task_target", None)
         self.memory.hysteresis = {k: v for k, v in self.memory.hysteresis.items()
-                                  if not any(l in k[0] for l in ("origin_lane", "passing_lane"))}
+                                  if "passing_lane" not in k[0]}
         self.memory.time = None
         self.refresh()
 
@@ -461,8 +460,13 @@ class Visualizer:
         pygame.init()
         # Render first: offscreen viewer creates surfaces, never another window
         # and never calls handle_events(). Only this loop owns the event queue.
-        self.frame = simulator.env.render()
-        self.screen = pygame.display.set_mode((1240, 800))
+        self.camera_follow = True
+        self.camera_anchor = SimpleNamespace(position=simulator.snapshot.ego.position.copy())
+        self.frame = self.render_frame(reset_camera=True)
+        desktop_width, desktop_height = pygame.display.get_desktop_sizes()[0]
+        window_size = (max(1000, min(1240, desktop_width - 40)),
+                       max(680, min(800, desktop_height - 90)))
+        self.screen = pygame.display.set_mode(window_size, pygame.RESIZABLE)
         pygame.display.set_caption("Highway semantic labels")
         pygame.key.set_repeat()  # one-shot commands, ignore repeated KEYDOWN
         self.font = pygame.font.SysFont("consolas", 16)
@@ -471,6 +475,77 @@ class Visualizer:
         self.play, self.diagnostics, self.scroll = False, False, 0
         self.interval, self.next_step = max(.1, interval), 0
         self.buttons = []
+        self.drag_scroll = False
+        self.drag_offset = 0
+        self.update_layout()
+
+    def update_layout(self):
+        width, height = self.screen.get_size()
+        self.left_width = min(760, int(width * .62))
+        self.panel_x = self.left_width + 30
+        self.panel_rect = self.pg.Rect(self.panel_x, 65, width - self.panel_x - 38, height - 110)
+        self.row_height = max(22, self.small.get_linesize() + 5)
+        self.visible_rows = max(1, self.panel_rect.height // self.row_height)
+        self.scroll_up = self.pg.Rect(width - 26, self.panel_rect.top, 18, 22)
+        self.scroll_down = self.pg.Rect(width - 26, self.panel_rect.bottom - 22, 18, 22)
+        self.scroll_track = self.pg.Rect(width - 25, self.panel_rect.top + 26,
+                                        16, self.panel_rect.height - 52)
+
+    def panel_rows(self):
+        sim = self.sim
+        rows = []
+        if self.diagnostics:
+            rows += [(f"{r}: #{v.uid}" if v else f"{r}: absent", (200, 220, 240))
+                     for r, v in sim.bindings["roles"].items()]
+            rows += [(f"{l}: {idx}", (200, 220, 240)) for l, idx in sim.bindings["refs"].items()]
+            for section, measurements in sim.memory.measurements.items():
+                rows.append((section.upper(), (125, 195, 255)))
+                for key, data in measurements.items():
+                    rows.append((str(key), (220, 228, 240)))
+                    rows.append((str(data), (175, 185, 200)))
+            rows.append(("FALSE APs", (125, 195, 255)))
+            rows += [(ap, (155, 165, 180)) for ap, value in sim.memory.values.items() if not value]
+        else:
+            rows += [(('+ ' if ap in sim.added else '  ') + ap,
+                      (120, 245, 175) if ap in sim.added else (220, 228, 240)) for ap in sorted(sim.labels)]
+            rows.append(("REMOVED at last update (not current)", (255, 190, 120)))
+            rows += [("- " + ap, (255, 155, 125)) for ap in sorted(sim.removed)]
+        # Wrap to the actual panel width so every expression/measurement is
+        # readable, including when the user shrinks the window.
+        import textwrap
+        columns = max(15, self.panel_rect.width // self.small.size("M")[0])
+        return [(line, color) for text, color in rows
+                for line in (textwrap.wrap(text, columns) or [""])]
+
+    def scroll_to(self, row):
+        maximum = max(0, len(self.panel_rows()) - self.visible_rows)
+        self.scroll = max(0, min(int(row), maximum))
+
+    def scrollbar_thumb(self):
+        count = len(self.panel_rows())
+        maximum = max(0, count - self.visible_rows)
+        track = self.scroll_track
+        height = min(track.height, max(30, int(track.height * self.visible_rows / max(1, count))))
+        offset = int((track.height - height) * self.scroll / maximum) if maximum else 0
+        return self.pg.Rect(track.x, track.y + offset, track.width, height)
+
+    def render_frame(self, reset_camera=False):
+        """Hold a world view so equal-speed traffic visibly advances on screen."""
+        h = self.sim.env.unwrapped
+        if h.viewer is None:
+            self.sim.env.render()
+        viewer = h.viewer
+        if reset_camera:
+            self.camera_anchor.position = self.sim.snapshot.ego.position.copy()
+        if not self.camera_follow:
+            # Keep all cars in world motion between discrete camera recentres.
+            surface = viewer.sim_surface
+            surface.move_display_window_to(self.camera_anchor.position)
+            x, _ = surface.vec2pix(self.sim.snapshot.ego.position)
+            if x < 80 or x > surface.get_width() - 80:
+                self.camera_anchor.position = self.sim.snapshot.ego.position.copy()
+        viewer.observer_vehicle = None if self.camera_follow else self.camera_anchor
+        return self.sim.env.render()
 
     def command(self, name):
         pg = self.pg
@@ -483,16 +558,20 @@ class Visualizer:
         elif name in ("Reset", "New seed"):
             self.play = False
             self.sim.reset(name == "New seed")
+            self.scroll = 0
         elif name == "Rebind task":
             self.sim.rebind()
         elif name == "Diagnostics":
             self.diagnostics = not self.diagnostics
             self.scroll = 0
+        elif name == "Camera":
+            self.camera_follow = not self.camera_follow
+            self.camera_anchor.position = self.sim.snapshot.ego.position.copy()
         elif name in ("Faster play", "Slower play"):
             self.interval = min(3., max(.1, self.interval * (.8 if name == "Faster play" else 1.25)))
         else:
             self.sim.queue(name)
-        self.frame = self.sim.env.render()
+        self.frame = self.render_frame(reset_camera=name in ("Reset", "New seed"))
 
     def text(self, text, x, y, color=(220, 228, 240), small=False):
         self.screen.blit((self.small if small else self.font).render(text, True, color), (x, y))
@@ -500,83 +579,112 @@ class Visualizer:
     def draw(self):
         pg, sim = self.pg, self.sim
         self.screen.fill((19, 25, 36))
-        self.screen.blit(pg.surfarray.make_surface(self.frame.swapaxes(0, 1)), (10, 10))
-        state = "ENDED: reset to continue" if sim.done else "PLAYING" if self.play else "PAUSED"
+        image = pg.surfarray.make_surface(self.frame.swapaxes(0, 1))
+        self.screen.blit(pg.transform.smoothscale(image, (self.left_width, 300)), (10, 10))
+        state = "ENDED (reset)" if sim.done else "PLAYING" if self.play else "PAUSED"
         for i, line in enumerate([
             f"{state} | t={sim.snapshot.time:.2f}s | steps={sim.steps} | seed={sim.seed}",
             f"Ego speed={np.linalg.norm(sim.snapshot.ego.velocity):.2f} m/s | pending={sim.pending}",
-            f"Playback: one step / {self.interval:.2f}s wall time; step = 0.20s simulation",
-            "IDLE continues existing speed/lane targets; it does not stop the car.",
-            "Arrows queue driving; Space steps; P plays/pauses; I queues IDLE.",
-            "R reset | N new seed | T rebind | D diagnostics | Esc close",
+            f"Playback every {self.interval:.2f}s wall | step = 0.20s simulation",
+            "IDLE keeps speed/lane targets; it does not stop the car.",
+            "Arrows queue | Space step | P play/pause | I IDLE",
+            f"R reset | N seed | T rebind | D info | C camera ({'Follow' if self.camera_follow else 'World'})",
             "Gap proxy: constant velocity over 1s; not a safety guarantee."]):
             self.text(line, 14, 325 + i * 23, small=True)
         self.buttons = []
         names = ["Step", "Play/Pause", "Reset", "New seed", "Rebind task", "Diagnostics",
-                 "LANE_LEFT", "LANE_RIGHT", "FASTER", "SLOWER", "IDLE", "Faster play", "Slower play"]
+                 "LANE_LEFT", "LANE_RIGHT", "FASTER", "SLOWER", "IDLE", "Faster play", "Slower play", "Camera"]
         available = sim.available()
+        button_width = (self.left_width - 22) // 4
         for i, name in enumerate(names):
-            rect = pg.Rect(14 + (i % 4) * 188, 500 + (i // 4) * 48, 178, 39)
+            rect = pg.Rect(14 + (i % 4) * button_width, 488 + (i // 4) * 44, button_width - 8, 36)
             enabled = (name not in sim.actions or (name in available and not sim.done))
             if name in ("Step", "Play/Pause") and sim.done:
                 enabled = False
             pg.draw.rect(self.screen, (48, 69, 92) if enabled else (39, 39, 42), rect, border_radius=5)
-            self.text(name if enabled else name + " (N/A)", rect.x + 5, rect.y + 11, small=True)
+            caption = f"Camera: {'Follow' if self.camera_follow else 'World'}" if name == "Camera" else name
+            self.text(caption if enabled else caption + " (N/A)", rect.x + 5, rect.y + 11, small=True)
             self.buttons.append((rect, name, enabled))
-        self.text("Wheel scrolls the right panel", 795, 12, small=True)
-        self.text("DIAGNOSTICS" if self.diagnostics else f"TRUE APs ({len(sim.labels)})", 795, 36)
-        rows = []
-        if self.diagnostics:
-            rows += [(f"{r}: #{v.uid}" if v else f"{r}: absent", (200, 220, 240))
-                     for r, v in sim.bindings["roles"].items()]
-            rows += [(f"{l}: {idx}", (200, 220, 240)) for l, idx in sim.bindings["refs"].items()]
-            for section, measurements in sim.memory.measurements.items():
-                rows.append((section.upper(), (125, 195, 255)))
-                for key, data in measurements.items():
-                    rows.append((str(key), (220, 228, 240)))
-                    # Wrap dictionary diagnostics, including both false values
-                    # and all raw measurements, without hiding them offscreen.
-                    import textwrap
-                    rows += [(line, (175, 185, 200)) for line in textwrap.wrap(str(data), 49)]
-            rows.append(("FALSE APs", (125, 195, 255)))
-            rows += [(ap, (155, 165, 180)) for ap, value in sim.memory.values.items() if not value]
-        else:
-            rows += [(('+ ' if ap in sim.added else '  ') + ap,
-                      (120, 245, 175) if ap in sim.added else (220, 228, 240)) for ap in sorted(sim.labels)]
-            rows.append(("REMOVED at last update (not current)", (255, 190, 120)))
-            rows += [("- " + ap, (255, 155, 125)) for ap in sorted(sim.removed)]
-        visible = 32
-        self.scroll = max(0, min(self.scroll, max(0, len(rows) - visible)))
-        for i, (line, color) in enumerate(rows[self.scroll:self.scroll + visible]):
-            self.text(line, 795, 65 + i * 22, color, small=True)
-        self.text(f"Rows {self.scroll + 1}-{min(len(rows), self.scroll + visible)} / {len(rows)}", 795, 775, small=True)
+        self.text("Wheel | PgUp/PgDn | Home/End", self.panel_x, 12, small=True)
+        self.text("DIAGNOSTICS" if self.diagnostics else f"TRUE APs ({len(sim.labels)})", self.panel_x, 36)
+        rows = self.panel_rows()
+        self.scroll_to(self.scroll)
+        self.screen.set_clip(self.panel_rect)
+        for i, (line, color) in enumerate(rows[self.scroll:self.scroll + self.visible_rows]):
+            self.text(line, self.panel_x, self.panel_rect.y + i * self.row_height, color, small=True)
+        self.screen.set_clip(None)
+        pg.draw.rect(self.screen, (37, 47, 62), self.scroll_track, border_radius=5)
+        pg.draw.rect(self.screen, (115, 160, 200), self.scrollbar_thumb(), border_radius=5)
+        for rect, caption in ((self.scroll_up, "^"), (self.scroll_down, "v")):
+            pg.draw.rect(self.screen, (48, 69, 92), rect, border_radius=3)
+            self.text(caption, rect.x + 4, rect.y + 2, small=True)
+        self.text(f"Rows {self.scroll + 1}-{min(len(rows), self.scroll + self.visible_rows)} / {len(rows)}",
+                  self.panel_x, self.screen.get_height() - 30, small=True)
         pg.display.flip()
 
-    def run(self):
+    def handle_event(self, event):
         pg = self.pg
         shortcuts = {pg.K_SPACE: "Step", pg.K_p: "Play/Pause", pg.K_LEFT: "LANE_LEFT",
                      pg.K_RIGHT: "LANE_RIGHT", pg.K_UP: "FASTER", pg.K_DOWN: "SLOWER",
                      pg.K_i: "IDLE", pg.K_r: "Reset", pg.K_n: "New seed",
-                     pg.K_t: "Rebind task", pg.K_d: "Diagnostics"}
-        running = True
-        while running:
-            for event in pg.event.get():
-                if event.type == pg.QUIT or (event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE):
-                    running = False
-                elif event.type == pg.KEYDOWN and not getattr(event, "repeat", False):
-                    if event.key in shortcuts:
-                        self.command(shortcuts[event.key])
-                elif event.type == pg.MOUSEWHEEL:
-                    self.scroll -= event.y * 3
-                elif event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
+                     pg.K_t: "Rebind task", pg.K_d: "Diagnostics", pg.K_c: "Camera"}
+        if event.type == pg.QUIT or (event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE):
+            return False
+        if event.type == pg.VIDEORESIZE:
+            self.screen = pg.display.set_mode((max(1000, event.w), max(680, event.h)), pg.RESIZABLE)
+            self.update_layout()
+            self.scroll_to(self.scroll)
+        elif event.type == pg.KEYDOWN:
+            destinations = {pg.K_PAGEUP: self.scroll - self.visible_rows,
+                            pg.K_PAGEDOWN: self.scroll + self.visible_rows,
+                            pg.K_HOME: 0, pg.K_END: len(self.panel_rows())}
+            if event.key in destinations:
+                self.scroll_to(destinations[event.key])
+            elif not getattr(event, "repeat", False) and event.key in shortcuts:
+                self.command(shortcuts[event.key])
+        elif event.type == pg.MOUSEWHEEL:
+            self.scroll_to(self.scroll - event.y * 3)
+        elif event.type == pg.MOUSEBUTTONDOWN:
+            if event.button in (4, 5):  # legacy mouse-wheel events
+                self.scroll_to(self.scroll + (-3 if event.button == 4 else 3))
+            elif event.button == 1:
+                if self.scroll_up.collidepoint(event.pos):
+                    self.scroll_to(self.scroll - 1)
+                elif self.scroll_down.collidepoint(event.pos):
+                    self.scroll_to(self.scroll + 1)
+                elif self.scroll_track.collidepoint(event.pos):
+                    thumb = self.scrollbar_thumb()
+                    if thumb.collidepoint(event.pos):
+                        self.drag_scroll, self.drag_offset = True, event.pos[1] - thumb.y
+                    else:
+                        self.scroll_to(self.scroll + (-self.visible_rows if event.pos[1] < thumb.y else self.visible_rows))
+                else:
                     for rect, name, enabled in self.buttons:
                         if enabled and rect.collidepoint(event.pos):
                             self.command(name)
                             break
+        elif event.type == pg.MOUSEBUTTONUP and event.button == 1:
+            self.drag_scroll = False
+        elif event.type == pg.MOUSEMOTION and self.drag_scroll:
+            travel = self.scroll_track.height - self.scrollbar_thumb().height
+            maximum = max(0, len(self.panel_rows()) - self.visible_rows)
+            fraction = (event.pos[1] - self.drag_offset - self.scroll_track.y) / max(1, travel)
+            self.scroll_to(round(fraction * maximum))
+        return True
+
+    def run(self):
+        pg = self.pg
+        running = True
+        self.draw()  # populate hit targets before accepting the first click
+        while running:
+            for event in pg.event.get():
+                if not self.handle_event(event):
+                    running = False
+                    break
             now = pg.time.get_ticks()
             if running and self.play and now >= self.next_step:
                 self.sim.step()
-                self.frame = self.sim.env.render()
+                self.frame = self.render_frame()
                 self.play = not self.sim.done
                 self.next_step = now + int(self.interval * 1000)
             self.draw()
