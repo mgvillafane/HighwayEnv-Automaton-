@@ -1,0 +1,16 @@
+FRONT: 62 episodes, Counter({'TIMED OUT': 60, 'COLLISION': 2})
+    crash into other car ahead: 2
+    crash time median 10.2 s, closing speed median 1.5 m/s
+BACK: 61 episodes, Counter({'GOAL REACHED': 58, 'COLLISION': 3})
+    crash into other car ahead: 3
+    crash time median 2.6 s, closing speed median 13.3 m/s
+LEFT: 40 episodes, Counter({'GOAL REACHED': 32, 'COLLISION': 8})
+    crash into other car ahead: 8
+    crash time median 2.6 s, closing speed median 13.0 m/s
+RIGHT: 37 episodes, Counter({'GOAL REACHED': 22, 'COLLISION': 15})
+    crash into other car ahead: 10
+    crash into anchor ahead: 2
+    crash into other car ahead during lane change: 2
+    crash into other car beside during lane change: 1
+    crash time median 5.7 s, closing speed median 12.5 m/s
+Lead-car anchor: 36/51 reached; other anchors: 76/149

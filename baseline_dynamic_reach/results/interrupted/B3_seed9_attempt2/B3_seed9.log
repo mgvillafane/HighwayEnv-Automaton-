@@ -1,0 +1,5 @@
+IV against B2 (saved sidecar):
+  environment.reward_weights.potential_progress.gamma: '<missing>' -> 0.99
+  environment.reward_weights.potential_progress.weight: '<missing>' -> 0.1
+B3_seed9: 1,000,000 transitions on 3 environments; reward {'goal': 50.0, 'collision': 50.0, 'progress': 0.0, 'time': 0.0, 'hold': 0.0, 'potential_progress': {'weight': 0.1, 'gamma': 0.99}}; hold 0.1 s
+Initial weights: B0_seed9.zip
