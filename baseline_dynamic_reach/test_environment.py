@@ -7,7 +7,7 @@ import unittest
 import numpy as np
 
 from baseline_dynamic_reach import config as chain
-from baseline_dynamic_reach.config import ARMS, R0, arm_config
+from baseline_dynamic_reach.config import ARMS, MACHINE_IV, R0, arm_config
 from baseline_dynamic_reach.environment import ReachEnv
 from baseline_dynamic_reach.evaluate import check_paired, check_rows, wilson
 from baseline_dynamic_reach.ivcheck import IVError, check, check_replicates, differences, flatten
@@ -154,6 +154,30 @@ class ChainTests(unittest.TestCase):
         child["num_envs"] = 4
         with self.assertRaises(IVError):
             check(base, child, "ppo_config.policy_kwargs")
+
+    def test_a_machine_arm_changes_the_machine_and_nothing_else(self):
+        self.assertEqual(ARMS["B3m"]["iv"], MACHINE_IV)
+        self.assertEqual(arm_config("B3m"), arm_config("B3"))
+        pc = sidecar(arm_config("B3"), platform={"node": "pc", "python": "3.13.1"})
+        mac = sidecar(arm_config("B3m"), platform={"node": "mac", "python": "3.12.13"})
+        self.assertEqual(set(check(pc, mac, MACHINE_IV)), {"platform.node", "platform.python"})
+        # Trained on the parent's machine, a machine arm has no IV at all.
+        with self.assertRaises(IVError):
+            check(pc, sidecar(arm_config("B3m"), platform=pc["platform"]), MACHINE_IV)
+        # A package or a setting that changes along with the machine is still refused.
+        for section, key, value in (("versions", "torch", "other"), ("environment", "reward_weights", {})):
+            mixed = deepcopy(mac)
+            mixed[section][key] = value
+            with self.assertRaises(IVError):
+                check(pc, mixed, MACHINE_IV)
+
+    def test_b4_is_b3m_with_a_triple_crash_weight(self):
+        parent, child = arm_config("B3m"), arm_config("B4")
+        self.assertEqual(child["environment"]["reward_weights"]["collision"], 150.0)
+        self.assertEqual(parent["environment"]["reward_weights"]["collision"], 50.0)
+        self.assertEqual(child["init_policy"], "B0")
+        diffs = check(sidecar(parent), sidecar(child, seed=8), ARMS["B4"]["iv"])
+        self.assertEqual(diffs, {"environment.reward_weights.collision": (50.0, 150.0)})
 
     def test_replicates_must_be_identical(self):
         check_replicates([sidecar(arm_config("B0"), seed=s) for s in (7, 8, 9)])

@@ -51,6 +51,12 @@ ROOT = {
     "init_policy": None,
 }
 
+# The one IV that is not a setting: the machine a run trains on. train.py records it in every
+# sidecar ("platform": operating system, processor, host name and Python version, which change
+# together), and ivcheck compares it like any other setting. An arm with this IV has exactly its
+# parent's configuration and must be trained on a different machine than its parent.
+MACHINE_IV = "platform"
+
 # Each arm: parent arm, the single IV as a dotted path into the configuration, its new value,
 # and the reason. A value may be a dict (one compound setting); it is still one IV, and every
 # changed leaf must sit under that path (ivcheck enforces this on the saved sidecars).
@@ -72,6 +78,16 @@ ARMS = {
                      "long pass before the goal. Potential-based progress (Phi = -distance, gamma = PPO's) gives "
                      "per-step credit for closing on the slot without changing the best policy. 0.1 per meter is "
                      "Marcos's progress scale."},
+    "B3m": {"parent": "B3", "iv": MACHINE_IV, "value": None,
+            "reason": "The study moves from the Windows PC to the Mac. B3 is repeated here with nothing else "
+                      "changed, so that later arms have a parent trained on the same machine and the size of the "
+                      "machine effect is measured instead of assumed. It starts from the same B0 weight files as B3."},
+    "B4": {"parent": "B3m", "iv": "environment.reward_weights.collision", "value": 150.0,
+           "reason": "Step 5: on BACK/LEFT/RIGHT the only failure is driving into a slower car in the slot's lane "
+                     "(25-28 crashes of 138 per seed; the scripted driver 3). The critic tells blocked from clear "
+                     "episodes, but at crash weight 50 ramming (wins about half the time) and waiting are worth about "
+                     "the same, and the training crash rate stays near 20% for 1M transitions. At 150 a crash costs "
+                     "3x the goal, so ramming at even odds is clearly worse than waiting. Approved 2026-11-09."},
 }
 
 
@@ -94,7 +110,8 @@ def arm_config(name):
     if arm["parent"] is None:
         return deepcopy(ROOT)
     config = arm_config(arm["parent"])
-    set_path(config, arm["iv"], arm["value"])
+    if arm["iv"] != MACHINE_IV:
+        set_path(config, arm["iv"], arm["value"])
     return config
 
 

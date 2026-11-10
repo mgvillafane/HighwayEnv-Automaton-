@@ -1,0 +1,4148 @@
+{
+ "B3m_seed7": [
+  {
+   "seed": 10000,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 4.4,
+   "decisions": 44,
+   "overridden": 12
+  },
+  {
+   "seed": 10002,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 10.999999999999977,
+   "decisions": 110,
+   "overridden": 44
+  },
+  {
+   "seed": 10004,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 4.899999999999999,
+   "decisions": 49,
+   "overridden": 20
+  },
+  {
+   "seed": 10005,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.700000000000001,
+   "decisions": 27,
+   "overridden": 0
+  },
+  {
+   "seed": 10006,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 7.499999999999989,
+   "decisions": 75,
+   "overridden": 13
+  },
+  {
+   "seed": 10009,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 153
+  },
+  {
+   "seed": 10010,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 4.200000000000001,
+   "decisions": 42,
+   "overridden": 12
+  },
+  {
+   "seed": 10012,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 8.299999999999986,
+   "decisions": 83,
+   "overridden": 0
+  },
+  {
+   "seed": 10014,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 9.199999999999983,
+   "decisions": 92,
+   "overridden": 20
+  },
+  {
+   "seed": 10016,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.0000000000000004,
+   "decisions": 20,
+   "overridden": 12
+  },
+  {
+   "seed": 10018,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 8.799999999999985,
+   "decisions": 88,
+   "overridden": 25
+  },
+  {
+   "seed": 10020,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 7.39999999999999,
+   "decisions": 74,
+   "overridden": 15
+  },
+  {
+   "seed": 10021,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 8.399999999999986,
+   "decisions": 84,
+   "overridden": 17
+  },
+  {
+   "seed": 10022,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 10.09999999999998,
+   "decisions": 101,
+   "overridden": 0
+  },
+  {
+   "seed": 10023,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 6.399999999999993,
+   "decisions": 64,
+   "overridden": 0
+  },
+  {
+   "seed": 10025,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 6.099999999999994,
+   "decisions": 61,
+   "overridden": 0
+  },
+  {
+   "seed": 10026,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 9.599999999999982,
+   "decisions": 96,
+   "overridden": 18
+  },
+  {
+   "seed": 10027,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 5.899999999999995,
+   "decisions": 59,
+   "overridden": 0
+  },
+  {
+   "seed": 10028,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 8.999999999999984,
+   "decisions": 90,
+   "overridden": 15
+  },
+  {
+   "seed": 10029,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 7.599999999999989,
+   "decisions": 76,
+   "overridden": 24
+  },
+  {
+   "seed": 10030,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "COLLISION",
+   "time": 4.6,
+   "decisions": 46,
+   "overridden": 29
+  },
+  {
+   "seed": 10031,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 5.899999999999995,
+   "decisions": 59,
+   "overridden": 19
+  },
+  {
+   "seed": 10033,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 9.499999999999982,
+   "decisions": 95,
+   "overridden": 16
+  },
+  {
+   "seed": 10034,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 7.499999999999989,
+   "decisions": 75,
+   "overridden": 19
+  },
+  {
+   "seed": 10035,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 9.299999999999983,
+   "decisions": 93,
+   "overridden": 19
+  },
+  {
+   "seed": 10036,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 9.99999999999998,
+   "decisions": 100,
+   "overridden": 24
+  },
+  {
+   "seed": 10038,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 8.499999999999986,
+   "decisions": 85,
+   "overridden": 17
+  },
+  {
+   "seed": 10039,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 146
+  },
+  {
+   "seed": 10040,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 4.6,
+   "decisions": 46,
+   "overridden": 12
+  },
+  {
+   "seed": 10041,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 5.799999999999995,
+   "decisions": 58,
+   "overridden": 11
+  },
+  {
+   "seed": 10043,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 1.9000000000000006,
+   "decisions": 19,
+   "overridden": 12
+  },
+  {
+   "seed": 10044,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 237
+  },
+  {
+   "seed": 10045,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 159
+  },
+  {
+   "seed": 10047,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 8.699999999999985,
+   "decisions": 87,
+   "overridden": 0
+  },
+  {
+   "seed": 10048,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.800000000000001,
+   "decisions": 28,
+   "overridden": 0
+  },
+  {
+   "seed": 10051,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 174
+  },
+  {
+   "seed": 10053,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 133
+  },
+  {
+   "seed": 10055,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.800000000000001,
+   "decisions": 28,
+   "overridden": 0
+  },
+  {
+   "seed": 10056,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 7.099999999999991,
+   "decisions": 71,
+   "overridden": 24
+  },
+  {
+   "seed": 10057,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.9000000000000012,
+   "decisions": 29,
+   "overridden": 0
+  },
+  {
+   "seed": 10058,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 154
+  },
+  {
+   "seed": 10059,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 7.999999999999988,
+   "decisions": 80,
+   "overridden": 0
+  },
+  {
+   "seed": 10062,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 120
+  },
+  {
+   "seed": 10064,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "COLLISION",
+   "time": 2.500000000000001,
+   "decisions": 25,
+   "overridden": 0
+  },
+  {
+   "seed": 10065,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.400000000000001,
+   "decisions": 24,
+   "overridden": 15
+  },
+  {
+   "seed": 10066,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 237
+  },
+  {
+   "seed": 10068,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 209
+  },
+  {
+   "seed": 10069,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 11.199999999999976,
+   "decisions": 112,
+   "overridden": 0
+  },
+  {
+   "seed": 10071,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 14.099999999999966,
+   "decisions": 141,
+   "overridden": 51
+  },
+  {
+   "seed": 10072,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 102
+  },
+  {
+   "seed": 10075,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.800000000000001,
+   "decisions": 28,
+   "overridden": 0
+  },
+  {
+   "seed": 10076,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 119
+  },
+  {
+   "seed": 10078,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.800000000000001,
+   "decisions": 28,
+   "overridden": 0
+  },
+  {
+   "seed": 10079,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.800000000000001,
+   "decisions": 28,
+   "overridden": 0
+  },
+  {
+   "seed": 10080,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.700000000000001,
+   "decisions": 27,
+   "overridden": 0
+  },
+  {
+   "seed": 10081,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 191
+  },
+  {
+   "seed": 10082,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 11.799999999999974,
+   "decisions": 118,
+   "overridden": 37
+  },
+  {
+   "seed": 10083,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 8.899999999999984,
+   "decisions": 89,
+   "overridden": 0
+  },
+  {
+   "seed": 10084,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 163
+  },
+  {
+   "seed": 10087,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.2000000000000006,
+   "decisions": 22,
+   "overridden": 16
+  },
+  {
+   "seed": 10088,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "COLLISION",
+   "time": 4.5,
+   "decisions": 45,
+   "overridden": 29
+  },
+  {
+   "seed": 10091,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 11.399999999999975,
+   "decisions": 114,
+   "overridden": 22
+  },
+  {
+   "seed": 10092,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 1.9000000000000006,
+   "decisions": 19,
+   "overridden": 10
+  },
+  {
+   "seed": 10093,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.3000000000000007,
+   "decisions": 23,
+   "overridden": 12
+  },
+  {
+   "seed": 10094,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.0000000000000004,
+   "decisions": 20,
+   "overridden": 12
+  },
+  {
+   "seed": 10095,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 7.29999999999999,
+   "decisions": 73,
+   "overridden": 0
+  },
+  {
+   "seed": 10096,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 204
+  },
+  {
+   "seed": 10097,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.800000000000001,
+   "decisions": 28,
+   "overridden": 0
+  },
+  {
+   "seed": 10098,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 202
+  },
+  {
+   "seed": 10099,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 152
+  },
+  {
+   "seed": 10101,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 9.099999999999984,
+   "decisions": 91,
+   "overridden": 19
+  },
+  {
+   "seed": 10102,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.0000000000000004,
+   "decisions": 20,
+   "overridden": 13
+  },
+  {
+   "seed": 10104,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 172
+  },
+  {
+   "seed": 10106,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 7.699999999999989,
+   "decisions": 77,
+   "overridden": 20
+  },
+  {
+   "seed": 10109,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 7.39999999999999,
+   "decisions": 74,
+   "overridden": 0
+  },
+  {
+   "seed": 10112,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 7.099999999999991,
+   "decisions": 71,
+   "overridden": 17
+  },
+  {
+   "seed": 10113,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 1.9000000000000006,
+   "decisions": 19,
+   "overridden": 13
+  },
+  {
+   "seed": 10114,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 5.099999999999998,
+   "decisions": 51,
+   "overridden": 13
+  },
+  {
+   "seed": 10115,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 9.699999999999982,
+   "decisions": 97,
+   "overridden": 13
+  },
+  {
+   "seed": 10116,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 5.399999999999997,
+   "decisions": 54,
+   "overridden": 16
+  },
+  {
+   "seed": 10117,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 8.299999999999986,
+   "decisions": 83,
+   "overridden": 27
+  },
+  {
+   "seed": 10118,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 4.5,
+   "decisions": 45,
+   "overridden": 14
+  },
+  {
+   "seed": 10119,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 7.699999999999989,
+   "decisions": 77,
+   "overridden": 13
+  },
+  {
+   "seed": 10120,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 132
+  },
+  {
+   "seed": 10123,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 1.9000000000000006,
+   "decisions": 19,
+   "overridden": 13
+  },
+  {
+   "seed": 10125,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 6.399999999999993,
+   "decisions": 64,
+   "overridden": 2
+  },
+  {
+   "seed": 10126,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 8.899999999999984,
+   "decisions": 89,
+   "overridden": 17
+  },
+  {
+   "seed": 10127,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 9.799999999999981,
+   "decisions": 98,
+   "overridden": 0
+  },
+  {
+   "seed": 10128,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 4.6,
+   "decisions": 46,
+   "overridden": 14
+  },
+  {
+   "seed": 10129,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 1.9000000000000006,
+   "decisions": 19,
+   "overridden": 13
+  },
+  {
+   "seed": 10130,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 9.599999999999982,
+   "decisions": 96,
+   "overridden": 5
+  },
+  {
+   "seed": 10131,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 8.399999999999986,
+   "decisions": 84,
+   "overridden": 26
+  },
+  {
+   "seed": 10132,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.9000000000000012,
+   "decisions": 29,
+   "overridden": 0
+  },
+  {
+   "seed": 10133,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 6.8999999999999915,
+   "decisions": 69,
+   "overridden": 0
+  },
+  {
+   "seed": 10134,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 5.599999999999996,
+   "decisions": 56,
+   "overridden": 17
+  },
+  {
+   "seed": 10135,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 1.8000000000000005,
+   "decisions": 18,
+   "overridden": 10
+  },
+  {
+   "seed": 10136,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 11.699999999999974,
+   "decisions": 117,
+   "overridden": 23
+  },
+  {
+   "seed": 10137,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 5.599999999999996,
+   "decisions": 56,
+   "overridden": 29
+  },
+  {
+   "seed": 10138,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 4.5,
+   "decisions": 45,
+   "overridden": 19
+  },
+  {
+   "seed": 10139,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 209
+  },
+  {
+   "seed": 10140,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 7.39999999999999,
+   "decisions": 74,
+   "overridden": 0
+  },
+  {
+   "seed": 10141,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 3.0000000000000013,
+   "decisions": 30,
+   "overridden": 0
+  },
+  {
+   "seed": 10143,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 7.999999999999988,
+   "decisions": 80,
+   "overridden": 0
+  },
+  {
+   "seed": 10145,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 9.199999999999983,
+   "decisions": 92,
+   "overridden": 21
+  },
+  {
+   "seed": 10147,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 6.199999999999994,
+   "decisions": 62,
+   "overridden": 0
+  },
+  {
+   "seed": 10149,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.9000000000000012,
+   "decisions": 29,
+   "overridden": 0
+  },
+  {
+   "seed": 10152,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 4.999999999999998,
+   "decisions": 50,
+   "overridden": 15
+  },
+  {
+   "seed": 10154,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 7.599999999999989,
+   "decisions": 76,
+   "overridden": 0
+  },
+  {
+   "seed": 10155,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 5.599999999999996,
+   "decisions": 56,
+   "overridden": 0
+  },
+  {
+   "seed": 10156,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.800000000000001,
+   "decisions": 28,
+   "overridden": 0
+  },
+  {
+   "seed": 10157,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.0000000000000004,
+   "decisions": 20,
+   "overridden": 14
+  },
+  {
+   "seed": 10158,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 10.799999999999978,
+   "decisions": 108,
+   "overridden": 40
+  },
+  {
+   "seed": 10159,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.1000000000000005,
+   "decisions": 21,
+   "overridden": 15
+  },
+  {
+   "seed": 10161,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.800000000000001,
+   "decisions": 28,
+   "overridden": 0
+  },
+  {
+   "seed": 10162,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 9.699999999999982,
+   "decisions": 97,
+   "overridden": 0
+  },
+  {
+   "seed": 10163,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 4.899999999999999,
+   "decisions": 49,
+   "overridden": 20
+  },
+  {
+   "seed": 10167,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 8.899999999999984,
+   "decisions": 89,
+   "overridden": 0
+  },
+  {
+   "seed": 10168,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 3.0000000000000013,
+   "decisions": 30,
+   "overridden": 0
+  },
+  {
+   "seed": 10169,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 125
+  },
+  {
+   "seed": 10170,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 5.799999999999995,
+   "decisions": 58,
+   "overridden": 19
+  },
+  {
+   "seed": 10172,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 7.19999999999999,
+   "decisions": 72,
+   "overridden": 0
+  },
+  {
+   "seed": 10173,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 7.499999999999989,
+   "decisions": 75,
+   "overridden": 14
+  },
+  {
+   "seed": 10174,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 10.699999999999978,
+   "decisions": 107,
+   "overridden": 0
+  },
+  {
+   "seed": 10175,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 6.8999999999999915,
+   "decisions": 69,
+   "overridden": 29
+  },
+  {
+   "seed": 10176,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.800000000000001,
+   "decisions": 28,
+   "overridden": 0
+  },
+  {
+   "seed": 10177,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "COLLISION",
+   "time": 4.5,
+   "decisions": 45,
+   "overridden": 30
+  },
+  {
+   "seed": 10178,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 7.29999999999999,
+   "decisions": 73,
+   "overridden": 12
+  },
+  {
+   "seed": 10179,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 4.300000000000001,
+   "decisions": 43,
+   "overridden": 12
+  },
+  {
+   "seed": 10180,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 10.999999999999977,
+   "decisions": 110,
+   "overridden": 25
+  },
+  {
+   "seed": 10183,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.9000000000000012,
+   "decisions": 29,
+   "overridden": 0
+  },
+  {
+   "seed": 10185,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.800000000000001,
+   "decisions": 28,
+   "overridden": 0
+  },
+  {
+   "seed": 10186,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 11.299999999999976,
+   "decisions": 113,
+   "overridden": 29
+  },
+  {
+   "seed": 10188,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 136
+  },
+  {
+   "seed": 10192,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 9.199999999999983,
+   "decisions": 92,
+   "overridden": 20
+  },
+  {
+   "seed": 10194,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "COLLISION",
+   "time": 2.700000000000001,
+   "decisions": 27,
+   "overridden": 0
+  },
+  {
+   "seed": 10195,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 11.799999999999974,
+   "decisions": 118,
+   "overridden": 22
+  },
+  {
+   "seed": 10198,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 7.099999999999991,
+   "decisions": 71,
+   "overridden": 24
+  },
+  {
+   "seed": 10199,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.1000000000000005,
+   "decisions": 21,
+   "overridden": 15
+  }
+ ],
+ "B3m_seed8": [
+  {
+   "seed": 10000,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 4.4,
+   "decisions": 44,
+   "overridden": 13
+  },
+  {
+   "seed": 10002,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 10.999999999999977,
+   "decisions": 110,
+   "overridden": 44
+  },
+  {
+   "seed": 10004,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 4.899999999999999,
+   "decisions": 49,
+   "overridden": 20
+  },
+  {
+   "seed": 10005,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.700000000000001,
+   "decisions": 27,
+   "overridden": 0
+  },
+  {
+   "seed": 10006,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 7.499999999999989,
+   "decisions": 75,
+   "overridden": 15
+  },
+  {
+   "seed": 10009,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 152
+  },
+  {
+   "seed": 10010,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 4.300000000000001,
+   "decisions": 43,
+   "overridden": 13
+  },
+  {
+   "seed": 10012,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 8.199999999999987,
+   "decisions": 82,
+   "overridden": 0
+  },
+  {
+   "seed": 10014,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 8.999999999999984,
+   "decisions": 90,
+   "overridden": 19
+  },
+  {
+   "seed": 10016,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.0000000000000004,
+   "decisions": 20,
+   "overridden": 14
+  },
+  {
+   "seed": 10018,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 5.799999999999995,
+   "decisions": 58,
+   "overridden": 0
+  },
+  {
+   "seed": 10020,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 7.39999999999999,
+   "decisions": 74,
+   "overridden": 15
+  },
+  {
+   "seed": 10021,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 8.399999999999986,
+   "decisions": 84,
+   "overridden": 19
+  },
+  {
+   "seed": 10022,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 9.99999999999998,
+   "decisions": 100,
+   "overridden": 0
+  },
+  {
+   "seed": 10023,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 6.499999999999993,
+   "decisions": 65,
+   "overridden": 0
+  },
+  {
+   "seed": 10025,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 6.099999999999994,
+   "decisions": 61,
+   "overridden": 0
+  },
+  {
+   "seed": 10026,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 9.499999999999982,
+   "decisions": 95,
+   "overridden": 18
+  },
+  {
+   "seed": 10027,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 5.899999999999995,
+   "decisions": 59,
+   "overridden": 0
+  },
+  {
+   "seed": 10028,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 8.999999999999984,
+   "decisions": 90,
+   "overridden": 16
+  },
+  {
+   "seed": 10029,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 4.6,
+   "decisions": 46,
+   "overridden": 14
+  },
+  {
+   "seed": 10030,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "COLLISION",
+   "time": 4.300000000000001,
+   "decisions": 43,
+   "overridden": 28
+  },
+  {
+   "seed": 10031,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 8.199999999999987,
+   "decisions": 82,
+   "overridden": 37
+  },
+  {
+   "seed": 10033,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 7.599999999999989,
+   "decisions": 76,
+   "overridden": 13
+  },
+  {
+   "seed": 10034,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 7.599999999999989,
+   "decisions": 76,
+   "overridden": 24
+  },
+  {
+   "seed": 10035,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 9.199999999999983,
+   "decisions": 92,
+   "overridden": 19
+  },
+  {
+   "seed": 10036,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 9.99999999999998,
+   "decisions": 100,
+   "overridden": 25
+  },
+  {
+   "seed": 10038,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 8.499999999999986,
+   "decisions": 85,
+   "overridden": 17
+  },
+  {
+   "seed": 10039,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 146
+  },
+  {
+   "seed": 10040,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 4.6,
+   "decisions": 46,
+   "overridden": 13
+  },
+  {
+   "seed": 10041,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 5.799999999999995,
+   "decisions": 58,
+   "overridden": 11
+  },
+  {
+   "seed": 10043,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 1.9000000000000006,
+   "decisions": 19,
+   "overridden": 13
+  },
+  {
+   "seed": 10044,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 237
+  },
+  {
+   "seed": 10045,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 159
+  },
+  {
+   "seed": 10047,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 8.599999999999985,
+   "decisions": 86,
+   "overridden": 0
+  },
+  {
+   "seed": 10048,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.700000000000001,
+   "decisions": 27,
+   "overridden": 0
+  },
+  {
+   "seed": 10051,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 172
+  },
+  {
+   "seed": 10053,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 139
+  },
+  {
+   "seed": 10055,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.700000000000001,
+   "decisions": 27,
+   "overridden": 0
+  },
+  {
+   "seed": 10056,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 12.79999999999997,
+   "decisions": 128,
+   "overridden": 85
+  },
+  {
+   "seed": 10057,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.700000000000001,
+   "decisions": 27,
+   "overridden": 0
+  },
+  {
+   "seed": 10058,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 154
+  },
+  {
+   "seed": 10059,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 7.699999999999989,
+   "decisions": 77,
+   "overridden": 0
+  },
+  {
+   "seed": 10062,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 120
+  },
+  {
+   "seed": 10064,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.600000000000001,
+   "decisions": 26,
+   "overridden": 0
+  },
+  {
+   "seed": 10065,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 1.9000000000000006,
+   "decisions": 19,
+   "overridden": 13
+  },
+  {
+   "seed": 10066,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 237
+  },
+  {
+   "seed": 10068,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 210
+  },
+  {
+   "seed": 10069,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 10.999999999999977,
+   "decisions": 110,
+   "overridden": 0
+  },
+  {
+   "seed": 10071,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 14.099999999999966,
+   "decisions": 141,
+   "overridden": 52
+  },
+  {
+   "seed": 10072,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 5.899999999999995,
+   "decisions": 59,
+   "overridden": 19
+  },
+  {
+   "seed": 10075,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 3.0000000000000013,
+   "decisions": 30,
+   "overridden": 0
+  },
+  {
+   "seed": 10076,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 119
+  },
+  {
+   "seed": 10078,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.800000000000001,
+   "decisions": 28,
+   "overridden": 0
+  },
+  {
+   "seed": 10079,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.700000000000001,
+   "decisions": 27,
+   "overridden": 0
+  },
+  {
+   "seed": 10080,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.700000000000001,
+   "decisions": 27,
+   "overridden": 1
+  },
+  {
+   "seed": 10081,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 191
+  },
+  {
+   "seed": 10082,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 11.799999999999974,
+   "decisions": 118,
+   "overridden": 48
+  },
+  {
+   "seed": 10083,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 8.799999999999985,
+   "decisions": 88,
+   "overridden": 0
+  },
+  {
+   "seed": 10084,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 164
+  },
+  {
+   "seed": 10087,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.2000000000000006,
+   "decisions": 22,
+   "overridden": 16
+  },
+  {
+   "seed": 10088,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "COLLISION",
+   "time": 4.5,
+   "decisions": 45,
+   "overridden": 29
+  },
+  {
+   "seed": 10091,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 8.499999999999986,
+   "decisions": 85,
+   "overridden": 0
+  },
+  {
+   "seed": 10092,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.1000000000000005,
+   "decisions": 21,
+   "overridden": 15
+  },
+  {
+   "seed": 10093,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.1000000000000005,
+   "decisions": 21,
+   "overridden": 15
+  },
+  {
+   "seed": 10094,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.1000000000000005,
+   "decisions": 21,
+   "overridden": 15
+  },
+  {
+   "seed": 10095,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 7.29999999999999,
+   "decisions": 73,
+   "overridden": 0
+  },
+  {
+   "seed": 10096,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 204
+  },
+  {
+   "seed": 10097,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.700000000000001,
+   "decisions": 27,
+   "overridden": 0
+  },
+  {
+   "seed": 10098,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 203
+  },
+  {
+   "seed": 10099,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 152
+  },
+  {
+   "seed": 10101,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 8.899999999999984,
+   "decisions": 89,
+   "overridden": 18
+  },
+  {
+   "seed": 10102,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.1000000000000005,
+   "decisions": 21,
+   "overridden": 15
+  },
+  {
+   "seed": 10104,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 165
+  },
+  {
+   "seed": 10106,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 7.699999999999989,
+   "decisions": 77,
+   "overridden": 20
+  },
+  {
+   "seed": 10109,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 162
+  },
+  {
+   "seed": 10112,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 7.099999999999991,
+   "decisions": 71,
+   "overridden": 17
+  },
+  {
+   "seed": 10113,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 1.9000000000000006,
+   "decisions": 19,
+   "overridden": 13
+  },
+  {
+   "seed": 10114,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 5.099999999999998,
+   "decisions": 51,
+   "overridden": 13
+  },
+  {
+   "seed": 10115,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 7.599999999999989,
+   "decisions": 76,
+   "overridden": 14
+  },
+  {
+   "seed": 10116,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 4.300000000000001,
+   "decisions": 43,
+   "overridden": 12
+  },
+  {
+   "seed": 10117,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 8.299999999999986,
+   "decisions": 83,
+   "overridden": 27
+  },
+  {
+   "seed": 10118,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 4.5,
+   "decisions": 45,
+   "overridden": 14
+  },
+  {
+   "seed": 10119,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 7.599999999999989,
+   "decisions": 76,
+   "overridden": 13
+  },
+  {
+   "seed": 10120,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 132
+  },
+  {
+   "seed": 10123,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 1.9000000000000006,
+   "decisions": 19,
+   "overridden": 13
+  },
+  {
+   "seed": 10125,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 6.399999999999993,
+   "decisions": 64,
+   "overridden": 0
+  },
+  {
+   "seed": 10126,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 8.899999999999984,
+   "decisions": 89,
+   "overridden": 18
+  },
+  {
+   "seed": 10127,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 9.699999999999982,
+   "decisions": 97,
+   "overridden": 0
+  },
+  {
+   "seed": 10128,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 4.6,
+   "decisions": 46,
+   "overridden": 14
+  },
+  {
+   "seed": 10129,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 1.9000000000000006,
+   "decisions": 19,
+   "overridden": 13
+  },
+  {
+   "seed": 10130,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 9.499999999999982,
+   "decisions": 95,
+   "overridden": 6
+  },
+  {
+   "seed": 10131,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 8.199999999999987,
+   "decisions": 82,
+   "overridden": 25
+  },
+  {
+   "seed": 10132,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.9000000000000012,
+   "decisions": 29,
+   "overridden": 0
+  },
+  {
+   "seed": 10133,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 6.799999999999992,
+   "decisions": 68,
+   "overridden": 0
+  },
+  {
+   "seed": 10134,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 6.199999999999994,
+   "decisions": 62,
+   "overridden": 25
+  },
+  {
+   "seed": 10135,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 1.8000000000000005,
+   "decisions": 18,
+   "overridden": 12
+  },
+  {
+   "seed": 10136,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "COLLISION",
+   "time": 8.999999999999984,
+   "decisions": 90,
+   "overridden": 11
+  },
+  {
+   "seed": 10137,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.800000000000001,
+   "decisions": 28,
+   "overridden": 1
+  },
+  {
+   "seed": 10138,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 4.5,
+   "decisions": 45,
+   "overridden": 19
+  },
+  {
+   "seed": 10139,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 209
+  },
+  {
+   "seed": 10140,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 7.29999999999999,
+   "decisions": 73,
+   "overridden": 0
+  },
+  {
+   "seed": 10141,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.9000000000000012,
+   "decisions": 29,
+   "overridden": 0
+  },
+  {
+   "seed": 10143,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 7.899999999999988,
+   "decisions": 79,
+   "overridden": 0
+  },
+  {
+   "seed": 10145,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 9.199999999999983,
+   "decisions": 92,
+   "overridden": 21
+  },
+  {
+   "seed": 10147,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 6.199999999999994,
+   "decisions": 62,
+   "overridden": 0
+  },
+  {
+   "seed": 10149,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.800000000000001,
+   "decisions": 28,
+   "overridden": 0
+  },
+  {
+   "seed": 10152,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 4.899999999999999,
+   "decisions": 49,
+   "overridden": 15
+  },
+  {
+   "seed": 10154,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 7.599999999999989,
+   "decisions": 76,
+   "overridden": 0
+  },
+  {
+   "seed": 10155,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 5.399999999999997,
+   "decisions": 54,
+   "overridden": 0
+  },
+  {
+   "seed": 10156,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.800000000000001,
+   "decisions": 28,
+   "overridden": 0
+  },
+  {
+   "seed": 10157,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.0000000000000004,
+   "decisions": 20,
+   "overridden": 14
+  },
+  {
+   "seed": 10158,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 10.799999999999978,
+   "decisions": 108,
+   "overridden": 39
+  },
+  {
+   "seed": 10159,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.1000000000000005,
+   "decisions": 21,
+   "overridden": 15
+  },
+  {
+   "seed": 10161,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.800000000000001,
+   "decisions": 28,
+   "overridden": 0
+  },
+  {
+   "seed": 10162,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 9.599999999999982,
+   "decisions": 96,
+   "overridden": 0
+  },
+  {
+   "seed": 10163,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 4.899999999999999,
+   "decisions": 49,
+   "overridden": 21
+  },
+  {
+   "seed": 10167,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 8.799999999999985,
+   "decisions": 88,
+   "overridden": 0
+  },
+  {
+   "seed": 10168,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.800000000000001,
+   "decisions": 28,
+   "overridden": 0
+  },
+  {
+   "seed": 10169,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 125
+  },
+  {
+   "seed": 10170,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 5.899999999999995,
+   "decisions": 59,
+   "overridden": 20
+  },
+  {
+   "seed": 10172,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 7.19999999999999,
+   "decisions": 72,
+   "overridden": 0
+  },
+  {
+   "seed": 10173,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 7.499999999999989,
+   "decisions": 75,
+   "overridden": 14
+  },
+  {
+   "seed": 10174,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 10.599999999999978,
+   "decisions": 106,
+   "overridden": 0
+  },
+  {
+   "seed": 10175,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 6.8999999999999915,
+   "decisions": 69,
+   "overridden": 29
+  },
+  {
+   "seed": 10176,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.700000000000001,
+   "decisions": 27,
+   "overridden": 0
+  },
+  {
+   "seed": 10177,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "COLLISION",
+   "time": 4.5,
+   "decisions": 45,
+   "overridden": 30
+  },
+  {
+   "seed": 10178,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 7.19999999999999,
+   "decisions": 72,
+   "overridden": 13
+  },
+  {
+   "seed": 10179,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 4.300000000000001,
+   "decisions": 43,
+   "overridden": 12
+  },
+  {
+   "seed": 10180,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 5.699999999999996,
+   "decisions": 57,
+   "overridden": 16
+  },
+  {
+   "seed": 10183,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.800000000000001,
+   "decisions": 28,
+   "overridden": 0
+  },
+  {
+   "seed": 10185,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.700000000000001,
+   "decisions": 27,
+   "overridden": 0
+  },
+  {
+   "seed": 10186,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 11.299999999999976,
+   "decisions": 113,
+   "overridden": 29
+  },
+  {
+   "seed": 10188,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 136
+  },
+  {
+   "seed": 10192,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 9.199999999999983,
+   "decisions": 92,
+   "overridden": 21
+  },
+  {
+   "seed": 10194,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.9000000000000012,
+   "decisions": 29,
+   "overridden": 0
+  },
+  {
+   "seed": 10195,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 9.89999999999998,
+   "decisions": 99,
+   "overridden": 1
+  },
+  {
+   "seed": 10198,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 6.8999999999999915,
+   "decisions": 69,
+   "overridden": 23
+  },
+  {
+   "seed": 10199,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.1000000000000005,
+   "decisions": 21,
+   "overridden": 15
+  }
+ ],
+ "B3m_seed9": [
+  {
+   "seed": 10000,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 4.4,
+   "decisions": 44,
+   "overridden": 12
+  },
+  {
+   "seed": 10002,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 10.999999999999977,
+   "decisions": 110,
+   "overridden": 44
+  },
+  {
+   "seed": 10004,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 4.899999999999999,
+   "decisions": 49,
+   "overridden": 20
+  },
+  {
+   "seed": 10005,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.700000000000001,
+   "decisions": 27,
+   "overridden": 0
+  },
+  {
+   "seed": 10006,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 7.499999999999989,
+   "decisions": 75,
+   "overridden": 15
+  },
+  {
+   "seed": 10009,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 152
+  },
+  {
+   "seed": 10010,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 4.200000000000001,
+   "decisions": 42,
+   "overridden": 12
+  },
+  {
+   "seed": 10012,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 8.199999999999987,
+   "decisions": 82,
+   "overridden": 0
+  },
+  {
+   "seed": 10014,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 9.099999999999984,
+   "decisions": 91,
+   "overridden": 20
+  },
+  {
+   "seed": 10016,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.0000000000000004,
+   "decisions": 20,
+   "overridden": 14
+  },
+  {
+   "seed": 10018,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 8.199999999999987,
+   "decisions": 82,
+   "overridden": 31
+  },
+  {
+   "seed": 10020,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 7.39999999999999,
+   "decisions": 74,
+   "overridden": 15
+  },
+  {
+   "seed": 10021,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 8.299999999999986,
+   "decisions": 83,
+   "overridden": 17
+  },
+  {
+   "seed": 10022,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 9.99999999999998,
+   "decisions": 100,
+   "overridden": 0
+  },
+  {
+   "seed": 10023,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 6.399999999999993,
+   "decisions": 64,
+   "overridden": 0
+  },
+  {
+   "seed": 10025,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 6.099999999999994,
+   "decisions": 61,
+   "overridden": 0
+  },
+  {
+   "seed": 10026,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 9.499999999999982,
+   "decisions": 95,
+   "overridden": 18
+  },
+  {
+   "seed": 10027,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 5.899999999999995,
+   "decisions": 59,
+   "overridden": 0
+  },
+  {
+   "seed": 10028,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 8.999999999999984,
+   "decisions": 90,
+   "overridden": 16
+  },
+  {
+   "seed": 10029,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 4.6,
+   "decisions": 46,
+   "overridden": 14
+  },
+  {
+   "seed": 10030,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "COLLISION",
+   "time": 4.6,
+   "decisions": 46,
+   "overridden": 29
+  },
+  {
+   "seed": 10031,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 8.199999999999987,
+   "decisions": 82,
+   "overridden": 37
+  },
+  {
+   "seed": 10033,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 7.699999999999989,
+   "decisions": 77,
+   "overridden": 14
+  },
+  {
+   "seed": 10034,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 7.499999999999989,
+   "decisions": 75,
+   "overridden": 20
+  },
+  {
+   "seed": 10035,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 9.199999999999983,
+   "decisions": 92,
+   "overridden": 19
+  },
+  {
+   "seed": 10036,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 9.99999999999998,
+   "decisions": 100,
+   "overridden": 25
+  },
+  {
+   "seed": 10038,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 8.499999999999986,
+   "decisions": 85,
+   "overridden": 18
+  },
+  {
+   "seed": 10039,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 131
+  },
+  {
+   "seed": 10040,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 4.6,
+   "decisions": 46,
+   "overridden": 13
+  },
+  {
+   "seed": 10041,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 5.799999999999995,
+   "decisions": 58,
+   "overridden": 11
+  },
+  {
+   "seed": 10043,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 1.9000000000000006,
+   "decisions": 19,
+   "overridden": 13
+  },
+  {
+   "seed": 10044,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 237
+  },
+  {
+   "seed": 10045,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 159
+  },
+  {
+   "seed": 10047,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 8.699999999999985,
+   "decisions": 87,
+   "overridden": 0
+  },
+  {
+   "seed": 10048,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.700000000000001,
+   "decisions": 27,
+   "overridden": 0
+  },
+  {
+   "seed": 10051,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 172
+  },
+  {
+   "seed": 10053,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 139
+  },
+  {
+   "seed": 10055,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.700000000000001,
+   "decisions": 27,
+   "overridden": 0
+  },
+  {
+   "seed": 10056,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 12.79999999999997,
+   "decisions": 128,
+   "overridden": 85
+  },
+  {
+   "seed": 10057,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.700000000000001,
+   "decisions": 27,
+   "overridden": 0
+  },
+  {
+   "seed": 10058,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 154
+  },
+  {
+   "seed": 10059,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 7.699999999999989,
+   "decisions": 77,
+   "overridden": 0
+  },
+  {
+   "seed": 10062,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 120
+  },
+  {
+   "seed": 10064,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.700000000000001,
+   "decisions": 27,
+   "overridden": 1
+  },
+  {
+   "seed": 10065,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 1.9000000000000006,
+   "decisions": 19,
+   "overridden": 13
+  },
+  {
+   "seed": 10066,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 237
+  },
+  {
+   "seed": 10068,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 210
+  },
+  {
+   "seed": 10069,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 10.999999999999977,
+   "decisions": 110,
+   "overridden": 0
+  },
+  {
+   "seed": 10071,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 14.099999999999966,
+   "decisions": 141,
+   "overridden": 52
+  },
+  {
+   "seed": 10072,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 5.999999999999995,
+   "decisions": 60,
+   "overridden": 19
+  },
+  {
+   "seed": 10075,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.800000000000001,
+   "decisions": 28,
+   "overridden": 0
+  },
+  {
+   "seed": 10076,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 119
+  },
+  {
+   "seed": 10078,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.800000000000001,
+   "decisions": 28,
+   "overridden": 0
+  },
+  {
+   "seed": 10079,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.700000000000001,
+   "decisions": 27,
+   "overridden": 0
+  },
+  {
+   "seed": 10080,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.700000000000001,
+   "decisions": 27,
+   "overridden": 1
+  },
+  {
+   "seed": 10081,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 191
+  },
+  {
+   "seed": 10082,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 11.799999999999974,
+   "decisions": 118,
+   "overridden": 47
+  },
+  {
+   "seed": 10083,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 8.799999999999985,
+   "decisions": 88,
+   "overridden": 0
+  },
+  {
+   "seed": 10084,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 163
+  },
+  {
+   "seed": 10087,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.2000000000000006,
+   "decisions": 22,
+   "overridden": 16
+  },
+  {
+   "seed": 10088,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "COLLISION",
+   "time": 4.5,
+   "decisions": 45,
+   "overridden": 29
+  },
+  {
+   "seed": 10091,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 11.099999999999977,
+   "decisions": 111,
+   "overridden": 28
+  },
+  {
+   "seed": 10092,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.1000000000000005,
+   "decisions": 21,
+   "overridden": 15
+  },
+  {
+   "seed": 10093,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.1000000000000005,
+   "decisions": 21,
+   "overridden": 15
+  },
+  {
+   "seed": 10094,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.1000000000000005,
+   "decisions": 21,
+   "overridden": 15
+  },
+  {
+   "seed": 10095,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 7.599999999999989,
+   "decisions": 76,
+   "overridden": 0
+  },
+  {
+   "seed": 10096,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 204
+  },
+  {
+   "seed": 10097,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.700000000000001,
+   "decisions": 27,
+   "overridden": 0
+  },
+  {
+   "seed": 10098,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 203
+  },
+  {
+   "seed": 10099,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 152
+  },
+  {
+   "seed": 10101,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 8.899999999999984,
+   "decisions": 89,
+   "overridden": 18
+  },
+  {
+   "seed": 10102,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.1000000000000005,
+   "decisions": 21,
+   "overridden": 15
+  },
+  {
+   "seed": 10104,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 164
+  },
+  {
+   "seed": 10106,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 7.699999999999989,
+   "decisions": 77,
+   "overridden": 20
+  },
+  {
+   "seed": 10109,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 162
+  },
+  {
+   "seed": 10112,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 7.099999999999991,
+   "decisions": 71,
+   "overridden": 17
+  },
+  {
+   "seed": 10113,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 1.9000000000000006,
+   "decisions": 19,
+   "overridden": 13
+  },
+  {
+   "seed": 10114,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 5.099999999999998,
+   "decisions": 51,
+   "overridden": 13
+  },
+  {
+   "seed": 10115,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 7.599999999999989,
+   "decisions": 76,
+   "overridden": 13
+  },
+  {
+   "seed": 10116,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 4.300000000000001,
+   "decisions": 43,
+   "overridden": 12
+  },
+  {
+   "seed": 10117,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 8.299999999999986,
+   "decisions": 83,
+   "overridden": 27
+  },
+  {
+   "seed": 10118,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 4.5,
+   "decisions": 45,
+   "overridden": 14
+  },
+  {
+   "seed": 10119,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 7.599999999999989,
+   "decisions": 76,
+   "overridden": 11
+  },
+  {
+   "seed": 10120,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 130
+  },
+  {
+   "seed": 10123,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 1.9000000000000006,
+   "decisions": 19,
+   "overridden": 13
+  },
+  {
+   "seed": 10125,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 6.399999999999993,
+   "decisions": 64,
+   "overridden": 2
+  },
+  {
+   "seed": 10126,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 8.899999999999984,
+   "decisions": 89,
+   "overridden": 18
+  },
+  {
+   "seed": 10127,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 9.89999999999998,
+   "decisions": 99,
+   "overridden": 0
+  },
+  {
+   "seed": 10128,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 4.6,
+   "decisions": 46,
+   "overridden": 14
+  },
+  {
+   "seed": 10129,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 1.9000000000000006,
+   "decisions": 19,
+   "overridden": 13
+  },
+  {
+   "seed": 10130,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 9.499999999999982,
+   "decisions": 95,
+   "overridden": 6
+  },
+  {
+   "seed": 10131,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 8.199999999999987,
+   "decisions": 82,
+   "overridden": 25
+  },
+  {
+   "seed": 10132,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.800000000000001,
+   "decisions": 28,
+   "overridden": 0
+  },
+  {
+   "seed": 10133,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 7.29999999999999,
+   "decisions": 73,
+   "overridden": 0
+  },
+  {
+   "seed": 10134,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 6.199999999999994,
+   "decisions": 62,
+   "overridden": 25
+  },
+  {
+   "seed": 10135,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 1.8000000000000005,
+   "decisions": 18,
+   "overridden": 12
+  },
+  {
+   "seed": 10136,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 11.699999999999974,
+   "decisions": 117,
+   "overridden": 28
+  },
+  {
+   "seed": 10137,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.800000000000001,
+   "decisions": 28,
+   "overridden": 1
+  },
+  {
+   "seed": 10138,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 4.5,
+   "decisions": 45,
+   "overridden": 19
+  },
+  {
+   "seed": 10139,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 209
+  },
+  {
+   "seed": 10140,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 7.29999999999999,
+   "decisions": 73,
+   "overridden": 0
+  },
+  {
+   "seed": 10141,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.9000000000000012,
+   "decisions": 29,
+   "overridden": 0
+  },
+  {
+   "seed": 10143,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 7.899999999999988,
+   "decisions": 79,
+   "overridden": 0
+  },
+  {
+   "seed": 10145,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 9.199999999999983,
+   "decisions": 92,
+   "overridden": 22
+  },
+  {
+   "seed": 10147,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 6.399999999999993,
+   "decisions": 64,
+   "overridden": 0
+  },
+  {
+   "seed": 10149,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.800000000000001,
+   "decisions": 28,
+   "overridden": 0
+  },
+  {
+   "seed": 10152,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 4.899999999999999,
+   "decisions": 49,
+   "overridden": 15
+  },
+  {
+   "seed": 10154,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 7.499999999999989,
+   "decisions": 75,
+   "overridden": 0
+  },
+  {
+   "seed": 10155,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 5.299999999999997,
+   "decisions": 53,
+   "overridden": 0
+  },
+  {
+   "seed": 10156,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.800000000000001,
+   "decisions": 28,
+   "overridden": 0
+  },
+  {
+   "seed": 10157,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.0000000000000004,
+   "decisions": 20,
+   "overridden": 14
+  },
+  {
+   "seed": 10158,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 10.799999999999978,
+   "decisions": 108,
+   "overridden": 40
+  },
+  {
+   "seed": 10159,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.1000000000000005,
+   "decisions": 21,
+   "overridden": 15
+  },
+  {
+   "seed": 10161,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.800000000000001,
+   "decisions": 28,
+   "overridden": 0
+  },
+  {
+   "seed": 10162,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 9.599999999999982,
+   "decisions": 96,
+   "overridden": 0
+  },
+  {
+   "seed": 10163,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 4.799999999999999,
+   "decisions": 48,
+   "overridden": 17
+  },
+  {
+   "seed": 10167,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 8.799999999999985,
+   "decisions": 88,
+   "overridden": 0
+  },
+  {
+   "seed": 10168,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.800000000000001,
+   "decisions": 28,
+   "overridden": 0
+  },
+  {
+   "seed": 10169,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 125
+  },
+  {
+   "seed": 10170,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 5.799999999999995,
+   "decisions": 58,
+   "overridden": 19
+  },
+  {
+   "seed": 10172,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 7.099999999999991,
+   "decisions": 71,
+   "overridden": 0
+  },
+  {
+   "seed": 10173,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 7.499999999999989,
+   "decisions": 75,
+   "overridden": 14
+  },
+  {
+   "seed": 10174,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 10.599999999999978,
+   "decisions": 106,
+   "overridden": 0
+  },
+  {
+   "seed": 10175,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 6.8999999999999915,
+   "decisions": 69,
+   "overridden": 29
+  },
+  {
+   "seed": 10176,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.700000000000001,
+   "decisions": 27,
+   "overridden": 0
+  },
+  {
+   "seed": 10177,
+   "slot": "right",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "COLLISION",
+   "time": 4.5,
+   "decisions": 45,
+   "overridden": 30
+  },
+  {
+   "seed": 10178,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 7.19999999999999,
+   "decisions": 72,
+   "overridden": 13
+  },
+  {
+   "seed": 10179,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 4.300000000000001,
+   "decisions": 43,
+   "overridden": 12
+  },
+  {
+   "seed": 10180,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 5.699999999999996,
+   "decisions": 57,
+   "overridden": 16
+  },
+  {
+   "seed": 10183,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.800000000000001,
+   "decisions": 28,
+   "overridden": 0
+  },
+  {
+   "seed": 10185,
+   "slot": "left",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.700000000000001,
+   "decisions": 27,
+   "overridden": 0
+  },
+  {
+   "seed": 10186,
+   "slot": "back",
+   "blocked": true,
+   "blocker_left": true,
+   "outcome": "GOAL REACHED",
+   "time": 11.299999999999976,
+   "decisions": 113,
+   "overridden": 29
+  },
+  {
+   "seed": 10188,
+   "slot": "left",
+   "blocked": true,
+   "blocker_left": false,
+   "outcome": "TIMED OUT",
+   "time": 25.000000000000085,
+   "decisions": 250,
+   "overridden": 136
+  },
+  {
+   "seed": 10192,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 9.199999999999983,
+   "decisions": 92,
+   "overridden": 21
+  },
+  {
+   "seed": 10194,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.700000000000001,
+   "decisions": 27,
+   "overridden": 0
+  },
+  {
+   "seed": 10195,
+   "slot": "right",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 12.399999999999972,
+   "decisions": 124,
+   "overridden": 24
+  },
+  {
+   "seed": 10198,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 6.8999999999999915,
+   "decisions": 69,
+   "overridden": 23
+  },
+  {
+   "seed": 10199,
+   "slot": "back",
+   "blocked": false,
+   "blocker_left": false,
+   "outcome": "GOAL REACHED",
+   "time": 2.1000000000000005,
+   "decisions": 21,
+   "overridden": 15
+  }
+ ]
+}

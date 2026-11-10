@@ -1,0 +1,46 @@
+# B4 on the blocked BACK/LEFT/RIGHT episodes: who gets out of whose way?
+
+Deterministic replay. The *blocking car* is the nearest car between ego and the slot, in the slot's
+lane, at reset. It *leaves* when it starts a lane change of its own (its MOBIL model decides this;
+the anchor never changes lane, other cars may). Ego *passes it in its lane* when ego gets ahead of it
+while it is still in its starting lane.
+
+## B4_seed7
+
+| Blocking car | Episodes | Reached | Crashed into it | Crashed into another car | Timeout |
+|---|---:|---:|---:|---:|---:|
+| stays in its lane | 18 | 3 | 15 | 0 | 0 |
+| leaves its lane by itself | 27 | 21 | 2 | 4 | 0 |
+
+- Ego passed a blocking car that was still in its lane: 0/45 episodes.
+- Slot in ego's own lane (27 episodes): ego started a lane change while behind the blocking car in 1, and chose SLOWER while behind it in 0.
+- Reached although the blocking car stayed: [10071, 10082, 10158].
+- The 17 crashes into the blocking car. Critic value (shaping removed; a crash is -150): -13.5 at reset, -12.5 at the last decision, 0.1 s before the crash (3 of them above 0).
+- Same crashes, sampling probabilities per decision while behind the blocking car (what training explores): LANE_LEFT 1.9%, IDLE 54.4%, LANE_RIGHT 14.3%, FASTER 22.6%, SLOWER 6.8%.
+
+## B4_seed8
+
+| Blocking car | Episodes | Reached | Crashed into it | Crashed into another car | Timeout |
+|---|---:|---:|---:|---:|---:|
+| stays in its lane | 20 | 2 | 17 | 1 | 0 |
+| leaves its lane by itself | 25 | 20 | 1 | 4 | 0 |
+
+- Ego passed a blocking car that was still in its lane: 0/45 episodes.
+- Slot in ego's own lane (27 episodes): ego started a lane change while behind the blocking car in 0, and chose SLOWER while behind it in 0.
+- Reached although the blocking car stayed: [10082, 10158].
+- The 18 crashes into the blocking car. Critic value (shaping removed; a crash is -150): -68.9 at reset, -70.2 at the last decision, 0.1 s before the crash (2 of them above 0).
+- Same crashes, sampling probabilities per decision while behind the blocking car (what training explores): LANE_LEFT 3.3%, IDLE 25.8%, LANE_RIGHT 0.2%, FASTER 70.2%, SLOWER 0.5%.
+
+## B4_seed9
+
+| Blocking car | Episodes | Reached | Crashed into it | Crashed into another car | Timeout |
+|---|---:|---:|---:|---:|---:|
+| stays in its lane | 24 | 1 | 17 | 3 | 3 |
+| leaves its lane by itself | 21 | 14 | 0 | 2 | 5 |
+
+- Ego passed a blocking car that was still in its lane: 1/45 episodes.
+- Slot in ego's own lane (27 episodes): ego started a lane change while behind the blocking car in 19, and chose SLOWER while behind it in 6.
+- Reached although the blocking car stayed: [10071].
+- The 17 crashes into the blocking car. Critic value (shaping removed; a crash is -150): -39.4 at reset, -39.6 at the last decision, 0.1 s before the crash (0 of them above 0).
+- Same crashes, sampling probabilities per decision while behind the blocking car (what training explores): LANE_LEFT 23.2%, IDLE 45.5%, LANE_RIGHT 6.9%, FASTER 17.9%, SLOWER 6.5%.
+
