@@ -1,0 +1,2047 @@
+{
+  "summary": {
+    "rollout_seeds": {
+      "front": 10001,
+      "back": 10000,
+      "left": 10005,
+      "right": 10009
+    },
+    "inputs": 53,
+    "slot_counts": {
+      "front": 62,
+      "back": 61,
+      "left": 40,
+      "right": 37
+    },
+    "median_initial_distance_m": {
+      "front": 104.02651119043537,
+      "back": 54.98298464896224,
+      "left": 70.26980245460808,
+      "right": 71.8332440962314
+    },
+    "lane_changes_needed": {
+      "front": [
+        28,
+        22,
+        12
+      ],
+      "back": [
+        25,
+        24,
+        12
+      ],
+      "left": [
+        9,
+        29,
+        2
+      ],
+      "right": [
+        8,
+        24,
+        5
+      ]
+    }
+  },
+  "samples": [
+    {
+      "seed": 10000,
+      "slot": "back",
+      "dx": 53.139175307824075,
+      "dy": 8.0,
+      "anchor_dx": 68.13917530782408,
+      "distance": 53.73799356503422,
+      "lane_changes": 2,
+      "anchor_speed": 12.368796843740732
+    },
+    {
+      "seed": 10001,
+      "slot": "front",
+      "dx": 105.6796456728461,
+      "dy": 4.0,
+      "anchor_dx": 70.6796456728461,
+      "distance": 105.7553190602643,
+      "lane_changes": 1,
+      "anchor_speed": 16.823681079257906
+    },
+    {
+      "seed": 10002,
+      "slot": "back",
+      "dx": 89.82884709007016,
+      "dy": 0.0,
+      "anchor_dx": 104.82884709007016,
+      "distance": 89.82884709007016,
+      "lane_changes": 0,
+      "anchor_speed": 12.770474745455294
+    },
+    {
+      "seed": 10003,
+      "slot": "front",
+      "dx": 101.55816005177991,
+      "dy": 8.0,
+      "anchor_dx": 66.55816005177991,
+      "distance": 101.87276315631644,
+      "lane_changes": 2,
+      "anchor_speed": 14.46924097169335
+    },
+    {
+      "seed": 10004,
+      "slot": "back",
+      "dx": 53.806932518055135,
+      "dy": 0.0,
+      "anchor_dx": 68.80693251805513,
+      "distance": 53.806932518055135,
+      "lane_changes": 0,
+      "anchor_speed": 12.267977843428834
+    },
+    {
+      "seed": 10005,
+      "slot": "left",
+      "dx": 35.0,
+      "dy": -4.0,
+      "anchor_dx": 35.0,
+      "distance": 35.22782990761707,
+      "lane_changes": 1,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10006,
+      "slot": "back",
+      "dx": 87.0473380148972,
+      "dy": -4.0,
+      "anchor_dx": 102.0473380148972,
+      "distance": 87.1391935668432,
+      "lane_changes": 1,
+      "anchor_speed": 12.734704432996603
+    },
+    {
+      "seed": 10007,
+      "slot": "front",
+      "dx": 70.0,
+      "dy": 0.0,
+      "anchor_dx": 35.0,
+      "distance": 70.0,
+      "lane_changes": 0,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10008,
+      "slot": "front",
+      "dx": 102.86419888282092,
+      "dy": -4.0,
+      "anchor_dx": 67.86419888282092,
+      "distance": 102.94194194692723,
+      "lane_changes": 1,
+      "anchor_speed": 14.125514927888835
+    },
+    {
+      "seed": 10009,
+      "slot": "right",
+      "dx": 98.00010081842413,
+      "dy": 0.0,
+      "anchor_dx": 98.00010081842413,
+      "distance": 98.00010081842413,
+      "lane_changes": 0,
+      "anchor_speed": 14.740252620096403
+    },
+    {
+      "seed": 10010,
+      "slot": "back",
+      "dx": 50.865232989699734,
+      "dy": 4.0,
+      "anchor_dx": 65.86523298969973,
+      "distance": 51.02226893324559,
+      "lane_changes": 1,
+      "anchor_speed": 12.217141346060274
+    },
+    {
+      "seed": 10011,
+      "slot": "front",
+      "dx": 138.15176418633317,
+      "dy": 0.0,
+      "anchor_dx": 103.15176418633317,
+      "distance": 138.15176418633317,
+      "lane_changes": 0,
+      "anchor_speed": 15.912414785605167
+    },
+    {
+      "seed": 10012,
+      "slot": "left",
+      "dx": 101.82497223193414,
+      "dy": -4.0,
+      "anchor_dx": 101.82497223193414,
+      "distance": 101.9035081340881,
+      "lane_changes": 1,
+      "anchor_speed": 13.28056286742166
+    },
+    {
+      "seed": 10013,
+      "slot": "front",
+      "dx": 130.32970261017755,
+      "dy": 0.0,
+      "anchor_dx": 95.32970261017755,
+      "distance": 130.32970261017755,
+      "lane_changes": 0,
+      "anchor_speed": 13.86573242332166
+    },
+    {
+      "seed": 10014,
+      "slot": "back",
+      "dx": 88.41796164314985,
+      "dy": 8.0,
+      "anchor_dx": 103.41796164314985,
+      "distance": 88.77914136287599,
+      "lane_changes": 2,
+      "anchor_speed": 15.706373054599753
+    },
+    {
+      "seed": 10015,
+      "slot": "front",
+      "dx": 105.9510863198789,
+      "dy": -4.0,
+      "anchor_dx": 70.9510863198789,
+      "distance": 106.02656597458218,
+      "lane_changes": 1,
+      "anchor_speed": 15.810331040527254
+    },
+    {
+      "seed": 10016,
+      "slot": "back",
+      "dx": 20.0,
+      "dy": 0.0,
+      "anchor_dx": 35.0,
+      "distance": 20.0,
+      "lane_changes": 0,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10017,
+      "slot": "front",
+      "dx": 135.3691056623836,
+      "dy": -4.0,
+      "anchor_dx": 100.36910566238359,
+      "distance": 135.4281904473126,
+      "lane_changes": 1,
+      "anchor_speed": 16.049544862701364
+    },
+    {
+      "seed": 10018,
+      "slot": "right",
+      "dx": 68.5676652323881,
+      "dy": -4.0,
+      "anchor_dx": 68.5676652323881,
+      "distance": 68.68423920682854,
+      "lane_changes": 1,
+      "anchor_speed": 12.623608636294815
+    },
+    {
+      "seed": 10019,
+      "slot": "front",
+      "dx": 138.05684507114597,
+      "dy": -4.0,
+      "anchor_dx": 103.05684507114597,
+      "distance": 138.11478005991395,
+      "lane_changes": 1,
+      "anchor_speed": 13.464824471126878
+    },
+    {
+      "seed": 10020,
+      "slot": "back",
+      "dx": 84.55737772079408,
+      "dy": 4.0,
+      "anchor_dx": 99.55737772079408,
+      "distance": 84.65193516404125,
+      "lane_changes": 1,
+      "anchor_speed": 13.071933614507337
+    },
+    {
+      "seed": 10021,
+      "slot": "back",
+      "dx": 88.00836493608699,
+      "dy": 8.0,
+      "anchor_dx": 103.00836493608699,
+      "distance": 88.37121872376473,
+      "lane_changes": 2,
+      "anchor_speed": 14.41266226064223
+    },
+    {
+      "seed": 10022,
+      "slot": "left",
+      "dx": 101.07249178878607,
+      "dy": -4.0,
+      "anchor_dx": 101.07249178878607,
+      "distance": 101.15161193176422,
+      "lane_changes": 1,
+      "anchor_speed": 15.429215104340328
+    },
+    {
+      "seed": 10023,
+      "slot": "right",
+      "dx": 73.56284839087647,
+      "dy": 4.0,
+      "anchor_dx": 73.56284839087647,
+      "distance": 73.67151867159436,
+      "lane_changes": 1,
+      "anchor_speed": 13.772249754971426
+    },
+    {
+      "seed": 10024,
+      "slot": "front",
+      "dx": 70.0,
+      "dy": 0.0,
+      "anchor_dx": 35.0,
+      "distance": 70.0,
+      "lane_changes": 0,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10025,
+      "slot": "right",
+      "dx": 65.59644001254537,
+      "dy": 4.0,
+      "anchor_dx": 65.59644001254537,
+      "distance": 65.7182846878969,
+      "lane_changes": 1,
+      "anchor_speed": 15.449864731801886
+    },
+    {
+      "seed": 10026,
+      "slot": "back",
+      "dx": 89.23255731179154,
+      "dy": -4.0,
+      "anchor_dx": 104.23255731179154,
+      "distance": 89.32216569476,
+      "lane_changes": 1,
+      "anchor_speed": 16.39111882351658
+    },
+    {
+      "seed": 10027,
+      "slot": "right",
+      "dx": 69.61798526064638,
+      "dy": 8.0,
+      "anchor_dx": 69.61798526064638,
+      "distance": 70.07612911506725,
+      "lane_changes": 2,
+      "anchor_speed": 14.692106419495653
+    },
+    {
+      "seed": 10028,
+      "slot": "left",
+      "dx": 99.27817088295484,
+      "dy": 4.0,
+      "anchor_dx": 99.27817088295484,
+      "distance": 99.35871986828927,
+      "lane_changes": 1,
+      "anchor_speed": 12.82156478340076
+    },
+    {
+      "seed": 10029,
+      "slot": "back",
+      "dx": 55.52752174815356,
+      "dy": 0.0,
+      "anchor_dx": 70.52752174815356,
+      "distance": 55.52752174815356,
+      "lane_changes": 0,
+      "anchor_speed": 13.519894712806346
+    },
+    {
+      "seed": 10030,
+      "slot": "right",
+      "dx": 96.20150937628611,
+      "dy": 4.0,
+      "anchor_dx": 96.20150937628611,
+      "distance": 96.28463224354998,
+      "lane_changes": 1,
+      "anchor_speed": 16.804586835714026
+    },
+    {
+      "seed": 10031,
+      "slot": "back",
+      "dx": 54.397873128533405,
+      "dy": 8.0,
+      "anchor_dx": 69.3978731285334,
+      "distance": 54.98298464896224,
+      "lane_changes": 2,
+      "anchor_speed": 14.298354396223374
+    },
+    {
+      "seed": 10032,
+      "slot": "front",
+      "dx": 101.8077975660045,
+      "dy": 0.0,
+      "anchor_dx": 66.8077975660045,
+      "distance": 101.8077975660045,
+      "lane_changes": 0,
+      "anchor_speed": 15.943483294046402
+    },
+    {
+      "seed": 10033,
+      "slot": "back",
+      "dx": 89.241549542072,
+      "dy": -8.0,
+      "anchor_dx": 104.241549542072,
+      "distance": 89.5994093991143,
+      "lane_changes": 2,
+      "anchor_speed": 12.997999263052412
+    },
+    {
+      "seed": 10034,
+      "slot": "back",
+      "dx": 83.82563407232956,
+      "dy": -4.0,
+      "anchor_dx": 98.82563407232956,
+      "distance": 83.92101600688649,
+      "lane_changes": 1,
+      "anchor_speed": 12.364345724220065
+    },
+    {
+      "seed": 10035,
+      "slot": "back",
+      "dx": 90.23433422244739,
+      "dy": -4.0,
+      "anchor_dx": 105.23433422244739,
+      "distance": 90.32294875926239,
+      "lane_changes": 1,
+      "anchor_speed": 14.520332155203203
+    },
+    {
+      "seed": 10036,
+      "slot": "back",
+      "dx": 87.38215064764276,
+      "dy": -4.0,
+      "anchor_dx": 102.38215064764276,
+      "distance": 87.47365461558888,
+      "lane_changes": 1,
+      "anchor_speed": 15.978497849007795
+    },
+    {
+      "seed": 10037,
+      "slot": "front",
+      "dx": 105.01532527793958,
+      "dy": 4.0,
+      "anchor_dx": 70.01532527793958,
+      "distance": 105.09147702469242,
+      "lane_changes": 1,
+      "anchor_speed": 12.318789145672106
+    },
+    {
+      "seed": 10038,
+      "slot": "back",
+      "dx": 86.64366256702863,
+      "dy": 4.0,
+      "anchor_dx": 101.64366256702863,
+      "distance": 86.73594562249909,
+      "lane_changes": 1,
+      "anchor_speed": 14.092562342477422
+    },
+    {
+      "seed": 10039,
+      "slot": "right",
+      "dx": 105.70554692949841,
+      "dy": 4.0,
+      "anchor_dx": 105.70554692949841,
+      "distance": 105.78120178776751,
+      "lane_changes": 1,
+      "anchor_speed": 15.493703688732786
+    },
+    {
+      "seed": 10040,
+      "slot": "back",
+      "dx": 51.80535829541128,
+      "dy": 8.0,
+      "anchor_dx": 66.80535829541128,
+      "distance": 52.41941575519455,
+      "lane_changes": 2,
+      "anchor_speed": 16.8108572126686
+    },
+    {
+      "seed": 10041,
+      "slot": "left",
+      "dx": 65.0631247854607,
+      "dy": 0.0,
+      "anchor_dx": 65.0631247854607,
+      "distance": 65.0631247854607,
+      "lane_changes": 0,
+      "anchor_speed": 12.242949811554038
+    },
+    {
+      "seed": 10042,
+      "slot": "front",
+      "dx": 70.0,
+      "dy": 0.0,
+      "anchor_dx": 35.0,
+      "distance": 70.0,
+      "lane_changes": 0,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10043,
+      "slot": "back",
+      "dx": 20.0,
+      "dy": 0.0,
+      "anchor_dx": 35.0,
+      "distance": 20.0,
+      "lane_changes": 0,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10044,
+      "slot": "left",
+      "dx": 103.26727170781413,
+      "dy": 0.0,
+      "anchor_dx": 103.26727170781413,
+      "distance": 103.26727170781413,
+      "lane_changes": 0,
+      "anchor_speed": 12.653221163315067
+    },
+    {
+      "seed": 10045,
+      "slot": "left",
+      "dx": 67.70173835426229,
+      "dy": 0.0,
+      "anchor_dx": 67.70173835426229,
+      "distance": 67.70173835426229,
+      "lane_changes": 0,
+      "anchor_speed": 14.882021545028639
+    },
+    {
+      "seed": 10046,
+      "slot": "front",
+      "dx": 105.8527927496097,
+      "dy": -4.0,
+      "anchor_dx": 70.8527927496097,
+      "distance": 105.92834244380408,
+      "lane_changes": 1,
+      "anchor_speed": 15.663724223742175
+    },
+    {
+      "seed": 10047,
+      "slot": "right",
+      "dx": 102.91778244263082,
+      "dy": 8.0,
+      "anchor_dx": 102.91778244263082,
+      "distance": 103.22824198303819,
+      "lane_changes": 2,
+      "anchor_speed": 12.862765904509052
+    },
+    {
+      "seed": 10048,
+      "slot": "left",
+      "dx": 35.0,
+      "dy": -4.0,
+      "anchor_dx": 35.0,
+      "distance": 35.22782990761707,
+      "lane_changes": 1,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10049,
+      "slot": "front",
+      "dx": 102.63484474023278,
+      "dy": 0.0,
+      "anchor_dx": 67.63484474023278,
+      "distance": 102.63484474023278,
+      "lane_changes": 0,
+      "anchor_speed": 15.12439302249407
+    },
+    {
+      "seed": 10050,
+      "slot": "front",
+      "dx": 70.0,
+      "dy": 0.0,
+      "anchor_dx": 35.0,
+      "distance": 70.0,
+      "lane_changes": 0,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10051,
+      "slot": "right",
+      "dx": 68.13929175000999,
+      "dy": 0.0,
+      "anchor_dx": 68.13929175000999,
+      "distance": 68.13929175000999,
+      "lane_changes": 0,
+      "anchor_speed": 13.65727499669422
+    },
+    {
+      "seed": 10052,
+      "slot": "front",
+      "dx": 100.12372532233144,
+      "dy": 4.0,
+      "anchor_dx": 65.12372532233144,
+      "distance": 100.20359460828575,
+      "lane_changes": 1,
+      "anchor_speed": 15.634379847842265
+    },
+    {
+      "seed": 10053,
+      "slot": "left",
+      "dx": 104.09715876835247,
+      "dy": 4.0,
+      "anchor_dx": 104.09715876835247,
+      "distance": 104.17398170197576,
+      "lane_changes": 1,
+      "anchor_speed": 15.456780576076927
+    },
+    {
+      "seed": 10054,
+      "slot": "front",
+      "dx": 141.48154893485852,
+      "dy": -8.0,
+      "anchor_dx": 106.48154893485852,
+      "distance": 141.70754633754254,
+      "lane_changes": 2,
+      "anchor_speed": 15.22445379842961
+    },
+    {
+      "seed": 10055,
+      "slot": "left",
+      "dx": 35.0,
+      "dy": -4.0,
+      "anchor_dx": 35.0,
+      "distance": 35.22782990761707,
+      "lane_changes": 1,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10056,
+      "slot": "back",
+      "dx": 51.42271848147044,
+      "dy": -4.0,
+      "anchor_dx": 66.42271848147044,
+      "distance": 51.5780571175821,
+      "lane_changes": 1,
+      "anchor_speed": 16.27537824399812
+    },
+    {
+      "seed": 10057,
+      "slot": "left",
+      "dx": 35.0,
+      "dy": -4.0,
+      "anchor_dx": 35.0,
+      "distance": 35.22782990761707,
+      "lane_changes": 1,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10058,
+      "slot": "left",
+      "dx": 73.52030541535169,
+      "dy": 0.0,
+      "anchor_dx": 73.52030541535169,
+      "distance": 73.52030541535169,
+      "lane_changes": 0,
+      "anchor_speed": 14.512859404353527
+    },
+    {
+      "seed": 10059,
+      "slot": "right",
+      "dx": 101.40049252651258,
+      "dy": 4.0,
+      "anchor_dx": 101.40049252651258,
+      "distance": 101.47935693834157,
+      "lane_changes": 1,
+      "anchor_speed": 12.042388696692507
+    },
+    {
+      "seed": 10060,
+      "slot": "front",
+      "dx": 70.0,
+      "dy": 0.0,
+      "anchor_dx": 35.0,
+      "distance": 70.0,
+      "lane_changes": 0,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10061,
+      "slot": "front",
+      "dx": 135.15397422445727,
+      "dy": 4.0,
+      "anchor_dx": 100.15397422445727,
+      "distance": 135.2131530165067,
+      "lane_changes": 1,
+      "anchor_speed": 15.40334262813826
+    },
+    {
+      "seed": 10062,
+      "slot": "left",
+      "dx": 102.04702918572198,
+      "dy": 0.0,
+      "anchor_dx": 102.04702918572198,
+      "distance": 102.04702918572198,
+      "lane_changes": 0,
+      "anchor_speed": 16.974074712244644
+    },
+    {
+      "seed": 10063,
+      "slot": "front",
+      "dx": 105.79081698377001,
+      "dy": 8.0,
+      "anchor_dx": 70.79081698377001,
+      "distance": 106.09286949693426,
+      "lane_changes": 2,
+      "anchor_speed": 15.325664228636155
+    },
+    {
+      "seed": 10064,
+      "slot": "right",
+      "dx": 35.0,
+      "dy": 4.0,
+      "anchor_dx": 35.0,
+      "distance": 35.22782990761707,
+      "lane_changes": 1,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10065,
+      "slot": "back",
+      "dx": 20.0,
+      "dy": 0.0,
+      "anchor_dx": 35.0,
+      "distance": 20.0,
+      "lane_changes": 0,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10066,
+      "slot": "left",
+      "dx": 102.80222476764166,
+      "dy": 0.0,
+      "anchor_dx": 102.80222476764166,
+      "distance": 102.80222476764166,
+      "lane_changes": 0,
+      "anchor_speed": 12.392743489293293
+    },
+    {
+      "seed": 10067,
+      "slot": "front",
+      "dx": 70.0,
+      "dy": 0.0,
+      "anchor_dx": 35.0,
+      "distance": 70.0,
+      "lane_changes": 0,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10068,
+      "slot": "right",
+      "dx": 68.81789200591737,
+      "dy": 0.0,
+      "anchor_dx": 68.81789200591737,
+      "distance": 68.81789200591737,
+      "lane_changes": 0,
+      "anchor_speed": 16.41828845652394
+    },
+    {
+      "seed": 10069,
+      "slot": "left",
+      "dx": 102.97986393679355,
+      "dy": 4.0,
+      "anchor_dx": 102.97986393679355,
+      "distance": 103.05751974718056,
+      "lane_changes": 1,
+      "anchor_speed": 16.315621640809894
+    },
+    {
+      "seed": 10070,
+      "slot": "front",
+      "dx": 103.1758190808066,
+      "dy": 8.0,
+      "anchor_dx": 68.1758190808066,
+      "distance": 103.48550450664739,
+      "lane_changes": 2,
+      "anchor_speed": 14.481120480647556
+    },
+    {
+      "seed": 10071,
+      "slot": "left",
+      "dx": 101.28554905558616,
+      "dy": -4.0,
+      "anchor_dx": 101.28554905558616,
+      "distance": 101.36450289668248,
+      "lane_changes": 1,
+      "anchor_speed": 13.372138502947603
+    },
+    {
+      "seed": 10072,
+      "slot": "back",
+      "dx": 54.88368840010503,
+      "dy": -8.0,
+      "anchor_dx": 69.88368840010503,
+      "distance": 55.46367507116548,
+      "lane_changes": 2,
+      "anchor_speed": 14.271884431929447
+    },
+    {
+      "seed": 10073,
+      "slot": "front",
+      "dx": 137.77000249526014,
+      "dy": -8.0,
+      "anchor_dx": 102.77000249526014,
+      "distance": 138.00207820009084,
+      "lane_changes": 2,
+      "anchor_speed": 13.937136979369306
+    },
+    {
+      "seed": 10074,
+      "slot": "front",
+      "dx": 104.0312914371508,
+      "dy": 0.0,
+      "anchor_dx": 69.0312914371508,
+      "distance": 104.0312914371508,
+      "lane_changes": 0,
+      "anchor_speed": 15.849464669811011
+    },
+    {
+      "seed": 10075,
+      "slot": "right",
+      "dx": 35.0,
+      "dy": 4.0,
+      "anchor_dx": 35.0,
+      "distance": 35.22782990761707,
+      "lane_changes": 1,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10076,
+      "slot": "right",
+      "dx": 104.52465696484424,
+      "dy": 0.0,
+      "anchor_dx": 104.52465696484424,
+      "distance": 104.52465696484424,
+      "lane_changes": 0,
+      "anchor_speed": 14.136605242835795
+    },
+    {
+      "seed": 10077,
+      "slot": "front",
+      "dx": 101.07544523613322,
+      "dy": 4.0,
+      "anchor_dx": 66.07544523613322,
+      "distance": 101.1545630690112,
+      "lane_changes": 1,
+      "anchor_speed": 13.848342188050351
+    },
+    {
+      "seed": 10078,
+      "slot": "left",
+      "dx": 35.0,
+      "dy": -4.0,
+      "anchor_dx": 35.0,
+      "distance": 35.22782990761707,
+      "lane_changes": 1,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10079,
+      "slot": "left",
+      "dx": 35.0,
+      "dy": -4.0,
+      "anchor_dx": 35.0,
+      "distance": 35.22782990761707,
+      "lane_changes": 1,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10080,
+      "slot": "right",
+      "dx": 35.0,
+      "dy": 4.0,
+      "anchor_dx": 35.0,
+      "distance": 35.22782990761707,
+      "lane_changes": 1,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10081,
+      "slot": "right",
+      "dx": 107.19814406195331,
+      "dy": 4.0,
+      "anchor_dx": 107.19814406195331,
+      "distance": 107.27274626076884,
+      "lane_changes": 1,
+      "anchor_speed": 14.854595985771747
+    },
+    {
+      "seed": 10082,
+      "slot": "right",
+      "dx": 100.02142029950201,
+      "dy": 4.0,
+      "anchor_dx": 100.02142029950201,
+      "distance": 100.10137121303401,
+      "lane_changes": 1,
+      "anchor_speed": 12.114210718585392
+    },
+    {
+      "seed": 10083,
+      "slot": "left",
+      "dx": 98.84943587680684,
+      "dy": -4.0,
+      "anchor_dx": 98.84943587680684,
+      "distance": 98.93033393839802,
+      "lane_changes": 1,
+      "anchor_speed": 14.331880172710301
+    },
+    {
+      "seed": 10084,
+      "slot": "right",
+      "dx": 104.80765910009032,
+      "dy": 8.0,
+      "anchor_dx": 104.80765910009032,
+      "distance": 105.11253686426156,
+      "lane_changes": 2,
+      "anchor_speed": 13.458079306325875
+    },
+    {
+      "seed": 10085,
+      "slot": "front",
+      "dx": 138.99574166989686,
+      "dy": 0.0,
+      "anchor_dx": 103.99574166989686,
+      "distance": 138.99574166989686,
+      "lane_changes": 0,
+      "anchor_speed": 12.121699504252014
+    },
+    {
+      "seed": 10086,
+      "slot": "front",
+      "dx": 101.7164971543358,
+      "dy": -8.0,
+      "anchor_dx": 66.7164971543358,
+      "distance": 102.03061204044599,
+      "lane_changes": 2,
+      "anchor_speed": 15.424168907838569
+    },
+    {
+      "seed": 10087,
+      "slot": "back",
+      "dx": 20.0,
+      "dy": 0.0,
+      "anchor_dx": 35.0,
+      "distance": 20.0,
+      "lane_changes": 0,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10088,
+      "slot": "back",
+      "dx": 92.78880979650737,
+      "dy": 0.0,
+      "anchor_dx": 107.78880979650737,
+      "distance": 92.78880979650737,
+      "lane_changes": 0,
+      "anchor_speed": 16.429845930032233
+    },
+    {
+      "seed": 10089,
+      "slot": "front",
+      "dx": 104.17111056605728,
+      "dy": 4.0,
+      "anchor_dx": 69.17111056605728,
+      "distance": 104.24787900271991,
+      "lane_changes": 1,
+      "anchor_speed": 16.1809690796364
+    },
+    {
+      "seed": 10090,
+      "slot": "front",
+      "dx": 106.48138215156374,
+      "dy": -8.0,
+      "anchor_dx": 71.48138215156374,
+      "distance": 106.78148128260516,
+      "lane_changes": 2,
+      "anchor_speed": 15.142408375843893
+    },
+    {
+      "seed": 10091,
+      "slot": "right",
+      "dx": 101.77435426051039,
+      "dy": 4.0,
+      "anchor_dx": 101.77435426051039,
+      "distance": 101.85292919275258,
+      "lane_changes": 1,
+      "anchor_speed": 12.749621762257894
+    },
+    {
+      "seed": 10092,
+      "slot": "back",
+      "dx": 20.0,
+      "dy": 0.0,
+      "anchor_dx": 35.0,
+      "distance": 20.0,
+      "lane_changes": 0,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10093,
+      "slot": "back",
+      "dx": 20.0,
+      "dy": 0.0,
+      "anchor_dx": 35.0,
+      "distance": 20.0,
+      "lane_changes": 0,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10094,
+      "slot": "back",
+      "dx": 20.0,
+      "dy": 0.0,
+      "anchor_dx": 35.0,
+      "distance": 20.0,
+      "lane_changes": 0,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10095,
+      "slot": "left",
+      "dx": 70.5105521096566,
+      "dy": -4.0,
+      "anchor_dx": 70.5105521096566,
+      "distance": 70.6239191691356,
+      "lane_changes": 1,
+      "anchor_speed": 16.87158874972456
+    },
+    {
+      "seed": 10096,
+      "slot": "right",
+      "dx": 100.59973418979496,
+      "dy": 4.0,
+      "anchor_dx": 100.59973418979496,
+      "distance": 100.67922585646653,
+      "lane_changes": 1,
+      "anchor_speed": 15.650159790957893
+    },
+    {
+      "seed": 10097,
+      "slot": "left",
+      "dx": 35.0,
+      "dy": -4.0,
+      "anchor_dx": 35.0,
+      "distance": 35.22782990761707,
+      "lane_changes": 1,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10098,
+      "slot": "back",
+      "dx": 51.437969760063424,
+      "dy": 4.0,
+      "anchor_dx": 66.43796976006342,
+      "distance": 51.59326247716071,
+      "lane_changes": 1,
+      "anchor_speed": 16.96555313048373
+    },
+    {
+      "seed": 10099,
+      "slot": "back",
+      "dx": 88.48480298781834,
+      "dy": 0.0,
+      "anchor_dx": 103.48480298781834,
+      "distance": 88.48480298781834,
+      "lane_changes": 0,
+      "anchor_speed": 14.95091559898265
+    },
+    {
+      "seed": 10100,
+      "slot": "front",
+      "dx": 106.74796002801642,
+      "dy": -4.0,
+      "anchor_dx": 71.74796002801642,
+      "distance": 106.82287662360994,
+      "lane_changes": 1,
+      "anchor_speed": 13.314597853721919
+    },
+    {
+      "seed": 10101,
+      "slot": "back",
+      "dx": 83.77863940384427,
+      "dy": -4.0,
+      "anchor_dx": 98.77863940384427,
+      "distance": 83.87407478094389,
+      "lane_changes": 1,
+      "anchor_speed": 16.250360682048996
+    },
+    {
+      "seed": 10102,
+      "slot": "back",
+      "dx": 20.0,
+      "dy": 0.0,
+      "anchor_dx": 35.0,
+      "distance": 20.0,
+      "lane_changes": 0,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10103,
+      "slot": "front",
+      "dx": 70.00000000000003,
+      "dy": 0.0,
+      "anchor_dx": 35.0,
+      "distance": 70.00000000000003,
+      "lane_changes": 0,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10104,
+      "slot": "right",
+      "dx": 103.42464565090742,
+      "dy": -4.0,
+      "anchor_dx": 103.42464565090742,
+      "distance": 103.5019677494866,
+      "lane_changes": 1,
+      "anchor_speed": 13.89068876584177
+    },
+    {
+      "seed": 10105,
+      "slot": "front",
+      "dx": 100.74656288541223,
+      "dy": 8.0,
+      "anchor_dx": 65.74656288541223,
+      "distance": 101.06369245789668,
+      "lane_changes": 2,
+      "anchor_speed": 16.914878397173034
+    },
+    {
+      "seed": 10106,
+      "slot": "back",
+      "dx": 89.80504433902576,
+      "dy": 0.0,
+      "anchor_dx": 104.80504433902576,
+      "distance": 89.80504433902576,
+      "lane_changes": 0,
+      "anchor_speed": 13.34834052349404
+    },
+    {
+      "seed": 10107,
+      "slot": "front",
+      "dx": 137.90999890030935,
+      "dy": 0.0,
+      "anchor_dx": 102.90999890030935,
+      "distance": 137.90999890030935,
+      "lane_changes": 0,
+      "anchor_speed": 15.229900258380022
+    },
+    {
+      "seed": 10108,
+      "slot": "front",
+      "dx": 102.2395498057137,
+      "dy": 4.0,
+      "anchor_dx": 67.2395498057137,
+      "distance": 102.31776749164834,
+      "lane_changes": 1,
+      "anchor_speed": 12.085441379271971
+    },
+    {
+      "seed": 10109,
+      "slot": "left",
+      "dx": 70.58671576795479,
+      "dy": -4.0,
+      "anchor_dx": 70.58671576795479,
+      "distance": 70.699960699466,
+      "lane_changes": 1,
+      "anchor_speed": 16.191016468989844
+    },
+    {
+      "seed": 10110,
+      "slot": "front",
+      "dx": 70.0,
+      "dy": 0.0,
+      "anchor_dx": 35.0,
+      "distance": 70.0,
+      "lane_changes": 0,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10111,
+      "slot": "front",
+      "dx": 107.89981938486557,
+      "dy": -8.0,
+      "anchor_dx": 72.89981938486557,
+      "distance": 108.1959843214461,
+      "lane_changes": 2,
+      "anchor_speed": 16.202950954729143
+    },
+    {
+      "seed": 10112,
+      "slot": "left",
+      "dx": 66.91813017545309,
+      "dy": 0.0,
+      "anchor_dx": 66.91813017545309,
+      "distance": 66.91813017545309,
+      "lane_changes": 0,
+      "anchor_speed": 13.553880659512455
+    },
+    {
+      "seed": 10113,
+      "slot": "back",
+      "dx": 20.0,
+      "dy": 0.0,
+      "anchor_dx": 35.0,
+      "distance": 20.0,
+      "lane_changes": 0,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10114,
+      "slot": "back",
+      "dx": 57.947092121407906,
+      "dy": 4.0,
+      "anchor_dx": 72.9470921214079,
+      "distance": 58.08498502476293,
+      "lane_changes": 1,
+      "anchor_speed": 15.453179247784533
+    },
+    {
+      "seed": 10115,
+      "slot": "back",
+      "dx": 90.06322220476133,
+      "dy": -8.0,
+      "anchor_dx": 105.06322220476133,
+      "distance": 90.41783006633268,
+      "lane_changes": 2,
+      "anchor_speed": 12.710438286061265
+    },
+    {
+      "seed": 10116,
+      "slot": "back",
+      "dx": 52.20827064981461,
+      "dy": -4.0,
+      "anchor_dx": 67.20827064981461,
+      "distance": 52.36127886372041,
+      "lane_changes": 1,
+      "anchor_speed": 12.355403429052096
+    },
+    {
+      "seed": 10117,
+      "slot": "left",
+      "dx": 71.8209472573972,
+      "dy": 0.0,
+      "anchor_dx": 71.8209472573972,
+      "distance": 71.8209472573972,
+      "lane_changes": 0,
+      "anchor_speed": 14.479825109041316
+    },
+    {
+      "seed": 10118,
+      "slot": "back",
+      "dx": 51.78034813610037,
+      "dy": 4.0,
+      "anchor_dx": 66.78034813610037,
+      "distance": 51.93461709780629,
+      "lane_changes": 1,
+      "anchor_speed": 13.46183261381988
+    },
+    {
+      "seed": 10119,
+      "slot": "back",
+      "dx": 90.5739522913997,
+      "dy": -4.0,
+      "anchor_dx": 105.5739522913997,
+      "distance": 90.66223488137027,
+      "lane_changes": 1,
+      "anchor_speed": 12.904278891735858
+    },
+    {
+      "seed": 10120,
+      "slot": "right",
+      "dx": 106.80053037326718,
+      "dy": 0.0,
+      "anchor_dx": 106.80053037326718,
+      "distance": 106.80053037326718,
+      "lane_changes": 0,
+      "anchor_speed": 14.659050086486651
+    },
+    {
+      "seed": 10121,
+      "slot": "front",
+      "dx": 70.0,
+      "dy": 0.0,
+      "anchor_dx": 35.0,
+      "distance": 70.0,
+      "lane_changes": 0,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10122,
+      "slot": "front",
+      "dx": 140.43732035802316,
+      "dy": 0.0,
+      "anchor_dx": 105.43732035802316,
+      "distance": 140.43732035802316,
+      "lane_changes": 0,
+      "anchor_speed": 16.342325759512047
+    },
+    {
+      "seed": 10123,
+      "slot": "back",
+      "dx": 20.0,
+      "dy": 0.0,
+      "anchor_dx": 35.0,
+      "distance": 20.0,
+      "lane_changes": 0,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10124,
+      "slot": "front",
+      "dx": 136.12623004337874,
+      "dy": -4.0,
+      "anchor_dx": 101.12623004337874,
+      "distance": 136.18498634512864,
+      "lane_changes": 1,
+      "anchor_speed": 12.310410140135971
+    },
+    {
+      "seed": 10125,
+      "slot": "right",
+      "dx": 71.18204205389972,
+      "dy": 4.0,
+      "anchor_dx": 71.18204205389972,
+      "distance": 71.29434136706186,
+      "lane_changes": 1,
+      "anchor_speed": 13.81129107456205
+    },
+    {
+      "seed": 10126,
+      "slot": "back",
+      "dx": 89.92407801762744,
+      "dy": -4.0,
+      "anchor_dx": 104.92407801762744,
+      "distance": 90.01299799095877,
+      "lane_changes": 1,
+      "anchor_speed": 16.57682397224571
+    },
+    {
+      "seed": 10127,
+      "slot": "left",
+      "dx": 107.98922024257655,
+      "dy": -4.0,
+      "anchor_dx": 107.98922024257655,
+      "distance": 108.06327631808924,
+      "lane_changes": 1,
+      "anchor_speed": 14.457598943740454
+    },
+    {
+      "seed": 10128,
+      "slot": "back",
+      "dx": 51.95127044957795,
+      "dy": 4.0,
+      "anchor_dx": 66.95127044957795,
+      "distance": 52.10503335883387,
+      "lane_changes": 1,
+      "anchor_speed": 13.338670162771628
+    },
+    {
+      "seed": 10129,
+      "slot": "back",
+      "dx": 20.0,
+      "dy": 0.0,
+      "anchor_dx": 35.0,
+      "distance": 20.0,
+      "lane_changes": 0,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10130,
+      "slot": "left",
+      "dx": 99.0682144697769,
+      "dy": -4.0,
+      "anchor_dx": 99.0682144697769,
+      "distance": 99.1489340246768,
+      "lane_changes": 1,
+      "anchor_speed": 14.521945537465534
+    },
+    {
+      "seed": 10131,
+      "slot": "back",
+      "dx": 54.94957861507956,
+      "dy": 8.0,
+      "anchor_dx": 69.94957861507956,
+      "distance": 55.52887708188244,
+      "lane_changes": 2,
+      "anchor_speed": 16.548407462444036
+    },
+    {
+      "seed": 10132,
+      "slot": "right",
+      "dx": 35.0,
+      "dy": 4.0,
+      "anchor_dx": 35.0,
+      "distance": 35.22782990761707,
+      "lane_changes": 1,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10133,
+      "slot": "left",
+      "dx": 67.94611690296401,
+      "dy": -4.0,
+      "anchor_dx": 67.94611690296401,
+      "distance": 68.06375542233363,
+      "lane_changes": 1,
+      "anchor_speed": 15.076680918981086
+    },
+    {
+      "seed": 10134,
+      "slot": "back",
+      "dx": 51.785215196815045,
+      "dy": 8.0,
+      "anchor_dx": 66.78521519681505,
+      "distance": 52.39950870934234,
+      "lane_changes": 2,
+      "anchor_speed": 14.568576714006074
+    },
+    {
+      "seed": 10135,
+      "slot": "back",
+      "dx": 20.0,
+      "dy": 0.0,
+      "anchor_dx": 35.0,
+      "distance": 20.0,
+      "lane_changes": 0,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10136,
+      "slot": "right",
+      "dx": 106.93968344396626,
+      "dy": -4.0,
+      "anchor_dx": 106.93968344396626,
+      "distance": 107.01446582166223,
+      "lane_changes": 1,
+      "anchor_speed": 13.259396259825968
+    },
+    {
+      "seed": 10137,
+      "slot": "right",
+      "dx": 35.0,
+      "dy": 4.0,
+      "anchor_dx": 35.0,
+      "distance": 35.22782990761707,
+      "lane_changes": 1,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10138,
+      "slot": "back",
+      "dx": 50.993670778947944,
+      "dy": 0.0,
+      "anchor_dx": 65.99367077894794,
+      "distance": 50.993670778947944,
+      "lane_changes": 0,
+      "anchor_speed": 12.633689167276378
+    },
+    {
+      "seed": 10139,
+      "slot": "right",
+      "dx": 70.10965372227719,
+      "dy": 0.0,
+      "anchor_dx": 70.10965372227719,
+      "distance": 70.10965372227719,
+      "lane_changes": 0,
+      "anchor_speed": 15.545173538329667
+    },
+    {
+      "seed": 10140,
+      "slot": "left",
+      "dx": 69.80116841791192,
+      "dy": 4.0,
+      "anchor_dx": 69.80116841791192,
+      "distance": 69.91568574008056,
+      "lane_changes": 1,
+      "anchor_speed": 15.860464344021239
+    },
+    {
+      "seed": 10141,
+      "slot": "left",
+      "dx": 35.0,
+      "dy": -4.0,
+      "anchor_dx": 35.0,
+      "distance": 35.22782990761707,
+      "lane_changes": 1,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10142,
+      "slot": "front",
+      "dx": 101.11679217939849,
+      "dy": 4.0,
+      "anchor_dx": 66.11679217939849,
+      "distance": 101.19587768605825,
+      "lane_changes": 1,
+      "anchor_speed": 13.381847395821666
+    },
+    {
+      "seed": 10143,
+      "slot": "left",
+      "dx": 67.77019172927459,
+      "dy": -4.0,
+      "anchor_dx": 67.77019172927459,
+      "distance": 67.88813509754586,
+      "lane_changes": 1,
+      "anchor_speed": 16.94341238898184
+    },
+    {
+      "seed": 10144,
+      "slot": "front",
+      "dx": 70.0,
+      "dy": 0.0,
+      "anchor_dx": 35.0,
+      "distance": 70.0,
+      "lane_changes": 0,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10145,
+      "slot": "back",
+      "dx": 85.72553671641214,
+      "dy": 4.0,
+      "anchor_dx": 100.72553671641214,
+      "distance": 85.81880706067246,
+      "lane_changes": 1,
+      "anchor_speed": 16.963324223824202
+    },
+    {
+      "seed": 10146,
+      "slot": "front",
+      "dx": 70.00000000000003,
+      "dy": 0.0,
+      "anchor_dx": 35.0,
+      "distance": 70.00000000000003,
+      "lane_changes": 0,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10147,
+      "slot": "left",
+      "dx": 66.03240007518573,
+      "dy": -4.0,
+      "anchor_dx": 66.03240007518573,
+      "distance": 66.15344178264188,
+      "lane_changes": 1,
+      "anchor_speed": 14.964904254572199
+    },
+    {
+      "seed": 10148,
+      "slot": "front",
+      "dx": 104.02173094371994,
+      "dy": 0.0,
+      "anchor_dx": 69.02173094371994,
+      "distance": 104.02173094371994,
+      "lane_changes": 0,
+      "anchor_speed": 16.648809467514635
+    },
+    {
+      "seed": 10149,
+      "slot": "left",
+      "dx": 35.0,
+      "dy": -4.0,
+      "anchor_dx": 35.0,
+      "distance": 35.22782990761707,
+      "lane_changes": 1,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10150,
+      "slot": "front",
+      "dx": 70.0,
+      "dy": 0.0,
+      "anchor_dx": 35.0,
+      "distance": 70.0,
+      "lane_changes": 0,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10151,
+      "slot": "front",
+      "dx": 134.98029125350413,
+      "dy": -8.0,
+      "anchor_dx": 99.98029125350413,
+      "distance": 135.21715507612487,
+      "lane_changes": 2,
+      "anchor_speed": 15.98839127767102
+    },
+    {
+      "seed": 10152,
+      "slot": "back",
+      "dx": 50.18963510698882,
+      "dy": 8.0,
+      "anchor_dx": 65.18963510698882,
+      "distance": 50.823217845515096,
+      "lane_changes": 2,
+      "anchor_speed": 15.247293976170907
+    },
+    {
+      "seed": 10153,
+      "slot": "front",
+      "dx": 104.04652353277146,
+      "dy": -4.0,
+      "anchor_dx": 69.04652353277146,
+      "distance": 104.12338382541918,
+      "lane_changes": 1,
+      "anchor_speed": 12.253607707228545
+    },
+    {
+      "seed": 10154,
+      "slot": "right",
+      "dx": 71.29579588507539,
+      "dy": 8.0,
+      "anchor_dx": 71.29579588507539,
+      "distance": 71.74322623695099,
+      "lane_changes": 2,
+      "anchor_speed": 15.662236254291763
+    },
+    {
+      "seed": 10155,
+      "slot": "right",
+      "dx": 66.84946782985256,
+      "dy": 4.0,
+      "anchor_dx": 66.84946782985256,
+      "distance": 66.96903276242305,
+      "lane_changes": 1,
+      "anchor_speed": 12.51098773595286
+    },
+    {
+      "seed": 10156,
+      "slot": "right",
+      "dx": 35.0,
+      "dy": 4.0,
+      "anchor_dx": 35.0,
+      "distance": 35.22782990761707,
+      "lane_changes": 1,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10157,
+      "slot": "back",
+      "dx": 20.0,
+      "dy": 0.0,
+      "anchor_dx": 35.0,
+      "distance": 20.0,
+      "lane_changes": 0,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10158,
+      "slot": "right",
+      "dx": 101.62648694912508,
+      "dy": 4.0,
+      "anchor_dx": 101.62648694912508,
+      "distance": 101.70517612010065,
+      "lane_changes": 1,
+      "anchor_speed": 16.6155720545297
+    },
+    {
+      "seed": 10159,
+      "slot": "back",
+      "dx": 20.0,
+      "dy": 0.0,
+      "anchor_dx": 35.0,
+      "distance": 20.0,
+      "lane_changes": 0,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10160,
+      "slot": "front",
+      "dx": 69.99999999999997,
+      "dy": 0.0,
+      "anchor_dx": 35.0,
+      "distance": 69.99999999999997,
+      "lane_changes": 0,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10161,
+      "slot": "right",
+      "dx": 35.0,
+      "dy": 4.0,
+      "anchor_dx": 35.0,
+      "distance": 35.22782990761707,
+      "lane_changes": 1,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10162,
+      "slot": "left",
+      "dx": 106.15156664133968,
+      "dy": -8.0,
+      "anchor_dx": 106.15156664133968,
+      "distance": 106.45259555506752,
+      "lane_changes": 2,
+      "anchor_speed": 16.135679041376946
+    },
+    {
+      "seed": 10163,
+      "slot": "back",
+      "dx": 51.45709371441205,
+      "dy": 0.0,
+      "anchor_dx": 66.45709371441205,
+      "distance": 51.45709371441205,
+      "lane_changes": 0,
+      "anchor_speed": 13.126911835045703
+    },
+    {
+      "seed": 10164,
+      "slot": "front",
+      "dx": 100.80607074353739,
+      "dy": -4.0,
+      "anchor_dx": 65.80607074353739,
+      "distance": 100.88539982946524,
+      "lane_changes": 1,
+      "anchor_speed": 13.633352864158333
+    },
+    {
+      "seed": 10165,
+      "slot": "front",
+      "dx": 102.21687333707058,
+      "dy": 4.0,
+      "anchor_dx": 67.21687333707058,
+      "distance": 102.29510836206553,
+      "lane_changes": 1,
+      "anchor_speed": 12.219395244839617
+    },
+    {
+      "seed": 10166,
+      "slot": "front",
+      "dx": 100.94140757904984,
+      "dy": 4.0,
+      "anchor_dx": 65.94140757904984,
+      "distance": 101.02063038825217,
+      "lane_changes": 1,
+      "anchor_speed": 14.87799132000106
+    },
+    {
+      "seed": 10167,
+      "slot": "left",
+      "dx": 100.0532190447008,
+      "dy": -8.0,
+      "anchor_dx": 100.0532190447008,
+      "distance": 100.3725392784644,
+      "lane_changes": 2,
+      "anchor_speed": 13.548785479467828
+    },
+    {
+      "seed": 10168,
+      "slot": "left",
+      "dx": 35.0,
+      "dy": -4.0,
+      "anchor_dx": 35.0,
+      "distance": 35.22782990761707,
+      "lane_changes": 1,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10169,
+      "slot": "right",
+      "dx": 99.06630793996175,
+      "dy": 0.0,
+      "anchor_dx": 99.06630793996175,
+      "distance": 99.06630793996175,
+      "lane_changes": 0,
+      "anchor_speed": 13.976377111807961
+    },
+    {
+      "seed": 10170,
+      "slot": "back",
+      "dx": 56.51351984771097,
+      "dy": 4.0,
+      "anchor_dx": 71.51351984771097,
+      "distance": 56.654902043668045,
+      "lane_changes": 1,
+      "anchor_speed": 15.301219359033
+    },
+    {
+      "seed": 10171,
+      "slot": "front",
+      "dx": 135.42605073102968,
+      "dy": -8.0,
+      "anchor_dx": 100.42605073102968,
+      "distance": 135.66213626728506,
+      "lane_changes": 2,
+      "anchor_speed": 13.208981630224054
+    },
+    {
+      "seed": 10172,
+      "slot": "right",
+      "dx": 71.38637795398196,
+      "dy": 8.0,
+      "anchor_dx": 71.38637795398196,
+      "distance": 71.8332440962314,
+      "lane_changes": 2,
+      "anchor_speed": 14.906619579850357
+    },
+    {
+      "seed": 10173,
+      "slot": "back",
+      "dx": 85.54031371130426,
+      "dy": 4.0,
+      "anchor_dx": 100.54031371130426,
+      "distance": 85.63378579642703,
+      "lane_changes": 1,
+      "anchor_speed": 13.062618985953987
+    },
+    {
+      "seed": 10174,
+      "slot": "left",
+      "dx": 106.58125366724465,
+      "dy": 4.0,
+      "anchor_dx": 106.58125366724465,
+      "distance": 106.65628735935614,
+      "lane_changes": 1,
+      "anchor_speed": 16.877502240044002
+    },
+    {
+      "seed": 10175,
+      "slot": "back",
+      "dx": 55.56514185969064,
+      "dy": 0.0,
+      "anchor_dx": 70.56514185969064,
+      "distance": 55.56514185969064,
+      "lane_changes": 0,
+      "anchor_speed": 15.218789538988112
+    },
+    {
+      "seed": 10176,
+      "slot": "left",
+      "dx": 35.0,
+      "dy": -4.0,
+      "anchor_dx": 35.0,
+      "distance": 35.22782990761707,
+      "lane_changes": 1,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10177,
+      "slot": "right",
+      "dx": 66.67415015446645,
+      "dy": 0.0,
+      "anchor_dx": 66.67415015446645,
+      "distance": 66.67415015446645,
+      "lane_changes": 0,
+      "anchor_speed": 16.65293089278633
+    },
+    {
+      "seed": 10178,
+      "slot": "back",
+      "dx": 92.30903822408058,
+      "dy": -4.0,
+      "anchor_dx": 107.30903822408058,
+      "distance": 92.39566298184546,
+      "lane_changes": 1,
+      "anchor_speed": 12.552639933293205
+    },
+    {
+      "seed": 10179,
+      "slot": "back",
+      "dx": 52.11623720421039,
+      "dy": 4.0,
+      "anchor_dx": 67.11623720421039,
+      "distance": 52.2695148277227,
+      "lane_changes": 1,
+      "anchor_speed": 12.117798799254812
+    },
+    {
+      "seed": 10180,
+      "slot": "back",
+      "dx": 58.002167066356975,
+      "dy": -4.0,
+      "anchor_dx": 73.00216706635698,
+      "distance": 58.139929346307134,
+      "lane_changes": 1,
+      "anchor_speed": 13.94699425825705
+    },
+    {
+      "seed": 10181,
+      "slot": "front",
+      "dx": 104.10807268121795,
+      "dy": -8.0,
+      "anchor_dx": 69.10807268121795,
+      "distance": 104.4149931638065,
+      "lane_changes": 2,
+      "anchor_speed": 16.824358294611834
+    },
+    {
+      "seed": 10182,
+      "slot": "front",
+      "dx": 143.69911670616662,
+      "dy": 0.0,
+      "anchor_dx": 108.69911670616662,
+      "distance": 143.69911670616662,
+      "lane_changes": 0,
+      "anchor_speed": 14.320081072878502
+    },
+    {
+      "seed": 10183,
+      "slot": "left",
+      "dx": 35.0,
+      "dy": -4.0,
+      "anchor_dx": 35.0,
+      "distance": 35.22782990761707,
+      "lane_changes": 1,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10184,
+      "slot": "front",
+      "dx": 101.26030911115379,
+      "dy": 4.0,
+      "anchor_dx": 66.26030911115379,
+      "distance": 101.33928261679384,
+      "lane_changes": 1,
+      "anchor_speed": 16.103488205843092
+    },
+    {
+      "seed": 10185,
+      "slot": "left",
+      "dx": 35.0,
+      "dy": -4.0,
+      "anchor_dx": 35.0,
+      "distance": 35.22782990761707,
+      "lane_changes": 1,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10186,
+      "slot": "back",
+      "dx": 86.01666509042303,
+      "dy": 0.0,
+      "anchor_dx": 101.01666509042303,
+      "distance": 86.01666509042303,
+      "lane_changes": 0,
+      "anchor_speed": 16.12429507874474
+    },
+    {
+      "seed": 10187,
+      "slot": "front",
+      "dx": 106.02249346461082,
+      "dy": 0.0,
+      "anchor_dx": 71.02249346461082,
+      "distance": 106.02249346461082,
+      "lane_changes": 0,
+      "anchor_speed": 12.10832493203635
+    },
+    {
+      "seed": 10188,
+      "slot": "left",
+      "dx": 71.67881914601293,
+      "dy": 0.0,
+      "anchor_dx": 71.67881914601293,
+      "distance": 71.67881914601293,
+      "lane_changes": 0,
+      "anchor_speed": 12.04075906904713
+    },
+    {
+      "seed": 10189,
+      "slot": "front",
+      "dx": 136.35148321971417,
+      "dy": 0.0,
+      "anchor_dx": 101.35148321971417,
+      "distance": 136.35148321971417,
+      "lane_changes": 0,
+      "anchor_speed": 13.191335264251451
+    },
+    {
+      "seed": 10190,
+      "slot": "front",
+      "dx": 145.63924670808984,
+      "dy": -4.0,
+      "anchor_dx": 110.63924670808984,
+      "distance": 145.69416660148016,
+      "lane_changes": 1,
+      "anchor_speed": 16.18901943674704
+    },
+    {
+      "seed": 10191,
+      "slot": "front",
+      "dx": 70.0,
+      "dy": 0.0,
+      "anchor_dx": 35.0,
+      "distance": 70.0,
+      "lane_changes": 0,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10192,
+      "slot": "back",
+      "dx": 87.03376305224785,
+      "dy": -4.0,
+      "anchor_dx": 102.03376305224785,
+      "distance": 87.12563291612189,
+      "lane_changes": 1,
+      "anchor_speed": 14.55530757810915
+    },
+    {
+      "seed": 10193,
+      "slot": "front",
+      "dx": 70.0,
+      "dy": 0.0,
+      "anchor_dx": 35.0,
+      "distance": 70.0,
+      "lane_changes": 0,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10194,
+      "slot": "right",
+      "dx": 35.0,
+      "dy": 4.0,
+      "anchor_dx": 35.0,
+      "distance": 35.22782990761707,
+      "lane_changes": 1,
+      "anchor_speed": 12.0
+    },
+    {
+      "seed": 10195,
+      "slot": "right",
+      "dx": 98.00749990946093,
+      "dy": 4.0,
+      "anchor_dx": 98.00749990946093,
+      "distance": 98.08909235232521,
+      "lane_changes": 1,
+      "anchor_speed": 14.834627301266742
+    },
+    {
+      "seed": 10196,
+      "slot": "front",
+      "dx": 105.38318625924933,
+      "dy": 4.0,
+      "anchor_dx": 70.38318625924933,
+      "distance": 105.45907237479209,
+      "lane_changes": 1,
+      "anchor_speed": 16.960240337394023
+    },
+    {
+      "seed": 10197,
+      "slot": "front",
+      "dx": 105.4288101465589,
+      "dy": 0.0,
+      "anchor_dx": 70.4288101465589,
+      "distance": 105.4288101465589,
+      "lane_changes": 0,
+      "anchor_speed": 13.511195230245388
+    },
+    {
+      "seed": 10198,
+      "slot": "back",
+      "dx": 52.47952273141962,
+      "dy": 8.0,
+      "anchor_dx": 67.47952273141962,
+      "distance": 53.08578252336108,
+      "lane_changes": 2,
+      "anchor_speed": 16.216641717871582
+    },
+    {
+      "seed": 10199,
+      "slot": "back",
+      "dx": 20.0,
+      "dy": 0.0,
+      "anchor_dx": 35.0,
+      "distance": 20.0,
+      "lane_changes": 0,
+      "anchor_speed": 12.0
+    }
+  ]
+}
