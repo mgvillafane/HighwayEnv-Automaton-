@@ -1,0 +1,141 @@
+IV against B2 (saved sidecar):
+  environment.reward_weights.potential_progress.gamma: '<missing>' -> 0.99
+  environment.reward_weights.potential_progress.weight: '<missing>' -> 0.1
+B3_seed9: 1,000,000 transitions on 3 environments; reward {'goal': 50.0, 'collision': 50.0, 'progress': 0.0, 'time': 0.0, 'hold': 0.0, 'potential_progress': {'weight': 0.1, 'gamma': 0.99}}; hold 0.1 s
+Initial weights: B0_seed9.zip
+10,002 transitions; recent success: 57.0%
+20,004 transitions; recent success: 54.0%
+30,006 transitions; recent success: 58.0%
+40,008 transitions; recent success: 47.0%
+50,010 transitions; recent success: 55.0%
+60,012 transitions; recent success: 59.0%
+70,014 transitions; recent success: 59.0%
+80,016 transitions; recent success: 54.0%
+90,018 transitions; recent success: 49.0%
+100,020 transitions; recent success: 56.0%
+110,022 transitions; recent success: 59.0%
+120,024 transitions; recent success: 54.0%
+130,026 transitions; recent success: 56.0%
+140,028 transitions; recent success: 51.0%
+150,030 transitions; recent success: 46.0%
+160,032 transitions; recent success: 51.0%
+170,034 transitions; recent success: 58.0%
+180,036 transitions; recent success: 61.0%
+190,038 transitions; recent success: 62.0%
+200,040 transitions; recent success: 59.0%
+210,042 transitions; recent success: 55.0%
+220,044 transitions; recent success: 45.0%
+230,046 transitions; recent success: 47.0%
+240,048 transitions; recent success: 64.0%
+250,050 transitions; recent success: 57.0%
+260,052 transitions; recent success: 58.0%
+270,054 transitions; recent success: 57.0%
+280,056 transitions; recent success: 61.0%
+290,058 transitions; recent success: 51.0%
+300,060 transitions; recent success: 47.0%
+310,062 transitions; recent success: 55.0%
+320,064 transitions; recent success: 50.0%
+330,066 transitions; recent success: 51.0%
+340,068 transitions; recent success: 65.0%
+350,070 transitions; recent success: 51.0%
+360,072 transitions; recent success: 51.0%
+370,074 transitions; recent success: 55.0%
+380,076 transitions; recent success: 51.0%
+390,078 transitions; recent success: 60.0%
+400,080 transitions; recent success: 59.0%
+410,082 transitions; recent success: 54.0%
+420,084 transitions; recent success: 56.0%
+430,086 transitions; recent success: 62.0%
+440,088 transitions; recent success: 63.0%
+450,090 transitions; recent success: 59.0%
+460,092 transitions; recent success: 55.0%
+470,094 transitions; recent success: 59.0%
+480,096 transitions; recent success: 52.0%
+490,098 transitions; recent success: 55.0%
+500,100 transitions; recent success: 55.0%
+510,102 transitions; recent success: 53.0%
+520,104 transitions; recent success: 51.0%
+530,106 transitions; recent success: 53.0%
+540,108 transitions; recent success: 62.0%
+550,110 transitions; recent success: 52.0%
+560,112 transitions; recent success: 52.0%
+570,114 transitions; recent success: 53.0%
+580,116 transitions; recent success: 62.0%
+590,118 transitions; recent success: 56.0%
+600,120 transitions; recent success: 60.0%
+610,122 transitions; recent success: 58.0%
+620,124 transitions; recent success: 63.0%
+630,126 transitions; recent success: 58.0%
+640,128 transitions; recent success: 60.0%
+650,130 transitions; recent success: 46.0%
+660,132 transitions; recent success: 55.0%
+670,134 transitions; recent success: 54.0%
+680,136 transitions; recent success: 51.0%
+690,138 transitions; recent success: 54.0%
+700,140 transitions; recent success: 57.0%
+710,142 transitions; recent success: 59.0%
+720,144 transitions; recent success: 50.0%
+Traceback (most recent call last):
+  File "C:\Python313\Lib\multiprocessing\connection.py", line 328, in _recv_bytes
+    nread, err = ov.GetOverlappedResult(True)
+                 ~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+BrokenPipeError: [WinError 109] The pipe has been ended
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\train.py", line 167, in main
+    model.learn(total_timesteps=config["requested_timesteps"], callback=callback)
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\.venv\Lib\site-packages\stable_baselines3\ppo\ppo.py", line 311, in learn
+    return super().learn(
+           ~~~~~~~~~~~~~^
+        total_timesteps=total_timesteps,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<4 lines>...
+        progress_bar=progress_bar,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\.venv\Lib\site-packages\stable_baselines3\common\on_policy_algorithm.py", line 324, in learn
+    continue_training = self.collect_rollouts(self.env, callback, self.rollout_buffer, n_rollout_steps=self.n_steps)
+  File "E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\.venv\Lib\site-packages\stable_baselines3\common\on_policy_algorithm.py", line 218, in collect_rollouts
+    new_obs, rewards, dones, infos = env.step(clipped_actions)
+                                     ~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\.venv\Lib\site-packages\stable_baselines3\common\vec_env\base_vec_env.py", line 222, in step
+    return self.step_wait()
+           ~~~~~~~~~~~~~~^^
+  File "E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\.venv\Lib\site-packages\stable_baselines3\common\vec_env\subproc_vec_env.py", line 137, in step_wait
+    results = [remote.recv() for remote in self.remotes]
+               ~~~~~~~~~~~^^
+  File "C:\Python313\Lib\multiprocessing\connection.py", line 250, in recv
+    buf = self._recv_bytes()
+  File "C:\Python313\Lib\multiprocessing\connection.py", line 337, in _recv_bytes
+    raise EOFError
+EOFError
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Python313\Lib\multiprocessing\connection.py", line 328, in _recv_bytes
+    nread, err = ov.GetOverlappedResult(True)
+                 ~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+BrokenPipeError: [WinError 109] The pipe has been ended
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\train.py", line 191, in <module>
+    main()
+    ~~~~^^
+  File "E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\train.py", line 183, in main
+    vec_env.close()
+    ~~~~~~~~~~~~~^^
+  File "E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\.venv\Lib\site-packages\stable_baselines3\common\vec_env\subproc_vec_env.py", line 157, in close
+    remote.recv()
+    ~~~~~~~~~~~^^
+  File "C:\Python313\Lib\multiprocessing\connection.py", line 250, in recv
+    buf = self._recv_bytes()
+  File "C:\Python313\Lib\multiprocessing\connection.py", line 337, in _recv_bytes
+    raise EOFError
+EOFError

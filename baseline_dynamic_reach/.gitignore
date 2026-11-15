@@ -1,0 +1,5 @@
+.venv/
+__pycache__/
+*.pyc
+# Smoke runs check the pipeline only; they are not part of the experiment chain.
+smoke/

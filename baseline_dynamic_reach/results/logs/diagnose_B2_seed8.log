@@ -1,0 +1,12 @@
+Replay matches evaluation outcomes: True []
+FRONT: 62 episodes, Counter({'TIMED OUT': 62})
+BACK: 61 episodes, Counter({'GOAL REACHED': 58, 'COLLISION': 3})
+    crash into other car ahead: 3
+    crash time median 2.6 s, closing speed median 13.3 m/s
+LEFT: 40 episodes, Counter({'GOAL REACHED': 31, 'COLLISION': 9})
+    crash into other car ahead: 9
+    crash time median 2.6 s, closing speed median 13.1 m/s
+RIGHT: 37 episodes, Counter({'GOAL REACHED': 24, 'COLLISION': 13})
+    crash into other car ahead: 13
+    crash time median 5.6 s, closing speed median 12.9 m/s
+Lead-car anchor: 36/51 reached; other anchors: 77/149
