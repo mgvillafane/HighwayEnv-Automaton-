@@ -10,13 +10,15 @@ transitions), except the two settings that define this study:
 - the task is *reach*: hold_seconds = 0.1, i.e. one decision inside the slot box;
 - the reward is R0: 50 x success, with every other inherited term at weight 0.
 
+The recorded B0 sidecar freezes these historical settings. Later changes to the
+waypoint defaults must not change this study's arms or checkpoint contracts.
 EXPERIMENT_NOTES.md gives the reason behind every value.
 """
 from copy import deepcopy
+import json
 from pathlib import Path
 
-from baseline_dynamic_waypoint.config import (ENV_CONFIG as DYNAMIC_ENV_CONFIG, GOAL_CONFIG as DYNAMIC_GOAL_CONFIG,
-                                              PPO_CONFIG as DYNAMIC_PPO_CONFIG, EVALUATION_SEED, SLOTS,  # noqa: F401
+from baseline_dynamic_waypoint.config import (EVALUATION_SEED, SLOTS,  # noqa: F401
                                               experiment_name)  # noqa: F401
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -38,18 +40,17 @@ EVAL_SEED = EVALUATION_SEED  # 10,000
 # The other inherited terms stay listed at weight 0 because the inherited environment reads them.
 R0 = {"goal": 50.0, "collision": 0.0, "progress": 0.0, "time": 0.0, "hold": 0.0}
 
-ROOT = {
-    "environment": {
-        "env_config": deepcopy(DYNAMIC_ENV_CONFIG),
-        "goal_config": {**deepcopy(DYNAMIC_GOAL_CONFIG), "hold_seconds": 0.1},  # reach: 1 decision
-        "reward_weights": dict(R0),
-    },
-    "ppo_config": deepcopy(DYNAMIC_PPO_CONFIG),
-    "num_envs": 3,  # As in the earlier dynamic-waypoint runs: 3 x 256 = 768 transitions per PPO update.
-    "requested_timesteps": 1_000_000,  # Rounds up to 1,000,704 with whole rollouts.
-    # None: random initial weights. An arm name: start from that arm's trained policy on the same seed.
-    "init_policy": None,
-}
+# Use the archived experiment specification rather than today's waypoint defaults.
+# In particular, the reach study used a 35 m FRONT slot, LR 3e-4, and 64-unit
+# networks; the independent single-car study now uses 20 m, 1e-4, and 256 units.
+# Reading the tracked JSON does not load or execute model weights.
+ROOT_SIDECAR = MODELS_DIR / "B0_seed7.json"
+with ROOT_SIDECAR.open(encoding="utf-8") as handle:
+    _recorded_root = json.load(handle)
+ROOT = {key: deepcopy(_recorded_root[key])
+        for key in ("environment", "ppo_config", "num_envs", "requested_timesteps")}
+# Older B0/B1 sidecars predate this setting; absent means fresh initialization.
+ROOT["init_policy"] = _recorded_root.get("init_policy")
 
 # Each arm: parent arm, the single IV as a dotted path into the configuration, its new value,
 # and the reason. A value may be a dict (one compound setting); it is still one IV, and every

@@ -99,6 +99,18 @@ class ReachTaskTests(unittest.TestCase):
 
 
 class ChainTests(unittest.TestCase):
+    def test_arm_configs_preserve_every_recorded_experiment_configuration(self):
+        for arm in ("B0", "B1", "B2", "B3"):
+            for seed in (7, 8, 9):
+                with self.subTest(arm=arm, seed=seed):
+                    path = chain.MODELS_DIR / f"{arm}_seed{seed}.json"
+                    with path.open(encoding="utf-8") as handle:
+                        recorded = json.load(handle)
+                    actual = arm_config(arm)
+                    for key in ("environment", "ppo_config", "num_envs", "requested_timesteps"):
+                        self.assertEqual(actual[key], recorded[key], key)
+                    self.assertEqual(actual["init_policy"], recorded.get("init_policy"))
+
     def test_b0_differs_from_the_last_old_run_only_in_task_and_reward(self):
         with LAST_OLD_RUN.open(encoding="utf-8") as handle:
             old = json.load(handle)
