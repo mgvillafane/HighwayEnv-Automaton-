@@ -1,2 +1,4 @@
 .venv/
+.tensorboard-venv/
+.tensorboard-cache/
 __pycache__/

@@ -1,0 +1,83 @@
+{
+  "model": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_DQN\\models\\dqn_quickstart_gamma09_seed2_200k.zip",
+  "first_seed": 10000,
+  "environment": {
+    "env_config": {
+      "observation": {
+        "type": "Kinematics"
+      },
+      "action": {
+        "type": "DiscreteMetaAction"
+      },
+      "simulation_frequency": 5,
+      "policy_frequency": 1,
+      "other_vehicles_type": "highway_env.vehicle.behavior.IDMVehicle",
+      "screen_width": 600,
+      "screen_height": 150,
+      "centering_position": [
+        0.3,
+        0.5
+      ],
+      "scaling": 5.5,
+      "show_trajectories": false,
+      "render_agent": true,
+      "offscreen_rendering": true,
+      "manual_control": false,
+      "real_time_rendering": false,
+      "neighbour_vehicles_connected_lanes": false,
+      "lanes_count": 3,
+      "vehicles_count": 20,
+      "controlled_vehicles": 1,
+      "initial_lane_id": null,
+      "duration": 30,
+      "ego_spacing": 1.5,
+      "vehicles_density": 1,
+      "collision_reward": -1,
+      "right_lane_reward": 0.1,
+      "high_speed_reward": 0.4,
+      "lane_change_reward": 0,
+      "reward_speed_range": [
+        20,
+        30
+      ],
+      "normalize_reward": true,
+      "offroad_terminal": false
+    },
+    "traffic_config": {},
+    "scenario": "quickstart"
+  },
+  "dqn": {
+    "episodes": 50,
+    "collision_rate": 0.1,
+    "completion_rate": 0.9,
+    "average_episode_reward": 26.23110573875234,
+    "average_episode_duration_seconds": 28.8,
+    "average_speed_mps": 27.559483759924923,
+    "average_distance_travelled_meters": 791.6239992127137,
+    "episodes_with_close_encounter_rate": 1.0,
+    "episodes_with_overtake_rate": 0.98,
+    "average_distinct_close_encounters": 4.82,
+    "average_overtakes": 8.32,
+    "average_lane_changes": 5.6,
+    "average_close_following_steps": 15.2,
+    "average_following_brake_steps": 3.04,
+    "average_minimum_front_gap_meters": 8.572638554063914
+  },
+  "random": {
+    "episodes": 50,
+    "collision_rate": 0.92,
+    "completion_rate": 0.08,
+    "average_episode_reward": 8.002079636909848,
+    "average_episode_duration_seconds": 10.7,
+    "average_speed_mps": 23.72425917248747,
+    "average_distance_travelled_meters": 251.0288090884035,
+    "episodes_with_close_encounter_rate": 0.98,
+    "episodes_with_overtake_rate": 0.5,
+    "average_distinct_close_encounters": 1.56,
+    "average_overtakes": 0.8,
+    "average_lane_changes": 2.68,
+    "average_close_following_steps": 6.78,
+    "average_following_brake_steps": 0.72,
+    "average_minimum_front_gap_meters": 2.9893205998357586
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "observed_training_timesteps": 59000,
+  "checked_episodes": 392,
+  "tracking_zero_in_every_logged_episode": true,
+  "front_bonus_once_and_front_only": true,
+  "front_milestones_observed": 45,
+  "finite_training_metrics": true,
+  "checkpoint_25000_verified": true,
+  "dashboard_http_ok": true,
+  "dashboard": "http://127.0.0.1:6019/live"
+}

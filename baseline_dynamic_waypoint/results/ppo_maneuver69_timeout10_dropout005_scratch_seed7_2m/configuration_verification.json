@@ -1,0 +1,28 @@
+{
+  "checks": {
+    "only_navigation_and_reward_guidance_change": true,
+    "ppo_hyperparameters_match_previous_experiment": true,
+    "fresh_actor_critic_and_optimizer": true,
+    "two_million_transitions": true,
+    "all_four_goals": true,
+    "dropout005_and_timeout10": true,
+    "four_environments_and_seed7": true,
+    "same_monitoring_seeds": true
+  },
+  "source_snapshot_sha256": {
+    "config.py": "b6216a3d802992ea35adef78cf50b52d6b086418659e51f6938506e9f4521b0a",
+    "dropout_policy.py": "9a9a5cea966c11ae0f99d3ef27c99375b598ed19754e214b4216fe775429403b",
+    "environment.py": "019a39f6595aa177ee230f2834ccf0f6f3d1a2f8b0af18144590f94e207e85ab",
+    "evaluate.py": "13af92cd180b23038a0efe9bc06d4853a7eb8b43e2752339bff791dee3ab04a8",
+    "maneuver_guidance.py": "706586c3360456c103425ade7c92e253ffb515515403277d41cffe94877c8649",
+    "single_car.py": "1bc1cac10011a2be88b5e04014532b64b90393bf39c9235002ca3a899cd33564",
+    "train.py": "661a27113ca27f72fefd71343f05d5f54e08c950a1fe7144da02c97264cab57f",
+    "train_single_car.py": "d83c38efd7ed0eae228c29b2cf1cd968a27cc4aef07b4eb443dace8dc2dd89d4"
+  },
+  "targeted_tests_passed": 25,
+  "legacy_failures_reproduced_with_maneuver_profile_removed": [
+    "test_shaping_terms_telescope_and_sum_to_the_reward",
+    "test_scripted_driver_can_hold_every_slot_for_five_seconds"
+  ],
+  "notes": "Implementation checks passed; learning improvement must be measured by per-goal evaluation."
+}

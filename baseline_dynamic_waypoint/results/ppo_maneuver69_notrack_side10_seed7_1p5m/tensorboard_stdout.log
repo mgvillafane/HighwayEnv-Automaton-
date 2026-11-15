@@ -1,0 +1,11 @@
+{
+  "url": "http://127.0.0.1:6019/live",
+  "event_reload_seconds": 5.0,
+  "chart_reload_seconds": 30.0,
+  "selection": "latest 2",
+  "recursive": false,
+  "runs": {
+    "PPO/ppo_maneuver69_notrack_side10_seed7_1p5m": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\results\\ppo_maneuver69_notrack_side10_seed7_1p5m",
+    "PPO/ppo_maneuver69_timeout10_dropout005_scratch_seed7_2m": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\results\\ppo_maneuver69_timeout10_dropout005_scratch_seed7_2m"
+  }
+}

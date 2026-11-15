@@ -1,0 +1,16 @@
+[
+  "Rewards and observations",
+  "The task and success conditions",
+  "The complete input contract",
+  "Vehicle kinematics: 35 inputs",
+  "Goal, anchor, slot, and hold",
+  "All 16 navigation features",
+  "Passing target and preferred speed",
+  "Collision risk and interpreting scales",
+  "The complete environment reward",
+  "Route progress and tracking in detail",
+  "Worked FRONT observation",
+  "Worked step and terminal rewards",
+  "How PPO uses these signals",
+  "Implementation and provenance"
+]

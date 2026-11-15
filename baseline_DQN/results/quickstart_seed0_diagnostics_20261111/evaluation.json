@@ -1,0 +1,45 @@
+{
+  "model": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_DQN\\models\\dqn_quickstart_seed0.zip",
+  "first_seed": 30000,
+  "last_seed": 30049,
+  "dqn": {
+    "episodes": 50,
+    "collision_rate": 0.44,
+    "completion_rate": 0.56,
+    "average_episode_reward": 18.911027511953158,
+    "average_episode_duration_seconds": 22.92,
+    "average_speed_mps": 24.76649918004308,
+    "average_distance_travelled_meters": 554.2101216736856,
+    "episodes_with_close_encounter_rate": 1.0,
+    "episodes_with_overtake_rate": 0.88,
+    "average_distinct_close_encounters": 2.44,
+    "average_overtakes": 3.04,
+    "average_lane_changes": 3.14,
+    "average_close_following_steps": 16.98,
+    "average_following_brake_steps": 4.9,
+    "average_minimum_front_gap_meters": 4.394507030138346
+  },
+  "final_crash_actions": {
+    "LANE_LEFT": 6,
+    "SLOWER": 15,
+    "LANE_RIGHT": 1
+  },
+  "observation": {
+    "vehicles_count": 5,
+    "see_behind": false
+  },
+  "gamma": 0.8,
+  "policy_frequency": 1,
+  "trained_timesteps": 20000,
+  "crash_diagnostics": {
+    "collision_partner_visible_before_last_action": 22,
+    "collision_partner_ahead_in_same_lane_before_last_action": 22,
+    "outward_lane_command_at_boundary_on_last_action": 3,
+    "pre_crash_time_to_contact_seconds_range_constant_relative_speed": [
+      0.014612278622053963,
+      0.7940511808541494
+    ]
+  },
+  "deterministic": true,
+  "recording_validation": "All 12 recorded episodes match unrendered evaluation outcomes, durations and rewards."
+}

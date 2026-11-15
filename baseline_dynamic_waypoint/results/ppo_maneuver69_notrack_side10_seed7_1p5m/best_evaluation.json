@@ -1,0 +1,59 @@
+{
+  "step": 1500000,
+  "model": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\models\\ppo_maneuver69_notrack_side10_seed7_1p5m_best.zip",
+  "score": [
+    0.96,
+    -0.04,
+    68.08312591156049
+  ],
+  "summary": {
+    "episodes": 100,
+    "success_rate": 0.96,
+    "collision_rate": 0.04,
+    "timeout_rate": 0.0,
+    "average_episode_reward": 68.08312591156049,
+    "average_time_to_goal_seconds": 4.842708333333332,
+    "average_final_distance_meters": 3.5273721874993282,
+    "success_rate_by_goal_lane": {
+      "0": 1.0,
+      "1": 1.0,
+      "2": 0.8095238095238095
+    },
+    "success_rate_by_required_lane_changes": {
+      "0": 0.9722222222222222,
+      "1": 0.9318181818181818,
+      "2": 1.0
+    },
+    "average_reward_components": {
+      "goal": 48.0,
+      "collision": -2.0,
+      "progress": 3.1346058205792655,
+      "time": -2.4289999999999994,
+      "hold": 0.976,
+      "lane": 0.0,
+      "speed_match": 0.0,
+      "overtake": 0.0,
+      "timeout": 0.0,
+      "route_progress": 19.001520090981227,
+      "tracking": 0.0,
+      "front_side": 1.4
+    },
+    "average_steps_to_success": 48.427083333333336,
+    "successful_episodes": 96,
+    "anchor_lost_rate": 0.0,
+    "average_max_hold_seconds": 0.48,
+    "success_rate_by_slot": {
+      "front": 0.7777777777777778,
+      "back": 1.0,
+      "left": 1.0,
+      "right": 1.0
+    },
+    "episodes_by_slot": {
+      "front": 18,
+      "back": 27,
+      "left": 33,
+      "right": 22
+    }
+  },
+  "selection": "Success, fewer collisions, then reward on fixed monitoring seeds; not an independent test."
+}

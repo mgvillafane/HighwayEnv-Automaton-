@@ -1,0 +1,139 @@
+Preset=quickstart; DQN settings: {'learning_rate': 0.0005, 'buffer_size': 15000, 'learning_starts': 200, 'batch_size': 32, 'gamma': 0.9, 'train_freq': 1, 'gradient_steps': 1, 'device': 'cpu', 'policy_kwargs': {'net_arch': [256, 256]}, 'target_update_interval': 50}; num_envs=1
+One gradient update per vector step (1 collected transition(s)).
+2,000 transitions; recent collisions=84.0%; overtakes/episode=0.89
+4,000 transitions; recent collisions=80.0%; overtakes/episode=0.88
+6,000 transitions; recent collisions=69.0%; overtakes/episode=0.92
+8,000 transitions; recent collisions=78.0%; overtakes/episode=1.06
+10,000 transitions; recent collisions=71.0%; overtakes/episode=1.11
+12,000 transitions; recent collisions=61.0%; overtakes/episode=1.28
+14,000 transitions; recent collisions=62.0%; overtakes/episode=1.58
+16,000 transitions; recent collisions=45.0%; overtakes/episode=1.26
+18,000 transitions; recent collisions=45.0%; overtakes/episode=1.55
+20,000 transitions; recent collisions=33.0%; overtakes/episode=2.11
+22,000 transitions; recent collisions=36.0%; overtakes/episode=2.65
+24,000 transitions; recent collisions=22.0%; overtakes/episode=2.67
+26,000 transitions; recent collisions=41.0%; overtakes/episode=2.69
+28,000 transitions; recent collisions=34.0%; overtakes/episode=2.68
+30,000 transitions; recent collisions=44.0%; overtakes/episode=2.82
+32,000 transitions; recent collisions=43.0%; overtakes/episode=3.06
+34,000 transitions; recent collisions=48.0%; overtakes/episode=3.73
+36,000 transitions; recent collisions=56.0%; overtakes/episode=3.96
+38,000 transitions; recent collisions=56.0%; overtakes/episode=4.35
+40,000 transitions; recent collisions=50.0%; overtakes/episode=3.74
+42,000 transitions; recent collisions=56.0%; overtakes/episode=4.24
+44,000 transitions; recent collisions=53.0%; overtakes/episode=4.47
+46,000 transitions; recent collisions=57.0%; overtakes/episode=4.25
+48,000 transitions; recent collisions=56.0%; overtakes/episode=4.95
+50,000 transitions; recent collisions=48.0%; overtakes/episode=4.73
+52,000 transitions; recent collisions=34.0%; overtakes/episode=4.45
+54,000 transitions; recent collisions=34.0%; overtakes/episode=4.21
+56,000 transitions; recent collisions=33.0%; overtakes/episode=4.35
+58,000 transitions; recent collisions=30.0%; overtakes/episode=4.66
+60,000 transitions; recent collisions=32.0%; overtakes/episode=5.02
+62,000 transitions; recent collisions=43.0%; overtakes/episode=4.98
+64,000 transitions; recent collisions=38.0%; overtakes/episode=4.59
+66,000 transitions; recent collisions=39.0%; overtakes/episode=4.94
+68,000 transitions; recent collisions=42.0%; overtakes/episode=5.06
+70,000 transitions; recent collisions=48.0%; overtakes/episode=5.34
+72,000 transitions; recent collisions=56.0%; overtakes/episode=5.07
+74,000 transitions; recent collisions=52.0%; overtakes/episode=4.88
+76,000 transitions; recent collisions=44.0%; overtakes/episode=4.81
+78,000 transitions; recent collisions=41.0%; overtakes/episode=4.61
+80,000 transitions; recent collisions=35.0%; overtakes/episode=4.77
+82,000 transitions; recent collisions=28.0%; overtakes/episode=4.63
+84,000 transitions; recent collisions=21.0%; overtakes/episode=5.22
+86,000 transitions; recent collisions=25.0%; overtakes/episode=5.22
+88,000 transitions; recent collisions=33.0%; overtakes/episode=5.61
+90,000 transitions; recent collisions=31.0%; overtakes/episode=6.05
+92,000 transitions; recent collisions=44.0%; overtakes/episode=5.83
+94,000 transitions; recent collisions=39.0%; overtakes/episode=5.65
+96,000 transitions; recent collisions=53.0%; overtakes/episode=6.49
+98,000 transitions; recent collisions=45.0%; overtakes/episode=5.21
+100,000 transitions; recent collisions=41.0%; overtakes/episode=5.01
+102,000 transitions; recent collisions=35.0%; overtakes/episode=5.21
+104,000 transitions; recent collisions=24.0%; overtakes/episode=5.87
+106,000 transitions; recent collisions=33.0%; overtakes/episode=5.63
+108,000 transitions; recent collisions=38.0%; overtakes/episode=5.54
+110,000 transitions; recent collisions=37.0%; overtakes/episode=4.93
+112,000 transitions; recent collisions=38.0%; overtakes/episode=5.41
+114,000 transitions; recent collisions=34.0%; overtakes/episode=5.82
+116,000 transitions; recent collisions=39.0%; overtakes/episode=6.00
+118,000 transitions; recent collisions=51.0%; overtakes/episode=6.27
+120,000 transitions; recent collisions=43.0%; overtakes/episode=6.03
+122,000 transitions; recent collisions=41.0%; overtakes/episode=5.70
+124,000 transitions; recent collisions=34.0%; overtakes/episode=5.79
+126,000 transitions; recent collisions=35.0%; overtakes/episode=5.96
+128,000 transitions; recent collisions=28.0%; overtakes/episode=6.18
+130,000 transitions; recent collisions=33.0%; overtakes/episode=5.99
+132,000 transitions; recent collisions=36.0%; overtakes/episode=5.59
+134,000 transitions; recent collisions=35.0%; overtakes/episode=6.32
+136,000 transitions; recent collisions=37.0%; overtakes/episode=6.21
+138,000 transitions; recent collisions=42.0%; overtakes/episode=6.16
+140,000 transitions; recent collisions=39.0%; overtakes/episode=6.71
+142,000 transitions; recent collisions=31.0%; overtakes/episode=6.77
+144,000 transitions; recent collisions=36.0%; overtakes/episode=6.38
+146,000 transitions; recent collisions=42.0%; overtakes/episode=6.39
+148,000 transitions; recent collisions=41.0%; overtakes/episode=6.31
+150,000 transitions; recent collisions=30.0%; overtakes/episode=6.62
+152,000 transitions; recent collisions=36.0%; overtakes/episode=6.55
+154,000 transitions; recent collisions=30.0%; overtakes/episode=6.90
+156,000 transitions; recent collisions=36.0%; overtakes/episode=6.82
+158,000 transitions; recent collisions=34.0%; overtakes/episode=6.71
+160,000 transitions; recent collisions=40.0%; overtakes/episode=6.89
+162,000 transitions; recent collisions=40.0%; overtakes/episode=6.71
+164,000 transitions; recent collisions=44.0%; overtakes/episode=6.94
+166,000 transitions; recent collisions=43.0%; overtakes/episode=6.66
+168,000 transitions; recent collisions=38.0%; overtakes/episode=7.44
+170,000 transitions; recent collisions=36.0%; overtakes/episode=7.19
+172,000 transitions; recent collisions=40.0%; overtakes/episode=6.70
+174,000 transitions; recent collisions=35.0%; overtakes/episode=7.04
+176,000 transitions; recent collisions=35.0%; overtakes/episode=6.79
+178,000 transitions; recent collisions=41.0%; overtakes/episode=6.96
+180,000 transitions; recent collisions=30.0%; overtakes/episode=7.42
+182,000 transitions; recent collisions=39.0%; overtakes/episode=6.98
+184,000 transitions; recent collisions=26.0%; overtakes/episode=7.21
+186,000 transitions; recent collisions=30.0%; overtakes/episode=6.80
+188,000 transitions; recent collisions=35.0%; overtakes/episode=7.01
+190,000 transitions; recent collisions=28.0%; overtakes/episode=7.60
+192,000 transitions; recent collisions=40.0%; overtakes/episode=7.16
+194,000 transitions; recent collisions=41.0%; overtakes/episode=6.64
+196,000 transitions; recent collisions=36.0%; overtakes/episode=7.15
+198,000 transitions; recent collisions=32.0%; overtakes/episode=6.80
+200,000 transitions; recent collisions=44.0%; overtakes/episode=6.70
+Saved C:\Users\marco\CODE\Capstone\HighwayEnv-Automaton-\baseline_DQN\models\dqn_quickstart_gamma09_seed2_200k.zip; actual transitions=200,000.
+{
+  "dqn": {
+    "episodes": 50,
+    "collision_rate": 0.1,
+    "completion_rate": 0.9,
+    "average_episode_reward": 26.23110573875234,
+    "average_episode_duration_seconds": 28.8,
+    "average_speed_mps": 27.559483759924923,
+    "average_distance_travelled_meters": 791.6239992127137,
+    "episodes_with_close_encounter_rate": 1.0,
+    "episodes_with_overtake_rate": 0.98,
+    "average_distinct_close_encounters": 4.82,
+    "average_overtakes": 8.32,
+    "average_lane_changes": 5.6,
+    "average_close_following_steps": 15.2,
+    "average_following_brake_steps": 3.04,
+    "average_minimum_front_gap_meters": 8.572638554063914
+  },
+  "random": {
+    "episodes": 50,
+    "collision_rate": 0.92,
+    "completion_rate": 0.08,
+    "average_episode_reward": 8.002079636909848,
+    "average_episode_duration_seconds": 10.7,
+    "average_speed_mps": 23.72425917248747,
+    "average_distance_travelled_meters": 251.0288090884035,
+    "episodes_with_close_encounter_rate": 0.98,
+    "episodes_with_overtake_rate": 0.5,
+    "average_distinct_close_encounters": 1.56,
+    "average_overtakes": 0.8,
+    "average_lane_changes": 2.68,
+    "average_close_following_steps": 6.78,
+    "average_following_brake_steps": 0.72,
+    "average_minimum_front_gap_meters": 2.9893205998357586
+  }
+}

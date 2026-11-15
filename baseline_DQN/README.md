@@ -1,5 +1,26 @@
 # DQN highway baseline and official quickstart reproduction
 
+## Faster current-configuration experiment
+
+The current configuration can be trained with faster, equivalent NumPy
+kinematics observation assembly. This avoids the per-observation DataFrames;
+traffic, reward, action timing, network settings, and the one-update-per-transition
+training schedule stay the same. The saved task configuration remains compatible
+with normal playback. Extended observation features use the native implementation.
+
+```powershell
+.\baseline_waypoint\.venv\Scripts\python.exe -u -B baseline_DQN/train.py --preset quickstart --fast-observation --seed 2 --timesteps 200000 --run-name dqn_quickstart_gamma095_seed2_200k_fast --quiet
+```
+
+This new experiment uses the gamma in `DQN_CONFIG` (currently 0.95). The earlier
+gamma-0.9 run retains its own saved parameters. Use a new run name for each run.
+`run.json` records whether `--fast-observation` was enabled. The historical
+quickstart results below retain their original saved configurations.
+
+Start `monitor_training.py` from the repository root and open
+<http://127.0.0.1:6006/live> to compare all DQN and dynamic-waypoint PPO runs.
+See [the TensorBoard instructions](../TENSORBOARD.md).
+
 ## Reproduce the highway-env website example
 
 The default training preset now follows the

@@ -1,0 +1,17 @@
+run,dropout,timeout,goal,training_successes,training_episodes,maximum_recorded_eval_percent,maximum_eval_source
+ppo_allgoals_timeout25_dropout01_seed7_2m,0.1,25.0,right,198,1986,13.636363636363635,evaluation_750000.json
+ppo_allgoals_timeout25_dropout01_seed7_2m,0.1,25.0,front,2,1972,0.0,evaluation_750000.json
+ppo_allgoals_timeout25_dropout01_seed7_4m,0.1,25.0,right,578,2077,18.181818181818183,evaluation_1750000.json
+ppo_allgoals_timeout25_dropout01_seed7_4m,0.1,25.0,front,0,2034,0.0,evaluation_750000.json
+ppo_flexible53_timeout10_dropout005_scratch_seed7_2m,0.05,10.0,right,1,1775,0.0,evaluation_750000.json
+ppo_flexible53_timeout10_dropout005_scratch_seed7_2m,0.05,10.0,front,1,1757,0.0,evaluation_750000.json
+ppo_legacy57_timeout10_dropout01_seed7_200k,0.1,10.0,right,0,292,0.0,evaluation.json
+ppo_legacy57_timeout10_dropout01_seed7_200k,0.1,10.0,front,0,301,0.0,evaluation.json
+ppo_stability_diagnostics_targetlanes57_seed7_1m,0.05,10.0,right,105,789,0.0,evaluation_500000.json
+ppo_stability_diagnostics_targetlanes57_seed7_1m,0.05,10.0,front,5,790,0.0,evaluation_500000.json
+ppo_targetlanes57_lr4e5_time045_dropout005_gamma097_seed7_1m,0.05,10.0,right,115,1150,18.181818181818183,evaluation_750000.json
+ppo_targetlanes57_lr4e5_time045_dropout005_gamma097_seed7_1m,0.05,10.0,front,2,1144,0.0,evaluation_750000.json
+ppo_targetlanes57_timeout10_dropout005_lr5e5_gamma097_scratch_seed7_1m,0.05,10.0,right,192,1169,18.181818181818183,evaluation_750000.json
+ppo_targetlanes57_timeout10_dropout005_lr5e5_gamma097_scratch_seed7_1m,0.05,10.0,front,5,1165,0.0,evaluation_750000.json
+ppo_targetlanes57_timeout10_dropout01_scratch_seed7_1m,0.1,10.0,right,236,1230,18.181818181818183,evaluation_750000.json
+ppo_targetlanes57_timeout10_dropout01_scratch_seed7_1m,0.1,10.0,front,1,1251,0.0,evaluation_750000.json

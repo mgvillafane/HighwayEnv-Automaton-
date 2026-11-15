@@ -1,0 +1,6 @@
+﻿{
+    "run":  "ppo_maneuver69_timeout10_dropout005_scratch_seed7_2m",
+    "url":  "http://127.0.0.1:6018/live",
+    "comparison_run":  "ppo_flexible53_timeout10_dropout005_scratch_seed7_2m",
+    "process_id":  33552
+}

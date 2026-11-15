@@ -28,9 +28,13 @@ from baseline_DQN.environment import TrafficHighwayEnv
 from baseline_DQN.evaluate import compare
 
 
-def make_training_env(seed, environment):
+def make_training_env(seed, environment, fast_observation=False):
     """Create one independently seeded simulator inside its owning process."""
-    env = Monitor(TrafficHighwayEnv(**environment))
+    task = TrafficHighwayEnv(**environment)
+    if fast_observation:
+        from baseline_DQN.fast_observation import enable_fast_observation
+        enable_fast_observation(task)
+    env = Monitor(task)
     env.effective_env_config = dict(env.unwrapped.config)
     env.reset(seed=seed)
     return env
@@ -122,14 +126,22 @@ def main():
     parser.add_argument("--preset", choices=("quickstart", "slow-traffic"), default="quickstart")
     parser.add_argument("--timesteps", type=int, default=None)
     parser.add_argument("--seed", type=int, default=None)
+    parser.add_argument("--gamma", type=float, default=None,
+                        help="Override the preset's discount factor for this run.")
     parser.add_argument("--num-envs", type=int, default=1,
                         help="1 matches the supplied single-env schedule; >1 uses spawned parallel simulators.")
     parser.add_argument("--run-name", default=None)
     parser.add_argument("--eval-episodes", type=int, default=EVALUATION_EPISODES)
     parser.add_argument("--quiet", action="store_true")
     parser.add_argument("--no-tensorboard", action="store_true")
+    parser.add_argument("--fast-observation", action="store_true",
+                        help="Use an equivalent NumPy kinematics observation to reduce simulator overhead.")
     args = parser.parse_args()
     dqn_config, environment, default_timesteps = training_settings(args.preset)
+    if args.gamma is not None:
+        if not 0 < args.gamma <= 1:
+            parser.error("gamma must be greater than zero and at most one.")
+        dqn_config["gamma"] = args.gamma
     if args.seed is None:
         args.seed = 0 if args.preset == "quickstart" else SEED
     if args.timesteps is None:
@@ -147,7 +159,8 @@ def main():
     MODELS_DIR.mkdir(parents=True, exist_ok=True)
     torch.set_num_threads(1)
     set_random_seed(args.seed)
-    factories = [partial(make_training_env, args.seed + index, environment) for index in range(args.num_envs)]
+    factories = [partial(make_training_env, args.seed + index, environment, args.fast_observation)
+                 for index in range(args.num_envs)]
     env = DummyVecEnv(factories) if args.num_envs == 1 else SubprocVecEnv(factories, start_method="spawn")
     env.seed(args.seed)
     metadata = {
@@ -159,6 +172,7 @@ def main():
             "gradient_updates_per_transition_after_warmup": dqn_config["gradient_steps"] / args.num_envs,
         },
         "preset": args.preset, "reference": QUICKSTART_REFERENCE if args.preset == "quickstart" else None,
+        "runtime_optimizations": {"fast_observation": args.fast_observation},
         "environment": environment,
         "effective_env_config": env.get_attr("effective_env_config")[0],
         "algorithm": "DQN", "policy": "MlpPolicy", "dqn_config": dqn_config,

@@ -1,0 +1,17 @@
+experiment,run,evaluation,evaluated_steps,goal,successes,episodes,success_percent,collisions,timeouts
+Simple reward,ppo_singlecar_flexible30s_seed7_200k,evaluation.json,200000,left,33,33,100.0,0,0
+Simple reward,ppo_singlecar_flexible30s_seed7_200k,evaluation.json,200000,right,0,22,0.0,3,19
+Simple reward,ppo_singlecar_flexible30s_seed7_200k,evaluation.json,200000,back,27,27,100.0,0,0
+Simple reward,ppo_singlecar_flexible30s_seed7_200k,evaluation.json,200000,front,0,18,0.0,3,15
+Timeout + dropout,ppo_flexible53_timeout10_dropout005_scratch_seed7_2m,evaluation_1250000.json,1250000,left,18,33,54.54545454545455,0,15
+Timeout + dropout,ppo_flexible53_timeout10_dropout005_scratch_seed7_2m,evaluation_1250000.json,1250000,right,0,22,0.0,0,22
+Timeout + dropout,ppo_flexible53_timeout10_dropout005_scratch_seed7_2m,evaluation_1250000.json,1250000,back,27,27,100.0,0,0
+Timeout + dropout,ppo_flexible53_timeout10_dropout005_scratch_seed7_2m,evaluation_1250000.json,1250000,front,0,18,0.0,6,12
+Route progress + tracking,ppo_maneuver69_timeout10_dropout005_scratch_seed7_2m,evaluation.json,2000000,left,33,33,100.0,0,0
+Route progress + tracking,ppo_maneuver69_timeout10_dropout005_scratch_seed7_2m,evaluation.json,2000000,right,21,22,95.45454545454545,0,1
+Route progress + tracking,ppo_maneuver69_timeout10_dropout005_scratch_seed7_2m,evaluation.json,2000000,back,27,27,100.0,0,0
+Route progress + tracking,ppo_maneuver69_timeout10_dropout005_scratch_seed7_2m,evaluation.json,2000000,front,14,18,77.77777777777777,0,4
+No tracking + FRONT side bonus,ppo_maneuver69_notrack_side10_seed7_1p5m,evaluation.json,1500000,left,33,33,100.0,0,0
+No tracking + FRONT side bonus,ppo_maneuver69_notrack_side10_seed7_1p5m,evaluation.json,1500000,right,22,22,100.0,0,0
+No tracking + FRONT side bonus,ppo_maneuver69_notrack_side10_seed7_1p5m,evaluation.json,1500000,back,27,27,100.0,0,0
+No tracking + FRONT side bonus,ppo_maneuver69_notrack_side10_seed7_1p5m,evaluation.json,1500000,front,14,18,77.77777777777777,4,0

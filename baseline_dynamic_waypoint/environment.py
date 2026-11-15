@@ -11,7 +11,7 @@ class DynamicGoalHighwayEnv(GoalHighwayEnv):
 
     The slot is defined in the anchor's lane frame: FRONT/BACK are slot_offsets
     meters along its lane, LEFT/RIGHT are beside it in the adjacent lane. Success
-    means staying inside the slot box for hold_seconds without interruption.
+    means collecting hold_seconds in the slot, with an optional brief exit grace.
     """
 
     def __init__(self, render_mode=None, env_config=None, goal_config=None, reward_weights=None):
@@ -19,6 +19,28 @@ class DynamicGoalHighwayEnv(GoalHighwayEnv):
                          env_config=ENV_CONFIG if env_config is None else env_config,
                          goal_config=GOAL_CONFIG if goal_config is None else goal_config,
                          reward_weights=REWARD_WEIGHTS if reward_weights is None else reward_weights)
+        self.observation_schema = self.goal_config.get("observation_schema", "legacy")
+        self.anchor, self.slot, self.anchor_id = None, SLOTS[0], -1
+        self.hold_steps, self.hold_required = 0, 1
+        self.hold_gap_steps, self.hold_grace_steps = 0, 0
+        if self.observation_schema == "lane_goal_v2":
+            n = self.env_config["observation"]["vehicles_count"]
+            last_lane = self.env_config["lanes_count"] - 1
+            low = np.tile(np.array([-1, -1, -1, -1, -1, 0], dtype=np.float32), (n, 1))
+            high = np.tile(np.array([1, 1, 1, 1, 1, last_lane], dtype=np.float32), (n, 1))
+            self.observation_space = spaces.Dict({
+                "vehicles": spaces.Box(low, high, dtype=np.float32),
+                "goal_delta": spaces.Box(-np.inf, np.inf, (2,), np.float32),
+                "anchor": spaces.Box(-1.0, 1.0, (4,), np.float32),
+                # Signed lane counts: [anchor lane - ego lane, goal lane - ego lane].
+                "lane_difference": spaces.Box(-last_lane, last_lane, (2,), np.float32),
+                # Stable episode car ID, then (goal - anchor) / position_scale.
+                "desired_goal": spaces.Box(
+                    np.array([0, -np.inf, -np.inf], dtype=np.float32),
+                    np.array([self.env_config["vehicles_count"], np.inf, np.inf], dtype=np.float32)),
+                "hold_progress": spaces.Box(0.0, 1.0, (1,), np.float32),
+            })
+            return
         self.observation_space = spaces.Dict({
             **self.observation_space.spaces,
             # Anchor x, y, vx, vy relative to ego, normalized like the Kinematics rows.
@@ -32,18 +54,42 @@ class DynamicGoalHighwayEnv(GoalHighwayEnv):
                 **self.observation_space.spaces,
                 "slot_error": spaces.Box(-1.0, 1.0, (3,), np.float32),
             })
-        self.anchor, self.slot, self.anchor_id = None, SLOTS[0], -1
-        self.hold_steps, self.hold_required = 0, 1
+        if self.observation_schema == "legacy_target_lanes":
+            retained = dict(self.observation_space.spaces)
+            # achieved_goal = desired_goal - goal_delta; use these two redundant
+            # inputs for explicit target-car and goal lane IDs.
+            retained.pop("achieved_goal")
+            retained["target_lanes"] = spaces.Box(
+                0, self.env_config["lanes_count"] - 1, (2,), np.float32)
+            self.observation_space = spaces.Dict(retained)
 
     def _validate_config(self):
         super()._validate_config()
         goal = self.goal_config
+        timeout_penalty = self.reward_weights.get("timeout", 0.0)
+        if not np.isfinite(timeout_penalty) or timeout_penalty < 0:
+            raise ValueError("The timeout penalty weight must be finite and nonnegative.")
+        schema = goal.get("observation_schema", "legacy")
+        if schema not in ("legacy", "legacy_target_lanes", "lane_goal_v2"):
+            raise ValueError("observation_schema must be legacy, legacy_target_lanes, or lane_goal_v2.")
+        if schema == "lane_goal_v2":
+            observation = self.env_config["observation"]
+            if observation.get("order", "sorted") != "sorted" or observation.get("include_obstacles", False):
+                raise ValueError("lane_goal_v2 requires sorted vehicle observations without obstacles.")
         if goal["hold_seconds"] <= 0 or goal["lateral_tolerance"] <= 0:
             raise ValueError("hold_seconds and lateral_tolerance must be positive.")
         if min(goal["slot_offsets"].values()) - goal["radius"] < 5.0:
             raise ValueError("A FRONT/BACK slot box would overlap the anchor car (5 m long).")
         if goal["hold_seconds"] >= self.env_config["duration"]:
             raise ValueError("The hold time must fit inside the episode.")
+        grace = goal.get("hold_grace_seconds", 0.0)
+        if not np.isfinite(grace) or grace < 0:
+            raise ValueError("hold_grace_seconds must be finite and nonnegative.")
+        if "front_lane_blend" in goal:
+            blend = goal["front_lane_blend"]
+            if (len(blend) != 2 or not np.isfinite(blend).all()
+                    or not 0 <= blend[0] < blend[1]):
+                raise ValueError("front_lane_blend must be two finite ordered nonnegative lead distances.")
 
     def _generate_goal(self, options):
         rng = self.highway.np_random
@@ -70,6 +116,8 @@ class DynamicGoalHighwayEnv(GoalHighwayEnv):
         self.anchor, self.slot = anchor, slot
         self.anchor_id = self.highway.road.vehicles.index(anchor)
         self.hold_steps = 0
+        self.hold_gap_steps = 0
+        self.hold_grace_steps = round(self.goal_config.get("hold_grace_seconds", 0.0) * self.env_config["policy_frequency"])
         self.hold_required = max(1, round(self.goal_config["hold_seconds"] * self.env_config["policy_frequency"]))
         self._update_goal()
         self.previous_shaping_errors = self.shaping_errors()
@@ -115,7 +163,19 @@ class DynamicGoalHighwayEnv(GoalHighwayEnv):
         network, ego = self.highway.road.network, self.highway.vehicle
         anchor_lane = network.get_lane(self.anchor.lane_index)
         lead = anchor_lane.local_coordinates(ego.position)[0] - anchor_lane.local_coordinates(self.anchor.position)[0]
-        if lead < self.goal_config["pass_margin"]:
+        if "front_lane_blend" in self.goal_config:
+            road, start, lane_id = self.anchor.lane_index
+            beside = [(road, start, lane) for lane in (lane_id - 1, lane_id + 1)
+                      if 0 <= lane < self.env_config["lanes_count"]]
+            passing_error = min(abs(network.get_lane(index).local_coordinates(ego.position)[1])
+                                for index in beside)
+            low, high = self.goal_config["front_lane_blend"]
+            blend = float(np.clip((lead - low) / (high - low), 0.0, 1.0))
+            # A continuous potential avoids penalizing a successful pass with
+            # an abrupt four-meter error jump at pass_margin. In the 5..15 m
+            # profile the passing lane remains preferred until a 10 m lead.
+            lateral = (1.0 - blend) * passing_error + blend * abs(lateral)
+        elif lead < self.goal_config["pass_margin"]:
             road, start, lane_id = self.anchor.lane_index
             beside = [(road, start, lane) for lane in (lane_id - 1, lane_id + 1)
                       if 0 <= lane < self.env_config["lanes_count"]]
@@ -140,6 +200,27 @@ class DynamicGoalHighwayEnv(GoalHighwayEnv):
         observation["anchor"] = np.array([
             np.clip(2 * (value - ranges[key][0]) / (ranges[key][1] - ranges[key][0]) - 1, -1, 1)
             for key, value in relative.items()], dtype=np.float32)
+        if self.observation_schema == "lane_goal_v2":
+            encoder = self.highway.observation_type
+            n = self.env_config["observation"]["vehicles_count"]
+            close = self.highway.road.close_objects_to(
+                encoder.observer_vehicle, self.highway.PERCEPTION_DISTANCE,
+                count=n - 1, see_behind=encoder.see_behind, sort=True, vehicles_only=True)
+            cars = [encoder.observer_vehicle, *close[:n - 1]]
+            lanes = np.zeros((n, 1), dtype=np.float32)
+            for row, car in enumerate(cars):
+                lanes[row, 0] = car.lane_index[2]
+            ego_lane = int(ego.lane_index[2])
+            relative_goal = (self.goal_position - anchor.position) / self.position_scale
+            return {
+                "vehicles": np.concatenate((observation["vehicles"], lanes), axis=1),
+                "goal_delta": observation["goal_delta"],
+                "anchor": observation["anchor"],
+                "lane_difference": np.array([int(anchor.lane_index[2]) - ego_lane,
+                                              self.goal_lane - ego_lane], dtype=np.float32),
+                "desired_goal": np.array([self.anchor_id, *relative_goal], dtype=np.float32),
+                "hold_progress": np.array([min(1.0, self.hold_steps / self.hold_required)], dtype=np.float32),
+            }
         observation["slot"] = np.array([slot == self.slot for slot in SLOTS], dtype=np.float32)
         observation["hold_progress"] = np.array([min(1.0, self.hold_steps / self.hold_required)], dtype=np.float32)
         if "slot_error" in self.observation_space.spaces:
@@ -149,6 +230,10 @@ class DynamicGoalHighwayEnv(GoalHighwayEnv):
             scales = self.goal_config["slot_error_scale"]
             error = [longitudinal / scales[0], lateral / scales[1], (anchor.speed - ego.speed) / scales[2]]
             observation["slot_error"] = np.clip(error, -1, 1).astype(np.float32)
+        if self.observation_schema == "legacy_target_lanes":
+            observation.pop("achieved_goal")
+            observation["target_lanes"] = np.array(
+                [int(anchor.lane_index[2]), self.goal_lane], dtype=np.float32)
         return observation
 
     def step(self, action):
@@ -159,8 +244,16 @@ class DynamicGoalHighwayEnv(GoalHighwayEnv):
         distance = self.distance_to_goal()
         collision = bool(self.highway.vehicle.crashed)
         inside = not (collision or lost) and self.in_slot()
-        self.hold_steps = self.hold_steps + 1 if inside else 0
-        success = self.hold_steps >= self.hold_required
+        if inside:
+            self.hold_steps += 1
+            self.hold_gap_steps = 0
+        else:
+            self.hold_gap_steps += 1
+            if collision or lost or self.hold_gap_steps > self.hold_grace_steps:
+                self.hold_steps = 0
+        # Grace preserves previous valid time; it never advances the counter or
+        # declares success while outside the slot or after a collision/anchor loss.
+        success = bool(inside and self.hold_steps >= self.hold_required and self._success_allowed())
         terminated = success or collision
         # Losing the anchor ends the task without it being ego's failure, like a timeout.
         truncated = bool((native_truncated or lost) and not terminated)
@@ -174,11 +267,13 @@ class DynamicGoalHighwayEnv(GoalHighwayEnv):
             "progress": weights["progress"] * (self.previous_distance - distance),
             "time": -weights["time"],
             "hold": weights["hold"] * float(inside),
-            # Shaping, also telescoping: it only moves credit earlier, it cannot be farmed.
+            # State-error differences telescope in undiscounted returns. PPO
+            # still applies its usual discount per policy decision.
             "lane": weights.get("lane", 0.0) * (previous_lateral - lateral_error),
             "speed_match": weights.get("speed_match", 0.0) * (previous_speed - speed_error),
             # FRONT only: per meter gained on the anchor, capped at the slot offset.
             "overtake": weights.get("overtake", 0.0) * (lead - previous_lead),
+            "timeout": -weights.get("timeout", 0.0) * float(truncated and not lost),
         }
         # Checkpoints trained before shaping keep exactly their five reward terms.
         self.last_components = {name: value for name, value in components.items() if name in weights}
@@ -187,11 +282,15 @@ class DynamicGoalHighwayEnv(GoalHighwayEnv):
         self.previous_distance = distance
         self.previous_shaping_errors = (lateral_error, speed_error, lead)
         self.status = ("GOAL REACHED" if success else "COLLISION" if collision else "ANCHOR LOST" if truncated and lost
-                       else "TIMED OUT" if truncated else "HOLDING" if inside else "Driving")
+                       else "TIMED OUT" if truncated else "HOLDING" if inside
+                       else "REACQUIRING" if self.hold_steps else "Driving")
         info = self._info(success, collision, truncated and not lost, anchor_lost=truncated and lost)
         if self.render_mode == "human":
             self.render()
         return self._observation(raw), float(sum(self.last_components.values())), terminated, truncated, info
+
+    def _success_allowed(self):
+        return True
 
     def _info(self, success, collision, timeout, anchor_lost=False):
         info = super()._info(success, collision, timeout)
@@ -199,6 +298,7 @@ class DynamicGoalHighwayEnv(GoalHighwayEnv):
             "is_anchor_lost": bool(anchor_lost), "slot": self.slot, "anchor_id": self.anchor_id,
             "anchor_position": self.anchor.position.copy(),
             "hold_steps": self.hold_steps, "hold_required": self.hold_required,
+            "hold_gap_steps": self.hold_gap_steps, "hold_grace_steps": self.hold_grace_steps,
         })
         return info
 

@@ -38,7 +38,7 @@ DQN_CONFIG = {
     "buffer_size": 15_000,
     "learning_starts": 200,
     "batch_size": 32,
-    "gamma": 0.8,
+    "gamma": 0.95,
     "train_freq": 1,
     "gradient_steps": 1,
     "device": "cpu",

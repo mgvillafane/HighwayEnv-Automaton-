@@ -1,0 +1,16 @@
+{
+  "status": "stopped_by_user",
+  "saved_timesteps": 1450000,
+  "last_observed_training_timesteps": 1466000,
+  "checkpoint": "baseline_dynamic_waypoint\\models\\ppo_flexible53_timeout10_dropout005_scratch_seed7_2m_1450000.zip",
+  "final_model": "baseline_dynamic_waypoint\\models\\ppo_flexible53_timeout10_dropout005_scratch_seed7_2m.zip",
+  "stopped_utc": "2026-11-15T05:54:47.862160+00:00",
+  "terminated_training_process_ids": [
+    28776,
+    35600,
+    3396,
+    3672,
+    23100,
+    35492
+  ]
+}

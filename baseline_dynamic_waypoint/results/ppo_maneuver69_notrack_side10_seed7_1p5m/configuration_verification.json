@@ -1,0 +1,24 @@
+{
+  "checks": {
+    "requested_reward_changes_only": true,
+    "same_ppo_settings": true,
+    "fresh_weights_and_optimizer": true,
+    "exact_budget_1500000": true,
+    "69_inputs_confirmed_by_runtime": true,
+    "all_four_goals": true,
+    "dropout005_and_timeout10": true,
+    "same_seed_and_parallelism": true
+  },
+  "targeted_tests_passed": 30,
+  "source_snapshot_sha256": {
+    "config.py": "030f2fd8e53d6bc887c30f42d8bf4e58891bcedfb018c7257804f0a55217d8b3",
+    "dropout_policy.py": "9a9a5cea966c11ae0f99d3ef27c99375b598ed19754e214b4216fe775429403b",
+    "environment.py": "019a39f6595aa177ee230f2834ccf0f6f3d1a2f8b0af18144590f94e207e85ab",
+    "evaluate.py": "13af92cd180b23038a0efe9bc06d4853a7eb8b43e2752339bff791dee3ab04a8",
+    "maneuver_guidance.py": "431c8cb9a37bc5d0c67bdf57e7caa69fc35bb25417711d4e76f12e56bbbc1baa",
+    "single_car.py": "1bc1cac10011a2be88b5e04014532b64b90393bf39c9235002ca3a899cd33564",
+    "train.py": "671da35ea36175fc479d3a05c2fcae4b9b9cddba40b8b016a60e0d59fa935acd",
+    "train_single_car.py": "d83c38efd7ed0eae228c29b2cf1cd968a27cc4aef07b4eb443dace8dc2dd89d4"
+  },
+  "matched_budget_reference": "baseline_dynamic_waypoint\\results\\ppo_maneuver69_timeout10_dropout005_scratch_seed7_2m\\evaluation_1500000.json"
+}

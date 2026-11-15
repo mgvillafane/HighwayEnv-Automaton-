@@ -1,0 +1,26 @@
+{
+  "training_timesteps_observed": 111000,
+  "training_fps": 444.0,
+  "training_success_counts": {
+    "front": {
+      "episodes": 217,
+      "successes": 20
+    },
+    "right": {
+      "episodes": 214,
+      "successes": 61
+    },
+    "back": {
+      "episodes": 216,
+      "successes": 146
+    },
+    "left": {
+      "episodes": 200,
+      "successes": 54
+    }
+  },
+  "finite_training_metrics": true,
+  "checkpoint_75000_verified": true,
+  "dashboard": "http://127.0.0.1:6018/live",
+  "note": "Training successes only. Scheduled deterministic monitoring and final performance are separate."
+}

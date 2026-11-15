@@ -1,0 +1,12 @@
+{
+  "pdf": "Rewards_and_Observations_Maneuver69_PPO.pdf",
+  "pages": 14,
+  "bookmarks": 14,
+  "all_16_navigation_features_present": true,
+  "all_69_inputs_accounted_for": true,
+  "text_within_page_bounds": true,
+  "simulator_reward_examples_reconciled": true,
+  "training_source_snapshots_match": true,
+  "pdf_bytes": 102897,
+  "sha256": "f38996e90ca0307f29427217390986d5aa5c9ad6ad9d38c336aa527903145b28"
+}

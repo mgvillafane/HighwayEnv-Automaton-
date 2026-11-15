@@ -1,0 +1,6 @@
+﻿{
+    "run":  "ppo_maneuver69_notrack_side10_seed7_1p5m",
+    "url":  "http://127.0.0.1:6019/live",
+    "comparison_run":  "ppo_maneuver69_timeout10_dropout005_scratch_seed7_2m",
+    "process_id":  12212
+}

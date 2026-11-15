@@ -1,0 +1,12 @@
+{
+  "exact_additional_steps": 200000,
+  "source_model_unchanged": true,
+  "paired_evaluation_episodes": 100,
+  "video_replays_match_evaluation": true,
+  "tensorboard_url": "http://127.0.0.1:6007/live",
+  "tensorboard_final_success_point": [
+    1794525715.085321,
+    200000,
+    0.6000000238418579
+  ]
+}

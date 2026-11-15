@@ -25,7 +25,11 @@ def load_experiment(model_path, render_mode=None):
         raise FileNotFoundError(f"Model not found: {model_path}. Run baseline_dynamic_waypoint/train.py first.")
     with model_path.with_suffix(".json").open(encoding="utf-8") as handle:
         metadata = json.load(handle)
-    env = DynamicGoalHighwayEnv(render_mode=render_mode, **metadata["environment"])
+    environment_type = DynamicGoalHighwayEnv
+    if metadata.get("task") in ("single_car_waypoint", "single_car_committed_lane"):
+        from baseline_dynamic_waypoint.single_car import make_single_car_env
+        environment_type = make_single_car_env
+    env = environment_type(render_mode=render_mode, **metadata["environment"])
     try:
         model = PPO.load(model_path, device="cpu")
     except Exception:
@@ -56,7 +60,7 @@ def evaluate_policy(env, model, episodes, seed, label):
             obs, reward, terminated, truncated, info = env.step(action)
             total_reward += reward
             length += 1
-            max_hold = max(max_hold, info["hold_steps"])
+            max_hold = max(max_hold, info.get("internal_max_hold_steps", info["hold_steps"]))
         rows.append({
             "policy": label, "seed": episode_seed, "episode": episode + 1,
             "slot": initial_info["slot"], "anchor_initial_gap": anchor_gap,
@@ -65,6 +69,7 @@ def evaluate_policy(env, model, episodes, seed, label):
             "goal_lane": initial_info["goal_lane"],
             "initial_distance": initial_info["distance_to_goal"],
             "reward": total_reward, "length": length,
+            "physics_steps": info.get("episode_physics_steps", length),
             "success": int(info["is_success"]), "collision": int(info["is_collision"]),
             "timeout": int(info["is_timeout"]), "anchor_lost": int(info["is_anchor_lost"]),
             "elapsed_time": info["elapsed_time"], "final_distance": info["distance_to_goal"],
@@ -77,7 +82,10 @@ def evaluate_policy(env, model, episodes, seed, label):
 def summarize(rows):
     mean = lambda key, subset=rows: float(np.mean([row[key] for row in subset]))
     summary = summarize_static(rows)
+    successes = [row for row in rows if row["success"]]
     summary.update({
+        "average_steps_to_success": mean("length", successes) if successes else None,
+        "successful_episodes": len(successes),
         "anchor_lost_rate": mean("anchor_lost"),
         "average_max_hold_seconds": mean("max_hold_seconds"),
         "success_rate_by_slot": {slot: mean("success", [row for row in rows if row["slot"] == slot])
@@ -86,6 +94,31 @@ def summarize(rows):
         "average_reward_components": {key[len("reward_"):]: mean(key) for key in rows[0] if key.startswith("reward_")},
     })
     return summary
+
+
+def evaluate_single_car(model, environment, output, episodes=100, seed=10_000, prefix="evaluation"):
+    """Evaluate a randomized two-car profile using the same held-out seeds."""
+    from baseline_dynamic_waypoint.single_car import make_single_car_env
+    env = make_single_car_env(**environment)
+    try:
+        rows = evaluate_policy(env, model, episodes, seed, "ppo")
+        for row in rows:
+            _, info = env.reset(seed=row["seed"])
+            row.update({f"initial_{key}": value for key, value in info["initial_scenario"].items()
+                        if key != "slot"})
+        result = {"first_seed": seed, "environment": environment, "ppo": summarize(rows),
+                  "ppo_by_slot": {slot: summarize([row for row in rows if row["slot"] == slot])
+                                  for slot in SLOTS if any(row["slot"] == slot for row in rows)}}
+    finally:
+        env.close()
+    output = Path(output)
+    save_rows(output / f"{prefix}_episodes.csv", rows)
+    (output / f"{prefix}.json").write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
+    stats = result["ppo"]
+    print(f"{prefix}: {episodes} episodes, success {stats['success_rate']:.1%}, "
+          f"collision {stats['collision_rate']:.1%}, timeout {stats['timeout_rate']:.1%}, "
+          f"success by slot {stats['success_rate_by_slot']}", flush=True)
+    return result
 
 
 def compare(model_path, output_dir, episodes=EVALUATION_EPISODES, seed=EVALUATION_SEED):

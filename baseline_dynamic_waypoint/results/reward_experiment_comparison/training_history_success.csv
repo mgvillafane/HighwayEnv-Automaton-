@@ -1,0 +1,17 @@
+experiment,run,goal,successes,training_episodes,success_percent
+Simple reward,ppo_singlecar_flexible30s_seed7_200k,left,126,251,50.199203187250994
+Simple reward,ppo_singlecar_flexible30s_seed7_200k,right,0,260,0.0
+Simple reward,ppo_singlecar_flexible30s_seed7_200k,back,207,261,79.3103448275862
+Simple reward,ppo_singlecar_flexible30s_seed7_200k,front,0,269,0.0
+Timeout + dropout,ppo_flexible53_timeout10_dropout005_scratch_seed7_2m,left,901,1734,51.96078431372549
+Timeout + dropout,ppo_flexible53_timeout10_dropout005_scratch_seed7_2m,right,1,1775,0.056338028169014086
+Timeout + dropout,ppo_flexible53_timeout10_dropout005_scratch_seed7_2m,back,1109,1720,64.47674418604652
+Timeout + dropout,ppo_flexible53_timeout10_dropout005_scratch_seed7_2m,front,1,1757,0.056915196357427436
+Route progress + tracking,ppo_maneuver69_timeout10_dropout005_scratch_seed7_2m,left,7237,7515,96.30073186959414
+Route progress + tracking,ppo_maneuver69_timeout10_dropout005_scratch_seed7_2m,right,7220,7499,96.27950393385785
+Route progress + tracking,ppo_maneuver69_timeout10_dropout005_scratch_seed7_2m,back,7437,7507,99.06753696549887
+Route progress + tracking,ppo_maneuver69_timeout10_dropout005_scratch_seed7_2m,front,4753,7603,62.5147967907405
+No tracking + FRONT side bonus,ppo_maneuver69_notrack_side10_seed7_1p5m,left,6450,6685,96.48466716529543
+No tracking + FRONT side bonus,ppo_maneuver69_notrack_side10_seed7_1p5m,right,6478,6698,96.71543744401313
+No tracking + FRONT side bonus,ppo_maneuver69_notrack_side10_seed7_1p5m,back,6593,6648,99.17268351383875
+No tracking + FRONT side bonus,ppo_maneuver69_notrack_side10_seed7_1p5m,front,4226,6750,62.60740740740741

@@ -1,7 +1,9 @@
 """Behavioral checks for the dynamic-waypoint task: slot geometry, motion, hold logic, rendering."""
 from collections import Counter
 from copy import deepcopy
+import runpy
 import unittest
+from unittest.mock import patch
 
 import numpy as np
 from stable_baselines3.common.env_checker import check_env
@@ -11,9 +13,28 @@ from baseline_dynamic_waypoint.environment import DynamicGoalHighwayEnv
 from baseline_dynamic_waypoint.scripted import scripted_action
 
 
+class DynamicConfigTests(unittest.TestCase):
+    def test_static_config_changes_do_not_affect_dynamic_defaults(self):
+        from baseline_dynamic_waypoint import config as dynamic_config
+        from baseline_waypoint import config as static_config
+
+        names = ("ENV_CONFIG", "GOAL_CONFIG", "REWARD_WEIGHTS", "PPO_CONFIG", "SEED",
+                 "NUM_ENVS", "TRAINING_TIMESTEPS", "EVALUATION_EPISODES", "EVALUATION_SEED")
+        expected = deepcopy({name: getattr(dynamic_config, name) for name in names})
+        with patch.multiple(static_config, ENV_CONFIG={"lanes_count": 1},
+                            REWARD_WEIGHTS={"goal": 999.0}, PPO_CONFIG={"gamma": 0.1},
+                            SEED=999, NUM_ENVS=1, TRAINING_TIMESTEPS=1,
+                            EVALUATION_EPISODES=1, EVALUATION_SEED=999):
+            fresh = runpy.run_path(dynamic_config.__file__)
+        for name in names:
+            with self.subTest(setting=name):
+                self.assertEqual(fresh[name], expected[name])
+
+
 class DynamicGoalTests(unittest.TestCase):
     def make_env(self, hold_seconds=1.0, render_mode=None):
         goal = deepcopy(GOAL_CONFIG)
+        goal["observation_schema"] = "legacy"
         goal["hold_seconds"] = hold_seconds
         env = DynamicGoalHighwayEnv(goal_config=goal, render_mode=render_mode)
         self.addCleanup(env.close)

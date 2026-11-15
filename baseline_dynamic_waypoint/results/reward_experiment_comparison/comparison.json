@@ -1,0 +1,242 @@
+{
+  "selection": "Final/latest recorded evaluations; not best checkpoints",
+  "goals": [
+    "left",
+    "right",
+    "back",
+    "front"
+  ],
+  "cases": [
+    {
+      "label": "Simple reward",
+      "run": "ppo_singlecar_flexible30s_seed7_200k",
+      "source": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\results\\ppo_singlecar_flexible30s_seed7_200k\\evaluation.json",
+      "rates": [
+        100.0,
+        0.0,
+        100.0,
+        0.0
+      ],
+      "counts": [
+        [
+          33,
+          33
+        ],
+        [
+          0,
+          22
+        ],
+        [
+          27,
+          27
+        ],
+        [
+          0,
+          18
+        ]
+      ],
+      "overall_success": 0.6,
+      "collision_rate": 0.06,
+      "color": "#648096",
+      "legend": "Simple reward | pretrained + 200k"
+    },
+    {
+      "label": "Timeout + dropout",
+      "run": "ppo_flexible53_timeout10_dropout005_scratch_seed7_2m",
+      "source": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\results\\ppo_flexible53_timeout10_dropout005_scratch_seed7_2m\\evaluation_1250000.json",
+      "rates": [
+        54.54545454545455,
+        0.0,
+        100.0,
+        0.0
+      ],
+      "counts": [
+        [
+          18,
+          33
+        ],
+        [
+          0,
+          22
+        ],
+        [
+          27,
+          27
+        ],
+        [
+          0,
+          18
+        ]
+      ],
+      "overall_success": 0.45,
+      "collision_rate": 0.06,
+      "color": "#DF9A35",
+      "legend": "Timeout + dropout | latest evaluation, 1.25M"
+    },
+    {
+      "label": "Route progress + tracking",
+      "run": "ppo_maneuver69_timeout10_dropout005_scratch_seed7_2m",
+      "source": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\results\\ppo_maneuver69_timeout10_dropout005_scratch_seed7_2m\\evaluation.json",
+      "rates": [
+        100.0,
+        95.45454545454545,
+        100.0,
+        77.77777777777777
+      ],
+      "counts": [
+        [
+          33,
+          33
+        ],
+        [
+          21,
+          22
+        ],
+        [
+          27,
+          27
+        ],
+        [
+          14,
+          18
+        ]
+      ],
+      "overall_success": 0.95,
+      "collision_rate": 0.0,
+      "color": "#0B8F8F",
+      "legend": "Route progress + tracking | final, 2M"
+    },
+    {
+      "label": "No tracking + FRONT side bonus",
+      "run": "ppo_maneuver69_notrack_side10_seed7_1p5m",
+      "source": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\results\\ppo_maneuver69_notrack_side10_seed7_1p5m\\evaluation.json",
+      "rates": [
+        100.0,
+        100.0,
+        100.0,
+        77.77777777777777
+      ],
+      "counts": [
+        [
+          33,
+          33
+        ],
+        [
+          22,
+          22
+        ],
+        [
+          27,
+          27
+        ],
+        [
+          14,
+          18
+        ]
+      ],
+      "overall_success": 0.96,
+      "collision_rate": 0.04,
+      "color": "#8062B4",
+      "legend": "No tracking + FRONT side bonus | final, 1.5M"
+    }
+  ],
+  "equal_budget_1500000": {
+    "route_tracking": {
+      "episodes": 100,
+      "success_rate": 0.96,
+      "collision_rate": 0.0,
+      "timeout_rate": 0.04,
+      "average_episode_reward": 66.77509405991144,
+      "average_time_to_goal_seconds": 4.791666666666665,
+      "average_final_distance_meters": 3.8251475649322217,
+      "success_rate_by_goal_lane": {
+        "0": 1.0,
+        "1": 1.0,
+        "2": 0.8095238095238095
+      },
+      "success_rate_by_required_lane_changes": {
+        "0": 0.9722222222222222,
+        "1": 0.9318181818181818,
+        "2": 1.0
+      },
+      "average_reward_components": {
+        "goal": 48.0,
+        "collision": 0.0,
+        "progress": 3.1048282828359763,
+        "time": -2.900000000000003,
+        "hold": 0.96,
+        "lane": 0.0,
+        "speed_match": 0.0,
+        "overtake": 0.0,
+        "timeout": -0.4,
+        "route_progress": 18.70087006633875,
+        "tracking": -0.6906042892633014
+      },
+      "average_steps_to_success": 47.916666666666664,
+      "successful_episodes": 96,
+      "anchor_lost_rate": 0.0,
+      "average_max_hold_seconds": 0.48,
+      "success_rate_by_slot": {
+        "front": 0.7777777777777778,
+        "back": 1.0,
+        "left": 1.0,
+        "right": 1.0
+      },
+      "episodes_by_slot": {
+        "front": 18,
+        "back": 27,
+        "left": 33,
+        "right": 22
+      }
+    },
+    "no_tracking_side_bonus": {
+      "episodes": 100,
+      "success_rate": 0.96,
+      "collision_rate": 0.04,
+      "timeout_rate": 0.0,
+      "average_episode_reward": 68.08312591156049,
+      "average_time_to_goal_seconds": 4.842708333333332,
+      "average_final_distance_meters": 3.5273721874993282,
+      "success_rate_by_goal_lane": {
+        "0": 1.0,
+        "1": 1.0,
+        "2": 0.8095238095238095
+      },
+      "success_rate_by_required_lane_changes": {
+        "0": 0.9722222222222222,
+        "1": 0.9318181818181818,
+        "2": 1.0
+      },
+      "average_reward_components": {
+        "goal": 48.0,
+        "collision": -2.0,
+        "progress": 3.1346058205792655,
+        "time": -2.4289999999999994,
+        "hold": 0.976,
+        "lane": 0.0,
+        "speed_match": 0.0,
+        "overtake": 0.0,
+        "timeout": 0.0,
+        "route_progress": 19.001520090981227,
+        "tracking": 0.0,
+        "front_side": 1.4
+      },
+      "average_steps_to_success": 48.427083333333336,
+      "successful_episodes": 96,
+      "anchor_lost_rate": 0.0,
+      "average_max_hold_seconds": 0.48,
+      "success_rate_by_slot": {
+        "front": 0.7777777777777778,
+        "back": 1.0,
+        "left": 1.0,
+        "right": 1.0
+      },
+      "episodes_by_slot": {
+        "front": 18,
+        "back": 27,
+        "left": 33,
+        "right": 22
+      }
+    }
+  }
+}

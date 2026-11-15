@@ -1,0 +1,26 @@
+{
+    "pid":  2072,
+    "arguments":  [
+                      "-u",
+                      "-B",
+                      "baseline_DQN/train.py",
+                      "--preset",
+                      "quickstart",
+                      "--fast-observation",
+                      "--seed",
+                      "2",
+                      "--timesteps",
+                      "200000",
+                      "--num-envs",
+                      "1",
+                      "--eval-episodes",
+                      "50",
+                      "--run-name",
+                      "dqn_quickstart_gamma095_seed2_200k_fast",
+                      "--quiet"
+                  ],
+    "stderr":  "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_DQN\\results\\dqn_quickstart_gamma095_seed2_200k_fast\\training_stderr.log",
+    "launched_utc":  "2026-11-12T04:10:48.2011479Z",
+    "stdout":  "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_DQN\\results\\dqn_quickstart_gamma095_seed2_200k_fast\\training_stdout.log",
+    "executable":  "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_waypoint\\.venv\\Scripts\\python.exe"
+}

@@ -1,0 +1,5 @@
+﻿{
+    "run":  "ppo_flexible53_timeout10_dropout005_scratch_seed7_2m",
+    "url":  "http://127.0.0.1:6017/live",
+    "process_id":  12644
+}
