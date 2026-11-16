@@ -4,7 +4,7 @@ A living record of the dynamic-waypoint *reach* experiments. Each step is added 
 the [experiment log](#9-experiment-log), and every decision gets a line in the
 [decision log](#10-decision-log). All numbers come from files in this folder.
 
-**Status (2026-11-09, 15:00).** Steps 0–6 are done. Step 6 (B4, crash weight 150) did not reduce crashes; Step 7 is proposed and **waiting for review**. Since 2026-11-09 FRONT is set aside and the target is BACK/LEFT/RIGHT (138 of the 200 evaluation episodes).
+**Status (2026-11-15, evening).** Step 7a: training audit; B5 fixed a gradient-clip throttle without changing outcomes. Steps 7b–7e on the passing task (blocked episodes, slow car held in its lane): P1 learned to pass once and gave up; P1s, P2 and P3 (mixed practice starts) give up from the start. Cause: from fresh weights most attempts crash, and with crash = −goal stopping is learned first (B1's collapse). Step 7f (success-only reward first, then the crash cost, as B0 → B2): **P4 passes** (34–50% of the natural-start passing episodes, scripted 2.5%) but crashes in the rest; **P5** (crash cost from P4's policy) passes in 62–64% on seeds 7 and 8 and reaches 119 and 121 of 138 BACK/LEFT/RIGHT on the full task, the first arms above the scripted driver's 113 (seed 9 ends in a checkpoint dip). **P6** (full task from P5's policy) reaches 123–134 of 138 BACK/LEFT/RIGHT on every seed (scripted 113) and 41–48 of 62 FRONT on two seeds (scripted 40); crashes remain, mostly on FRONT. Since 2026-11-09 FRONT is set aside.
 
 | Arm | Change | Success | Crash | BACK/LEFT/RIGHT reached of 138 (seeds 7, 8, 9) | Main failure |
 |---|---|---:|---:|---|---|
@@ -747,7 +747,9 @@ Arm `B4` in [`config.py`](config.py): parent B3m, IV `environment.reward_weights
 - Raising the penalty further would not help for the same reason.
 - **Lane changes show the same trap** (B4 seed 9, deterministic replay, checked 2026-11-09). In 10051 and 10139 ego pulls out of the slot's lane and comes back within about 0.5 s, five or six times (`L--R--L--R…`), always still behind the blocking car, and crashes at 3–4 s. A pass needs about 4 s in the next lane at 20–25 m/s against 12 m/s; each single lane change followed by the usual "return to the slot's lane" gains nothing, so it is never reinforced. In 10045 (ego and slot in lane 0) it chooses LANE_LEFT 36 times, which does nothing in the leftmost lane, and crashes at 20 m/s.
 
-### Proposed Step 7 (waiting for review)
+### Proposed Step 7 (2026-11-09; superseded by Step 7a below)
+
+Neither option was run. On 2026-11-15 the user asked first for a systematic check of the training itself (Step 7a), then for passing-only training (Step 7b).
 
 One IV from B4 (crash weight 150 stays; each arm still starts from B0's weights). Two candidates that act on the policy rather than the reward:
 
@@ -766,6 +768,280 @@ One IV from B4 (crash weight 150 stays; each arm still starts from B0's weights)
 
 Nothing is trained for Step 7 until it is chosen.
 
+
+### Step 7a: audit of the training pipeline, and B5 (reward scale 1/50) (2026-11-15)
+
+**Why.** The training curves from B2 on look jumpy, and B4's larger penalty changed nothing in the policy. Before adding anything, the user asked for a systematic check for errors in training. Everything below is reproducible with [`diagnose_updates.py`](diagnose_updates.py) (`curves`, `run`, `start`); tables in [`results/pipeline_check/`](results/pipeline_check/).
+
+**What was checked, and what was found.**
+
+| Check | Result |
+|---|---|
+| Observation assembly | Correct. `goal_delta` uses unclipped values; ego's x is progress from the episode start. Known limit: car rows on a ±200 m scale. |
+| Timeouts | Correct. SB3 2.9.2 bootstraps truncated episodes with the value of the final state. |
+| Spawns (1,000 training resets) | No overlapping cars; smallest same-lane bumper gap median 27 m, none under 5 m. |
+| Traffic-only crashes (300 episodes, B3m driving) | None. |
+| Jumpy curves ([`curves.md`](results/pipeline_check/curves.md)) | Mostly counting noise. A curve point averages the episodes of 25k transitions: ~455 in B0 (its episodes end early), ~228 from B2 on (FRONT episodes run the full 25 s). The spread between points is 1.0–1.3× pure binomial noise (B4 up to 2×). The curves also use the sampling policy (entropy ≈ 1.05 of 1.61 nats), not the evaluated one. |
+| Learning rate | Not too high. PPO's updates are **too small**: median approx-KL ≈ 0.001 and clip fraction ≈ 0 in every arm after 200k (typical PPO: KL 0.01–0.02, clip 0.1–0.2). |
+| **Why the updates are small** | **One gradient-norm clip (0.5) covers the policy and value networks together** (`ppo.py`, `clip_grad_norm_(self.policy.parameters())`). With rewards of ±50, the value gradient is 30–120× the policy gradient, so every minibatch is scaled by 0.01–0.04. One real PPO update in memory: KL 0.0047 → 0.0183 (B0), 0.0020 → 0.0109 (B3m), 0.0030 → 0.0185 (B4) when that clip is removed. B4's tripled penalty tripled the value gradient. |
+| **Merging Marcos's single-car work** | **It broke training without breaking any test.** `SlotEpisodeMetrics` (his `train.py`), which our logger extended, gained two required arguments and its own checkpointing; `train.py` crashed at start. The reach study now has a frozen copy of the class as of commit 8b2c911. It only logs. |
+
+**Verifying that nothing else changed.**
+- Observations are now built with Marcos's NumPy encoder (`baseline_DQN/fast_observation.py`). Equal to the native ones on 60 episodes (2,977 steps, exact array equality); 1,200 saved evaluation episodes (B0, B2, B3, B3m, B4 ×2) replay identically, returns included; the simulator runs 3.6× faster (339 → 1,216 steps/s).
+- **Training reproduces exactly**: re-running the first 61,440 transitions of B3m seed 7 on this branch gives the same 887 training episodes, identical in all 18 logged columns. About 2,000 transitions/s per run, against 545 before.
+- `ivcheck`, tests: 27 pass (6 new: reward scale, fast observation, starting weights, B5).
+
+**B5: the fix, as one IV from B3m.**
+- **IV:** `environment.reward_scale`, absent (1) → 0.02. Goal +1, crash −1, shaping 0.002 per meter. Multiplying the whole reward by a positive constant cannot change the best policy.
+- B5 starts from B0's weights like its parent. B0's critic predicts returns in the old units, so its output layer is multiplied by the same 0.02 at load ([`train.py`](train.py) `load_initial_weights`): the starting policy is identical and its value estimates are in the new units (tested).
+- **Checked before training** ([`start_B5_seed7.md`](results/pipeline_check/start_B5_seed7.md)): at B5's starting point the value share of the gradient is 44% (B3m: 100%), the clip factor 1.0 (not clipped), and one update moves the policy KL 0.0089 (B3m 0.0020).
+- Checkpoints every 50k transitions (`--checkpoint-every 50000`, logging only), so the policy can be evaluated deterministically along training.
+
+**Prediction (written 17:06 2026-11-15, before launch).**
+1. Normal-sized updates throughout: median approx-KL 0.005–0.02 and clip fraction 0.05–0.2 after 200k, on all seeds.
+2. BACK/LEFT/RIGHT crashes below B3m's 25–28 per seed on at least two seeds. Reasoning: the critic already tells blocked from clear episodes (Step 5); with the policy able to move, it should act on it.
+3. BACK/LEFT/RIGHT success within ±5 of B3m (110–113) or higher; FRONT stays at 0.
+4. Risk: larger steps can also make training less stable; if the deterministic checkpoint curve swings by more than ±10 episodes after 200k, the step size is too large for this setup.
+
+**B5 results** (10.2 min per run; [`B5_summary.md`](results/B5_summary.md); `ivcheck`: only `environment.reward_scale` differs).
+
+| Seed | B3m: BACK/LEFT/RIGHT reached / crash / timeout | B5 | B5 overall | median KL (B3m → B5) | clip fraction (B3m → B5) |
+|---|---|---|---:|---|---|
+| 7 | 111 / 27 / 0 | 113 / 25 / 0 | 56.5% | 0.0009 → 0.0046 | 0.000 → 0.012 |
+| 8 | 113 / 25 / 0 | 113 / 25 / 0 | 56.5% | 0.0007 → 0.0036 | 0.000 → 0.012 |
+| 9 | 110 / 28 / 0 | 113 / 26 / 0 | 56.5% | 0.0007 → 0.0040 | 0.000 → 0.013 |
+
+- **The mechanism is fixed:** trained B5 gives the value network 3–19% of the gradient (B3m: 100%), and the clip barely acts ([`updates_B3m_seed7_B5_seed7_B5_seed8.md`](results/pipeline_check/updates_B3m_seed7_B5_seed7_B5_seed8.md)).
+- **Prediction 1 failed in size:** updates grew about 5×, but stayed below the predicted KL 0.005–0.02 and clip fraction 0.05–0.2.
+- **Prediction 2 holds only on paper:** crashes are lower than B3m on seeds 7 and 9, by 2 episodes, which is inside the noise floor. No real effect. Predictions 3 (success) and FRONT hold.
+- **Prediction 4 (stability):** B5's deterministic checkpoint curve dips (to 92–100 reached) a few times and recovers. B3m, re-trained with checkpoints for comparison, dips more: on seed 7, 7 of 16 checkpoints after 200k fall below 105, the lowest at 72 ([`checkpoints_B3m_replay.csv`](results/pipeline_check/checkpoints_B3m_replay.csv)). The wobble was always there; B5 is not less stable.
+- **The re-trained B3m reproduced the saved runs exactly**: 28,194 training episodes over 1M transitions on three seeds, identical in every column.
+
+**Reading.** The throttling was real but was not what held the policy in place. On BACK/LEFT/RIGHT every arm from B0 to B5 reaches essentially the same episodes: about 110 of the scripted driver's 113, plus the same ~3 more; B0 and B3m differ in only 3–10 of 138. Four changes never moved this behavior. The remaining ~25 episodes need a pass.
+
+### Step 7b: passing-only training, P1 (from B0's policy) and P1s (fresh weights) (2026-11-15)
+
+**Why.** Every arm from B0 to B5 reaches the same BACK/LEFT/RIGHT episodes: about 110 of the scripted driver's 113, plus the same ~3 more (B0 and B3m differ in only 3–10 of 138). The remaining ~25 need a pass. The user's hypothesis: the training set is too diverse; "go to the slot's lane and accelerate" is right in most episodes, and that habit traps PPO in the few that need a pass. So train on passing situations only.
+
+**Scenario** (`environment.scenario = {"require_blocked": true, "blocker_stays": true}`, in [`environment.py`](environment.py)):
+- at reset, draw again (continuing the seeded stream, so a seed still names one episode) until the slot is BACK, LEFT or RIGHT and a car sits in the slot's lane between ego and the slot: Step 5's "blocked" test, now `ReachEnv.blocking_cars()`, which `blocked.py` also uses (its 200 tags are unchanged);
+- switch off lane changes for those blocking cars, so waiting never clears the way.
+- Measured: 4.9 draws per episode on average (max 26); slots BACK 43%, LEFT 30%, RIGHT 27%; blocking cars never changed lane in 100 random-policy episodes; tests cover all of it.
+
+**Arms** (one IV each, `ivcheck`):
+- `P1` = B5 + the scenario. Starts from B0's weights (like B2–B5), with reward scale 1/50 (goal +1, crash −1). B5 is the parent because its updates are not throttled by the gradient clip.
+- `P1s` = P1 with fresh weights (`init_policy` None), as the user asked to compare both.
+
+**Baseline on the passing task** (200 fixed episodes, seeds 10,000–10,199 through the same draws; [`B5_seed7/evaluation_on_P1`](results/B5_seed7/evaluation_on_P1/evaluation.json)):
+
+| Policy | Reached | Crash | Timeout |
+|---|---:|---:|---:|
+| B5 (seed 7) | 1.0% | 99.0% | 0% |
+| Random | 4.0% | 87.0% | 9.0% |
+| Scripted driver (waits, never passes) | 2.5% | 10.0% | 87.5% |
+
+**Prediction (written 17:25, before launch).**
+- *P1:* it stops ramming first: crashes fall from 99% to under 30% on all seeds, mostly into timeouts (waiting behind the car). Passing is the open question; I expect little: success 0–15%, and "learns some passing" only if success reaches at least 10% on at least two seeds.
+- *P1s:* from random weights trying is worth about 0.04 − 0.87 ≈ −0.8 against 0 for giving up, the situation that made B1 collapse. I expect a collapse: timeouts at least 80% and success at most 5% on at least two seeds.
+- *Both, on the standard 200 episodes:* worse than B5 on clear episodes (they never see one in training); FRONT 0.
+- What would change my reading: P1 or P1s passing in more than 25% of passing episodes would mean the diverse training set, not PPO's exploration, was the main obstacle.
+
+**Results** (17 min per run, six in parallel; `ivcheck`: P1 differs from B5 only in `environment.scenario`, P1s from P1 only in `init_policy`).
+
+| Run | Passing episodes: reached / crash / timeout (of 200) | Successes during training (of ~4,000–5,300 episodes) |
+|---|---|---:|
+| P1 seed 7 | 0 / 7 / 193 | 3 |
+| P1 seed 8 | 0 / 9 / 191 | **391** |
+| P1 seed 9 | 0 / 3 / 197 | 4 |
+| P1s seed 7 | 0 / 1 / 199 | 4 |
+| P1s seed 8 | 0 / 0 / 200 | 10 |
+| P1s seed 9 | 0 / 0 / 200 | 6 |
+
+- **Both arms end by waiting** behind the blocking car until time runs out. P1s's prediction (collapse) holds; P1's holds for crashes (under 30%) and for success (0–15%), and "learns some passing" fails at the end.
+- **But P1 seed 8 learned to pass, then gave it up.** Its training (sampling policy, per 10k transitions): success 3% → 15% → 24% → 33% → 41% at 60k, crashes 97% → 58%; then within 30k transitions it switched to waiting (timeouts 1% → 100%). Its deterministic checkpoint at 50k reached **58 of 200 passing episodes by getting fully past the blocking car** (median 7.9 s; 1 more without passing). It crashed in 141: 95 into the blocking car, 24 after passing (into the anchor or another car while merging), 22 into other traffic.
+- **Why it gave up:** with goal +1 and crash −1, "about 30% reached, 70% crash" is worth about −0.4, and waiting is worth 0. PPO took the better option under this reward. This is B1's trap: a crash cost equal to the goal makes giving up best while trying still fails more often than it succeeds.
+- **Start from B0 vs fresh:** P1s never found a pass (at most 10 successes, all in the first 100k). P1 found it on one seed of three. The inherited "drive at the slot" habit helped exploration here, the opposite of the worry.
+
+**Reading.** The user's hypothesis holds in part: on passing-only data PPO *can* find the pass (P1 seed 8, 30% within 50k transitions). What stops it is the reward, not the data: when waiting costs nothing, a pass that still fails most of the time is not worth trying. In this scenario waiting can never succeed, so a timeout is a failure like a crash.
+
+### Step 7c: P2, the passing task without the progress reward (fresh weights) (2026-11-15)
+
+The user asked to test hypotheses one at a time, to stop starting from B0's weights (its habit is to stay in the slot's lane), and to check first whether the progress reward is needed at all.
+- **Arm `P2`:** parent P1s (passing task, fresh weights). **IV:** `environment.reward_weights.potential_progress.weight` 0.1 → 0. Reward is then +1 on reaching the slot, −1 on a crash, nothing else.
+- Offered order: the timeout cost first, so the progress test happens where the agent succeeds. The user chose progress removal first.
+- **Prediction (written 18:22, before launch):** P2 also ends by waiting: 0–2% of the 200 passing episodes reached and at least 90% timeouts on all three seeds, like P1s. If so, the result cannot say whether the progress reward matters, because both arms sit at 0 (a floor effect). A clear difference, at least 10% reached on two seeds, would mean the progress reward was getting in the way.
+
+**Results** (`ivcheck`: only `potential_progress.weight` 0.1 → 0 differs from P1s).
+
+| Run | Passing episodes reached / crash / timeout (of 200) | Successes during training |
+|---|---|---:|
+| P1s seeds 7 · 8 · 9 (with progress) | 0/1/199 · 0/0/200 · 0/0/200 | 4 · 10 · 6 |
+| P2 seeds 7 · 8 · 9 (without) | 0/1/199 · 0/0/200 · 0/0/200 | 6 · 5 · 4 |
+
+- **The prediction holds, and so does its caveat.** P2 behaves like P1s: no difference that can be seen. Both sit at 0, so this does not show that the progress reward is useless, only that it does not prevent or cause this collapse.
+- **The collapse is fast.** Seed 7, per 10k transitions: P2 reached 6 → 0, crashed 80% → 10% → 0%, timed out 13% → 90% → 100%; P1s the same within 20k transitions (about 25 PPO updates). From random weights a crash is 15–20× likelier than a success, so stopping is learned long before a pass can be found.
+- From here the progress reward is left out (simpler reward, no measured cost), so P2 is the parent of the next step.
+
+### Proposed Step 7d: timeout charged like a crash, from P2 (withdrawn as the main fix, 2026-11-15)
+
+**Correction, written after the proposal below.** The timeout cost arrives at 25 s, so seen from the start it is discounted to 0.99^250 ≈ 0.08: −1 becomes about −0.08, and waiting stays almost free. The proposal below overlooked this. The analysis of why the passing arms give up:
+- **Discounting:** a failed pass crashes at about 2–3 s (weight 0.99^30 ≈ 0.74); a completed pass arrives at about 8 s (0.99^80 ≈ 0.45). With +1/−1, trying beats waiting only if more than 62% of attempts succeed. P1 seed 8 was at 30–40% and rising when it gave up; a random start is at 4%.
+- **PPO forgets what it stops doing:** it learns only from its current policy's actions, so once it waits it no longer samples passes, and entropy 0.01 does not pull it back.
+- **Scenario:** every passing episode starts 35 m behind a 12 m/s car at 20 m/s, so the hardest part (pulling out within about 3 s) comes first.
+
+Ways that need no new reward term: a reverse curriculum on where episodes start (recommended: early attempts then succeed far more than 62% of the time); an easier fixed start (larger gap); a higher discount (0.998: crash 0.94 vs success 0.85, still needs >50%); a larger entropy coefficient; an off-policy method with replay. The original proposal follows, unchanged.
+
+
+
+
+One IV from **P2** (fresh weights, no progress reward): **charge a timeout like a crash**, `reward_weights.timeout` 0 → 50 (×0.02 = −1). The term already exists in the inherited environment (Marcos's; off in every arm so far, and replays confirm that off changes nothing).
+- Waiting is then worth about −1, ramming −1, and any attempt that sometimes passes is worth more: from random weights (about 4% reached, 87% crash) trying is about −0.83 against −1 for waiting, so waiting is no longer a safe harbour; at P1 seed 8's level (30% reached) trying is about −0.4.
+- **Prediction:** at least two of three seeds keep passing: at least 20% of the 200 passing episodes reached at the end, with crashes falling over training.
+- **Caveat:** the agent cannot see the clock, so the timeout cost is a little unpredictable for the value network. A per-step time cost avoids that but also charges the time a pass takes; the terminal cost is the simpler first try.
+- Alternative: a reverse curriculum (start some episodes beside or past the blocking car), if the timeout cost alone is not enough.
+
+### Step 7e: P3, mixed practice starts on the passing task (2026-11-15)
+
+**Why.** P1, P1s and P2 all end by waiting. With γ 0.99 at 10 Hz a failed pass crashes at about 2–3 s (weight 0.74) while a pass succeeds at about 8 s (0.45), so trying beats waiting only above ~62% success; learners start far below that, and PPO forgets passes once it stops trying. The user chose to change where practice starts rather than add reward terms, and chose mixed starts over a schedule.
+
+**Arm `P3`:** parent P2 (passing task, fresh weights, reward +1 reach / −1 crash, no progress reward). **IV:** `environment.scenario.start_offsets = ["past", "beside", "behind", "natural"]`. Each episode, after the blocked-episode draw, picks one start uniformly from the seeded stream and moves ego (same 20 m/s) relative to the nearest blocking car:
+
+| Start | Ego | Measured (400 resets) |
+|---|---|---|
+| past | next lane, 10 m ahead of the slow car | 22% |
+| beside | next lane, level with it | 22% |
+| behind | next lane, 15 m behind it | 24% |
+| natural | not moved (35 m behind the lead car, as evaluated) | 32% (25% drawn + starts without room) |
+
+- A start is used only with at least 8 m of bumper clearance in that lane and at least 10 m before the slot; otherwise the episode keeps its natural start. `info["start"]` records the start used.
+- After a move, everything reset derives from ego's start (episode origin, previous distance, shaping errors, potential, observation) is recomputed; a test checks it equals a fresh computation. Placements are exact (+10, 0, −15 m, one lane from the slot's lane).
+- Without `start_offsets` nothing changes: P2, P1 and B5 evaluations replay identically (600/600 episodes). 39 tests pass.
+
+**Evaluation.** Primary: the same 200 natural-start passing episodes as P2 (`evaluate.py --environment-of P2`). Also P3's own task split by start, and checkpoint curves on the natural-start episodes.
+
+**Prediction (written 19:02, before launch).**
+1. "past" and "beside" starts reached in at least 70% of episodes by the end, on all seeds.
+2. **Natural start (the test): at least 15% of the 200 passing episodes reached on at least 2 of 3 seeds** (P2: 0), and the checkpoint curve does not collapse to 95% or more timeouts after 200k.
+3. If natural-start success stays near 0 while the easy starts succeed, the skill does not chain back to the start; the next candidates are a schedule or a larger γ.
+
+**Results** (10.2 min per run; `ivcheck`: only `scenario.start_offsets` differs from P2).
+
+| Run | Own task (mixed starts): reached / crash / timeout | P2's 200 natural-start episodes | Successes in training (of ~4,300) |
+|---|---|---|---:|
+| P3 seed 7 | 0 / 31 / 169 | 0 / 0 / 200 | 7 |
+| P3 seed 8 | 0 / 11 / 189 | 0 / 37 / 163 | 23 |
+| P3 seed 9 | 0 / 45 / 155 | 0 / 33 / 167 | 10 |
+
+- **All three predictions failed.** Not even the easy starts are reached at the end; training saw 7–23 successes in all, most of them in the first 50k transitions, and timeouts rose to 82–87% by 100k.
+- **The easy starts are easy for a sensible driver, not for a random one.** From the same 200 episodes, by start: the scripted driver reaches "past" 33/41 and "beside" 45/55, but random actions reach only 9/41 and 12/55 and crash in about 70% (random lane changes into traffic or into the slow car). A fresh policy is close to random, so even its easy starts are "about 22% reached, 70% crash", worth less than waiting under +1/−1. It learns to stop long before it can learn to pass.
+- The "behind" start also trips the scripted driver (39 crashes of 45): from 15 m behind in the next lane it merges straight back behind the slow car.
+
+**Reading.** The giving-up is set by the start of learning, not by where episodes start: from fresh weights with crash = −goal, most early attempts crash, so stopping is learned first, everywhere. This is B1's collapse again (crash penalty from scratch). The reach chain already found a way out: B0 learned to reach with success as the only reward (B0), and the crash penalty was added only afterwards, starting from that policy (B2), which did not collapse.
+
+### Step 7f: P4, success first on the passing task (2026-11-15)
+
+**Why.** P3 gave up from the start (see 7e): a fresh policy crashes in about 70% of its early attempts, even from the easy starts, so with crash = −goal stopping is learned before passing. The reach chain already got out of this once: B0 learned to reach with success as the only reward, and the crash cost was added afterwards from that policy (B2), without a collapse. Step 7f repeats that on the passing task, one IV per step. Approved by the user.
+
+**Arm `P4`:** parent P3 (passing task, mixed starts, fresh weights, no progress reward). **IV:** `environment.reward_weights.collision` 50 → 0. Reward: +1 for reaching the slot, nothing else (a crash still ends the episode, with 0, like a timeout).
+- If P4 learns to pass, **P5** = P4 with the crash cost restored, starting from P4's trained weights (the B2 step). Not before.
+
+**Evaluation.** As for P3: own task split by start type, P2's 200 natural-start passing episodes (primary), checkpoint curves every 50k.
+
+**Prediction (written 21:08, before launch).**
+1. No collapse: training successes keep rising, and the share of timeouts in training stays below 50% after 200k (P3: 82–87% by 100k).
+2. "past" and "beside" starts reached in at least 50% of episodes by the end, on all seeds.
+3. **Natural start (the test): at least 10% of P2's 200 passing episodes reached on at least 2 of 3 seeds** (P1–P3: 0 at the end).
+4. Crashes high: at least 30% of P2's episodes, since a crash now costs nothing. Ramming the slow car, as B0 did, is the expected main failure.
+5. If 1 holds but 3 fails, passes are learned from the easy starts but do not chain back to the normal start.
+
+**Results** (12.3 min per run; `ivcheck`: only `reward_weights.collision` differs from P3). Outcomes are reached / crash / timeout, deterministic policy at 1M transitions. "Real pass": ego more than 5 m ahead of every car that blocked the slot at reset (`pass_check.py`, results in `results/step7f_P4/`).
+
+| Run | Own task (mixed starts) | **P2's 200 natural-start passing episodes** | Successes in training |
+|---|---|---|---:|
+| P4 seed 7 | 141 / 59 / 0 | **88** / 112 / 0 | 14,170 |
+| P4 seed 8 | 161 / 39 / 0 | **101** / 99 / 0 | 13,994 |
+| P4 seed 9 | 149 / 51 / 0 | **68** / 132 / 0 | 13,713 |
+| Scripted driver | 79 / 49 / 72 | 5 / 20 / 175 | |
+| P3 (for comparison) | 0 / 11–45 / rest | 0 / 0–37 / rest | 7–23 |
+
+- **All four predictions held.**
+  1. No collapse: the sampling policy's success in training rose steadily (33–36% in the first 200k → 60–82% at the end) with 0–1% timeouts throughout.
+  2. Easy starts: "past" 32–40 of 41 and "beside" 46–51 of 55 reached on every seed (78–98%); "behind" 38–41 of 45.
+  3. **Natural start: 34–50.5% of P2's passing episodes reached on all three seeds**, against 0 for P1–P3 and 2.5% for the scripted driver. All but one success per seed is a real pass (median 7.1–7.8 s).
+  4. Crashes high: 49.5–66% of P2's episodes. Most hit the blocking car (61, 56, 100), the rest other traffic (50, 42, 32); the anchor almost never.
+- **The deterministic checkpoint curve is jumpy while the training curve is smooth.** On P2's episodes the deterministic policy swings between ~0 and ~110 reached from one 50k checkpoint to the next (seed 7: 101 at 150k, 0 at 200–300k, 100 at 350k), with crashes taking the rest. Seed 9 stays near 3 until 500k. The arg-max action flips between "pass" and "drive into it" in many episodes at once; the sampling policy behind it changes gradually.
+
+**Reading.** Without the crash cost, trying is never worse than waiting, so attempts continue and passes are learned, including from the normal start. The pass is the skill P1–P3 never reached; it now needs to be made safe, which is P5.
+
+### Step 7f, second half: P5, the crash cost from P4's policy
+
+**Arm `P5`:** parent P3 (passing task, mixed starts, crash = −goal, fresh weights). **IV:** `init_policy` None → P4 (same seed). This is B1 → B2 on the passing task: one IV, the reward is P3's.
+
+**Prediction (written 21:25, before launch).**
+1. No collapse to waiting: on P2's natural-start episodes P5 still reaches at least 20% on at least 2 of 3 seeds (P4: 34–50.5%; P3: 0).
+2. Crashes fall: below P4's on P2's episodes on all seeds (P4: 49.5–66%), with timeouts taking up much of the difference.
+3. Why not more: on its own mixed starts P4 already succeeds 70–80%, above the ~62% break-even under ±1, so trying should stay worth it there; from the natural start (34–50%) it is below break-even, so P5 may wait in some natural-start episodes. If it collapses as P1 seed 8 did, the crash cost needs a smaller weight first (a separate IV).
+
+**Results** (12.6 min per run; `ivcheck`: only `init_policy` differs from P3). Deterministic policy at 1M transitions; reached / crash / timeout (`results/step7f_P5/`).
+
+| Run | Own task (mixed starts) | **P2's 200 natural-start passing episodes** | Full task, BACK/LEFT/RIGHT of 138 (clear / blocked) | Full task, FRONT of 62 |
+|---|---|---|---|---|
+| P5 seed 7 | 176 / 24 / 0 | **124** / 76 / 0 | **119** / 19 / 0 (90/3/0, 29/16/0) | 27 / 35 / 0 |
+| P5 seed 8 | 178 / 22 / 0 | **128** / 72 / 0 | **121** / 17 / 0 (91/2/0, 30/15/0) | 21 / 41 / 0 |
+| P5 seed 9 | 125 / 61 / 14 | 22 / 166 / 12 | 83 / 38 / 17 (69/12/12, 14/26/5) | 5 / 56 / 1 |
+| P4 seeds 7, 8, 9 | 141, 161, 149 reached | 88, 101, 68 reached | 86, 102, 105 reached | 25, 23, 7 reached |
+| B5 (every seed) | | | 113 / 25 / 0 (90/3/0, 23/22/0) | 0 / 4 / 58 |
+| Scripted | 79 / 49 / 72 | 5 / 20 / 175 | 113 / 3 / 22 (87/1/5, 26/2/17) | 40 / 2 / 20 |
+
+- **Prediction 1 held** (no collapse): seeds 7 and 8 reach 62–64% of P2's natural-start episodes, up from P4's 44–50.5%; seed 9 ends at 11% (below 20%), so 2 of 3 seeds pass the threshold. The sampling policy's training success rose on every seed (75–79% → 85–94%), with ≤1% timeouts.
+- **Prediction 2 failed on one seed**: crashes fell on seeds 7 and 8 (112 → 76, 99 → 72) but rose on seed 9 (132 → 166).
+- **Prediction 3 was wrong in kind**: the crash cost did not make P5 wait; success took up the difference, not timeouts. On its own mixed starts every easy start is now reached 93–100% (seeds 7, 8).
+- **Seed 9's final policy is a dip, not a trend.** Its deterministic checkpoints on P2's episodes swing 6–104 reached (80 at 400k, 104 at 600k, 6 at 800k, 92 at 900k, 16 at 1M), while its training success climbs steadily. As in P4, the arg-max action flips between "pass" and "drive into it" across many episodes at once. Seeds 7 and 8 also swing, but less (43–130).
+- **Remaining failure: ramming the blocking car.** 60, 60, 132 of the crashes on P2's episodes. RIGHT slots are weakest (18 and 24 of 53 reached on seeds 7 and 8).
+- **On the full task (never trained on it), seeds 7 and 8 beat every earlier arm and the scripted driver on BACK/LEFT/RIGHT**: 119 and 121 of 138 reached, against 113 for B0–B5 and for the scripted driver. Clear episodes are kept (90–91 vs B5's 90); blocked ones improve (29–30 reached vs 23, crashes 15–16 vs 22). They still crash more than the scripted driver (17–19 vs 3), which waits instead (22 timeouts).
+- **FRONT, set aside since Step 5 and never trained here, opens**: 21–27 of 62 reached on seeds 7 and 8 (B0–B5: 0; scripted: 40), with 35–41 crashes. A FRONT slot is a pass of the anchor itself, so the passing skill carries over.
+
+**Reading.** Success first, then the crash cost from that policy (B0 → B2 again) works on the passing task where every from-scratch variant failed: two of three seeds now pass a blocking car in most natural-start episodes and beat the scripted driver on the full task's BACK/LEFT/RIGHT. Two problems are left: (1) the final deterministic policy is unstable from checkpoint to checkpoint (seed 9), and (2) the main crash is still into the blocking car.
+
+**Candidates for the next step (not chosen):**
+- **P6 = B5 (full task) with `init_policy` P5**: fine-tune the passing policy on the normal mix of episodes, so it learns when a pass is needed, and with FRONT in the data. One IV against B5.
+- Fewer traffic cars (below): lower crash rate while learning; a task change.
+- Measurement: report the mean of the last few checkpoints alongside the final one, since one deterministic snapshot can land in a dip (seed 9). This changes how results are read, not training.
+
+### Step 7g: P6, the full task from P5's policy (2026-11-15)
+
+**Why.** P5 learned passing only in practice (blocked episodes, slow car held in its lane, mixed starts), yet transfers to the full task. P6 trains on the full task itself, so the policy can learn when a pass is needed and when to drive straight to the slot, with FRONT back in the data. Approved by the user.
+
+**Arm `P6`:** parent B5 (the full task: all slots, natural starts, traffic free to change lanes; +1 reach / −1 crash; potential-based progress weight 0.1, which the P arms did not have). **IV:** `init_policy` B0 → P5 (same seed). Compared with B5 on the same 200 evaluation episodes, and with P5 evaluated on B5's task.
+
+**Prediction (written 22:36, before launch).**
+1. No forgetting of the pass: on the full task's blocked BACK/LEFT/RIGHT episodes P6 reaches at least 27 on at least 2 of 3 seeds (P5 seeds 7, 8: 29, 30; B5: 23).
+2. BACK/LEFT/RIGHT overall at least 115 of 138 on at least 2 seeds (P5: 119, 121, 83; B5 and scripted: 113), with crashes no higher than P5's (19, 17, 38).
+3. FRONT, now in training: at least 20 of 62 on at least 2 seeds (P5: 27, 21, 5; B5: 0).
+4. Seed 9 starts from P5's dip and recovers to at least 105 BACK/LEFT/RIGHT (its sampling policy was fine).
+5. The threat: blocked episodes are about a fifth of the mix and the slow car may move aside on its own, so "speed up in the slot's lane" can win back and passes fade toward B5's 23. Checkpoint curves (every 50k) will show whether that happens.
+
+**Results** (12.1 min per run; `ivcheck`: only `init_policy` differs from B5). Full task, the fixed 200 evaluation episodes, deterministic policy at 1M; reached / crash / timeout (`results/step7g_P6/`, checkpoints in `results/pipeline_check/checkpoints_P6_seed7_P6_seed8_P6_seed9.*`).
+
+| Run | All 200 | BACK/LEFT/RIGHT of 138 | clear (93) | blocked (45) | FRONT of 62 | P2's passing episodes (200) |
+|---|---|---|---|---|---|---|
+| **P6 seed 7** | **182** / 18 / 0 | **134** / 4 / 0 | 92 / 1 / 0 | **42** / 3 / 0 | **48** / 14 / 0 | 174 / 26 / 0 |
+| **P6 seed 8** | **166** / 34 / 0 | **125** / 13 / 0 | 92 / 1 / 0 | 33 / 12 / 0 | **41** / 21 / 0 | 127 / 73 / 0 |
+| **P6 seed 9** | 143 / 57 / 0 | **123** / 15 / 0 | 90 / 3 / 0 | 33 / 12 / 0 | 20 / 42 / 0 | 72 / 128 / 0 |
+| P5 seeds 7, 8, 9 | 146, 142, 88 | 119, 121, 83 | 90, 91, 69 | 29, 30, 14 | 27, 21, 5 | 124, 128, 22 |
+| B5 (every seed) | 113 / 29 / 58 | 113 / 25 / 0 | 90 / 3 / 0 | 23 / 22 / 0 | 0 / 4 / 58 | |
+| Scripted | 153 / 5 / 42 | 113 / 3 / 22 | 87 / 1 / 5 | 26 / 2 / 17 | 40 / 2 / 20 | 5 / 20 / 175 |
+
+- **All five predictions held.** Blocked episodes reached 42, 33, 33 (threshold 27; B5 23). BACK/LEFT/RIGHT 134, 125, 123 (threshold 115), with fewer crashes than P5 on every seed (4, 13, 15 vs 19, 17, 38). FRONT 48, 41, 20 (threshold 20). Seed 9 recovered at once (121 BACK/LEFT/RIGHT at the first checkpoint, 50k). The feared fading of the pass did not happen.
+- **Every seed beats the scripted driver on BACK/LEFT/RIGHT** (123–134 vs 113), and seed 7 matches its safety there (4 crashes vs 3) while reaching 21 more episodes: the scripted driver times out behind the slow car (22), P6 seed 7 passes it.
+- **FRONT: two seeds beat the scripted driver** (48, 41 vs 40), from 0 in every B arm. FRONT is where crashes remain (14, 21, 42 vs scripted 2), mostly into the car being passed or other traffic.
+- **Overall**, seeds 7 and 8 reach 182 and 166 of 200 (scripted 153), with 18 and 34 crashes (scripted 5).
+- **Stable**: on the full task the deterministic checkpoints vary much less than on the passing practice (seed 7 BACK/LEFT/RIGHT 113–135 across all 20 checkpoints, 132–135 from 650k; seed 9 110–124). Training success at the end: 100%, 71%, 85% per 200k bin (seed 8's last bin dips while its deterministic policy holds at 129).
+- Passing skill kept: on P2's passing episodes P6 seed 7 reaches 174 of 200 (P5: 124); all successes but one per seed are real passes.
+
+**Reading.** Practice (P4 → P5), then the full task (P6), gives the first policies in this study that beat the scripted driver on the target slots on every seed, and on FRONT on two seeds, with no reward terms beyond B5's. Remaining gap: crashes, mostly on FRONT. The progress reward (B5's, weight 0.1) was present in P6 only; whether it matters here is untested.
+
+**Candidate for later: fewer traffic cars.** Most early crashes on the easy starts are random lane changes into other traffic, so fewer cars would raise a beginner's success there. It is a task change (one IV of its own, and it changes how often a blocked episode occurs), so it waits for P4's result.
 
 ## 10. Decision log
 
@@ -805,6 +1081,21 @@ Nothing is trained for Step 7 until it is chosen.
 | 2026-11-09 | `blocked.py` reads the crash weight from the arm's configuration in its report text | The probe and passing reports said "a crash is −50", wrong for B4. Numbers were unaffected. |
 | 2026-11-09 | Step 7 proposed from B4: a following-rule shield (recommended) or a local car-ahead input | Both act on the policy rather than the reward. Waiting for the user's choice. |
 | 2026-11-09 | B3m and B4 example videos re-recorded; the recorder now refuses a blank frame | They had been recorded with `SDL_VIDEODRIVER=dummy`, which makes the renderer return all-black frames. Outcomes were right (the check compares outcomes, not pictures), the videos were not. All 86 videos re-checked frame by frame; the value axis label now shows the run's own crash weight. |
+| 2026-11-15 | Work continues on branch `reach-step7`: `main` (Marcos's single-car work) merged with `dynamic-reach` | Marcos's NumPy observation encoder lives on `main`. The merge was clean but broke training (logging class); fixed with a frozen copy. |
+| 2026-11-15 | Observations built with the NumPy encoder for every run | Exactly equal (tested; 1,200 evaluation episodes and 887 training episodes replay identically); 3.6× faster simulation. |
+| 2026-11-15 | Step 7a: B5 = B3m with the reward scaled by 1/50 | Audit: the shared gradient clip shrinks every policy update ~5× because value gradients dominate at ±50 rewards. Approved by the user with the plan. |
+| 2026-11-15 | `ivcheck` records the host name but no longer compares it | The first B5 launch was refused only because the Mac's host name, set by the Wi-Fi network, changed (`…147-178` → `…147-124`). OS, release, processor and Python still pin the machine; a test covers it. |
+| 2026-11-15 | Step 7b: passing-only arms P1 (B0's weights) and P1s (fresh), parent B5 | The user's hypothesis that the diverse training set traps PPO; the user chose 'blocked, car stays' and asked to compare both starts. B5 as parent: same outcomes as B3m, but its updates are not throttled. |
+| 2026-11-15 | Step 7c: P2 = P1s without the progress reward (the user's choice of order); timeout cost proposed for after | P1 seed 8 learned to pass (58/200 at 50k) and abandoned it because waiting cost 0. Waiting for the user's choice. |
+| 2026-11-15 | P2 result: no visible difference from P1s (both 0); progress reward left out from here | Floor effect: both collapse to waiting within ~20k transitions. Next proposed: timeout cost from P2. |
+| 2026-11-15 | Step 7e: P3 = P2 + mixed practice starts (past, beside, behind, natural) | Fixes the giving-up without a new reward term: early attempts from the easy starts succeed well above the ~62% break-even. User chose mixed starts over a schedule. The timeout-cost proposal was withdrawn (discounted to ~8% at 25 s). |
+| 2026-11-15 | P3 result: 0 reached, even from the easy starts; Step 7f proposed (crash weight 0 first, then restore it from the trained policy) | A fresh policy crashes in ~70% of attempts even from 'past'/'beside', so with crash = −goal it learns to stop first. B0 → B2 is the chain's working fix for this. |
+| 2026-11-15 | Step 7f approved: P4 = P3 with crash weight 0; then P5 = P3 started from P4's weights | P5 is written as P3 + `init_policy`, as B2 = B1 + `init_policy`, so each arm differs from its parent in one setting |
+| 2026-11-15 | Fewer traffic cars kept as a later candidate, not mixed into P4 | It would be a second IV and changes how often blocked episodes occur; the user asked whether it would help |
+| 2026-11-15 | P4 result: passes learned (34–50.5% of P2's natural-start episodes); P5 launched as planned | All four P4 predictions held; P5's condition ("only if P4 learns to pass") met |
+| 2026-11-15 | P5 result: seeds 7, 8 reach 62–64% of the natural-start passing episodes and 119, 121 of 138 BACK/LEFT/RIGHT on the full task; seed 9 ends in a checkpoint dip | Evaluated also on the full task (B5's settings) to see transfer; FRONT opens to 21–27 of 62 on seeds 7, 8. Next step left to the user. |
+| 2026-11-15 | Step 7g: P6 = B5 with `init_policy` P5, approved by the user | Train on the full task from the passing policy so it learns when a pass is needed; FRONT back in the data. B5's progress reward comes with the parent and is noted as a difference from the P arms |
+| 2026-11-15 | P6 result: every seed beats the scripted driver on BACK/LEFT/RIGHT (123–134 vs 113); seeds 7, 8 also on FRONT (48, 41 vs 40) | All five predictions held; remaining gap is crashes (18–57 of 200 vs scripted 5), mostly on FRONT |
 
 ## 11. Investigating failures yourself
 

@@ -31,11 +31,10 @@ import numpy as np
 
 from baseline_dynamic_reach.config import ARMS, EVAL_EPISODES, EVAL_SEED, MODELS_DIR, RESULTS_DIR, SEEDS, arm_config, run_name
 from baseline_dynamic_reach.diagnose import crash_record
-from baseline_dynamic_reach.environment import ReachEnv
+from baseline_dynamic_reach.environment import TARGET_SLOTS, ReachEnv
 from baseline_dynamic_waypoint.scripted import FASTER, IDLE, SLOWER, leader_gap
 
 OUTPUT_DIR = RESULTS_DIR / "step5_blocked"
-TARGET_SLOTS = ("back", "left", "right")  # FRONT is set aside (EXPERIMENT_NOTES.md, Step 5).
 LEAD_CAR_GAP = 35.0  # The injected 12 m/s car starts this far ahead of ego, in ego's lane.
 ACTIONS = ("LANE_LEFT", "IDLE", "LANE_RIGHT", "FASTER", "SLOWER")
 PROBE_SECONDS = 2.0
@@ -47,9 +46,7 @@ def tag(env):
     ego, road = env.highway.vehicle, env.highway.road
     lane = road.network.get_lane(env.slot_lane_index)
     ego_s, slot_s = lane.local_coordinates(ego.position)[0], lane.local_coordinates(env.goal_position)[0]
-    between = sorted((lane.local_coordinates(v.position)[0], road.vehicles.index(v)) for v in road.vehicles
-                     if v is not ego and v.lane_index[2] == env.slot_lane_index[2]
-                     and ego_s < lane.local_coordinates(v.position)[0] < slot_s)
+    between = env.blocking_cars()
     row = {"ego_lane": int(ego.lane_index[2]), "slot_lane": int(env.slot_lane_index[2]),
            "lane_changes_required": abs(int(ego.lane_index[2]) - int(env.slot_lane_index[2])),
            "lead_car_anchor": bool(abs(env.anchor.position[0] - ego.position[0] - LEAD_CAR_GAP) < 1e-6),
@@ -187,6 +184,7 @@ def probe_run(run, tags):
     model = PPO.load(MODELS_DIR / f"{run}.zip", device="cpu")
     spec = sidecar["environment"]["reward_weights"].get("potential_progress")
     shaping_weight = spec["weight"] if isinstance(spec, dict) else 0.0
+    shaping_weight *= sidecar["environment"].get("reward_scale", 1.0)  # Values are in the run's reward units.
     env = ReachEnv(**deepcopy(sidecar["environment"]))
     steps = round(PROBE_SECONDS * sidecar["environment"]["env_config"]["policy_frequency"])
     rows = []
@@ -238,8 +236,14 @@ def auc(positive, negative):
 
 
 def crash_weights(arm):
-    weights = arm_config(arm)["environment"]["reward_weights"]
-    return f"{weights['goal']:g} x success - {weights['collision']:g} x crash"
+    environment = arm_config(arm)["environment"]
+    weights, scale = environment["reward_weights"], environment.get("reward_scale", 1.0)
+    return f"{scale * weights['goal']:g} x success - {scale * weights['collision']:g} x crash"
+
+
+def crash_cost(arm):
+    environment = arm_config(arm)["environment"]
+    return environment.get("reward_scale", 1.0) * environment["reward_weights"]["collision"]
 
 
 def probe(arm):
@@ -299,6 +303,7 @@ def passing_run(run, tags):
     env = ReachEnv(**deepcopy(sidecar["environment"]))
     spec = sidecar["environment"]["reward_weights"].get("potential_progress")
     shaping_weight = spec["weight"] if isinstance(spec, dict) else 0.0
+    shaping_weight *= sidecar["environment"].get("reward_scale", 1.0)  # Values are in the run's reward units.
     rows = []
     try:
         for episode in tags:
@@ -385,7 +390,7 @@ def passing(arm):
         if rammed:
             probabilities = np.mean([r["mean_action_probabilities_while_behind"] for r in rammed], axis=0)
             lines += [f"- The {len(rammed)} crashes into the blocking car. Critic value (shaping removed; a crash is "
-                      f"-{arm_config(arm)['environment']['reward_weights']['collision']:g}): {np.mean([r['value_at_reset'] for r in rammed]):.1f} at reset, "
+                      f"-{crash_cost(arm):g}): {np.mean([r['value_at_reset'] for r in rammed]):.1f} at reset, "
                       f"{np.mean([r['value_at_last_decision'] for r in rammed]):.1f} at the last decision, 0.1 s before "
                       f"the crash ({sum(r['value_at_last_decision'] > 0 for r in rammed)} of them above 0).",
                       "- Same crashes, sampling probabilities per decision while behind the blocking car (what "

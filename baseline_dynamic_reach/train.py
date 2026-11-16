@@ -6,6 +6,7 @@ Before training, the arm's configuration is checked against its parent's saved r
 one IV may differ) and against its own other seeds (replicates must be identical).
 """
 import argparse
+import csv
 from copy import deepcopy
 from datetime import datetime, timezone
 from functools import partial
@@ -21,7 +22,9 @@ import time
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
+import numpy as np
 from stable_baselines3 import PPO
+from stable_baselines3.common.callbacks import CallbackList, CheckpointCallback
 from stable_baselines3.common.logger import configure
 from stable_baselines3.common.monitor import Monitor
 from stable_baselines3.common.utils import set_random_seed
@@ -32,7 +35,7 @@ from baseline_dynamic_reach.config import ARMS, EVAL_EPISODES, MODELS_DIR, RESUL
 from baseline_dynamic_reach.evaluate import evaluate_run
 from baseline_dynamic_reach.ivcheck import IVError, check, check_replicates, describe
 from baseline_dynamic_reach.environment import SHAPING_TERMS, ReachEnv
-from baseline_dynamic_waypoint.train import SlotEpisodeMetrics
+from baseline_waypoint.train import EpisodeMetrics
 from baseline_waypoint.plot_results import plot_training
 
 PACKAGES = ("highway-env", "gymnasium", "stable-baselines3", "torch", "numpy")
@@ -58,12 +61,55 @@ def make_env(seed, environment):
     return Monitor(env)
 
 
-class ReachEpisodeMetrics(SlotEpisodeMetrics):
-    """The inherited per-episode CSV, with one reward column per term this arm actually has."""
+class ReachEpisodeMetrics(EpisodeMetrics):
+    """Per-episode CSV and rolling rates, with one reward column per term this arm actually has.
+
+    A frozen copy of baseline_dynamic_waypoint.train.SlotEpisodeMetrics as of commit 8b2c911, the version
+    every arm up to B4 was trained with. That class has since gained required arguments and its own
+    checkpointing for the single-car study; copying it keeps this study's logs and checkpoints unchanged
+    whatever happens there (the same reason config.py reads its settings from the recorded B0 sidecar).
+    It only records what happened; it does not influence training.
+    """
+    BASE_FIELDS = ["timesteps", "reward", "length", "success", "collision", "timeout", "anchor_lost",
+                   "elapsed_time", "final_distance", "slot", "goal_lane", "max_hold_steps"]
+
     def __init__(self, run_dir, reward_names):
         super().__init__(run_dir)
-        self.FIELDS = ([field for field in SlotEpisodeMetrics.FIELDS if not field.startswith("reward_")]
-                       + [f"reward_{name}" for name in reward_names])
+        self.FIELDS = self.BASE_FIELDS + [f"reward_{name}" for name in reward_names]
+
+    def _on_training_start(self):
+        self.handle = (self.run_dir / "training_episodes.csv").open("w", newline="", encoding="utf-8")
+        self.writer = csv.DictWriter(self.handle, fieldnames=self.FIELDS)
+        self.writer.writeheader()
+        self.max_hold = [0] * self.training_env.num_envs
+
+    def _on_step(self):
+        for index, info in enumerate(self.locals["infos"]):
+            self.max_hold[index] = max(self.max_hold[index], info["hold_steps"])
+            if "episode" not in info:
+                continue
+            row = {
+                "timesteps": self.num_timesteps, "reward": info["episode"]["r"],
+                "length": info["episode"]["l"], "success": int(info["is_success"]),
+                "collision": int(info["is_collision"]), "timeout": int(info["is_timeout"]),
+                "anchor_lost": int(info["is_anchor_lost"]),
+                "elapsed_time": info["elapsed_time"], "final_distance": info["distance_to_goal"],
+                "slot": info["slot"], "goal_lane": info["goal_lane"], "max_hold_steps": self.max_hold[index],
+                **{f"reward_{name}": value for name, value in info["episode_reward_components"].items()},
+            }
+            self.max_hold[index] = 0
+            self.writer.writerow(row)
+            self.handle.flush()
+            self.recent.append(row)
+            for key in ("success", "collision", "reward", "final_distance", "max_hold_steps"):
+                self.logger.record(f"episodes/{key}_mean_100", np.mean([item[key] for item in self.recent]))
+            for name, value in info["episode_reward_components"].items():
+                self.logger.record(f"reward_components/{name}", value)
+        if self.num_timesteps - self.last_report >= 10_000:
+            success = np.mean([row["success"] for row in self.recent]) if self.recent else 0
+            print(f"{self.num_timesteps:,} transitions; recent success: {success:.1%}", flush=True)
+            self.last_report = self.num_timesteps
+        return True
 
 
 def platform_info():
@@ -114,6 +160,24 @@ def check_chain(metadata, models_dir, parent_in_progress=False):
         check_replicates([metadata, *siblings])
 
 
+def load_initial_weights(model, config, seed, models_dir=MODELS_DIR):
+    """Start from the init_policy arm's trained weights on the same seed (policy and value networks).
+
+    If this arm's reward_scale differs from the source run's, the value network's output layer is
+    multiplied by the ratio: the policy is unchanged and its value estimates are expressed in the new
+    reward units, as they would have been had the source been trained at this scale. Returns the path.
+    """
+    init_path = models_dir / f"{run_name(config['init_policy'], seed)}.zip"
+    source = json.loads(init_path.with_suffix(".json").read_text(encoding="utf-8"))
+    model.policy.load_state_dict(PPO.load(init_path, device="cpu").policy.state_dict())
+    ratio = config["environment"].get("reward_scale", 1.0) / source["environment"].get("reward_scale", 1.0)
+    if ratio != 1.0:
+        with torch.no_grad():
+            model.policy.value_net.weight.mul_(ratio)
+            model.policy.value_net.bias.mul_(ratio)
+    return init_path, ratio
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--arm", required=True, choices=list(ARMS))
@@ -123,6 +187,8 @@ def main():
     parser.add_argument("--no-tensorboard", action="store_true")
     parser.add_argument("--parent-in-progress", action="store_true",
                         help="The parent arm is still training: check against its defined configuration.")
+    parser.add_argument("--checkpoint-every", type=int, default=0,
+                        help="Also save the policy every N transitions to <run>/checkpoints/ (does not affect training).")
     args = parser.parse_args()
     ignore_console_interrupts()
 
@@ -172,10 +238,16 @@ def main():
     if init_path is not None:
         # Policy and value networks start from the parent arm's trained weights (same seed);
         # the Adam optimizer starts fresh, as in any new PPO run.
-        model.policy.load_state_dict(PPO.load(init_path, device="cpu").policy.state_dict())
-        print(f"Initial weights: {init_path.name}", flush=True)
+        _, ratio = load_initial_weights(model, config, args.seed, models_dir)
+        metadata["init_value_scale"] = ratio
+        print(f"Initial weights: {init_path.name}" + (f" (value output x {ratio:g})" if ratio != 1.0 else ""), flush=True)
     model.set_logger(configure(str(run_dir), ["csv"] + ([] if args.no_tensorboard else ["tensorboard"])))
-    callback = ReachEpisodeMetrics(run_dir, list(environment["reward_weights"]))
+    callback = metrics = ReachEpisodeMetrics(run_dir, list(environment["reward_weights"]))
+    if args.checkpoint_every:
+        metadata["checkpoint_every"] = args.checkpoint_every
+        callback = CallbackList([callback, CheckpointCallback(
+            save_freq=max(1, args.checkpoint_every // config["num_envs"]),
+            save_path=str(run_dir / "checkpoints"), name_prefix=name)])
     started = time.perf_counter()
     status = "trained"
     try:
@@ -193,8 +265,8 @@ def main():
         for path in (model_path.with_suffix(".json"), run_dir / "run.json"):
             with path.open("w", encoding="utf-8") as handle:
                 json.dump(metadata, handle, indent=2)
-        if callback.handle is not None and not callback.handle.closed:
-            callback.handle.close()
+        if metrics.handle is not None and not metrics.handle.closed:
+            metrics.handle.close()
         vec_env.close()
     plot_training(run_dir)
     print(f"Saved {model_path}: {model.num_timesteps:,} transitions in {metadata['training_seconds'] / 60:.1f} min.", flush=True)

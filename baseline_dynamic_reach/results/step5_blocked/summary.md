@@ -98,3 +98,19 @@ Episodes of back+left+right that fail on all three seeds: 24, of which blocked: 
 | back+left+right | blocked | 45 | 61/135 | 66 | 8 | 26/45 | 2 | 17 |
 
 Episodes of back+left+right that fail on all three seeds: 23, of which blocked: 20.
+
+## B5
+
+| Slot | Tag | Episodes | PPO success | crash | timeout | Scripted success | crash | timeout |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| back | clear | 46 | 138/138 | 0 | 0 | 45/46 | 0 | 1 |
+| back | blocked | 15 | 36/45 | 9 | 0 | 13/15 | 1 | 1 |
+| left | clear | 25 | 72/75 | 3 | 0 | 23/25 | 0 | 2 |
+| left | blocked | 15 | 21/45 | 24 | 0 | 9/15 | 0 | 6 |
+| right | clear | 22 | 60/66 | 6 | 0 | 19/22 | 1 | 2 |
+| right | blocked | 15 | 12/45 | 33 | 0 | 4/15 | 1 | 10 |
+| front | blocked | 62 | 0/186 | 14 | 172 | 40/62 | 2 | 20 |
+| back+left+right | clear | 93 | 270/279 | 9 | 0 | 87/93 | 1 | 5 |
+| back+left+right | blocked | 45 | 69/135 | 66 | 0 | 26/45 | 2 | 17 |
+
+Episodes of back+left+right that fail on all three seeds: 25, of which blocked: 22.
