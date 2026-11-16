@@ -2,3 +2,5 @@
 .tensorboard-venv/
 .tensorboard-cache/
 __pycache__/
+baseline_dynamic_reach/results/**/checkpoints/
+.DS_Store

@@ -22,6 +22,10 @@ MISSING = "<missing>"
 # Settings added to the configuration later (such as init_policy) are absent from older sidecars.
 # Absent means the setting's default, which is None, so the two compare equal.
 EQUIVALENT = ({MISSING, None},)
+# Recorded but not compared. The host name is set by the network on this Mac (DHCP over Wi-Fi), so
+# it changes between sessions on the same machine; the operating system, its release, the processor
+# and the Python version still pin the machine. (Decision log, 2026-11-15.)
+BOOKKEEPING = {"platform.node"}
 
 
 def same(old, new):
@@ -48,7 +52,8 @@ def differences(parent, child):
     old = flatten({key: parent[key] for key in COMPARED if key in parent})
     new = flatten({key: child[key] for key in COMPARED if key in child})
     return {path: (old.get(path, MISSING), new.get(path, MISSING))
-            for path in sorted(set(old) | set(new)) if not same(old.get(path, MISSING), new.get(path, MISSING))}
+            for path in sorted((set(old) | set(new)) - BOOKKEEPING)
+            if not same(old.get(path, MISSING), new.get(path, MISSING))}
 
 
 def describe(diffs):

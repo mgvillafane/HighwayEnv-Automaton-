@@ -314,8 +314,56 @@ def arm_documents(arm):
 
 # --------------------------------------------------------------------------- rollouts
 
-def rollouts(run):
+def record_episode(env, act, seed, video_path=None, extra=None):
+    """Play one seeded episode with act(obs) -> action, and return what happened.
+
+    The one recorder behind `rollouts` and `examples.py`. `env` must render to rgb_array. `extra(env, obs)` may
+    return more fields for each trace point; they are read before the action is applied, like the rest.
+    """
     import imageio.v2 as imageio
+    obs, start = env.reset(seed=seed)
+    frames, trace, total_reward = [env.render()], [], 0.0
+    if frames[0] is None or not np.asarray(frames[0]).any():
+        # With SDL_VIDEODRIVER=dummy pygame renders all-black frames: the outcome is right, the picture is not.
+        raise RuntimeError("The renderer returned a blank frame; record without SDL_VIDEODRIVER=dummy.")
+    writer = None
+    if video_path is not None:
+        writer = imageio.get_writer(str(video_path), fps=env.metadata["render_fps"], codec="libx264",
+                                    macro_block_size=1)
+        writer.append_data(frames[0])
+    try:
+        done = False
+        while not done:
+            action = int(act(obs))
+            ego, anchor = env.highway.vehicle, env.anchor
+            along, across = env.slot_error()
+            point = {"t": float(env.highway.time), "action": action, "along_error": float(along),
+                     "across_error": float(across), "ego_speed": float(ego.speed),
+                     "anchor_speed": float(anchor.speed), "ego_lane": int(ego.lane_index[2]),
+                     "slot_lane": int(env.goal_lane)}
+            if extra is not None:
+                point.update(extra(env, obs))
+            trace.append(point)
+            obs, reward, terminated, truncated, info = env.step(action)
+            total_reward += float(reward)
+            done = terminated or truncated
+            frames.append(env.render())
+            if writer is not None:
+                writer.append_data(frames[-1])
+        if writer is not None:
+            for _ in range(env.metadata["render_fps"]):  # Hold the last frame for one second.
+                writer.append_data(frames[-1])
+    finally:
+        if writer is not None:
+            writer.close()
+    return {"seed": seed, "slot": start["slot"], "outcome": info["termination_reason"],
+            "elapsed": float(info["elapsed_time"]), "length": len(trace), "reward": total_reward,
+            "success": int(info["is_success"]), "collision": int(info["is_collision"]),
+            "timeout": int(info["is_timeout"]), "anchor_lost": int(info["is_anchor_lost"]),
+            "picks": [frames[int(i)] for i in np.linspace(0, len(frames) - 1, 4)], "trace": trace}
+
+
+def rollouts(run):
     from stable_baselines3 import PPO
     import torch
     torch.set_num_threads(1)
@@ -328,31 +376,10 @@ def rollouts(run):
     try:
         seeds = rollout_seeds(env)
         for slot, seed in seeds.items():
-            obs, info = env.reset(seed=seed)
-            frames, trace = [env.render()], []
-            writer = imageio.get_writer(str(folder / f"{slot}_seed{seed}.mp4"), fps=env.metadata["render_fps"],
-                                        codec="libx264", macro_block_size=1)
-            writer.append_data(frames[0])
-            done = False
-            while not done:
-                action = int(model.predict(obs, deterministic=True)[0])
-                ego, anchor = env.highway.vehicle, env.anchor
-                along, across = env.slot_error()
-                trace.append({"t": float(env.highway.time), "action": action, "along_error": float(along),
-                              "across_error": float(across), "ego_speed": float(ego.speed),
-                              "anchor_speed": float(anchor.speed), "ego_lane": int(ego.lane_index[2]),
-                              "slot_lane": int(env.goal_lane)})
-                obs, _, terminated, truncated, info = env.step(action)
-                done = terminated or truncated
-                frame = env.render()
-                writer.append_data(frame)
-                frames.append(frame)
-            for _ in range(env.metadata["render_fps"]):
-                writer.append_data(frames[-1])
-            writer.close()
-            picks = [frames[int(i)] for i in np.linspace(0, len(frames) - 1, 4)]
-            strips[slot] = (seed, info["termination_reason"], info["elapsed_time"], picks)
-            traces[slot] = trace
+            record = record_episode(env, lambda obs: model.predict(obs, deterministic=True)[0], seed,
+                                    folder / f"{slot}_seed{seed}.mp4")
+            strips[slot] = (seed, record["outcome"], record["elapsed"], record["picks"])
+            traces[slot] = record["trace"]
     finally:
         env.close()
     fig, axes = plt.subplots(len(strips), 4, figsize=(20, 1.9 * len(strips)))

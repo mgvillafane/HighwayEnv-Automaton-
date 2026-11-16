@@ -1,0 +1,52 @@
+# What-if: B4 plus the scripted driver's following rule
+
+Nothing is trained. The policy is replayed deterministically on the BACK/LEFT/RIGHT episodes, and one
+hand-written rule is laid over its action: when the gap to the car ahead in ego's lane is below
+12 m + 0.8 s x ego speed, the target speed may not exceed the anchor's speed (10 m/s below a 9 m gap).
+Then SLOWER replaces the action while the target speed is above that, and IDLE replaces FASTER at it.
+Lane changes are the policy's own. "Without the rule" is the saved evaluation.
+
+## B4_seed7
+
+| Episodes | Count | Without the rule: reached | crash | timeout | With the rule: reached | crash | timeout |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| clear | 93 | 89 | 4 | 0 | 68 | 0 | 25 |
+| blocked, blocking car stays | 18 | 3 | 15 | 0 | 3 | 0 | 15 |
+| blocked, blocking car leaves by itself | 27 | 21 | 6 | 0 | 12 | 0 | 15 |
+| all BACK/LEFT/RIGHT | 138 | 113 | 25 | 0 | 83 | 0 | 55 |
+
+- The rule changed 4,358 of 20,322 decisions, in 95 of 138 episodes.
+- Episodes gained: none.
+- Episodes lost: [10006, 10014, 10026, 10029, 10031, 10033, 10034, 10035, 10036, 10038, 10039, 10040, 10053, 10056, 10072, 10083, 10095, 10098, 10101, 10106, 10126, 10131, 10152, 10163, 10170, 10175, 10178, 10186, 10192, 10198].
+- Still crashing: none.
+- "Stays" and "leaves" are measured in this replay, so they can differ from passing_B4.md: a blocking car has more time to leave when ego waits behind it.
+
+## B4_seed8
+
+| Episodes | Count | Without the rule: reached | crash | timeout | With the rule: reached | crash | timeout |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| clear | 93 | 88 | 5 | 0 | 86 | 2 | 5 |
+| blocked, blocking car stays | 18 | 2 | 16 | 0 | 3 | 2 | 13 |
+| blocked, blocking car leaves by itself | 27 | 20 | 7 | 0 | 21 | 0 | 6 |
+| all BACK/LEFT/RIGHT | 138 | 110 | 28 | 0 | 110 | 4 | 24 |
+
+- The rule changed 5,439 of 12,912 decisions, in 99 of 138 episodes.
+- Episodes gained: [10002, 10031, 10071, 10117].
+- Episodes lost: [10039, 10053, 10098, 10127].
+- Still crashing: [10022, 10030, 10088, 10177].
+- "Stays" and "leaves" are measured in this replay, so they can differ from passing_B4.md: a blocking car has more time to leave when ego waits behind it.
+
+## B4_seed9
+
+| Episodes | Count | Without the rule: reached | crash | timeout | With the rule: reached | crash | timeout |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| clear | 93 | 74 | 7 | 12 | 60 | 6 | 27 |
+| blocked, blocking car stays | 22 | 1 | 18 | 3 | 1 | 5 | 16 |
+| blocked, blocking car leaves by itself | 23 | 14 | 4 | 5 | 9 | 3 | 11 |
+| all BACK/LEFT/RIGHT | 138 | 89 | 29 | 20 | 70 | 14 | 54 |
+
+- The rule changed 2,752 of 19,638 decisions, in 92 of 138 episodes.
+- Episodes gained: [10041].
+- Episodes lost: [10006, 10014, 10018, 10021, 10033, 10036, 10072, 10098, 10106, 10112, 10117, 10118, 10126, 10128, 10131, 10145, 10170, 10173, 10178, 10198].
+- Still crashing: [10002, 10023, 10030, 10038, 10039, 10047, 10059, 10068, 10091, 10096, 10117, 10139, 10177, 10186].
+- "Stays" and "leaves" are measured in this replay, so they can differ from passing_B4.md: a blocking car has more time to leave when ego waits behind it.

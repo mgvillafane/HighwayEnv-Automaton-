@@ -4,6 +4,7 @@ Every arm is measured the same way, so differences between arms come from the ar
 
     python -B baseline_dynamic_reach/evaluate.py --run B0_seed7
     python -B baseline_dynamic_reach/evaluate.py --references B0     # Step 0: no trained policy
+    python -B baseline_dynamic_reach/evaluate.py --run P1_seed7 --environment-of B5   # a run on another arm's task
 """
 import argparse
 from copy import deepcopy
@@ -116,14 +117,17 @@ def write(output_dir, header, rows):
     return summary
 
 
-def evaluate_run(model_path, output_dir, episodes=EVAL_EPISODES, seed=EVAL_SEED):
+def evaluate_run(model_path, output_dir, episodes=EVAL_EPISODES, seed=EVAL_SEED, environment_of=None):
+    """The run's policy on its own task, or on arm `environment_of`'s task (rewards then in that arm's units)."""
     model_path = Path(model_path)
     with model_path.with_suffix(".json").open(encoding="utf-8") as handle:
         sidecar = json.load(handle)
     model = PPO.load(model_path, device="cpu")
-    rows = run_policies(sidecar["environment"], model, episodes, seed)
+    environment = sidecar["environment"] if environment_of is None else arm_config(environment_of)["environment"]
+    rows = run_policies(environment, model, episodes, seed)
     header = {"run": sidecar.get("run_name"), "arm": sidecar.get("arm"), "model": str(model_path.resolve()),
-              "first_seed": seed, "episodes": episodes, "environment": sidecar["environment"]}
+              "first_seed": seed, "episodes": episodes, "environment": environment,
+              "environment_of": environment_of or sidecar.get("arm")}
     return write(output_dir, header, rows)
 
 
@@ -143,10 +147,13 @@ def main():
     parser.add_argument("--episodes", type=int, default=EVAL_EPISODES)
     parser.add_argument("--seed", type=int, default=EVAL_SEED)
     parser.add_argument("--output-name", help="Results subfolder; defaults to <run>/evaluation_repeat or step0_<arm>.")
+    parser.add_argument("--environment-of", metavar="ARM", help="With --run: evaluate on this arm's task instead of the run's own; "
+                        "output defaults to <run>/evaluation_on_<ARM>.")
     args = parser.parse_args()
     if args.run:
-        output = RESULTS_DIR / (args.output_name or f"{args.run}/evaluation_repeat")
-        evaluate_run(MODELS_DIR / f"{args.run}.zip", output, args.episodes, args.seed)
+        default = f"{args.run}/evaluation_on_{args.environment_of}" if args.environment_of else f"{args.run}/evaluation_repeat"
+        output = RESULTS_DIR / (args.output_name or default)
+        evaluate_run(MODELS_DIR / f"{args.run}.zip", output, args.episodes, args.seed, args.environment_of)
     else:
         output = RESULTS_DIR / (args.output_name or f"step0_{args.references}")
         evaluate_references(args.references, output, args.episodes, args.seed)

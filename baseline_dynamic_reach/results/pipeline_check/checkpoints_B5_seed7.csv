@@ -1,0 +1,4 @@
+run,timesteps,success,collision,timeout,blr_success,blr_collision,blr_timeout
+B5_seed7,49998,113,61,26,113,25,0
+B5_seed7,99996,112,27,61,112,26,0
+B5_seed7,149994,113,26,61,113,25,0
