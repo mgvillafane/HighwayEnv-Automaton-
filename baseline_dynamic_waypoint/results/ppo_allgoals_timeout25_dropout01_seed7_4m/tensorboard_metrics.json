@@ -1,0 +1,42 @@
+{
+  "episodes/front/success_mean_100": {
+    "points": 1000,
+    "last_step": 2000000,
+    "last_value": 0.0
+  },
+  "evaluation/front/success_rate": {
+    "points": 9,
+    "last_step": 2000000,
+    "last_value": 0.0
+  },
+  "episodes/left/success_mean_100": {
+    "points": 1000,
+    "last_step": 1999000,
+    "last_value": 0.23999999463558197
+  },
+  "evaluation/left/success_rate": {
+    "points": 9,
+    "last_step": 2000000,
+    "last_value": 0.0
+  },
+  "episodes/back/success_mean_100": {
+    "points": 1000,
+    "last_step": 1999000,
+    "last_value": 0.20999999344348907
+  },
+  "evaluation/back/success_rate": {
+    "points": 9,
+    "last_step": 2000000,
+    "last_value": 0.0
+  },
+  "episodes/right/success_mean_100": {
+    "points": 1000,
+    "last_step": 2000000,
+    "last_value": 0.25999999046325684
+  },
+  "evaluation/right/success_rate": {
+    "points": 9,
+    "last_step": 2000000,
+    "last_value": 0.0
+  }
+}

@@ -1,0 +1,175 @@
+{
+  "original_57_input_policy": {
+    "episodes": 100,
+    "success_rate": 0.55,
+    "collision_rate": 0.07,
+    "timeout_rate": 0.38,
+    "average_episode_reward": 19.151674348812634,
+    "average_time_to_goal_seconds": 6.465454545454538,
+    "average_final_distance_meters": 11.051686905165685,
+    "success_rate_by_goal_lane": {
+      "0": 0.8285714285714286,
+      "1": 0.5454545454545454,
+      "2": 0.09523809523809523
+    },
+    "success_rate_by_required_lane_changes": {
+      "0": 0.6944444444444444,
+      "1": 0.5,
+      "2": 0.4
+    },
+    "average_reward_components": {
+      "goal": 27.5,
+      "collision": -3.5,
+      "progress": 2.38217434881263,
+      "time": -7.780500000000028,
+      "hold": 0.55,
+      "lane": 0.0,
+      "speed_match": 0.0,
+      "overtake": 0.0
+    },
+    "anchor_lost_rate": 0.0,
+    "average_max_hold_seconds": 0.275,
+    "success_rate_by_slot": {
+      "front": 0.0,
+      "back": 0.8148148148148148,
+      "left": 1.0,
+      "right": 0.0
+    },
+    "episodes_by_slot": {
+      "front": 18,
+      "back": 27,
+      "left": 33,
+      "right": 22
+    }
+  },
+  "transferred_54_input_before": {
+    "episodes": 100,
+    "success_rate": 0.14,
+    "collision_rate": 0.0,
+    "timeout_rate": 0.86,
+    "average_episode_reward": -11.925805148708475,
+    "average_time_to_goal_seconds": 10.214285714285696,
+    "average_final_distance_meters": 89.5014818803768,
+    "success_rate_by_goal_lane": {
+      "0": 0.2571428571428571,
+      "1": 0.11363636363636363,
+      "2": 0.0
+    },
+    "success_rate_by_required_lane_changes": {
+      "0": 0.3888888888888889,
+      "1": 0.0,
+      "2": 0.0
+    },
+    "average_reward_components": {
+      "goal": 7.0,
+      "collision": 0.0,
+      "progress": -5.4628051487084806,
+      "time": -13.615000000000068,
+      "hold": 0.152,
+      "lane": 0.0,
+      "speed_match": 0.0,
+      "overtake": 0.0
+    },
+    "anchor_lost_rate": 0.0,
+    "average_max_hold_seconds": 0.073,
+    "success_rate_by_slot": {
+      "front": 0.0,
+      "back": 0.0,
+      "left": 0.42424242424242425,
+      "right": 0.0
+    },
+    "episodes_by_slot": {
+      "front": 18,
+      "back": 27,
+      "left": 33,
+      "right": 22
+    }
+  },
+  "trained_54_input_after": {
+    "episodes": 100,
+    "success_rate": 0.28,
+    "collision_rate": 0.0,
+    "timeout_rate": 0.72,
+    "average_episode_reward": 4.944903382154052,
+    "average_time_to_goal_seconds": 5.910714285714282,
+    "average_final_distance_meters": 12.249396571751463,
+    "success_rate_by_goal_lane": {
+      "0": 0.7428571428571429,
+      "1": 0.045454545454545456,
+      "2": 0.0
+    },
+    "success_rate_by_required_lane_changes": {
+      "0": 0.4166666666666667,
+      "1": 0.13636363636363635,
+      "2": 0.35
+    },
+    "average_reward_components": {
+      "goal": 14.0,
+      "collision": 0.0,
+      "progress": 2.2624033821540523,
+      "time": -11.627500000000056,
+      "hold": 0.31,
+      "lane": 0.0,
+      "speed_match": 0.0,
+      "overtake": 0.0
+    },
+    "anchor_lost_rate": 0.0,
+    "average_max_hold_seconds": 0.155,
+    "success_rate_by_slot": {
+      "front": 0.0,
+      "back": 0.37037037037037035,
+      "left": 0.5454545454545454,
+      "right": 0.0
+    },
+    "episodes_by_slot": {
+      "front": 18,
+      "back": 27,
+      "left": 33,
+      "right": 22
+    }
+  },
+  "previous_57_input_front_right_200k": {
+    "episodes": 100,
+    "success_rate": 0.28,
+    "collision_rate": 0.14,
+    "timeout_rate": 0.58,
+    "average_episode_reward": -0.24459813971701852,
+    "average_time_to_goal_seconds": 5.596428571428568,
+    "average_final_distance_meters": 10.73941179046217,
+    "success_rate_by_goal_lane": {
+      "0": 0.4857142857142857,
+      "1": 0.25,
+      "2": 0.0
+    },
+    "success_rate_by_required_lane_changes": {
+      "0": 0.4444444444444444,
+      "1": 0.22727272727272727,
+      "2": 0.1
+    },
+    "average_reward_components": {
+      "goal": 14.0,
+      "collision": -7.0,
+      "progress": 2.4134018602829816,
+      "time": -9.938000000000047,
+      "hold": 0.28,
+      "lane": 0.0,
+      "speed_match": 0.0,
+      "overtake": 0.0
+    },
+    "anchor_lost_rate": 0.0,
+    "average_max_hold_seconds": 0.14,
+    "success_rate_by_slot": {
+      "front": 0.0,
+      "back": 0.5185185185185185,
+      "left": 0.42424242424242425,
+      "right": 0.0
+    },
+    "episodes_by_slot": {
+      "front": 18,
+      "back": 27,
+      "left": 33,
+      "right": 22
+    }
+  },
+  "caution": "Schema change also removes/redefines inputs and resets the optimizer; this is not an isolated test of adding lanes."
+}

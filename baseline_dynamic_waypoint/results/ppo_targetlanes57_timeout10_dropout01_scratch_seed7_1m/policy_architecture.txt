@@ -1,0 +1,72 @@
+DropoutMultiInputPolicy(
+  (features_extractor): CombinedExtractor(
+    (extractors): ModuleDict(
+      (anchor): Flatten(start_dim=1, end_dim=-1)
+      (desired_goal): Flatten(start_dim=1, end_dim=-1)
+      (goal_delta): Flatten(start_dim=1, end_dim=-1)
+      (hold_progress): Flatten(start_dim=1, end_dim=-1)
+      (lane_change_in_progress): Flatten(start_dim=1, end_dim=-1)
+      (requested_lane): Flatten(start_dim=1, end_dim=-1)
+      (slot): Flatten(start_dim=1, end_dim=-1)
+      (slot_error): Flatten(start_dim=1, end_dim=-1)
+      (target_lanes): Flatten(start_dim=1, end_dim=-1)
+      (vehicles): Flatten(start_dim=1, end_dim=-1)
+    )
+  )
+  (pi_features_extractor): CombinedExtractor(
+    (extractors): ModuleDict(
+      (anchor): Flatten(start_dim=1, end_dim=-1)
+      (desired_goal): Flatten(start_dim=1, end_dim=-1)
+      (goal_delta): Flatten(start_dim=1, end_dim=-1)
+      (hold_progress): Flatten(start_dim=1, end_dim=-1)
+      (lane_change_in_progress): Flatten(start_dim=1, end_dim=-1)
+      (requested_lane): Flatten(start_dim=1, end_dim=-1)
+      (slot): Flatten(start_dim=1, end_dim=-1)
+      (slot_error): Flatten(start_dim=1, end_dim=-1)
+      (target_lanes): Flatten(start_dim=1, end_dim=-1)
+      (vehicles): Flatten(start_dim=1, end_dim=-1)
+    )
+  )
+  (vf_features_extractor): CombinedExtractor(
+    (extractors): ModuleDict(
+      (anchor): Flatten(start_dim=1, end_dim=-1)
+      (desired_goal): Flatten(start_dim=1, end_dim=-1)
+      (goal_delta): Flatten(start_dim=1, end_dim=-1)
+      (hold_progress): Flatten(start_dim=1, end_dim=-1)
+      (lane_change_in_progress): Flatten(start_dim=1, end_dim=-1)
+      (requested_lane): Flatten(start_dim=1, end_dim=-1)
+      (slot): Flatten(start_dim=1, end_dim=-1)
+      (slot_error): Flatten(start_dim=1, end_dim=-1)
+      (target_lanes): Flatten(start_dim=1, end_dim=-1)
+      (vehicles): Flatten(start_dim=1, end_dim=-1)
+    )
+  )
+  (mlp_extractor): MlpExtractor(
+    (policy_net): Sequential(
+      (0): Linear(in_features=57, out_features=256, bias=True)
+      (1): Sequential(
+        (0): Tanh()
+        (1): Dropout(p=0.1, inplace=False)
+      )
+      (2): Linear(in_features=256, out_features=256, bias=True)
+      (3): Sequential(
+        (0): Tanh()
+        (1): Dropout(p=0.1, inplace=False)
+      )
+    )
+    (value_net): Sequential(
+      (0): Linear(in_features=57, out_features=256, bias=True)
+      (1): Sequential(
+        (0): Tanh()
+        (1): Dropout(p=0.1, inplace=False)
+      )
+      (2): Linear(in_features=256, out_features=256, bias=True)
+      (3): Sequential(
+        (0): Tanh()
+        (1): Dropout(p=0.1, inplace=False)
+      )
+    )
+  )
+  (action_net): Linear(in_features=256, out_features=5, bias=True)
+  (value_net): Linear(in_features=256, out_features=1, bias=True)
+)

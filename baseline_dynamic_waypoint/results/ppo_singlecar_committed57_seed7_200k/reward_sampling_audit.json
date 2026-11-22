@@ -1,0 +1,108 @@
+{
+  "evaluation_episodes": 100,
+  "goal_counts": {
+    "right": 22,
+    "front": 18,
+    "left": 33,
+    "back": 27
+  },
+  "actions_by_goal": {
+    "front": {
+      "0": 180,
+      "4": 849,
+      "3": 738,
+      "1": 3071
+    },
+    "back": {
+      "0": 102,
+      "4": 286,
+      "1": 295,
+      "3": 129,
+      "2": 13
+    },
+    "left": {
+      "3": 529,
+      "1": 736,
+      "4": 727,
+      "0": 15,
+      "2": 8
+    },
+    "right": {
+      "4": 682,
+      "1": 5061,
+      "3": 792,
+      "0": 3
+    }
+  },
+  "right_probability_when_goal_lane_is_higher": {
+    "front": {
+      "states": 3416,
+      "mean": 0.000361025273656916,
+      "max": 0.003151398617774248
+    },
+    "back": {
+      "states": 39,
+      "mean": 0.44370962335513187,
+      "max": 0.8940085172653198
+    },
+    "left": {
+      "states": 8,
+      "mean": 0.5801699161529541,
+      "max": 0.6282501220703125
+    },
+    "right": {
+      "states": 4500,
+      "mean": 0.0003372783391385181,
+      "max": 0.004260413348674774
+    }
+  },
+  "right_controller_check": {
+    "requested_lane": 1,
+    "actual_lane": 1,
+    "completed": true,
+    "seconds": 1.9000000000000006,
+    "collision": false
+  },
+  "reward_weights": {
+    "goal": 50.0,
+    "collision": 50.0,
+    "progress": 0.1,
+    "time": 0.05,
+    "hold": 0.2,
+    "lane": 0.0,
+    "speed_match": 0.0,
+    "overtake": 0.0
+  },
+  "completed_training_episodes": 1236,
+  "recorded_training_decisions": 199417,
+  "training_by_goal": {
+    "front": {
+      "episodes": 323,
+      "episode_share": 0.2613268608414239,
+      "policy_decisions": 81891,
+      "decision_share": 0.41065205072787175,
+      "successes": 5
+    },
+    "back": {
+      "episodes": 291,
+      "episode_share": 0.2354368932038835,
+      "policy_decisions": 12733,
+      "decision_share": 0.0638511260323844,
+      "successes": 238
+    },
+    "left": {
+      "episodes": 305,
+      "episode_share": 0.24676375404530745,
+      "policy_decisions": 20971,
+      "decision_share": 0.10516154590631692,
+      "successes": 238
+    },
+    "right": {
+      "episodes": 317,
+      "episode_share": 0.2564724919093851,
+      "policy_decisions": 83822,
+      "decision_share": 0.42033527733342696,
+      "successes": 0
+    }
+  }
+}

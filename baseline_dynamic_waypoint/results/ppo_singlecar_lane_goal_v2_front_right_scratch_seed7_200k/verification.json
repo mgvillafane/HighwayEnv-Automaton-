@@ -1,0 +1,23 @@
+{
+  "exact_training_decisions": 200000,
+  "trained_from_scratch": true,
+  "checkpoint_initialization": null,
+  "total_lifetime_decisions": 200000,
+  "previous_experiment_model_unchanged": true,
+  "observation_schema": "lane_goal_v2",
+  "input_values": 54,
+  "comparison_environment_ppo_config_and_seed_identical": true,
+  "comparison_initial_scenarios_identical": true,
+  "training_episode_counts": {
+    "right": 528,
+    "front": 519
+  },
+  "training_successes": {
+    "front": 6,
+    "right": 39
+  },
+  "before_after_initial_scenarios_identical": true,
+  "evaluation_episodes": 100,
+  "tensorboard_final_step": 200000,
+  "video_replays_match_evaluation": true
+}

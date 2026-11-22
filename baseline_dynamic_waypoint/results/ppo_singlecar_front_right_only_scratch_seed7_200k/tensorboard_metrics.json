@@ -1,0 +1,72 @@
+{
+  "episodes/front/success_mean_100": {
+    "points": 184,
+    "last_step": 200000,
+    "last_value": 0.03999999910593033
+  },
+  "episodes/front/reward_mean_100": {
+    "points": 184,
+    "last_step": 200000,
+    "last_value": -21.327083587646484
+  },
+  "episodes/front/collision_mean_100": {
+    "points": 184,
+    "last_step": 200000,
+    "last_value": 0.30000001192092896
+  },
+  "episodes/front/timeout_mean_100": {
+    "points": 184,
+    "last_step": 200000,
+    "last_value": 0.6600000262260437
+  },
+  "episodes/right/success_mean_100": {
+    "points": 189,
+    "last_step": 200000,
+    "last_value": 0.14000000059604645
+  },
+  "episodes/right/reward_mean_100": {
+    "points": 189,
+    "last_step": 200000,
+    "last_value": -8.121837615966797
+  },
+  "episodes/right/collision_mean_100": {
+    "points": 189,
+    "last_step": 200000,
+    "last_value": 0.07999999821186066
+  },
+  "episodes/right/timeout_mean_100": {
+    "points": 189,
+    "last_step": 200000,
+    "last_value": 0.7799999713897705
+  },
+  "evaluation/front/success_rate": {
+    "points": 2,
+    "last_step": 200000,
+    "last_value": 0.0
+  },
+  "evaluation/front/collision_rate": {
+    "points": 2,
+    "last_step": 200000,
+    "last_value": 0.2181818187236786
+  },
+  "evaluation/front/timeout_rate": {
+    "points": 2,
+    "last_step": 200000,
+    "last_value": 0.7818182110786438
+  },
+  "evaluation/right/success_rate": {
+    "points": 2,
+    "last_step": 200000,
+    "last_value": 0.0
+  },
+  "evaluation/right/collision_rate": {
+    "points": 2,
+    "last_step": 200000,
+    "last_value": 0.31111112236976624
+  },
+  "evaluation/right/timeout_rate": {
+    "points": 2,
+    "last_step": 200000,
+    "last_value": 0.6888889074325562
+  }
+}

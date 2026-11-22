@@ -40,9 +40,15 @@ class ManeuverGuidanceEnv(SingleCarWaypointEnv):
         if self.env_config["lanes_count"] < 2:
             raise ValueError("FRONT passing guidance requires at least two lanes.")
         for key in ("speed_gain", "max_relative_speed", "longitudinal_scale", "lateral_scale",
-                    "speed_scale", "lane_width", "route_lateral_weight", "route_speed_weight", "ttc_horizon"):
+                    "speed_scale", "lane_width", "route_lateral_weight", "ttc_horizon"):
             if not np.isfinite(settings.get(key, np.nan)) or settings[key] <= 0:
                 raise ValueError(f"maneuver_guidance/{key} must be finite and positive.")
+        for key, default in (("route_longitudinal_weight", 1.0), ("route_speed_weight", np.nan)):
+            value = settings.get(key, default)
+            if not np.isfinite(value) or value < 0:
+                raise ValueError(f"maneuver_guidance/{key} must be finite and nonnegative.")
+        if settings.get("lateral_target", "staged") not in ("staged", "goal_lane"):
+            raise ValueError("maneuver_guidance/lateral_target must be staged or goal_lane.")
         blend = settings.get("front_merge_lead", [])
         if (len(blend) != 2 or not np.isfinite(blend).all()
                 or not self.goal_config["pass_margin"] <= blend[0] < blend[1]):
@@ -105,6 +111,8 @@ class ManeuverGuidanceEnv(SingleCarWaypointEnv):
             merge_fraction = float(np.clip((lead - low) / (high - low), 0.0, 1.0))
             navigation_lateral = ((1 - merge_fraction) * passing_lateral
                                   + merge_fraction * goal_lateral)
+        if settings.get("lateral_target", "staged") == "goal_lane":
+            navigation_lateral = goal_lateral
         relative_speed = np.clip(settings["speed_gain"] * longitudinal,
                                  -settings["max_relative_speed"], settings["max_relative_speed"])
         speeds = self.env_config["action"]["target_speeds"]
@@ -118,7 +126,7 @@ class ManeuverGuidanceEnv(SingleCarWaypointEnv):
             bumper_gap = max(0.0, gap - (ego.LENGTH + anchor.LENGTH) / 2)
             ttc = bumper_gap / closing_speed
             collision_risk = float(np.clip(1 - ttc / settings["ttc_horizon"], 0.0, 1.0))
-        route_cost = (abs(longitudinal)
+        route_cost = (settings.get("route_longitudinal_weight", 1.0) * abs(longitudinal)
                       + settings["route_lateral_weight"] * abs(navigation_lateral)
                       + settings["route_speed_weight"] * abs(speed_error))
         # Bounded extra cost: at most the tracking weight per physics tick.

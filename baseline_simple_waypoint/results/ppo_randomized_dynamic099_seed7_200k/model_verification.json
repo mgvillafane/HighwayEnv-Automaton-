@@ -1,0 +1,8 @@
+{
+  "source_model_unchanged": true,
+  "additional_steps": 200000,
+  "source_steps": 1000448,
+  "lifetime_steps": 1200448,
+  "changed_parameter_tensors": 12,
+  "policy_parameter_change_l2": 7.986013159490022
+}

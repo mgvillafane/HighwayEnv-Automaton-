@@ -1,0 +1,4 @@
+file 'front/episode.mp4'
+file 'right/episode.mp4'
+file 'back/episode.mp4'
+file 'left/episode.mp4'

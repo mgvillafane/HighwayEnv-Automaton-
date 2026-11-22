@@ -1,0 +1,145 @@
+{
+  "mirrored_controller_pairs": [
+    {
+      "speed": 10,
+      "right_ticks": 24,
+      "left_ticks": 24,
+      "right_complete": true,
+      "left_complete": true,
+      "right_reward": -2.4653034972211665,
+      "left_reward": -2.4653034972211665,
+      "max_x_difference": 0.0,
+      "max_mirrored_y_difference": 8.881784197001252e-16,
+      "max_reward_difference": 0.0,
+      "termination_equal": true
+    },
+    {
+      "speed": 12.5,
+      "right_ticks": 22,
+      "left_ticks": 22,
+      "right_complete": true,
+      "left_complete": true,
+      "right_reward": -1.6978801660152698,
+      "left_reward": -1.6978801660152698,
+      "max_x_difference": 0.0,
+      "max_mirrored_y_difference": 8.881784197001252e-16,
+      "max_reward_difference": 0.0,
+      "termination_equal": true
+    },
+    {
+      "speed": 15,
+      "right_ticks": 21,
+      "left_ticks": 21,
+      "right_complete": true,
+      "left_complete": true,
+      "right_reward": -1.0835569234352755,
+      "left_reward": -1.0835569234352755,
+      "max_x_difference": 0.0,
+      "max_mirrored_y_difference": 1.3322676295501878e-15,
+      "max_reward_difference": 0.0,
+      "termination_equal": true
+    },
+    {
+      "speed": 17.5,
+      "right_ticks": 20,
+      "left_ticks": 20,
+      "right_complete": true,
+      "left_complete": true,
+      "right_reward": -0.5254498877992092,
+      "left_reward": -0.5254498877992092,
+      "max_x_difference": 0.0,
+      "max_mirrored_y_difference": 4.440892098500626e-16,
+      "max_reward_difference": 0.0,
+      "termination_equal": true
+    },
+    {
+      "speed": 20,
+      "right_ticks": 19,
+      "left_ticks": 19,
+      "right_complete": true,
+      "left_complete": true,
+      "right_reward": -0.02006155855664673,
+      "left_reward": -0.02006155855664673,
+      "max_x_difference": 0.0,
+      "max_mirrored_y_difference": 1.3322676295501878e-15,
+      "max_reward_difference": 0.0,
+      "termination_equal": true
+    },
+    {
+      "speed": 22.5,
+      "right_ticks": 19,
+      "left_ticks": 19,
+      "right_complete": true,
+      "left_complete": true,
+      "right_reward": 0.458848754500606,
+      "left_reward": 0.458848754500606,
+      "max_x_difference": 0.0,
+      "max_mirrored_y_difference": 8.881784197001252e-16,
+      "max_reward_difference": 0.0,
+      "termination_equal": true
+    },
+    {
+      "speed": 25,
+      "right_ticks": 18,
+      "left_ticks": 18,
+      "right_complete": true,
+      "left_complete": true,
+      "right_reward": 0.8868578630418874,
+      "left_reward": 0.8868578630418874,
+      "max_x_difference": 0.0,
+      "max_mirrored_y_difference": 8.881784197001252e-16,
+      "max_reward_difference": 0.0,
+      "termination_equal": true
+    }
+  ],
+  "sampling_seeds": [
+    20000,
+    21999
+  ],
+  "goal_counts": {
+    "right": 498,
+    "front": 494,
+    "left": 510,
+    "back": 498
+  },
+  "initial_required_direction": {
+    "front": {
+      "same": 179,
+      "right": 157,
+      "left": 158
+    },
+    "back": {
+      "right": 166,
+      "left": 146,
+      "same": 186
+    },
+    "left": {
+      "same": 159,
+      "left": 272,
+      "right": 79
+    },
+    "right": {
+      "left": 90,
+      "right": 233,
+      "same": 175
+    }
+  },
+  "ego_lane_counts": {
+    "2": 664,
+    "1": 666,
+    "0": 670
+  },
+  "traffic_lane_counts": {
+    "0": 576,
+    "2": 568,
+    "1": 856
+  },
+  "maximum_y_feature_formula_error": 1.9868214962137642e-08,
+  "fast_native_exact_equal_states": 529,
+  "notes": [
+    "No model or reward modifications.",
+    "slot_error lateral clips two-lane errors to the same magnitude as one-lane errors, but signed goal_delta preserves full difference.",
+    "Absolute achieved/desired y have nonnegative values; relative goal_delta and slot_error are signed.",
+    "Controller mirror setup: ego y=0 RIGHT versus y=8 LEFT, traffic y=4, identical x and velocities, FRONT goal."
+  ]
+}

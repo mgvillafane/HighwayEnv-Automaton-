@@ -1,0 +1,1102 @@
+[
+  {
+    "seed": 10000,
+    "goal": "right",
+    "ego_lane": 0,
+    "target_car_lane": 0,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      0.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10001,
+    "goal": "right",
+    "ego_lane": 1,
+    "target_car_lane": 1,
+    "target_goal_lane": 2,
+    "observed_target_lanes": [
+      1.0,
+      2.0
+    ]
+  },
+  {
+    "seed": 10002,
+    "goal": "front",
+    "ego_lane": 2,
+    "target_car_lane": 1,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10003,
+    "goal": "front",
+    "ego_lane": 0,
+    "target_car_lane": 0,
+    "target_goal_lane": 0,
+    "observed_target_lanes": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "seed": 10004,
+    "goal": "left",
+    "ego_lane": 1,
+    "target_car_lane": 2,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      2.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10005,
+    "goal": "right",
+    "ego_lane": 1,
+    "target_car_lane": 1,
+    "target_goal_lane": 2,
+    "observed_target_lanes": [
+      1.0,
+      2.0
+    ]
+  },
+  {
+    "seed": 10006,
+    "goal": "front",
+    "ego_lane": 1,
+    "target_car_lane": 1,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10007,
+    "goal": "right",
+    "ego_lane": 0,
+    "target_car_lane": 0,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      0.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10008,
+    "goal": "front",
+    "ego_lane": 1,
+    "target_car_lane": 1,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10009,
+    "goal": "back",
+    "ego_lane": 2,
+    "target_car_lane": 0,
+    "target_goal_lane": 0,
+    "observed_target_lanes": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "seed": 10010,
+    "goal": "back",
+    "ego_lane": 1,
+    "target_car_lane": 0,
+    "target_goal_lane": 0,
+    "observed_target_lanes": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "seed": 10011,
+    "goal": "left",
+    "ego_lane": 2,
+    "target_car_lane": 1,
+    "target_goal_lane": 0,
+    "observed_target_lanes": [
+      1.0,
+      0.0
+    ]
+  },
+  {
+    "seed": 10012,
+    "goal": "right",
+    "ego_lane": 1,
+    "target_car_lane": 1,
+    "target_goal_lane": 2,
+    "observed_target_lanes": [
+      1.0,
+      2.0
+    ]
+  },
+  {
+    "seed": 10013,
+    "goal": "left",
+    "ego_lane": 1,
+    "target_car_lane": 1,
+    "target_goal_lane": 0,
+    "observed_target_lanes": [
+      1.0,
+      0.0
+    ]
+  },
+  {
+    "seed": 10014,
+    "goal": "left",
+    "ego_lane": 0,
+    "target_car_lane": 2,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      2.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10015,
+    "goal": "back",
+    "ego_lane": 2,
+    "target_car_lane": 2,
+    "target_goal_lane": 2,
+    "observed_target_lanes": [
+      2.0,
+      2.0
+    ]
+  },
+  {
+    "seed": 10016,
+    "goal": "back",
+    "ego_lane": 2,
+    "target_car_lane": 1,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10017,
+    "goal": "right",
+    "ego_lane": 2,
+    "target_car_lane": 0,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      0.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10018,
+    "goal": "back",
+    "ego_lane": 2,
+    "target_car_lane": 1,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10019,
+    "goal": "left",
+    "ego_lane": 1,
+    "target_car_lane": 2,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      2.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10020,
+    "goal": "right",
+    "ego_lane": 0,
+    "target_car_lane": 0,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      0.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10021,
+    "goal": "left",
+    "ego_lane": 0,
+    "target_car_lane": 1,
+    "target_goal_lane": 0,
+    "observed_target_lanes": [
+      1.0,
+      0.0
+    ]
+  },
+  {
+    "seed": 10022,
+    "goal": "left",
+    "ego_lane": 2,
+    "target_car_lane": 1,
+    "target_goal_lane": 0,
+    "observed_target_lanes": [
+      1.0,
+      0.0
+    ]
+  },
+  {
+    "seed": 10023,
+    "goal": "back",
+    "ego_lane": 0,
+    "target_car_lane": 2,
+    "target_goal_lane": 2,
+    "observed_target_lanes": [
+      2.0,
+      2.0
+    ]
+  },
+  {
+    "seed": 10024,
+    "goal": "front",
+    "ego_lane": 1,
+    "target_car_lane": 2,
+    "target_goal_lane": 2,
+    "observed_target_lanes": [
+      2.0,
+      2.0
+    ]
+  },
+  {
+    "seed": 10025,
+    "goal": "back",
+    "ego_lane": 1,
+    "target_car_lane": 0,
+    "target_goal_lane": 0,
+    "observed_target_lanes": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "seed": 10026,
+    "goal": "front",
+    "ego_lane": 1,
+    "target_car_lane": 2,
+    "target_goal_lane": 2,
+    "observed_target_lanes": [
+      2.0,
+      2.0
+    ]
+  },
+  {
+    "seed": 10027,
+    "goal": "left",
+    "ego_lane": 0,
+    "target_car_lane": 2,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      2.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10028,
+    "goal": "right",
+    "ego_lane": 0,
+    "target_car_lane": 0,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      0.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10029,
+    "goal": "left",
+    "ego_lane": 0,
+    "target_car_lane": 2,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      2.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10030,
+    "goal": "back",
+    "ego_lane": 0,
+    "target_car_lane": 0,
+    "target_goal_lane": 0,
+    "observed_target_lanes": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "seed": 10031,
+    "goal": "right",
+    "ego_lane": 0,
+    "target_car_lane": 1,
+    "target_goal_lane": 2,
+    "observed_target_lanes": [
+      1.0,
+      2.0
+    ]
+  },
+  {
+    "seed": 10032,
+    "goal": "back",
+    "ego_lane": 2,
+    "target_car_lane": 0,
+    "target_goal_lane": 0,
+    "observed_target_lanes": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "seed": 10033,
+    "goal": "left",
+    "ego_lane": 2,
+    "target_car_lane": 2,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      2.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10034,
+    "goal": "left",
+    "ego_lane": 2,
+    "target_car_lane": 1,
+    "target_goal_lane": 0,
+    "observed_target_lanes": [
+      1.0,
+      0.0
+    ]
+  },
+  {
+    "seed": 10035,
+    "goal": "left",
+    "ego_lane": 1,
+    "target_car_lane": 2,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      2.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10036,
+    "goal": "back",
+    "ego_lane": 1,
+    "target_car_lane": 0,
+    "target_goal_lane": 0,
+    "observed_target_lanes": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "seed": 10037,
+    "goal": "left",
+    "ego_lane": 0,
+    "target_car_lane": 1,
+    "target_goal_lane": 0,
+    "observed_target_lanes": [
+      1.0,
+      0.0
+    ]
+  },
+  {
+    "seed": 10038,
+    "goal": "right",
+    "ego_lane": 1,
+    "target_car_lane": 0,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      0.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10039,
+    "goal": "left",
+    "ego_lane": 0,
+    "target_car_lane": 2,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      2.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10040,
+    "goal": "back",
+    "ego_lane": 0,
+    "target_car_lane": 0,
+    "target_goal_lane": 0,
+    "observed_target_lanes": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "seed": 10041,
+    "goal": "front",
+    "ego_lane": 1,
+    "target_car_lane": 0,
+    "target_goal_lane": 0,
+    "observed_target_lanes": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "seed": 10042,
+    "goal": "right",
+    "ego_lane": 1,
+    "target_car_lane": 1,
+    "target_goal_lane": 2,
+    "observed_target_lanes": [
+      1.0,
+      2.0
+    ]
+  },
+  {
+    "seed": 10043,
+    "goal": "front",
+    "ego_lane": 1,
+    "target_car_lane": 0,
+    "target_goal_lane": 0,
+    "observed_target_lanes": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "seed": 10044,
+    "goal": "right",
+    "ego_lane": 0,
+    "target_car_lane": 1,
+    "target_goal_lane": 2,
+    "observed_target_lanes": [
+      1.0,
+      2.0
+    ]
+  },
+  {
+    "seed": 10045,
+    "goal": "left",
+    "ego_lane": 0,
+    "target_car_lane": 1,
+    "target_goal_lane": 0,
+    "observed_target_lanes": [
+      1.0,
+      0.0
+    ]
+  },
+  {
+    "seed": 10046,
+    "goal": "left",
+    "ego_lane": 1,
+    "target_car_lane": 2,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      2.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10047,
+    "goal": "back",
+    "ego_lane": 0,
+    "target_car_lane": 1,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10048,
+    "goal": "back",
+    "ego_lane": 2,
+    "target_car_lane": 0,
+    "target_goal_lane": 0,
+    "observed_target_lanes": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "seed": 10049,
+    "goal": "right",
+    "ego_lane": 0,
+    "target_car_lane": 0,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      0.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10050,
+    "goal": "back",
+    "ego_lane": 1,
+    "target_car_lane": 1,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10051,
+    "goal": "back",
+    "ego_lane": 1,
+    "target_car_lane": 0,
+    "target_goal_lane": 0,
+    "observed_target_lanes": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "seed": 10052,
+    "goal": "back",
+    "ego_lane": 0,
+    "target_car_lane": 0,
+    "target_goal_lane": 0,
+    "observed_target_lanes": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "seed": 10053,
+    "goal": "left",
+    "ego_lane": 0,
+    "target_car_lane": 1,
+    "target_goal_lane": 0,
+    "observed_target_lanes": [
+      1.0,
+      0.0
+    ]
+  },
+  {
+    "seed": 10054,
+    "goal": "back",
+    "ego_lane": 2,
+    "target_car_lane": 1,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10055,
+    "goal": "front",
+    "ego_lane": 2,
+    "target_car_lane": 1,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10056,
+    "goal": "left",
+    "ego_lane": 2,
+    "target_car_lane": 1,
+    "target_goal_lane": 0,
+    "observed_target_lanes": [
+      1.0,
+      0.0
+    ]
+  },
+  {
+    "seed": 10057,
+    "goal": "right",
+    "ego_lane": 2,
+    "target_car_lane": 0,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      0.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10058,
+    "goal": "left",
+    "ego_lane": 1,
+    "target_car_lane": 2,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      2.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10059,
+    "goal": "back",
+    "ego_lane": 0,
+    "target_car_lane": 0,
+    "target_goal_lane": 0,
+    "observed_target_lanes": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "seed": 10060,
+    "goal": "back",
+    "ego_lane": 0,
+    "target_car_lane": 0,
+    "target_goal_lane": 0,
+    "observed_target_lanes": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "seed": 10061,
+    "goal": "front",
+    "ego_lane": 0,
+    "target_car_lane": 1,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10062,
+    "goal": "left",
+    "ego_lane": 0,
+    "target_car_lane": 1,
+    "target_goal_lane": 0,
+    "observed_target_lanes": [
+      1.0,
+      0.0
+    ]
+  },
+  {
+    "seed": 10063,
+    "goal": "back",
+    "ego_lane": 0,
+    "target_car_lane": 2,
+    "target_goal_lane": 2,
+    "observed_target_lanes": [
+      2.0,
+      2.0
+    ]
+  },
+  {
+    "seed": 10064,
+    "goal": "left",
+    "ego_lane": 0,
+    "target_car_lane": 1,
+    "target_goal_lane": 0,
+    "observed_target_lanes": [
+      1.0,
+      0.0
+    ]
+  },
+  {
+    "seed": 10065,
+    "goal": "right",
+    "ego_lane": 0,
+    "target_car_lane": 1,
+    "target_goal_lane": 2,
+    "observed_target_lanes": [
+      1.0,
+      2.0
+    ]
+  },
+  {
+    "seed": 10066,
+    "goal": "left",
+    "ego_lane": 0,
+    "target_car_lane": 2,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      2.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10067,
+    "goal": "left",
+    "ego_lane": 2,
+    "target_car_lane": 1,
+    "target_goal_lane": 0,
+    "observed_target_lanes": [
+      1.0,
+      0.0
+    ]
+  },
+  {
+    "seed": 10068,
+    "goal": "right",
+    "ego_lane": 2,
+    "target_car_lane": 0,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      0.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10069,
+    "goal": "right",
+    "ego_lane": 0,
+    "target_car_lane": 1,
+    "target_goal_lane": 2,
+    "observed_target_lanes": [
+      1.0,
+      2.0
+    ]
+  },
+  {
+    "seed": 10070,
+    "goal": "back",
+    "ego_lane": 0,
+    "target_car_lane": 0,
+    "target_goal_lane": 0,
+    "observed_target_lanes": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "seed": 10071,
+    "goal": "front",
+    "ego_lane": 2,
+    "target_car_lane": 0,
+    "target_goal_lane": 0,
+    "observed_target_lanes": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "seed": 10072,
+    "goal": "front",
+    "ego_lane": 2,
+    "target_car_lane": 2,
+    "target_goal_lane": 2,
+    "observed_target_lanes": [
+      2.0,
+      2.0
+    ]
+  },
+  {
+    "seed": 10073,
+    "goal": "front",
+    "ego_lane": 2,
+    "target_car_lane": 0,
+    "target_goal_lane": 0,
+    "observed_target_lanes": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "seed": 10074,
+    "goal": "front",
+    "ego_lane": 0,
+    "target_car_lane": 1,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10075,
+    "goal": "front",
+    "ego_lane": 1,
+    "target_car_lane": 1,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10076,
+    "goal": "back",
+    "ego_lane": 2,
+    "target_car_lane": 2,
+    "target_goal_lane": 2,
+    "observed_target_lanes": [
+      2.0,
+      2.0
+    ]
+  },
+  {
+    "seed": 10077,
+    "goal": "left",
+    "ego_lane": 0,
+    "target_car_lane": 1,
+    "target_goal_lane": 0,
+    "observed_target_lanes": [
+      1.0,
+      0.0
+    ]
+  },
+  {
+    "seed": 10078,
+    "goal": "front",
+    "ego_lane": 1,
+    "target_car_lane": 1,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10079,
+    "goal": "back",
+    "ego_lane": 2,
+    "target_car_lane": 2,
+    "target_goal_lane": 2,
+    "observed_target_lanes": [
+      2.0,
+      2.0
+    ]
+  },
+  {
+    "seed": 10080,
+    "goal": "right",
+    "ego_lane": 0,
+    "target_car_lane": 0,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      0.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10081,
+    "goal": "front",
+    "ego_lane": 1,
+    "target_car_lane": 2,
+    "target_goal_lane": 2,
+    "observed_target_lanes": [
+      2.0,
+      2.0
+    ]
+  },
+  {
+    "seed": 10082,
+    "goal": "back",
+    "ego_lane": 0,
+    "target_car_lane": 2,
+    "target_goal_lane": 2,
+    "observed_target_lanes": [
+      2.0,
+      2.0
+    ]
+  },
+  {
+    "seed": 10083,
+    "goal": "right",
+    "ego_lane": 2,
+    "target_car_lane": 1,
+    "target_goal_lane": 2,
+    "observed_target_lanes": [
+      1.0,
+      2.0
+    ]
+  },
+  {
+    "seed": 10084,
+    "goal": "back",
+    "ego_lane": 0,
+    "target_car_lane": 2,
+    "target_goal_lane": 2,
+    "observed_target_lanes": [
+      2.0,
+      2.0
+    ]
+  },
+  {
+    "seed": 10085,
+    "goal": "left",
+    "ego_lane": 1,
+    "target_car_lane": 2,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      2.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10086,
+    "goal": "front",
+    "ego_lane": 2,
+    "target_car_lane": 0,
+    "target_goal_lane": 0,
+    "observed_target_lanes": [
+      0.0,
+      0.0
+    ]
+  },
+  {
+    "seed": 10087,
+    "goal": "left",
+    "ego_lane": 0,
+    "target_car_lane": 2,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      2.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10088,
+    "goal": "left",
+    "ego_lane": 0,
+    "target_car_lane": 2,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      2.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10089,
+    "goal": "back",
+    "ego_lane": 1,
+    "target_car_lane": 1,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10090,
+    "goal": "left",
+    "ego_lane": 2,
+    "target_car_lane": 2,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      2.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10091,
+    "goal": "left",
+    "ego_lane": 0,
+    "target_car_lane": 2,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      2.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10092,
+    "goal": "right",
+    "ego_lane": 1,
+    "target_car_lane": 0,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      0.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10093,
+    "goal": "right",
+    "ego_lane": 1,
+    "target_car_lane": 0,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      0.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10094,
+    "goal": "back",
+    "ego_lane": 2,
+    "target_car_lane": 1,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      1.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10095,
+    "goal": "left",
+    "ego_lane": 2,
+    "target_car_lane": 2,
+    "target_goal_lane": 1,
+    "observed_target_lanes": [
+      2.0,
+      1.0
+    ]
+  },
+  {
+    "seed": 10096,
+    "goal": "right",
+    "ego_lane": 0,
+    "target_car_lane": 1,
+    "target_goal_lane": 2,
+    "observed_target_lanes": [
+      1.0,
+      2.0
+    ]
+  },
+  {
+    "seed": 10097,
+    "goal": "left",
+    "ego_lane": 1,
+    "target_car_lane": 1,
+    "target_goal_lane": 0,
+    "observed_target_lanes": [
+      1.0,
+      0.0
+    ]
+  },
+  {
+    "seed": 10098,
+    "goal": "left",
+    "ego_lane": 0,
+    "target_car_lane": 1,
+    "target_goal_lane": 0,
+    "observed_target_lanes": [
+      1.0,
+      0.0
+    ]
+  },
+  {
+    "seed": 10099,
+    "goal": "left",
+    "ego_lane": 0,
+    "target_car_lane": 1,
+    "target_goal_lane": 0,
+    "observed_target_lanes": [
+      1.0,
+      0.0
+    ]
+  }
+]

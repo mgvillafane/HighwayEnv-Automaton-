@@ -1,0 +1,140 @@
+{
+  "ppo_front20m_gamma099_seed7_1m": {
+    "front": {
+      "episodes": 1465,
+      "successes": 0,
+      "first_success_timestep": null,
+      "last_success_timestep": null,
+      "episodes_with_any_valid_hold": 4,
+      "collisions": 324,
+      "timeouts": 1141,
+      "median_final_distance": 55.2847181847303,
+      "average_episode_reward": -19.50173826757679
+    },
+    "back": {
+      "episodes": 1472,
+      "successes": 249,
+      "first_success_timestep": 7152,
+      "last_success_timestep": 998024,
+      "episodes_with_any_valid_hold": 362,
+      "collisions": 291,
+      "timeouts": 932,
+      "median_final_distance": 14.208224846024507,
+      "average_episode_reward": -8.028596432065218
+    },
+    "left": {
+      "episodes": 994,
+      "successes": 149,
+      "first_success_timestep": 78772,
+      "last_success_timestep": 992400,
+      "episodes_with_any_valid_hold": 185,
+      "collisions": 216,
+      "timeouts": 629,
+      "median_final_distance": 26.816045797903485,
+      "average_episode_reward": -9.83014715694165
+    },
+    "right": {
+      "episodes": 934,
+      "successes": 0,
+      "first_success_timestep": null,
+      "last_success_timestep": null,
+      "episodes_with_any_valid_hold": 2,
+      "collisions": 181,
+      "timeouts": 753,
+      "median_final_distance": 35.67531902274037,
+      "average_episode_reward": -18.983164384368308
+    }
+  },
+  "ppo_singlecar_flexible30s_seed7_200k": {
+    "front": {
+      "episodes": 269,
+      "successes": 0,
+      "first_success_timestep": null,
+      "last_success_timestep": null,
+      "episodes_with_any_valid_hold": 0,
+      "collisions": 29,
+      "timeouts": 240,
+      "median_final_distance": 10.187767462678483,
+      "average_episode_reward": -16.527660836431227
+    },
+    "back": {
+      "episodes": 261,
+      "successes": 207,
+      "first_success_timestep": 2636,
+      "last_success_timestep": 198892,
+      "episodes_with_any_valid_hold": 220,
+      "collisions": 12,
+      "timeouts": 42,
+      "median_final_distance": 3.263745168437676,
+      "average_episode_reward": 34.69964770498084
+    },
+    "left": {
+      "episodes": 251,
+      "successes": 126,
+      "first_success_timestep": 3684,
+      "last_success_timestep": 199412,
+      "episodes_with_any_valid_hold": 140,
+      "collisions": 75,
+      "timeouts": 50,
+      "median_final_distance": 3.941028765695965,
+      "average_episode_reward": 7.212235318725099
+    },
+    "right": {
+      "episodes": 260,
+      "successes": 0,
+      "first_success_timestep": null,
+      "last_success_timestep": null,
+      "episodes_with_any_valid_hold": 0,
+      "collisions": 61,
+      "timeouts": 199,
+      "median_final_distance": 11.514423297720818,
+      "average_episode_reward": -23.483574038461537
+    }
+  },
+  "ppo_singlecar_committed57_seed7_200k": {
+    "front": {
+      "episodes": 323,
+      "successes": 5,
+      "first_success_timestep": 15504,
+      "last_success_timestep": 93692,
+      "episodes_with_any_valid_hold": 7,
+      "collisions": 23,
+      "timeouts": 295,
+      "median_final_distance": 8.805260188620517,
+      "average_episode_reward": -13.70419420743034
+    },
+    "back": {
+      "episodes": 291,
+      "successes": 238,
+      "first_success_timestep": 136,
+      "last_success_timestep": 197436,
+      "episodes_with_any_valid_hold": 247,
+      "collisions": 40,
+      "timeouts": 13,
+      "median_final_distance": 3.256252840253454,
+      "average_episode_reward": 32.18154742268041
+    },
+    "left": {
+      "episodes": 305,
+      "successes": 238,
+      "first_success_timestep": 2108,
+      "last_success_timestep": 197268,
+      "episodes_with_any_valid_hold": 257,
+      "collisions": 46,
+      "timeouts": 21,
+      "median_final_distance": 3.556051193959263,
+      "average_episode_reward": 29.518913596721312
+    },
+    "right": {
+      "episodes": 317,
+      "successes": 0,
+      "first_success_timestep": null,
+      "last_success_timestep": null,
+      "episodes_with_any_valid_hold": 0,
+      "collisions": 22,
+      "timeouts": 295,
+      "median_final_distance": 10.645359829601711,
+      "average_episode_reward": -16.43409576340694
+    }
+  }
+}

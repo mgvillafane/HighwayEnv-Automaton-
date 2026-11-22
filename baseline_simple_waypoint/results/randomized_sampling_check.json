@@ -1,0 +1,26 @@
+{
+  "episodes": 1000,
+  "slot_counts": {
+    "right": 254,
+    "back": 237,
+    "left": 263,
+    "front": 246
+  },
+  "ego_lane_counts": {
+    "2": 354,
+    "1": 319,
+    "0": 327
+  },
+  "traffic_lane_counts": {
+    "1": 407,
+    "0": 292,
+    "2": 301
+  },
+  "traffic_speed_min_observed": 12.015076134918056,
+  "traffic_speed_max_observed": 17.99898889816461,
+  "traffic_speed_range": [
+    12,
+    18
+  ],
+  "ego_maximum_speed": 25
+}

@@ -1,0 +1,21 @@
+{
+  "exact_additional_decisions": 200000,
+  "source_checkpoint_unchanged": true,
+  "observation_schema": "lane_goal_v2",
+  "input_values": 54,
+  "initialization": "Partial transfer of retained weights; optimizer reset; removed/redefined inputs omitted",
+  "physics_rewards_and_success_conditions_match_source": true,
+  "source_and_transferred_initial_scenarios_identical": true,
+  "training_episode_counts": {
+    "front": 380,
+    "right": 386
+  },
+  "training_successes": {
+    "front": 1,
+    "right": 0
+  },
+  "before_after_initial_scenarios_identical": true,
+  "evaluation_episodes": 100,
+  "tensorboard_final_step": 200000,
+  "video_replays_match_evaluation": true
+}

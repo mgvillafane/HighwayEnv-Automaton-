@@ -1,0 +1,90 @@
+[
+  {
+    "controller": "trained_ppo",
+    "model": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\models\\ppo_allgoals_timeout25_dropout01_seed7_4m.zip",
+    "seed": 10002,
+    "slot": "front",
+    "deterministic": true,
+    "sampling_seed": null,
+    "initial_scenario": {
+      "slot": "front",
+      "ego_lane": 2,
+      "traffic_lane": 1,
+      "traffic_speed": 14.02130075714545,
+      "ego_speed": 20.0
+    },
+    "outcome": "TIMED OUT",
+    "success": false,
+    "collision": false,
+    "reward": -38.19290814556807,
+    "seconds": 30.000000000000156,
+    "policy_decisions": 300,
+    "physics_steps": 300
+  },
+  {
+    "controller": "trained_ppo",
+    "model": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\models\\ppo_allgoals_timeout25_dropout01_seed7_4m.zip",
+    "seed": 10009,
+    "slot": "left",
+    "deterministic": true,
+    "sampling_seed": null,
+    "initial_scenario": {
+      "slot": "left",
+      "ego_lane": 2,
+      "traffic_lane": 1,
+      "traffic_speed": 16.156381564119673,
+      "ego_speed": 20.0
+    },
+    "outcome": "TIMED OUT",
+    "success": false,
+    "collision": false,
+    "reward": -41.10918433580208,
+    "seconds": 30.000000000000156,
+    "policy_decisions": 300,
+    "physics_steps": 300
+  },
+  {
+    "controller": "trained_ppo",
+    "model": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\models\\ppo_allgoals_timeout25_dropout01_seed7_4m.zip",
+    "seed": 10004,
+    "slot": "back",
+    "deterministic": true,
+    "sampling_seed": null,
+    "initial_scenario": {
+      "slot": "back",
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "traffic_speed": 14.180063724676534,
+      "ego_speed": 20.0
+    },
+    "outcome": "COLLISION",
+    "success": false,
+    "collision": true,
+    "reward": -51.7549840688309,
+    "seconds": 5.1999999999999975,
+    "policy_decisions": 52,
+    "physics_steps": 52
+  },
+  {
+    "controller": "trained_ppo",
+    "model": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\models\\ppo_allgoals_timeout25_dropout01_seed7_4m.zip",
+    "seed": 10000,
+    "slot": "right",
+    "deterministic": true,
+    "sampling_seed": null,
+    "initial_scenario": {
+      "slot": "right",
+      "ego_lane": 0,
+      "traffic_lane": 0,
+      "traffic_speed": 14.44140454903511,
+      "ego_speed": 20.0
+    },
+    "outcome": "COLLISION",
+    "success": false,
+    "collision": true,
+    "reward": -49.71187422175021,
+    "seconds": 5.399999999999997,
+    "policy_decisions": 54,
+    "physics_steps": 54
+  }
+]

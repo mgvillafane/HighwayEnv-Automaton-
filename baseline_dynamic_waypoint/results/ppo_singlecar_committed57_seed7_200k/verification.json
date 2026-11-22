@@ -1,0 +1,20 @@
+{
+  "policy_decisions": 200000,
+  "physics_ticks": 252891,
+  "features": 57,
+  "lane_changes": {
+    "started": 2813,
+    "completed": 2737,
+    "interrupted": 76
+  },
+  "all_started_changes_completed_or_terminal": true,
+  "source_model_unchanged": true,
+  "reward_weights_unchanged": true,
+  "recorded_maneuvers_no_intermediate_policy_decisions": true,
+  "videos_match_evaluation": true,
+  "tensorboard_final_success_point": [
+    1794529237.069594,
+    200000,
+    0.550000011920929
+  ]
+}

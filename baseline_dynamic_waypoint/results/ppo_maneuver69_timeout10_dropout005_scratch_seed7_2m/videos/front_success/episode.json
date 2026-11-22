@@ -1,0 +1,22 @@
+{
+  "episode": 1,
+  "seed": 10003,
+  "slot": "front",
+  "outcome": "GOAL REACHED",
+  "collision": false,
+  "reward": 81.68702682521113,
+  "simulated_seconds": 6.5999999999999925,
+  "policy_steps": 66,
+  "fps": 10,
+  "video_frames": 87,
+  "video": "episode_01_seed10003_goal_reached.mp4",
+  "final_image": "episode_01_seed10003_goal_reached_final.png",
+  "matches_saved_evaluation": true,
+  "model": "baseline_dynamic_waypoint\\models\\ppo_maneuver69_timeout10_dropout005_scratch_seed7_2m.zip",
+  "model_sha256": "3882ae9114b23aac1668019072df672b61ac04f9cc8d15b2bd1e13188329668d",
+  "training_timesteps": 2000000,
+  "verified_encoded_frames": 87,
+  "selection": "First successful FRONT evaluation starting in the goal/anchor lane, to show passing and returning.",
+  "initial_lane": 0,
+  "goal_lane": 0
+}

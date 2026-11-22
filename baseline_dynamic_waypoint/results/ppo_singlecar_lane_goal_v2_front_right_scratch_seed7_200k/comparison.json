@@ -1,0 +1,145 @@
+{
+  "fresh_before_training": {
+    "episodes": 100,
+    "success_rate": 0.03,
+    "collision_rate": 0.0,
+    "timeout_rate": 0.97,
+    "average_episode_reward": -25.611685967158397,
+    "average_time_to_goal_seconds": 3.6666666666666683,
+    "average_final_distance_meters": 160.24029006487592,
+    "success_rate_by_goal_lane": {
+      "0": 0.02857142857142857,
+      "1": 0.045454545454545456,
+      "2": 0.0
+    },
+    "success_rate_by_required_lane_changes": {
+      "0": 0.0,
+      "1": 0.06818181818181818,
+      "2": 0.0
+    },
+    "average_reward_components": {
+      "goal": 1.5,
+      "collision": 0.0,
+      "progress": -12.536685967158395,
+      "time": -14.605000000000077,
+      "hold": 0.03,
+      "lane": 0.0,
+      "speed_match": 0.0,
+      "overtake": 0.0
+    },
+    "anchor_lost_rate": 0.0,
+    "average_max_hold_seconds": 0.015,
+    "success_rate_by_slot": {
+      "front": 0.0,
+      "back": 0.1111111111111111,
+      "left": 0.0,
+      "right": 0.0
+    },
+    "episodes_by_slot": {
+      "front": 18,
+      "back": 27,
+      "left": 33,
+      "right": 22
+    }
+  },
+  "fresh_after_200k": {
+    "episodes": 100,
+    "success_rate": 0.03,
+    "collision_rate": 0.32,
+    "timeout_rate": 0.65,
+    "average_episode_reward": -23.88262707294349,
+    "average_time_to_goal_seconds": 28.53333333333347,
+    "average_final_distance_meters": 21.659701122726872,
+    "success_rate_by_goal_lane": {
+      "0": 0.05714285714285714,
+      "1": 0.022727272727272728,
+      "2": 0.0
+    },
+    "success_rate_by_required_lane_changes": {
+      "0": 0.08333333333333333,
+      "1": 0.0,
+      "2": 0.0
+    },
+    "average_reward_components": {
+      "goal": 1.5,
+      "collision": -16.0,
+      "progress": 1.3213729270565113,
+      "time": -10.734000000000052,
+      "hold": 0.03,
+      "lane": 0.0,
+      "speed_match": 0.0,
+      "overtake": 0.0
+    },
+    "anchor_lost_rate": 0.0,
+    "average_max_hold_seconds": 0.015,
+    "success_rate_by_slot": {
+      "front": 0.0,
+      "back": 0.0,
+      "left": 0.09090909090909091,
+      "right": 0.0
+    },
+    "episodes_by_slot": {
+      "front": 18,
+      "back": 27,
+      "left": 33,
+      "right": 22
+    }
+  },
+  "transferred_after_200k": {
+    "episodes": 100,
+    "success_rate": 0.28,
+    "collision_rate": 0.0,
+    "timeout_rate": 0.72,
+    "average_episode_reward": 4.944903382154052,
+    "average_time_to_goal_seconds": 5.910714285714282,
+    "average_final_distance_meters": 12.249396571751463,
+    "success_rate_by_goal_lane": {
+      "0": 0.7428571428571429,
+      "1": 0.045454545454545456,
+      "2": 0.0
+    },
+    "success_rate_by_required_lane_changes": {
+      "0": 0.4166666666666667,
+      "1": 0.13636363636363635,
+      "2": 0.35
+    },
+    "average_reward_components": {
+      "goal": 14.0,
+      "collision": 0.0,
+      "progress": 2.2624033821540523,
+      "time": -11.627500000000056,
+      "hold": 0.31,
+      "lane": 0.0,
+      "speed_match": 0.0,
+      "overtake": 0.0
+    },
+    "anchor_lost_rate": 0.0,
+    "average_max_hold_seconds": 0.155,
+    "success_rate_by_slot": {
+      "front": 0.0,
+      "back": 0.37037037037037035,
+      "left": 0.5454545454545454,
+      "right": 0.0
+    },
+    "episodes_by_slot": {
+      "front": 18,
+      "back": 27,
+      "left": 33,
+      "right": 22
+    }
+  },
+  "target_goals": {
+    "episodes": 40,
+    "transferred_success_rate": 0.0,
+    "scratch_success_rate": 0.0,
+    "success_rate_difference": 0.0,
+    "transferred_collision_rate": 0.0,
+    "scratch_collision_rate": 0.4
+  },
+  "paired_evaluation_seeds": [
+    10000,
+    10099
+  ],
+  "comparison": "Same observation, environment, PPO hyperparameters, seed, and 200k budget; random initialization versus transferred weights.",
+  "limitation": "One training seed, with 18 FRONT and 22 RIGHT held-out cases; not a multi-seed reliability estimate."
+}

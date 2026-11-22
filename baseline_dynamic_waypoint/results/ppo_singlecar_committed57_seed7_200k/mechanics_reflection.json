@@ -1,0 +1,16 @@
+{
+  "mirrored_states": 379,
+  "maximum_error_by_key": {
+    "vehicles": 5.960464477539063e-08,
+    "desired_goal": 0,
+    "achieved_goal": 5.960464477539063e-08,
+    "goal_delta": 0,
+    "anchor": 0,
+    "slot": 0,
+    "hold_progress": 0,
+    "slot_error": 0,
+    "requested_lane": 0,
+    "lane_change_in_progress": 0
+  },
+  "reward_and_termination_symmetry": true
+}

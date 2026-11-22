@@ -1,0 +1,23 @@
+{
+    "pid":  20728,
+    "arguments":  [
+                      "-u",
+                      "-B",
+                      "baseline_dynamic_waypoint/train.py",
+                      "--timesteps",
+                      "1000000",
+                      "--num-envs",
+                      "4",
+                      "--seed",
+                      "7",
+                      "--eval-episodes",
+                      "50",
+                      "--run-name",
+                      "ppo_front20m_current_seed7_1m",
+                      "--quiet"
+                  ],
+    "stderr":  "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\results\\ppo_front20m_current_seed7_1m\\training_stderr.log",
+    "launched_utc":  "2026-11-12T03:44:08.0347037Z",
+    "stdout":  "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\results\\ppo_front20m_current_seed7_1m\\training_stdout.log",
+    "executable":  "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_waypoint\\.venv\\Scripts\\python.exe"
+}

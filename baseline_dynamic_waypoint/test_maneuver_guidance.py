@@ -142,6 +142,33 @@ class ManeuverGuidanceTests(unittest.TestCase):
         self.assertTrue(info["is_success"])
         self.assertEqual(info["reward_components"]["goal"], 50)
 
+    def test_lateral_only_route_ignores_longitudinal_and_speed_errors(self):
+        env = self.make_env(profile="maneuver_lateral_side10")
+        for slot in ("front", "back", "left", "right"):
+            env.reset(seed=7, options={"slot": slot})
+            expected_lateral = 4.0 * (env.goal_lane - 1)
+            for lead, speed in ((-35, 10), (0, 20), (15, 25), (30, 15)):
+                self.place(env, lead=lead, lane=1, speed=speed)
+                state = env.navigation_state()
+                self.assertAlmostEqual(state["lateral"], expected_lateral)
+                self.assertAlmostEqual(state["route_cost"], 2 * abs(expected_lateral))
+            self.place(env, lead=-35, lane=env.goal_lane, speed=20)
+            self.assertAlmostEqual(env.navigation_state()["route_cost"], 0)
+
+    def test_lateral_only_front_milestone_and_reward_accounting(self):
+        env = self.make_env(profile="maneuver_lateral_side10")
+        env.reset(seed=7, options={"slot": "front"})
+        self.place(env, lead=0, lane=0, speed=20)
+        previous = env.navigation_state()["route_cost"]
+        _, reward, _, _, info = env.step(1)
+        current = info["navigation_guidance"]
+        self.assertAlmostEqual(current["route_cost"], 2 * abs(current["lateral"]))
+        self.assertAlmostEqual(info["reward_components"]["route_progress"],
+                               .5 * (previous - current["route_cost"]))
+        self.assertEqual(info["reward_components"]["tracking"], 0)
+        self.assertEqual(info["reward_components"]["front_side"], 10)
+        self.assertAlmostEqual(reward, sum(info["reward_components"].values()))
+
     def test_side_profile_disables_only_tracking_and_adds_front_bonus(self):
         old, new = self.make_env(), self.make_env(profile="maneuver_side10")
         self.assertEqual(new.reward_weights, {**old.reward_weights, "tracking": 0.0, "front_side": 10.0})

@@ -1,0 +1,43 @@
+{
+  "trained_from_scratch": true,
+  "observation_inputs": 57,
+  "explicit_target_lanes_verified": true,
+  "training_decisions": 1000000,
+  "all_four_goals_sampled": true,
+  "dropout": {
+    "actor": {
+      "layers": 2,
+      "rate": 0.05
+    },
+    "critic": {
+      "layers": 2,
+      "rate": 0.05
+    }
+  },
+  "timeout_penalty": -10,
+  "timeout_cost_charged_only_on_timeout": true,
+  "training_counts": {
+    "back": 1114,
+    "left": 1090,
+    "front": 1144,
+    "right": 1150
+  },
+  "evaluation_episodes": 100,
+  "periodic_evaluations": 5,
+  "lane_change_evaluation": {
+    "0": {
+      "episodes": 36,
+      "successes": 25
+    },
+    "1": {
+      "episodes": 44,
+      "successes": 0
+    },
+    "2": {
+      "episodes": 20,
+      "successes": 0
+    }
+  },
+  "tensorboard_url": "http://127.0.0.1:6016/live",
+  "tests": "9 focused stability, timeout, logging, and checkpoint tests passed"
+}

@@ -1,6 +1,30 @@
 # Dynamic waypoints: reach and hold a slot of a moving car
 
-Latest replacement: `ppo_targetlanes57_lr4e5_time045_dropout005_gamma097_seed7_1m`
+Latest completed run (November 16, 2026):
+`ppo_maneuver69_lateral_side10_seed7_1m`, trained from scratch for 1,000,000
+PPO decisions with dropout 0.05 and lateral-only route shaping. Its final
+deterministic evaluation on 100 fixed scenarios recorded **80% success, 2%
+collisions, and 18% timeouts**. FRONT: 0/18; BACK: 27/27; LEFT: 31/33;
+RIGHT: 22/22. The best monitored checkpoint was 82% at 250k, still with no
+FRONT successes. [Latest report](results/ppo_maneuver69_lateral_side10_seed7_1m/TRAINING_REPORT.md).
+
+The preceding no-tracking + FRONT side-bonus run finished at **96% success,
+4% collisions**; the full route-progress + tracking run finished at **95%
+success, zero collisions**. Both reached FRONT in 14/18 cases. These have
+different training budgets; the latest run is not the strongest result.
+
+Cleanup (November 22, 2026): unused intermediate checkpoint pairs were moved to
+`../archive/baseline_dynamic_waypoint_cleanup_20261122/`. Final and best models,
+checkpoints referenced by reports/scripts or matching saved evaluations, and
+the last checkpoint of unfinished runs remain in `models/`. Source, tests,
+experiment records, videos, plots, and historical evidence remain available;
+the reach and simple-waypoint packages import this code. The archive
+[manifest](../archive/baseline_dynamic_waypoint_cleanup_20261122/manifest.json)
+records every original path and SHA-256 hash. To restore all archived files,
+run `& .\archive\baseline_dynamic_waypoint_cleanup_20261122\restore.ps1`
+from the repository root. This cleanup moves files without reducing total disk use.
+
+Historical target-lane experiment: `ppo_targetlanes57_lr4e5_time045_dropout005_gamma097_seed7_1m`
 completed 1M steps from scratch with LR 0.00004 and per-tick time cost -0.045.
 Final evaluation: 25% success, 9% collisions, 66% timeouts; best monitored
 checkpoint: 28% success at 750k (21% collisions). FRONT and RIGHT finished at

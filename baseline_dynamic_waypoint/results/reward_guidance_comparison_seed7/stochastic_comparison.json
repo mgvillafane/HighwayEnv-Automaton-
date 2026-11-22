@@ -1,0 +1,766 @@
+{
+  "method": "direct PPO model.predict(observation, deterministic=False)",
+  "seeds": [
+    10000,
+    10099
+  ],
+  "torch_seed_at_each_reset": "episode_seed + 1000000",
+  "additional_training_steps": 0,
+  "reflection_or_action_transforms": false,
+  "caution": "One seeded stochastic trajectory per scenario; finite evaluation, not a reliable-fix claim. Rewards differ between models; compare outcomes rather than raw returns.",
+  "models": {
+    "source": {
+      "model": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\models\\ppo_singlecar_committed57_seed7_200k.zip",
+      "sha256": "ab501ad9fe303ffa0b7b52ee3eade1170e3dfafc5617045ccfab93d002351b18",
+      "environment": {
+        "env_config": {
+          "lanes_count": 3,
+          "vehicles_count": 1,
+          "controlled_vehicles": 1,
+          "vehicles_density": 0.7,
+          "traffic_speed_range": [
+            12.0,
+            18.0
+          ],
+          "lead_vehicle_gap": 35.0,
+          "ego_spacing": 2.0,
+          "duration": 30.0,
+          "simulation_frequency": 10,
+          "policy_frequency": 10,
+          "offroad_terminal": false,
+          "action": {
+            "type": "DiscreteMetaAction",
+            "target_speeds": [
+              10.0,
+              12.5,
+              15.0,
+              17.5,
+              20.0,
+              22.5,
+              25.0
+            ]
+          },
+          "observation": {
+            "type": "Kinematics",
+            "vehicles_count": 7,
+            "features": [
+              "presence",
+              "x",
+              "y",
+              "vx",
+              "vy"
+            ],
+            "absolute": false,
+            "normalize": true,
+            "clip": true,
+            "see_behind": true,
+            "include_obstacles": false,
+            "order": "sorted",
+            "features_range": {
+              "x": [
+                -200,
+                200
+              ],
+              "y": [
+                -12,
+                12
+              ],
+              "vx": [
+                -30,
+                30
+              ],
+              "vy": [
+                -10,
+                10
+              ]
+            }
+          },
+          "screen_width": 1200,
+          "screen_height": 360,
+          "scaling": 8.0,
+          "centering_position": [
+            0.18,
+            0.55
+          ],
+          "real_time_rendering": false,
+          "initial_lane_id": null,
+          "traffic_behavior": "constant_speed",
+          "randomize_traffic_speed": true,
+          "randomize_traffic_lane": true,
+          "complete_lane_changes": true,
+          "lane_center_tolerance": 0.2,
+          "lane_lateral_speed_tolerance": 0.2,
+          "fast_observation": true
+        },
+        "goal_config": {
+          "distance_range": [
+            30.0,
+            40.0
+          ],
+          "slot_offsets": {
+            "front": 20.0,
+            "back": 15.0
+          },
+          "radius": 5.0,
+          "lateral_tolerance": 1.8,
+          "hold_seconds": 0.5,
+          "initial_speed": 20.0,
+          "position_scale": [
+            200.0,
+            12.0
+          ],
+          "slot_error_features": true,
+          "slot_error_scale": [
+            10.0,
+            4.0,
+            10.0
+          ],
+          "shaping_range": 30.0,
+          "pass_margin": 10.0,
+          "default_slot": "random",
+          "speed_tolerance": 2.0,
+          "hold_grace_seconds": 0.3
+        },
+        "reward_weights": {
+          "goal": 50.0,
+          "collision": 50.0,
+          "progress": 0.1,
+          "time": 0.05,
+          "hold": 0.2,
+          "lane": 0.0,
+          "speed_match": 0.0,
+          "overtake": 0.0
+        }
+      },
+      "summary": {
+        "episodes": 100,
+        "success": 50,
+        "collision": 14,
+        "timeout": 36,
+        "left_commands": 641,
+        "right_commands": 70,
+        "lane_changes_started": 169,
+        "lane_changes_completed": 161,
+        "lane_changes_interrupted": 8,
+        "success_rate": 0.5,
+        "collision_rate": 0.14,
+        "timeout_rate": 0.36,
+        "by_slot": {
+          "front": {
+            "episodes": 18,
+            "success": 0,
+            "collision": 3,
+            "timeout": 15,
+            "left_commands": 361,
+            "right_commands": 4,
+            "lane_changes_started": 25,
+            "lane_changes_completed": 23,
+            "lane_changes_interrupted": 2,
+            "success_rate": 0.0,
+            "collision_rate": 0.16666666666666666,
+            "timeout_rate": 0.8333333333333334
+          },
+          "back": {
+            "episodes": 27,
+            "success": 23,
+            "collision": 4,
+            "timeout": 0,
+            "left_commands": 130,
+            "right_commands": 25,
+            "lane_changes_started": 49,
+            "lane_changes_completed": 47,
+            "lane_changes_interrupted": 2,
+            "success_rate": 0.8518518518518519,
+            "collision_rate": 0.14814814814814814,
+            "timeout_rate": 0.0
+          },
+          "left": {
+            "episodes": 33,
+            "success": 27,
+            "collision": 6,
+            "timeout": 0,
+            "left_commands": 104,
+            "right_commands": 41,
+            "lane_changes_started": 81,
+            "lane_changes_completed": 77,
+            "lane_changes_interrupted": 4,
+            "success_rate": 0.8181818181818182,
+            "collision_rate": 0.18181818181818182,
+            "timeout_rate": 0.0
+          },
+          "right": {
+            "episodes": 22,
+            "success": 0,
+            "collision": 1,
+            "timeout": 21,
+            "left_commands": 46,
+            "right_commands": 0,
+            "lane_changes_started": 14,
+            "lane_changes_completed": 14,
+            "lane_changes_interrupted": 0,
+            "success_rate": 0.0,
+            "collision_rate": 0.045454545454545456,
+            "timeout_rate": 0.9545454545454546
+          }
+        },
+        "by_slot_and_initial_goal_lane_relation": {
+          "front": {
+            "LEFT": {
+              "episodes": 7,
+              "success": 0,
+              "collision": 0,
+              "timeout": 7,
+              "left_commands": 230,
+              "right_commands": 0,
+              "lane_changes_started": 12,
+              "lane_changes_completed": 12,
+              "lane_changes_interrupted": 0,
+              "success_rate": 0.0,
+              "collision_rate": 0.0,
+              "timeout_rate": 1.0
+            },
+            "SAME": {
+              "episodes": 6,
+              "success": 0,
+              "collision": 2,
+              "timeout": 4,
+              "left_commands": 94,
+              "right_commands": 3,
+              "lane_changes_started": 9,
+              "lane_changes_completed": 8,
+              "lane_changes_interrupted": 1,
+              "success_rate": 0.0,
+              "collision_rate": 0.3333333333333333,
+              "timeout_rate": 0.6666666666666666
+            },
+            "RIGHT": {
+              "episodes": 5,
+              "success": 0,
+              "collision": 1,
+              "timeout": 4,
+              "left_commands": 37,
+              "right_commands": 1,
+              "lane_changes_started": 4,
+              "lane_changes_completed": 3,
+              "lane_changes_interrupted": 1,
+              "success_rate": 0.0,
+              "collision_rate": 0.2,
+              "timeout_rate": 0.8
+            }
+          },
+          "back": {
+            "LEFT": {
+              "episodes": 11,
+              "success": 11,
+              "collision": 0,
+              "timeout": 0,
+              "left_commands": 47,
+              "right_commands": 5,
+              "lane_changes_started": 24,
+              "lane_changes_completed": 24,
+              "lane_changes_interrupted": 0,
+              "success_rate": 1.0,
+              "collision_rate": 0.0,
+              "timeout_rate": 0.0
+            },
+            "SAME": {
+              "episodes": 11,
+              "success": 9,
+              "collision": 2,
+              "timeout": 0,
+              "left_commands": 82,
+              "right_commands": 7,
+              "lane_changes_started": 14,
+              "lane_changes_completed": 13,
+              "lane_changes_interrupted": 1,
+              "success_rate": 0.8181818181818182,
+              "collision_rate": 0.18181818181818182,
+              "timeout_rate": 0.0
+            },
+            "RIGHT": {
+              "episodes": 5,
+              "success": 3,
+              "collision": 2,
+              "timeout": 0,
+              "left_commands": 1,
+              "right_commands": 13,
+              "lane_changes_started": 11,
+              "lane_changes_completed": 10,
+              "lane_changes_interrupted": 1,
+              "success_rate": 0.6,
+              "collision_rate": 0.4,
+              "timeout_rate": 0.0
+            }
+          },
+          "left": {
+            "LEFT": {
+              "episodes": 10,
+              "success": 8,
+              "collision": 2,
+              "timeout": 0,
+              "left_commands": 41,
+              "right_commands": 7,
+              "lane_changes_started": 25,
+              "lane_changes_completed": 23,
+              "lane_changes_interrupted": 2,
+              "success_rate": 0.8,
+              "collision_rate": 0.2,
+              "timeout_rate": 0.0
+            },
+            "SAME": {
+              "episodes": 15,
+              "success": 12,
+              "collision": 3,
+              "timeout": 0,
+              "left_commands": 53,
+              "right_commands": 16,
+              "lane_changes_started": 29,
+              "lane_changes_completed": 27,
+              "lane_changes_interrupted": 2,
+              "success_rate": 0.8,
+              "collision_rate": 0.2,
+              "timeout_rate": 0.0
+            },
+            "RIGHT": {
+              "episodes": 8,
+              "success": 7,
+              "collision": 1,
+              "timeout": 0,
+              "left_commands": 10,
+              "right_commands": 18,
+              "lane_changes_started": 27,
+              "lane_changes_completed": 27,
+              "lane_changes_interrupted": 0,
+              "success_rate": 0.875,
+              "collision_rate": 0.125,
+              "timeout_rate": 0.0
+            }
+          },
+          "right": {
+            "LEFT": {
+              "episodes": 3,
+              "success": 0,
+              "collision": 0,
+              "timeout": 3,
+              "left_commands": 14,
+              "right_commands": 0,
+              "lane_changes_started": 6,
+              "lane_changes_completed": 6,
+              "lane_changes_interrupted": 0,
+              "success_rate": 0.0,
+              "collision_rate": 0.0,
+              "timeout_rate": 1.0
+            },
+            "SAME": {
+              "episodes": 4,
+              "success": 0,
+              "collision": 0,
+              "timeout": 4,
+              "left_commands": 9,
+              "right_commands": 0,
+              "lane_changes_started": 5,
+              "lane_changes_completed": 5,
+              "lane_changes_interrupted": 0,
+              "success_rate": 0.0,
+              "collision_rate": 0.0,
+              "timeout_rate": 1.0
+            },
+            "RIGHT": {
+              "episodes": 15,
+              "success": 0,
+              "collision": 1,
+              "timeout": 14,
+              "left_commands": 23,
+              "right_commands": 0,
+              "lane_changes_started": 3,
+              "lane_changes_completed": 3,
+              "lane_changes_interrupted": 0,
+              "success_rate": 0.0,
+              "collision_rate": 0.06666666666666667,
+              "timeout_rate": 0.9333333333333333
+            }
+          }
+        }
+      }
+    },
+    "approach": {
+      "model": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\models\\ppo_singlecar_reward_approach_seed7_200k.zip",
+      "sha256": "5304e52126d7890a6deedaaff8cb1c940dbf1eadc7e7c952042663821b6da236",
+      "environment": {
+        "env_config": {
+          "lanes_count": 3,
+          "vehicles_count": 1,
+          "controlled_vehicles": 1,
+          "vehicles_density": 0.7,
+          "traffic_speed_range": [
+            12.0,
+            18.0
+          ],
+          "lead_vehicle_gap": 35.0,
+          "ego_spacing": 2.0,
+          "duration": 30.0,
+          "simulation_frequency": 10,
+          "policy_frequency": 10,
+          "offroad_terminal": false,
+          "action": {
+            "type": "DiscreteMetaAction",
+            "target_speeds": [
+              10.0,
+              12.5,
+              15.0,
+              17.5,
+              20.0,
+              22.5,
+              25.0
+            ]
+          },
+          "observation": {
+            "type": "Kinematics",
+            "vehicles_count": 7,
+            "features": [
+              "presence",
+              "x",
+              "y",
+              "vx",
+              "vy"
+            ],
+            "absolute": false,
+            "normalize": true,
+            "clip": true,
+            "see_behind": true,
+            "include_obstacles": false,
+            "order": "sorted",
+            "features_range": {
+              "x": [
+                -200,
+                200
+              ],
+              "y": [
+                -12,
+                12
+              ],
+              "vx": [
+                -30,
+                30
+              ],
+              "vy": [
+                -10,
+                10
+              ]
+            }
+          },
+          "screen_width": 1200,
+          "screen_height": 360,
+          "scaling": 8.0,
+          "centering_position": [
+            0.18,
+            0.55
+          ],
+          "real_time_rendering": false,
+          "initial_lane_id": null,
+          "traffic_behavior": "constant_speed",
+          "randomize_traffic_speed": true,
+          "randomize_traffic_lane": true,
+          "complete_lane_changes": true,
+          "lane_center_tolerance": 0.2,
+          "lane_lateral_speed_tolerance": 0.2,
+          "fast_observation": true
+        },
+        "goal_config": {
+          "distance_range": [
+            30.0,
+            40.0
+          ],
+          "slot_offsets": {
+            "front": 20.0,
+            "back": 15.0
+          },
+          "radius": 5.0,
+          "lateral_tolerance": 1.8,
+          "hold_seconds": 0.5,
+          "initial_speed": 20.0,
+          "position_scale": [
+            200.0,
+            12.0
+          ],
+          "slot_error_features": true,
+          "slot_error_scale": [
+            10.0,
+            4.0,
+            10.0
+          ],
+          "shaping_range": 30.0,
+          "pass_margin": 10.0,
+          "default_slot": "random",
+          "speed_tolerance": 2.0,
+          "hold_grace_seconds": 0.3,
+          "front_lane_blend": [
+            5.0,
+            15.0
+          ]
+        },
+        "reward_weights": {
+          "goal": 50.0,
+          "collision": 100.0,
+          "progress": 0.5,
+          "time": 0.05,
+          "hold": 0.2,
+          "lane": 2.0,
+          "speed_match": 0.5,
+          "overtake": 1.0
+        }
+      },
+      "summary": {
+        "episodes": 100,
+        "success": 28,
+        "collision": 18,
+        "timeout": 54,
+        "left_commands": 164,
+        "right_commands": 112,
+        "lane_changes_started": 198,
+        "lane_changes_completed": 177,
+        "lane_changes_interrupted": 21,
+        "success_rate": 0.28,
+        "collision_rate": 0.18,
+        "timeout_rate": 0.54,
+        "by_slot": {
+          "front": {
+            "episodes": 18,
+            "success": 4,
+            "collision": 10,
+            "timeout": 4,
+            "left_commands": 18,
+            "right_commands": 10,
+            "lane_changes_started": 21,
+            "lane_changes_completed": 19,
+            "lane_changes_interrupted": 2,
+            "success_rate": 0.2222222222222222,
+            "collision_rate": 0.5555555555555556,
+            "timeout_rate": 0.2222222222222222
+          },
+          "back": {
+            "episodes": 27,
+            "success": 19,
+            "collision": 2,
+            "timeout": 6,
+            "left_commands": 45,
+            "right_commands": 26,
+            "lane_changes_started": 50,
+            "lane_changes_completed": 45,
+            "lane_changes_interrupted": 5,
+            "success_rate": 0.7037037037037037,
+            "collision_rate": 0.07407407407407407,
+            "timeout_rate": 0.2222222222222222
+          },
+          "left": {
+            "episodes": 33,
+            "success": 5,
+            "collision": 4,
+            "timeout": 24,
+            "left_commands": 75,
+            "right_commands": 45,
+            "lane_changes_started": 83,
+            "lane_changes_completed": 73,
+            "lane_changes_interrupted": 10,
+            "success_rate": 0.15151515151515152,
+            "collision_rate": 0.12121212121212122,
+            "timeout_rate": 0.7272727272727273
+          },
+          "right": {
+            "episodes": 22,
+            "success": 0,
+            "collision": 2,
+            "timeout": 20,
+            "left_commands": 26,
+            "right_commands": 31,
+            "lane_changes_started": 44,
+            "lane_changes_completed": 40,
+            "lane_changes_interrupted": 4,
+            "success_rate": 0.0,
+            "collision_rate": 0.09090909090909091,
+            "timeout_rate": 0.9090909090909091
+          }
+        },
+        "by_slot_and_initial_goal_lane_relation": {
+          "front": {
+            "LEFT": {
+              "episodes": 7,
+              "success": 3,
+              "collision": 4,
+              "timeout": 0,
+              "left_commands": 10,
+              "right_commands": 0,
+              "lane_changes_started": 10,
+              "lane_changes_completed": 9,
+              "lane_changes_interrupted": 1,
+              "success_rate": 0.42857142857142855,
+              "collision_rate": 0.5714285714285714,
+              "timeout_rate": 0.0
+            },
+            "SAME": {
+              "episodes": 6,
+              "success": 1,
+              "collision": 5,
+              "timeout": 0,
+              "left_commands": 1,
+              "right_commands": 3,
+              "lane_changes_started": 2,
+              "lane_changes_completed": 2,
+              "lane_changes_interrupted": 0,
+              "success_rate": 0.16666666666666666,
+              "collision_rate": 0.8333333333333334,
+              "timeout_rate": 0.0
+            },
+            "RIGHT": {
+              "episodes": 5,
+              "success": 0,
+              "collision": 1,
+              "timeout": 4,
+              "left_commands": 7,
+              "right_commands": 7,
+              "lane_changes_started": 9,
+              "lane_changes_completed": 8,
+              "lane_changes_interrupted": 1,
+              "success_rate": 0.0,
+              "collision_rate": 0.2,
+              "timeout_rate": 0.8
+            }
+          },
+          "back": {
+            "LEFT": {
+              "episodes": 11,
+              "success": 8,
+              "collision": 2,
+              "timeout": 1,
+              "left_commands": 23,
+              "right_commands": 10,
+              "lane_changes_started": 24,
+              "lane_changes_completed": 21,
+              "lane_changes_interrupted": 3,
+              "success_rate": 0.7272727272727273,
+              "collision_rate": 0.18181818181818182,
+              "timeout_rate": 0.09090909090909091
+            },
+            "SAME": {
+              "episodes": 11,
+              "success": 8,
+              "collision": 0,
+              "timeout": 3,
+              "left_commands": 15,
+              "right_commands": 6,
+              "lane_changes_started": 13,
+              "lane_changes_completed": 12,
+              "lane_changes_interrupted": 1,
+              "success_rate": 0.7272727272727273,
+              "collision_rate": 0.0,
+              "timeout_rate": 0.2727272727272727
+            },
+            "RIGHT": {
+              "episodes": 5,
+              "success": 3,
+              "collision": 0,
+              "timeout": 2,
+              "left_commands": 7,
+              "right_commands": 10,
+              "lane_changes_started": 13,
+              "lane_changes_completed": 12,
+              "lane_changes_interrupted": 1,
+              "success_rate": 0.6,
+              "collision_rate": 0.0,
+              "timeout_rate": 0.4
+            }
+          },
+          "left": {
+            "LEFT": {
+              "episodes": 10,
+              "success": 0,
+              "collision": 1,
+              "timeout": 9,
+              "left_commands": 24,
+              "right_commands": 14,
+              "lane_changes_started": 32,
+              "lane_changes_completed": 27,
+              "lane_changes_interrupted": 5,
+              "success_rate": 0.0,
+              "collision_rate": 0.1,
+              "timeout_rate": 0.9
+            },
+            "SAME": {
+              "episodes": 15,
+              "success": 2,
+              "collision": 1,
+              "timeout": 12,
+              "left_commands": 38,
+              "right_commands": 22,
+              "lane_changes_started": 40,
+              "lane_changes_completed": 37,
+              "lane_changes_interrupted": 3,
+              "success_rate": 0.13333333333333333,
+              "collision_rate": 0.06666666666666667,
+              "timeout_rate": 0.8
+            },
+            "RIGHT": {
+              "episodes": 8,
+              "success": 3,
+              "collision": 2,
+              "timeout": 3,
+              "left_commands": 13,
+              "right_commands": 9,
+              "lane_changes_started": 11,
+              "lane_changes_completed": 9,
+              "lane_changes_interrupted": 2,
+              "success_rate": 0.375,
+              "collision_rate": 0.25,
+              "timeout_rate": 0.375
+            }
+          },
+          "right": {
+            "LEFT": {
+              "episodes": 3,
+              "success": 0,
+              "collision": 1,
+              "timeout": 2,
+              "left_commands": 6,
+              "right_commands": 1,
+              "lane_changes_started": 7,
+              "lane_changes_completed": 6,
+              "lane_changes_interrupted": 1,
+              "success_rate": 0.0,
+              "collision_rate": 0.3333333333333333,
+              "timeout_rate": 0.6666666666666666
+            },
+            "SAME": {
+              "episodes": 4,
+              "success": 0,
+              "collision": 0,
+              "timeout": 4,
+              "left_commands": 5,
+              "right_commands": 7,
+              "lane_changes_started": 9,
+              "lane_changes_completed": 8,
+              "lane_changes_interrupted": 1,
+              "success_rate": 0.0,
+              "collision_rate": 0.0,
+              "timeout_rate": 1.0
+            },
+            "RIGHT": {
+              "episodes": 15,
+              "success": 0,
+              "collision": 1,
+              "timeout": 14,
+              "left_commands": 15,
+              "right_commands": 23,
+              "lane_changes_started": 28,
+              "lane_changes_completed": 26,
+              "lane_changes_interrupted": 2,
+              "success_rate": 0.0,
+              "collision_rate": 0.06666666666666667,
+              "timeout_rate": 0.9333333333333333
+            }
+          }
+        }
+      }
+    }
+  },
+  "seconds": 48.75660290001542
+}

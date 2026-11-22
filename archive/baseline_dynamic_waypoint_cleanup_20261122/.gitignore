@@ -1,0 +1,2 @@
+# Empty protected temporary directories are local recovery artifacts.
+/results/

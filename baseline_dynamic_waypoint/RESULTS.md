@@ -1,4 +1,28 @@
-# Measured results (2026-11-02, macOS, seed 7, one run each)
+# Latest single-car results (November 16, 2026)
+
+Final deterministic evaluations on the same 100 scenario seeds (10000-10099),
+with training seed 7. These runs have different training budgets.
+
+| Run | PPO decisions | Success | Collision | Timeout | FRONT successes |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Full route progress + tracking | 2,000,000 | 95% | 0% | 5% | 14/18 |
+| No tracking + FRONT side bonus | 1,500,000 | 96% | 4% | 0% | 14/18 |
+| Latest: lateral-only route + FRONT side bonus | 1,000,000 | 80% | 2% | 18% | 0/18 |
+
+The latest run reaches BACK in 27/27 cases, LEFT in 31/33, and RIGHT in 22/22.
+Its best monitored checkpoint achieved 82% at 250k, with all 18 FRONT cases
+still failing. [Latest run report](results/ppo_maneuver69_lateral_side10_seed7_1m/TRAINING_REPORT.md).
+
+Sources: [full guidance](results/ppo_maneuver69_timeout10_dropout005_scratch_seed7_2m/evaluation.json),
+[no tracking](results/ppo_maneuver69_notrack_side10_seed7_1p5m/evaluation.json),
+[lateral-only](results/ppo_maneuver69_lateral_side10_seed7_1m/evaluation.json).
+These are single training seeds evaluated on fixed scenarios, not independent
+multi-seed estimates.
+
+The earlier multi-car hold experiments follow. They use a different task from
+the newer single-car runs and are retained as historical evidence for the reach study.
+
+# Historical measured results (2026-11-02, macOS, seed 7, one run each)
 
 ## 1. Check of Marcos's static-waypoint baseline
 

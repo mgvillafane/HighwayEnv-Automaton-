@@ -1,0 +1,111 @@
+Training 1,000,000 additional transitions on 4 environments; traffic speeds [12.0, 18.0], ego maximum 25.0 m/s.
+Observation inputs: 69; committed lane changes: False.
+Reward profile: maneuver_lateral_side10; weights={'goal': 50.0, 'collision': 50.0, 'progress': 0.1, 'time': 0.05, 'hold': 0.2, 'lane': 0.0, 'speed_match': 0.0, 'overtake': 0.0, 'timeout': 10.0, 'route_progress': 0.5, 'tracking': 0.0, 'front_side': 10.0}.
+Actor/critic dropout: 0.05; intermediate evaluation every 250,000 steps.
+Enabled slots: ['front', 'back', 'left', 'right']; training: ['front', 'back', 'left', 'right']; evaluation: ['front', 'back', 'left', 'right'].
+evaluation_before: 100 episodes, success 0.0%, collision 37.0%, timeout 63.0%, success by slot {'front': 0.0, 'back': 0.0, 'left': 0.0, 'right': 0.0}
+10,000 transitions; recent success: 6.6%
+20,000 transitions; recent success: 5.0%
+30,000 transitions; recent success: 4.0%
+40,000 transitions; recent success: 4.0%
+50,000 transitions; recent success: 4.0%
+60,000 transitions; recent success: 7.0%
+70,000 transitions; recent success: 11.0%
+80,000 transitions; recent success: 10.0%
+90,000 transitions; recent success: 11.0%
+100,000 transitions; recent success: 20.0%
+110,000 transitions; recent success: 20.0%
+120,000 transitions; recent success: 14.0%
+130,000 transitions; recent success: 16.0%
+140,000 transitions; recent success: 21.0%
+150,000 transitions; recent success: 33.0%
+160,000 transitions; recent success: 39.0%
+170,000 transitions; recent success: 34.0%
+180,000 transitions; recent success: 41.0%
+190,000 transitions; recent success: 43.0%
+200,000 transitions; recent success: 46.0%
+210,000 transitions; recent success: 49.0%
+220,000 transitions; recent success: 54.0%
+230,000 transitions; recent success: 58.0%
+240,000 transitions; recent success: 53.0%
+250,000 transitions; recent success: 65.0%
+evaluation_250000: 100 episodes, success 82.0%, collision 2.0%, timeout 16.0%, success by slot {'front': 0.0, 'back': 1.0, 'left': 1.0, 'right': 1.0}
+260,000 transitions; recent success: 67.0%
+270,000 transitions; recent success: 65.0%
+280,000 transitions; recent success: 78.0%
+290,000 transitions; recent success: 70.0%
+300,000 transitions; recent success: 70.0%
+310,000 transitions; recent success: 72.0%
+320,000 transitions; recent success: 82.0%
+330,000 transitions; recent success: 61.0%
+340,000 transitions; recent success: 62.0%
+350,000 transitions; recent success: 57.0%
+360,000 transitions; recent success: 58.0%
+370,000 transitions; recent success: 68.0%
+380,000 transitions; recent success: 67.0%
+390,000 transitions; recent success: 74.0%
+400,000 transitions; recent success: 74.0%
+410,000 transitions; recent success: 80.0%
+420,000 transitions; recent success: 67.0%
+430,000 transitions; recent success: 71.0%
+440,000 transitions; recent success: 69.0%
+450,000 transitions; recent success: 72.0%
+460,000 transitions; recent success: 75.0%
+470,000 transitions; recent success: 68.0%
+480,000 transitions; recent success: 69.0%
+490,000 transitions; recent success: 70.0%
+500,000 transitions; recent success: 82.0%
+evaluation_500000: 100 episodes, success 75.0%, collision 3.0%, timeout 22.0%, success by slot {'front': 0.0, 'back': 1.0, 'left': 0.7878787878787878, 'right': 1.0}
+510,000 transitions; recent success: 77.0%
+520,000 transitions; recent success: 70.0%
+530,000 transitions; recent success: 73.0%
+540,000 transitions; recent success: 72.0%
+550,000 transitions; recent success: 78.0%
+560,000 transitions; recent success: 73.0%
+570,000 transitions; recent success: 71.0%
+580,000 transitions; recent success: 75.0%
+590,000 transitions; recent success: 78.0%
+600,000 transitions; recent success: 82.0%
+610,000 transitions; recent success: 76.0%
+620,000 transitions; recent success: 69.0%
+630,000 transitions; recent success: 64.0%
+640,000 transitions; recent success: 78.0%
+650,000 transitions; recent success: 72.0%
+660,000 transitions; recent success: 64.0%
+670,000 transitions; recent success: 77.0%
+680,000 transitions; recent success: 72.0%
+690,000 transitions; recent success: 73.0%
+700,000 transitions; recent success: 67.0%
+710,000 transitions; recent success: 72.0%
+720,000 transitions; recent success: 80.0%
+730,000 transitions; recent success: 78.0%
+740,000 transitions; recent success: 75.0%
+750,000 transitions; recent success: 74.0%
+evaluation_750000: 100 episodes, success 66.0%, collision 3.0%, timeout 31.0%, success by slot {'front': 0.0, 'back': 1.0, 'left': 0.5757575757575758, 'right': 0.9090909090909091}
+760,000 transitions; recent success: 78.0%
+770,000 transitions; recent success: 72.0%
+780,000 transitions; recent success: 76.0%
+790,000 transitions; recent success: 72.0%
+800,000 transitions; recent success: 70.0%
+810,000 transitions; recent success: 70.0%
+820,000 transitions; recent success: 80.0%
+830,000 transitions; recent success: 75.0%
+840,000 transitions; recent success: 72.0%
+850,000 transitions; recent success: 72.0%
+860,000 transitions; recent success: 76.0%
+870,000 transitions; recent success: 70.0%
+880,000 transitions; recent success: 76.0%
+890,000 transitions; recent success: 73.0%
+900,000 transitions; recent success: 78.0%
+910,000 transitions; recent success: 74.0%
+920,000 transitions; recent success: 76.0%
+930,000 transitions; recent success: 63.0%
+940,000 transitions; recent success: 72.0%
+950,000 transitions; recent success: 76.0%
+960,000 transitions; recent success: 68.0%
+970,000 transitions; recent success: 70.0%
+980,000 transitions; recent success: 71.0%
+990,000 transitions; recent success: 69.0%
+1,000,000 transitions; recent success: 76.0%
+Saved C:\Users\marco\CODE\Capstone\HighwayEnv-Automaton-\baseline_dynamic_waypoint\models\ppo_maneuver69_lateral_side10_seed7_1m.zip
+evaluation: 100 episodes, success 80.0%, collision 2.0%, timeout 18.0%, success by slot {'front': 0.0, 'back': 1.0, 'left': 0.9393939393939394, 'right': 1.0}

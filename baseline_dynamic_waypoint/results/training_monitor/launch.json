@@ -1,0 +1,18 @@
+{
+    "latest":  4,
+    "pid":  28624,
+    "arguments":  [
+                      "-u",
+                      "-B",
+                      "monitor_training.py",
+                      "--latest",
+                      "4",
+                      "--host",
+                      "127.0.0.1",
+                      "--port",
+                      "6006"
+                  ],
+    "launched_utc":  "2026-11-12T04:21:36.3959738Z",
+    "url":  "http://127.0.0.1:6006/live",
+    "executable":  "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_waypoint\\.venv\\Scripts\\python.exe"
+}

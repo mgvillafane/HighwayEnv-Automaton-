@@ -1,0 +1,11 @@
+cohort,policy,episodes,success_rate,collision_rate,timeout_rate,average_episode_reward,front_successes,front_episodes,back_successes,back_episodes,left_successes,left_episodes,right_successes,right_episodes
+fixed_100,source,100,0.55,0.07,0.38,19.151674348812634,0,18,22,27,33,33,0,22
+fixed_100,control,100,0.51,0.0,0.49,18.559439710441374,0,18,19,27,32,33,0,22
+fixed_100,guided,100,0.58,0.02,0.4,27.226440156678585,0,18,25,27,33,33,0,22
+fixed_100,fresh_init,100,0.3,0.21,0.49,1.6070708705857026,0,18,11,27,15,33,4,22
+fixed_100,approach_followup,100,0.0,0.06,0.94,-2.6463271898235536,0,18,0,27,0,33,0,22
+fresh,source,200,0.51,0.05,0.44,17.58577388142657,0,44,51,59,51,51,0,46
+fresh,control,200,0.495,0.0,0.505,17.586768722941187,0,44,48,59,51,51,0,46
+fresh,guided,200,0.54,0.01,0.45,26.409774813901905,0,44,58,59,50,51,0,46
+fresh,fresh_init,200,0.24,0.225,0.535,-1.874310515813657,0,44,19,59,16,51,13,46
+fresh,approach_followup,200,0.0,0.065,0.935,-1.1040520169221741,0,44,0,59,0,51,0,46

@@ -1,0 +1,11 @@
+{
+  "url": "http://127.0.0.1:6011/live",
+  "event_reload_seconds": 5.0,
+  "chart_reload_seconds": 30.0,
+  "selection": "latest 2",
+  "recursive": false,
+  "runs": {
+    "PPO/ppo_singlecar_left_back_only_scratch_seed7_200k": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\results\\ppo_singlecar_left_back_only_scratch_seed7_200k",
+    "PPO/ppo_singlecar_front_right_only_scratch_seed7_200k": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\results\\ppo_singlecar_front_right_only_scratch_seed7_200k"
+  }
+}

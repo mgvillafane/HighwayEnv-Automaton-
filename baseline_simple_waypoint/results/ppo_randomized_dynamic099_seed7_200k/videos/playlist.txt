@@ -1,0 +1,4 @@
+file 'back/scenario.mp4'
+file 'front/scenario.mp4'
+file 'left/scenario.mp4'
+file 'right/scenario.mp4'

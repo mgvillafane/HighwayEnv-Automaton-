@@ -1,0 +1,12 @@
+{
+  "stochastic_rows_verified": 200,
+  "models_unchanged": true,
+  "selected_video_seed": 10008,
+  "selected_video_physics_steps": 118,
+  "selected_video_frames": 139,
+  "selected_video_lane_actions": [
+    0,
+    2
+  ],
+  "reflection_or_action_transforms": false
+}

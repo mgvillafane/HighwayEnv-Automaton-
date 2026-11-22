@@ -1,0 +1,90 @@
+[
+  {
+    "controller": "trained_ppo",
+    "model": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\models\\ppo_singlecar_front_right_seed7_200k.zip",
+    "seed": 10002,
+    "slot": "front",
+    "deterministic": true,
+    "sampling_seed": null,
+    "initial_scenario": {
+      "slot": "front",
+      "ego_lane": 2,
+      "traffic_lane": 1,
+      "traffic_speed": 14.02130075714545,
+      "ego_speed": 20.0
+    },
+    "outcome": "COLLISION",
+    "success": false,
+    "collision": true,
+    "reward": -49.387990878101256,
+    "seconds": 5.099999999999998,
+    "policy_decisions": 33,
+    "physics_steps": 51
+  },
+  {
+    "controller": "trained_ppo",
+    "model": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\models\\ppo_singlecar_front_right_seed7_200k.zip",
+    "seed": 10000,
+    "slot": "right",
+    "deterministic": true,
+    "sampling_seed": null,
+    "initial_scenario": {
+      "slot": "right",
+      "ego_lane": 0,
+      "traffic_lane": 0,
+      "traffic_speed": 14.44140454903511,
+      "ego_speed": 20.0
+    },
+    "outcome": "TIMED OUT",
+    "success": false,
+    "collision": false,
+    "reward": -12.483267121961694,
+    "seconds": 30.000000000000156,
+    "policy_decisions": 300,
+    "physics_steps": 300
+  },
+  {
+    "controller": "trained_ppo",
+    "model": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\models\\ppo_singlecar_front_right_seed7_200k.zip",
+    "seed": 10009,
+    "slot": "back",
+    "deterministic": true,
+    "sampling_seed": null,
+    "initial_scenario": {
+      "slot": "back",
+      "ego_lane": 2,
+      "traffic_lane": 0,
+      "traffic_speed": 16.156381564119673,
+      "ego_speed": 20.0
+    },
+    "outcome": "GOAL REACHED",
+    "success": true,
+    "collision": false,
+    "reward": 50.40071408531013,
+    "seconds": 4.699999999999999,
+    "policy_decisions": 11,
+    "physics_steps": 47
+  },
+  {
+    "controller": "trained_ppo",
+    "model": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\models\\ppo_singlecar_front_right_seed7_200k.zip",
+    "seed": 10004,
+    "slot": "left",
+    "deterministic": true,
+    "sampling_seed": null,
+    "initial_scenario": {
+      "slot": "left",
+      "ego_lane": 1,
+      "traffic_lane": 2,
+      "traffic_speed": 14.180063724676534,
+      "ego_speed": 20.0
+    },
+    "outcome": "GOAL REACHED",
+    "success": true,
+    "collision": false,
+    "reward": 51.75716398873313,
+    "seconds": 5.1999999999999975,
+    "policy_decisions": 52,
+    "physics_steps": 52
+  }
+]

@@ -1,0 +1,28 @@
+{
+  "trained_from_scratch": true,
+  "training_decisions": 2000000,
+  "all_four_goals_sampled": true,
+  "dropout": {
+    "actor": {
+      "layers": 2,
+      "rate": 0.1
+    },
+    "critic": {
+      "layers": 2,
+      "rate": 0.1
+    }
+  },
+  "timeout_penalty": -25,
+  "timeout_cost_charged_only_on_timeout": true,
+  "training_counts": {
+    "left": 1940,
+    "back": 1966,
+    "right": 1986,
+    "front": 1972
+  },
+  "evaluation_episodes": 100,
+  "periodic_evaluations": 9,
+  "video_replays_match_evaluation": true,
+  "tensorboard_url": "http://127.0.0.1:6012/live",
+  "tests": "13 dropout, timeout and reward checks passed"
+}

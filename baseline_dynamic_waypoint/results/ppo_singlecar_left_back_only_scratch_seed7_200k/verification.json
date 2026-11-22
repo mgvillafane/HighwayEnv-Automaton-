@@ -1,0 +1,27 @@
+{
+  "from_scratch": true,
+  "training_decisions": 200000,
+  "enabled_goals": [
+    "back",
+    "left"
+  ],
+  "disabled_goals": [
+    "front",
+    "right"
+  ],
+  "explicit_disabled_resets_rejected": true,
+  "training_counts": {
+    "left": 526,
+    "back": 512
+  },
+  "evaluation_counts": {
+    "back": 55,
+    "left": 45
+  },
+  "before_after_initial_scenarios_identical": true,
+  "tensorboard_url": "http://127.0.0.1:6011/live",
+  "live_tensorboard_run": "PPO/ppo_singlecar_left_back_only_scratch_seed7_200k\\.",
+  "live_goal_metrics_verified_at_step": 200000,
+  "front_right_training_and_evaluation_rows": 0,
+  "non_goal_settings_match_front_right_run": true
+}

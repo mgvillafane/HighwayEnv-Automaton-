@@ -1,0 +1,4 @@
+file 'C:/Users/marco/CODE/Capstone/HighwayEnv-Automaton-/baseline_dynamic_waypoint/results/ppo_singlecar_reward_guided_seed7_200k/videos/back/episode.mp4'
+file 'C:/Users/marco/CODE/Capstone/HighwayEnv-Automaton-/baseline_dynamic_waypoint/results/ppo_singlecar_reward_guided_seed7_200k/videos/front/episode.mp4'
+file 'C:/Users/marco/CODE/Capstone/HighwayEnv-Automaton-/baseline_dynamic_waypoint/results/ppo_singlecar_reward_guided_seed7_200k/videos/left/episode.mp4'
+file 'C:/Users/marco/CODE/Capstone/HighwayEnv-Automaton-/baseline_dynamic_waypoint/results/ppo_singlecar_reward_guided_seed7_200k/videos/right/episode.mp4'

@@ -1,0 +1,35 @@
+{
+  "trained_from_scratch": false,
+  "additional_training_decisions": 2000000,
+  "total_lifetime_decisions": 4000000,
+  "source_checkpoint_unchanged": true,
+  "saved_optimizer_retained": true,
+  "optimizer_step_before": 40000.0,
+  "optimizer_step_after": 80000.0,
+  "initial_evaluation_reproduces_source": true,
+  "all_four_goals_sampled": true,
+  "dropout": {
+    "actor": {
+      "layers": 2,
+      "rate": 0.1
+    },
+    "critic": {
+      "layers": 2,
+      "rate": 0.1
+    }
+  },
+  "timeout_penalty": -25,
+  "timeout_cost_charged_only_on_timeout": true,
+  "training_counts": {
+    "left": 1999,
+    "back": 2047,
+    "front": 2034,
+    "right": 2077
+  },
+  "evaluation_episodes": 100,
+  "periodic_evaluations_this_run": 9,
+  "combined_evaluation_points": 17,
+  "video_replays_match_evaluation": true,
+  "tensorboard_url": "http://127.0.0.1:6013/live",
+  "tests": "13 dropout, timeout and reward checks passed"
+}

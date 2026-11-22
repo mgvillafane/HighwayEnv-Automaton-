@@ -1,0 +1,50 @@
+{
+  "additional_step": 1500000,
+  "lifetime_step": 3500000,
+  "model": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\models\\ppo_allgoals_timeout25_dropout01_seed7_4m_1500000.zip",
+  "summary": {
+    "episodes": 100,
+    "success_rate": 0.18,
+    "collision_rate": 0.0,
+    "timeout_rate": 0.82,
+    "average_episode_reward": -22.72474610166929,
+    "average_time_to_goal_seconds": 8.488888888888884,
+    "average_final_distance_meters": 17.640866986506907,
+    "success_rate_by_goal_lane": {
+      "0": 0.34375,
+      "1": 0.12195121951219512,
+      "2": 0.07407407407407407
+    },
+    "success_rate_by_required_lane_changes": {
+      "0": 0.6923076923076923,
+      "1": 0.0,
+      "2": 0.0
+    },
+    "average_reward_components": {
+      "goal": 9.0,
+      "collision": 0.0,
+      "progress": 1.641253898330715,
+      "time": -13.064000000000062,
+      "hold": 0.198,
+      "lane": 0.0,
+      "speed_match": 0.0,
+      "overtake": 0.0,
+      "timeout": -20.5
+    },
+    "anchor_lost_rate": 0.0,
+    "average_max_hold_seconds": 0.09300000000000001,
+    "success_rate_by_slot": {
+      "front": 0.0,
+      "back": 0.2727272727272727,
+      "left": 0.2222222222222222,
+      "right": 0.13636363636363635
+    },
+    "episodes_by_slot": {
+      "front": 18,
+      "back": 33,
+      "left": 27,
+      "right": 22
+    }
+  },
+  "selection": "Highest observed score on the same 100 monitoring seeds; not a new independent evaluation."
+}

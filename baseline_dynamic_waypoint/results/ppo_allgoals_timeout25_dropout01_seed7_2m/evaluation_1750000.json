@@ -1,0 +1,345 @@
+{
+  "first_seed": 10000,
+  "environment": {
+    "env_config": {
+      "lanes_count": 3,
+      "vehicles_count": 1,
+      "controlled_vehicles": 1,
+      "vehicles_density": 0.7,
+      "traffic_speed_range": [
+        12.0,
+        18.0
+      ],
+      "lead_vehicle_gap": 35.0,
+      "ego_spacing": 2.0,
+      "duration": 30.0,
+      "simulation_frequency": 10,
+      "policy_frequency": 10,
+      "offroad_terminal": false,
+      "action": {
+        "type": "DiscreteMetaAction",
+        "target_speeds": [
+          10.0,
+          12.5,
+          15.0,
+          17.5,
+          20.0,
+          22.5,
+          25.0
+        ]
+      },
+      "observation": {
+        "type": "Kinematics",
+        "vehicles_count": 7,
+        "features": [
+          "presence",
+          "x",
+          "y",
+          "vx",
+          "vy"
+        ],
+        "absolute": false,
+        "normalize": true,
+        "clip": true,
+        "see_behind": true,
+        "include_obstacles": false,
+        "order": "sorted",
+        "features_range": {
+          "x": [
+            -200,
+            200
+          ],
+          "y": [
+            -12,
+            12
+          ],
+          "vx": [
+            -30,
+            30
+          ],
+          "vy": [
+            -10,
+            10
+          ]
+        }
+      },
+      "screen_width": 1200,
+      "screen_height": 360,
+      "scaling": 8.0,
+      "centering_position": [
+        0.18,
+        0.55
+      ],
+      "real_time_rendering": false,
+      "initial_lane_id": null,
+      "traffic_behavior": "constant_speed",
+      "randomize_traffic_speed": true,
+      "randomize_traffic_lane": true,
+      "complete_lane_changes": true,
+      "lane_center_tolerance": 0.2,
+      "lane_lateral_speed_tolerance": 0.2,
+      "fast_observation": true
+    },
+    "goal_config": {
+      "observation_schema": "lane_goal_v2",
+      "distance_range": [
+        30.0,
+        40.0
+      ],
+      "slot_offsets": {
+        "front": 20.0,
+        "back": 15.0
+      },
+      "radius": 5.0,
+      "lateral_tolerance": 1.8,
+      "hold_seconds": 0.5,
+      "initial_speed": 20.0,
+      "position_scale": [
+        200.0,
+        12.0
+      ],
+      "slot_error_features": true,
+      "slot_error_scale": [
+        10.0,
+        4.0,
+        10.0
+      ],
+      "shaping_range": 30.0,
+      "pass_margin": 10.0,
+      "default_slot": "random",
+      "speed_tolerance": 2.0,
+      "hold_grace_seconds": 0.3,
+      "enabled_slots": [
+        "front",
+        "left",
+        "back",
+        "right"
+      ],
+      "sampled_slots": [
+        "front",
+        "left",
+        "back",
+        "right"
+      ]
+    },
+    "reward_weights": {
+      "goal": 50.0,
+      "collision": 50.0,
+      "progress": 0.1,
+      "time": 0.05,
+      "hold": 0.2,
+      "lane": 0.0,
+      "speed_match": 0.0,
+      "overtake": 0.0,
+      "timeout": 25.0
+    }
+  },
+  "ppo": {
+    "episodes": 100,
+    "success_rate": 0.03,
+    "collision_rate": 0.35,
+    "timeout_rate": 0.62,
+    "average_episode_reward": -41.89827642164009,
+    "average_time_to_goal_seconds": 6.866666666666657,
+    "average_final_distance_meters": 30.47117018621503,
+    "success_rate_by_goal_lane": {
+      "0": 0.0625,
+      "1": 0.024390243902439025,
+      "2": 0.0
+    },
+    "success_rate_by_required_lane_changes": {
+      "0": 0.11538461538461539,
+      "1": 0.0,
+      "2": 0.0
+    },
+    "average_reward_components": {
+      "goal": 1.5,
+      "collision": -17.5,
+      "progress": 0.35822357835990176,
+      "time": -10.788500000000047,
+      "hold": 0.032,
+      "lane": 0.0,
+      "speed_match": 0.0,
+      "overtake": 0.0,
+      "timeout": -15.5
+    },
+    "anchor_lost_rate": 0.0,
+    "average_max_hold_seconds": 0.016,
+    "success_rate_by_slot": {
+      "front": 0.0,
+      "back": 0.06060606060606061,
+      "left": 0.0,
+      "right": 0.045454545454545456
+    },
+    "episodes_by_slot": {
+      "front": 18,
+      "back": 33,
+      "left": 27,
+      "right": 22
+    }
+  },
+  "ppo_by_slot": {
+    "front": {
+      "episodes": 18,
+      "success_rate": 0.0,
+      "collision_rate": 0.3333333333333333,
+      "timeout_rate": 0.6666666666666666,
+      "average_episode_reward": -41.070826058412344,
+      "average_time_to_goal_seconds": null,
+      "average_final_distance_meters": 22.238465207552576,
+      "success_rate_by_goal_lane": {
+        "0": 0.0,
+        "1": 0.0,
+        "2": 0.0
+      },
+      "success_rate_by_required_lane_changes": {
+        "0": 0.0,
+        "1": 0.0,
+        "2": 0.0
+      },
+      "average_reward_components": {
+        "goal": 0.0,
+        "collision": -16.666666666666668,
+        "progress": 3.2930628304765404,
+        "time": -11.030555555555607,
+        "hold": 0.0,
+        "lane": 0.0,
+        "speed_match": 0.0,
+        "overtake": 0.0,
+        "timeout": -16.666666666666668
+      },
+      "anchor_lost_rate": 0.0,
+      "average_max_hold_seconds": 0.0,
+      "success_rate_by_slot": {
+        "front": 0.0
+      },
+      "episodes_by_slot": {
+        "front": 18,
+        "back": 0,
+        "left": 0,
+        "right": 0
+      }
+    },
+    "back": {
+      "episodes": 33,
+      "success_rate": 0.06060606060606061,
+      "collision_rate": 0.21212121212121213,
+      "timeout_rate": 0.7272727272727273,
+      "average_episode_reward": -40.131503557047395,
+      "average_time_to_goal_seconds": 6.149999999999994,
+      "average_final_distance_meters": 45.18597034001673,
+      "success_rate_by_goal_lane": {
+        "0": 0.16666666666666666,
+        "1": 0.0,
+        "2": 0.0
+      },
+      "success_rate_by_required_lane_changes": {
+        "0": 0.2222222222222222,
+        "1": 0.0,
+        "2": 0.0
+      },
+      "average_reward_components": {
+        "goal": 3.0303030303030303,
+        "collision": -10.606060606060606,
+        "progress": -2.448170223714067,
+        "time": -11.986363636363691,
+        "hold": 0.06060606060606061,
+        "lane": 0.0,
+        "speed_match": 0.0,
+        "overtake": 0.0,
+        "timeout": -18.181818181818183
+      },
+      "anchor_lost_rate": 0.0,
+      "average_max_hold_seconds": 0.030303030303030304,
+      "success_rate_by_slot": {
+        "back": 0.06060606060606061
+      },
+      "episodes_by_slot": {
+        "front": 0,
+        "back": 33,
+        "left": 0,
+        "right": 0
+      }
+    },
+    "left": {
+      "episodes": 27,
+      "success_rate": 0.0,
+      "collision_rate": 0.4444444444444444,
+      "timeout_rate": 0.5555555555555556,
+      "average_episode_reward": -45.63882877093616,
+      "average_time_to_goal_seconds": null,
+      "average_final_distance_meters": 29.150548704013,
+      "success_rate_by_goal_lane": {
+        "0": 0.0,
+        "1": 0.0
+      },
+      "success_rate_by_required_lane_changes": {
+        "0": 0.0,
+        "1": 0.0,
+        "2": 0.0
+      },
+      "average_reward_components": {
+        "goal": 0.0,
+        "collision": -22.22222222222222,
+        "progress": 0.6093193772119874,
+        "time": -10.137037037037077,
+        "hold": 0.0,
+        "lane": 0.0,
+        "speed_match": 0.0,
+        "overtake": 0.0,
+        "timeout": -13.88888888888889
+      },
+      "anchor_lost_rate": 0.0,
+      "average_max_hold_seconds": 0.0,
+      "success_rate_by_slot": {
+        "left": 0.0
+      },
+      "episodes_by_slot": {
+        "front": 0,
+        "back": 0,
+        "left": 27,
+        "right": 0
+      }
+    },
+    "right": {
+      "episodes": 22,
+      "success_rate": 0.045454545454545456,
+      "collision_rate": 0.45454545454545453,
+      "timeout_rate": 0.5,
+      "average_episode_reward": -40.63476267794305,
+      "average_time_to_goal_seconds": 8.299999999999986,
+      "average_final_distance_meters": 16.755582211666102,
+      "success_rate_by_goal_lane": {
+        "1": 0.08333333333333333,
+        "2": 0.0
+      },
+      "success_rate_by_required_lane_changes": {
+        "0": 0.25,
+        "1": 0.0,
+        "2": 0.0
+      },
+      "average_reward_components": {
+        "goal": 2.272727272727273,
+        "collision": -22.727272727272727,
+        "progress": 1.8584191402387733,
+        "time": -9.593181818181856,
+        "hold": 0.05454545454545454,
+        "lane": 0.0,
+        "speed_match": 0.0,
+        "overtake": 0.0,
+        "timeout": -12.5
+      },
+      "anchor_lost_rate": 0.0,
+      "average_max_hold_seconds": 0.02727272727272727,
+      "success_rate_by_slot": {
+        "right": 0.045454545454545456
+      },
+      "episodes_by_slot": {
+        "front": 0,
+        "back": 0,
+        "left": 0,
+        "right": 22
+      }
+    }
+  }
+}

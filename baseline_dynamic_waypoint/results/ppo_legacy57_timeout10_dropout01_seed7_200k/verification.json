@@ -1,0 +1,24 @@
+{
+  "additional_training_steps": 200000,
+  "observation": "legacy",
+  "input_values": 57,
+  "source_checkpoint_unchanged": true,
+  "initial_policy_reproduces_source_outcomes": true,
+  "dropout_rate": 0.1,
+  "actor_dropout_layers": 2,
+  "critic_dropout_layers": 2,
+  "optimizer_reset_for_dropout": true,
+  "timeout_penalty": -10,
+  "all_timeout_costs_correct": true,
+  "training_counts": {
+    "back": 282,
+    "left": 283,
+    "front": 301,
+    "right": 292
+  },
+  "held_out_evaluation_cases": 100,
+  "before_after_initial_scenarios_identical": true,
+  "tensorboard_verified": true,
+  "video_replays_match_evaluation": true,
+  "checks": "9 timeout and goal-sampling tests passed"
+}

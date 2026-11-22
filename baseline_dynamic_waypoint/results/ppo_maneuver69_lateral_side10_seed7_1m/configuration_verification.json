@@ -1,0 +1,13 @@
+﻿{
+    "verified_utc":  "2026-11-16T22:57:20.4659189Z",
+    "status":  "running",
+    "requested_timesteps":  1000000,
+    "reward_profile":  "maneuver_lateral_side10",
+    "initialization":  "scratch",
+    "formula":  "ey = goal lane center minus ego lateral position; route_cost = 2 * abs(ey); route_reward = 0.5 * (previous cost - current cost)",
+    "longitudinal_route_weight":  0.0,
+    "speed_route_weight":  0.0,
+    "front_side_bonus":  10.0,
+    "original_distance_progress_weight":  0.1,
+    "tests":  "22 tests passed: test_maneuver_guidance and test_reward_profiles"
+}

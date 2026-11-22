@@ -1,0 +1,1721 @@
+{
+  "created_utc": "2026-11-13T02:42:43.990176+00:00",
+  "protocol": {
+    "fixed_seeds": [
+      10000,
+      10099
+    ],
+    "fresh_seeds": [
+      30000,
+      30199
+    ],
+    "fresh_episodes": 200,
+    "controller": "direct saved PPO; no reflection",
+    "training_decisions_per_comparison_run": 200000,
+    "returns_comparable_across_reward_profiles": false
+  },
+  "models": {
+    "source": {
+      "path": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\models\\ppo_singlecar_committed57_seed7_200k.zip",
+      "sha256": "ab501ad9fe303ffa0b7b52ee3eade1170e3dfafc5617045ccfab93d002351b18",
+      "metadata": {
+        "task": "single_car_committed_lane",
+        "created_utc": "2026-11-13T00:13:35.968806+00:00",
+        "seed": 7,
+        "requested_timesteps": 200000,
+        "num_envs": 4,
+        "initialization": {
+          "model": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\models\\ppo_singlecar_flexible30s_seed7_200k.zip",
+          "sha256": "228163cde178755d945b65afc98a7c78b9f410a040c7e25e5d12334df5239c1d",
+          "training_timesteps": 200000,
+          "lifetime_timesteps": 1200448,
+          "kind": "expanded_observation_weight_transfer",
+          "expanded_layers": [
+            "mlp_extractor.policy_net.0.weight",
+            "mlp_extractor.value_net.0.weight"
+          ],
+          "old_features": 53,
+          "new_features": 57,
+          "new_input_connections": "zero initialized",
+          "optimizer_reset": true
+        },
+        "counter": "Additional PPO decisions in this run; internal physics ticks are recorded separately.",
+        "randomized": true,
+        "environment": {
+          "env_config": {
+            "lanes_count": 3,
+            "vehicles_count": 1,
+            "controlled_vehicles": 1,
+            "vehicles_density": 0.7,
+            "traffic_speed_range": [
+              12.0,
+              18.0
+            ],
+            "lead_vehicle_gap": 35.0,
+            "ego_spacing": 2.0,
+            "duration": 30.0,
+            "simulation_frequency": 10,
+            "policy_frequency": 10,
+            "offroad_terminal": false,
+            "action": {
+              "type": "DiscreteMetaAction",
+              "target_speeds": [
+                10.0,
+                12.5,
+                15.0,
+                17.5,
+                20.0,
+                22.5,
+                25.0
+              ]
+            },
+            "observation": {
+              "type": "Kinematics",
+              "vehicles_count": 7,
+              "features": [
+                "presence",
+                "x",
+                "y",
+                "vx",
+                "vy"
+              ],
+              "absolute": false,
+              "normalize": true,
+              "clip": true,
+              "see_behind": true,
+              "include_obstacles": false,
+              "order": "sorted",
+              "features_range": {
+                "x": [
+                  -200,
+                  200
+                ],
+                "y": [
+                  -12,
+                  12
+                ],
+                "vx": [
+                  -30,
+                  30
+                ],
+                "vy": [
+                  -10,
+                  10
+                ]
+              }
+            },
+            "screen_width": 1200,
+            "screen_height": 360,
+            "scaling": 8.0,
+            "centering_position": [
+              0.18,
+              0.55
+            ],
+            "real_time_rendering": false,
+            "initial_lane_id": null,
+            "traffic_behavior": "constant_speed",
+            "randomize_traffic_speed": true,
+            "randomize_traffic_lane": true,
+            "complete_lane_changes": true,
+            "lane_center_tolerance": 0.2,
+            "lane_lateral_speed_tolerance": 0.2,
+            "fast_observation": true
+          },
+          "goal_config": {
+            "distance_range": [
+              30.0,
+              40.0
+            ],
+            "slot_offsets": {
+              "front": 20.0,
+              "back": 15.0
+            },
+            "radius": 5.0,
+            "lateral_tolerance": 1.8,
+            "hold_seconds": 0.5,
+            "initial_speed": 20.0,
+            "position_scale": [
+              200.0,
+              12.0
+            ],
+            "slot_error_features": true,
+            "slot_error_scale": [
+              10.0,
+              4.0,
+              10.0
+            ],
+            "shaping_range": 30.0,
+            "pass_margin": 10.0,
+            "default_slot": "random",
+            "speed_tolerance": 2.0,
+            "hold_grace_seconds": 0.3
+          },
+          "reward_weights": {
+            "goal": 50.0,
+            "collision": 50.0,
+            "progress": 0.1,
+            "time": 0.05,
+            "hold": 0.2,
+            "lane": 0.0,
+            "speed_match": 0.0,
+            "overtake": 0.0
+          }
+        },
+        "ppo_config": {
+          "learning_rate": 0.0001,
+          "n_steps": 250,
+          "batch_size": 250,
+          "n_epochs": 5,
+          "gamma": 0.99,
+          "gae_lambda": 0.95,
+          "clip_range": 0.2,
+          "ent_coef": 0.01,
+          "vf_coef": 0.5,
+          "max_grad_norm": 0.5,
+          "policy_kwargs": {
+            "net_arch": {
+              "pi": [
+                256,
+                256
+              ],
+              "vf": [
+                256,
+                256
+              ]
+            }
+          },
+          "device": "cpu"
+        },
+        "status": "trained",
+        "actual_timesteps": 200000,
+        "total_lifetime_timesteps": 1400448,
+        "actual_physics_steps": 252891,
+        "lane_changes": {
+          "started": 2813,
+          "completed": 2737,
+          "interrupted": 76
+        },
+        "training_seconds": 361.89140419999603
+      }
+    },
+    "control": {
+      "path": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\models\\ppo_singlecar_reward_baseline_seed7_200k.zip",
+      "sha256": "8d57245354dfabcb15117c1e4d29563c9ec64c50e7d0e7376214e3a8a7e76817",
+      "metadata": {
+        "task": "single_car_committed_lane",
+        "created_utc": "2026-11-13T02:35:41.377486+00:00",
+        "seed": 7,
+        "requested_timesteps": 200000,
+        "num_envs": 4,
+        "initialization": {
+          "model": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\models\\ppo_singlecar_committed57_seed7_200k.zip",
+          "sha256": "ab501ad9fe303ffa0b7b52ee3eade1170e3dfafc5617045ccfab93d002351b18",
+          "training_timesteps": 200000,
+          "lifetime_timesteps": 1400448,
+          "kind": "policy_and_optimizer",
+          "optimizer_reset": false
+        },
+        "counter": "Additional PPO decisions in this run; internal physics ticks are recorded separately.",
+        "randomized": true,
+        "reward_profile": "baseline",
+        "reward_goal_overrides": {},
+        "evaluation_first_seed": 10000,
+        "environment": {
+          "env_config": {
+            "lanes_count": 3,
+            "vehicles_count": 1,
+            "controlled_vehicles": 1,
+            "vehicles_density": 0.7,
+            "traffic_speed_range": [
+              12.0,
+              18.0
+            ],
+            "lead_vehicle_gap": 35.0,
+            "ego_spacing": 2.0,
+            "duration": 30.0,
+            "simulation_frequency": 10,
+            "policy_frequency": 10,
+            "offroad_terminal": false,
+            "action": {
+              "type": "DiscreteMetaAction",
+              "target_speeds": [
+                10.0,
+                12.5,
+                15.0,
+                17.5,
+                20.0,
+                22.5,
+                25.0
+              ]
+            },
+            "observation": {
+              "type": "Kinematics",
+              "vehicles_count": 7,
+              "features": [
+                "presence",
+                "x",
+                "y",
+                "vx",
+                "vy"
+              ],
+              "absolute": false,
+              "normalize": true,
+              "clip": true,
+              "see_behind": true,
+              "include_obstacles": false,
+              "order": "sorted",
+              "features_range": {
+                "x": [
+                  -200,
+                  200
+                ],
+                "y": [
+                  -12,
+                  12
+                ],
+                "vx": [
+                  -30,
+                  30
+                ],
+                "vy": [
+                  -10,
+                  10
+                ]
+              }
+            },
+            "screen_width": 1200,
+            "screen_height": 360,
+            "scaling": 8.0,
+            "centering_position": [
+              0.18,
+              0.55
+            ],
+            "real_time_rendering": false,
+            "initial_lane_id": null,
+            "traffic_behavior": "constant_speed",
+            "randomize_traffic_speed": true,
+            "randomize_traffic_lane": true,
+            "complete_lane_changes": true,
+            "lane_center_tolerance": 0.2,
+            "lane_lateral_speed_tolerance": 0.2,
+            "fast_observation": true
+          },
+          "goal_config": {
+            "distance_range": [
+              30.0,
+              40.0
+            ],
+            "slot_offsets": {
+              "front": 20.0,
+              "back": 15.0
+            },
+            "radius": 5.0,
+            "lateral_tolerance": 1.8,
+            "hold_seconds": 0.5,
+            "initial_speed": 20.0,
+            "position_scale": [
+              200.0,
+              12.0
+            ],
+            "slot_error_features": true,
+            "slot_error_scale": [
+              10.0,
+              4.0,
+              10.0
+            ],
+            "shaping_range": 30.0,
+            "pass_margin": 10.0,
+            "default_slot": "random",
+            "speed_tolerance": 2.0,
+            "hold_grace_seconds": 0.3
+          },
+          "reward_weights": {
+            "goal": 50.0,
+            "collision": 50.0,
+            "progress": 0.1,
+            "time": 0.05,
+            "hold": 0.2,
+            "lane": 0.0,
+            "speed_match": 0.0,
+            "overtake": 0.0
+          }
+        },
+        "ppo_config": {
+          "learning_rate": 0.0001,
+          "n_steps": 250,
+          "batch_size": 250,
+          "n_epochs": 5,
+          "gamma": 0.99,
+          "gae_lambda": 0.95,
+          "clip_range": 0.2,
+          "ent_coef": 0.01,
+          "vf_coef": 0.5,
+          "max_grad_norm": 0.5,
+          "policy_kwargs": {
+            "net_arch": {
+              "pi": [
+                256,
+                256
+              ],
+              "vf": [
+                256,
+                256
+              ]
+            }
+          },
+          "device": "cpu"
+        },
+        "status": "trained",
+        "actual_timesteps": 200000,
+        "total_lifetime_timesteps": 1600448,
+        "actual_physics_steps": 238778,
+        "lane_changes": {
+          "started": 2107,
+          "completed": 2054,
+          "interrupted": 53
+        },
+        "training_seconds": 183.0616117999889
+      }
+    },
+    "guided": {
+      "path": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\models\\ppo_singlecar_reward_guided_seed7_200k.zip",
+      "sha256": "dcc7206b101b0e22579572eb442a675a0a17a386216ae9eb59cc7f8176bb8ced",
+      "metadata": {
+        "task": "single_car_committed_lane",
+        "created_utc": "2026-11-13T02:36:22.553294+00:00",
+        "seed": 7,
+        "requested_timesteps": 200000,
+        "num_envs": 4,
+        "initialization": {
+          "model": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\models\\ppo_singlecar_committed57_seed7_200k.zip",
+          "sha256": "ab501ad9fe303ffa0b7b52ee3eade1170e3dfafc5617045ccfab93d002351b18",
+          "training_timesteps": 200000,
+          "lifetime_timesteps": 1400448,
+          "kind": "policy_and_optimizer",
+          "optimizer_reset": false
+        },
+        "counter": "Additional PPO decisions in this run; internal physics ticks are recorded separately.",
+        "randomized": true,
+        "reward_profile": "guided",
+        "reward_goal_overrides": {
+          "front_lane_blend": [
+            5.0,
+            15.0
+          ]
+        },
+        "evaluation_first_seed": 10000,
+        "environment": {
+          "env_config": {
+            "lanes_count": 3,
+            "vehicles_count": 1,
+            "controlled_vehicles": 1,
+            "vehicles_density": 0.7,
+            "traffic_speed_range": [
+              12.0,
+              18.0
+            ],
+            "lead_vehicle_gap": 35.0,
+            "ego_spacing": 2.0,
+            "duration": 30.0,
+            "simulation_frequency": 10,
+            "policy_frequency": 10,
+            "offroad_terminal": false,
+            "action": {
+              "type": "DiscreteMetaAction",
+              "target_speeds": [
+                10.0,
+                12.5,
+                15.0,
+                17.5,
+                20.0,
+                22.5,
+                25.0
+              ]
+            },
+            "observation": {
+              "type": "Kinematics",
+              "vehicles_count": 7,
+              "features": [
+                "presence",
+                "x",
+                "y",
+                "vx",
+                "vy"
+              ],
+              "absolute": false,
+              "normalize": true,
+              "clip": true,
+              "see_behind": true,
+              "include_obstacles": false,
+              "order": "sorted",
+              "features_range": {
+                "x": [
+                  -200,
+                  200
+                ],
+                "y": [
+                  -12,
+                  12
+                ],
+                "vx": [
+                  -30,
+                  30
+                ],
+                "vy": [
+                  -10,
+                  10
+                ]
+              }
+            },
+            "screen_width": 1200,
+            "screen_height": 360,
+            "scaling": 8.0,
+            "centering_position": [
+              0.18,
+              0.55
+            ],
+            "real_time_rendering": false,
+            "initial_lane_id": null,
+            "traffic_behavior": "constant_speed",
+            "randomize_traffic_speed": true,
+            "randomize_traffic_lane": true,
+            "complete_lane_changes": true,
+            "lane_center_tolerance": 0.2,
+            "lane_lateral_speed_tolerance": 0.2,
+            "fast_observation": true
+          },
+          "goal_config": {
+            "distance_range": [
+              30.0,
+              40.0
+            ],
+            "slot_offsets": {
+              "front": 20.0,
+              "back": 15.0
+            },
+            "radius": 5.0,
+            "lateral_tolerance": 1.8,
+            "hold_seconds": 0.5,
+            "initial_speed": 20.0,
+            "position_scale": [
+              200.0,
+              12.0
+            ],
+            "slot_error_features": true,
+            "slot_error_scale": [
+              10.0,
+              4.0,
+              10.0
+            ],
+            "shaping_range": 30.0,
+            "pass_margin": 10.0,
+            "default_slot": "random",
+            "speed_tolerance": 2.0,
+            "hold_grace_seconds": 0.3,
+            "front_lane_blend": [
+              5.0,
+              15.0
+            ]
+          },
+          "reward_weights": {
+            "goal": 50.0,
+            "collision": 50.0,
+            "progress": 0.1,
+            "time": 0.05,
+            "hold": 0.2,
+            "lane": 1.0,
+            "speed_match": 0.1,
+            "overtake": 0.5
+          }
+        },
+        "ppo_config": {
+          "learning_rate": 0.0001,
+          "n_steps": 250,
+          "batch_size": 250,
+          "n_epochs": 5,
+          "gamma": 0.99,
+          "gae_lambda": 0.95,
+          "clip_range": 0.2,
+          "ent_coef": 0.01,
+          "vf_coef": 0.5,
+          "max_grad_norm": 0.5,
+          "policy_kwargs": {
+            "net_arch": {
+              "pi": [
+                256,
+                256
+              ],
+              "vf": [
+                256,
+                256
+              ]
+            }
+          },
+          "device": "cpu"
+        },
+        "status": "trained",
+        "actual_timesteps": 200000,
+        "total_lifetime_timesteps": 1600448,
+        "actual_physics_steps": 250762,
+        "lane_changes": {
+          "started": 2762,
+          "completed": 2675,
+          "interrupted": 87
+        },
+        "training_seconds": 234.13439160000416
+      }
+    },
+    "fresh_init": {
+      "path": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\models\\ppo_singlecar_reward_guided_fresh_seed7_200k.zip",
+      "sha256": "23dba758470adf427a03231abf764241ba2a1e3704817e48b3dcca7a47d334b5",
+      "metadata": {
+        "task": "single_car_committed_lane",
+        "created_utc": "2026-11-13T02:39:27.971889+00:00",
+        "seed": 7,
+        "requested_timesteps": 200000,
+        "num_envs": 4,
+        "initialization": null,
+        "counter": "Additional PPO decisions in this run; internal physics ticks are recorded separately.",
+        "randomized": true,
+        "reward_profile": "guided",
+        "reward_goal_overrides": {
+          "front_lane_blend": [
+            5.0,
+            15.0
+          ]
+        },
+        "evaluation_first_seed": 10000,
+        "environment": {
+          "env_config": {
+            "lanes_count": 3,
+            "vehicles_count": 1,
+            "controlled_vehicles": 1,
+            "vehicles_density": 0.7,
+            "traffic_speed_range": [
+              12.0,
+              18.0
+            ],
+            "lead_vehicle_gap": 35.0,
+            "ego_spacing": 2.0,
+            "duration": 30.0,
+            "simulation_frequency": 10,
+            "policy_frequency": 10,
+            "offroad_terminal": false,
+            "action": {
+              "type": "DiscreteMetaAction",
+              "target_speeds": [
+                10.0,
+                12.5,
+                15.0,
+                17.5,
+                20.0,
+                22.5,
+                25.0
+              ]
+            },
+            "observation": {
+              "type": "Kinematics",
+              "vehicles_count": 7,
+              "features": [
+                "presence",
+                "x",
+                "y",
+                "vx",
+                "vy"
+              ],
+              "absolute": false,
+              "normalize": true,
+              "clip": true,
+              "see_behind": true,
+              "include_obstacles": false,
+              "order": "sorted",
+              "features_range": {
+                "x": [
+                  -200,
+                  200
+                ],
+                "y": [
+                  -12,
+                  12
+                ],
+                "vx": [
+                  -30,
+                  30
+                ],
+                "vy": [
+                  -10,
+                  10
+                ]
+              }
+            },
+            "screen_width": 1200,
+            "screen_height": 360,
+            "scaling": 8.0,
+            "centering_position": [
+              0.18,
+              0.55
+            ],
+            "real_time_rendering": false,
+            "initial_lane_id": null,
+            "traffic_behavior": "constant_speed",
+            "randomize_traffic_speed": true,
+            "randomize_traffic_lane": true,
+            "complete_lane_changes": true,
+            "lane_center_tolerance": 0.2,
+            "lane_lateral_speed_tolerance": 0.2,
+            "fast_observation": true
+          },
+          "goal_config": {
+            "distance_range": [
+              30.0,
+              40.0
+            ],
+            "slot_offsets": {
+              "front": 20.0,
+              "back": 15.0
+            },
+            "radius": 5.0,
+            "lateral_tolerance": 1.8,
+            "hold_seconds": 0.5,
+            "initial_speed": 20.0,
+            "position_scale": [
+              200.0,
+              12.0
+            ],
+            "slot_error_features": true,
+            "slot_error_scale": [
+              10.0,
+              4.0,
+              10.0
+            ],
+            "shaping_range": 30.0,
+            "pass_margin": 10.0,
+            "default_slot": "random",
+            "speed_tolerance": 2.0,
+            "hold_grace_seconds": 0.3,
+            "front_lane_blend": [
+              5.0,
+              15.0
+            ]
+          },
+          "reward_weights": {
+            "goal": 50.0,
+            "collision": 50.0,
+            "progress": 0.1,
+            "time": 0.05,
+            "hold": 0.2,
+            "lane": 1.0,
+            "speed_match": 0.1,
+            "overtake": 0.5
+          }
+        },
+        "ppo_config": {
+          "learning_rate": 0.0001,
+          "n_steps": 250,
+          "batch_size": 250,
+          "n_epochs": 5,
+          "gamma": 0.99,
+          "gae_lambda": 0.95,
+          "clip_range": 0.2,
+          "ent_coef": 0.01,
+          "vf_coef": 0.5,
+          "max_grad_norm": 0.5,
+          "policy_kwargs": {
+            "net_arch": {
+              "pi": [
+                256,
+                256
+              ],
+              "vf": [
+                256,
+                256
+              ]
+            }
+          },
+          "device": "cpu"
+        },
+        "status": "trained",
+        "actual_timesteps": 200000,
+        "total_lifetime_timesteps": 200000,
+        "actual_physics_steps": 265095,
+        "lane_changes": {
+          "started": 3566,
+          "completed": 3246,
+          "interrupted": 320
+        },
+        "training_seconds": 371.0988370999985
+      },
+      "initialization": "fresh; no source checkpoint"
+    },
+    "approach_followup": {
+      "path": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\models\\ppo_singlecar_reward_approach_seed7_200k.zip",
+      "sha256": "5304e52126d7890a6deedaaff8cb1c940dbf1eadc7e7c952042663821b6da236",
+      "metadata": {
+        "task": "single_car_committed_lane",
+        "created_utc": "2026-11-13T02:51:35.994355+00:00",
+        "seed": 7,
+        "requested_timesteps": 200000,
+        "num_envs": 4,
+        "initialization": {
+          "model": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\models\\ppo_singlecar_reward_guided_fresh_seed7_200k.zip",
+          "sha256": "23dba758470adf427a03231abf764241ba2a1e3704817e48b3dcca7a47d334b5",
+          "training_timesteps": 200000,
+          "lifetime_timesteps": 200000,
+          "kind": "policy_and_optimizer",
+          "optimizer_reset": false
+        },
+        "counter": "Additional PPO decisions in this run; internal physics ticks are recorded separately.",
+        "randomized": true,
+        "reward_profile": "guided_approach",
+        "reward_goal_overrides": {
+          "front_lane_blend": [
+            5.0,
+            15.0
+          ]
+        },
+        "evaluation_first_seed": 10000,
+        "environment": {
+          "env_config": {
+            "lanes_count": 3,
+            "vehicles_count": 1,
+            "controlled_vehicles": 1,
+            "vehicles_density": 0.7,
+            "traffic_speed_range": [
+              12.0,
+              18.0
+            ],
+            "lead_vehicle_gap": 35.0,
+            "ego_spacing": 2.0,
+            "duration": 30.0,
+            "simulation_frequency": 10,
+            "policy_frequency": 10,
+            "offroad_terminal": false,
+            "action": {
+              "type": "DiscreteMetaAction",
+              "target_speeds": [
+                10.0,
+                12.5,
+                15.0,
+                17.5,
+                20.0,
+                22.5,
+                25.0
+              ]
+            },
+            "observation": {
+              "type": "Kinematics",
+              "vehicles_count": 7,
+              "features": [
+                "presence",
+                "x",
+                "y",
+                "vx",
+                "vy"
+              ],
+              "absolute": false,
+              "normalize": true,
+              "clip": true,
+              "see_behind": true,
+              "include_obstacles": false,
+              "order": "sorted",
+              "features_range": {
+                "x": [
+                  -200,
+                  200
+                ],
+                "y": [
+                  -12,
+                  12
+                ],
+                "vx": [
+                  -30,
+                  30
+                ],
+                "vy": [
+                  -10,
+                  10
+                ]
+              }
+            },
+            "screen_width": 1200,
+            "screen_height": 360,
+            "scaling": 8.0,
+            "centering_position": [
+              0.18,
+              0.55
+            ],
+            "real_time_rendering": false,
+            "initial_lane_id": null,
+            "traffic_behavior": "constant_speed",
+            "randomize_traffic_speed": true,
+            "randomize_traffic_lane": true,
+            "complete_lane_changes": true,
+            "lane_center_tolerance": 0.2,
+            "lane_lateral_speed_tolerance": 0.2,
+            "fast_observation": true
+          },
+          "goal_config": {
+            "distance_range": [
+              30.0,
+              40.0
+            ],
+            "slot_offsets": {
+              "front": 20.0,
+              "back": 15.0
+            },
+            "radius": 5.0,
+            "lateral_tolerance": 1.8,
+            "hold_seconds": 0.5,
+            "initial_speed": 20.0,
+            "position_scale": [
+              200.0,
+              12.0
+            ],
+            "slot_error_features": true,
+            "slot_error_scale": [
+              10.0,
+              4.0,
+              10.0
+            ],
+            "shaping_range": 30.0,
+            "pass_margin": 10.0,
+            "default_slot": "random",
+            "speed_tolerance": 2.0,
+            "hold_grace_seconds": 0.3,
+            "front_lane_blend": [
+              5.0,
+              15.0
+            ]
+          },
+          "reward_weights": {
+            "goal": 50.0,
+            "collision": 100.0,
+            "progress": 0.5,
+            "time": 0.05,
+            "hold": 0.2,
+            "lane": 2.0,
+            "speed_match": 0.5,
+            "overtake": 1.0
+          }
+        },
+        "ppo_config": {
+          "learning_rate": 0.0001,
+          "n_steps": 250,
+          "batch_size": 250,
+          "n_epochs": 5,
+          "gamma": 0.99,
+          "gae_lambda": 0.95,
+          "clip_range": 0.2,
+          "ent_coef": 0.01,
+          "vf_coef": 0.5,
+          "max_grad_norm": 0.5,
+          "policy_kwargs": {
+            "net_arch": {
+              "pi": [
+                256,
+                256
+              ],
+              "vf": [
+                256,
+                256
+              ]
+            }
+          },
+          "device": "cpu"
+        },
+        "status": "trained",
+        "actual_timesteps": 200000,
+        "total_lifetime_timesteps": 400000,
+        "actual_physics_steps": 212766,
+        "lane_changes": {
+          "started": 696,
+          "completed": 631,
+          "interrupted": 65
+        },
+        "training_seconds": 352.2814528000017
+      },
+      "initialization": "continued from fresh guided checkpoint"
+    }
+  },
+  "evaluations": {
+    "fixed_100": {
+      "source": {
+        "summary": {
+          "episodes": 100,
+          "success_rate": 0.55,
+          "collision_rate": 0.07,
+          "timeout_rate": 0.38,
+          "average_episode_reward": 19.151674348812634,
+          "average_time_to_goal_seconds": 6.465454545454538,
+          "average_final_distance_meters": 11.051686905165685,
+          "success_rate_by_goal_lane": {
+            "0.0": 0.8285714285714286,
+            "1.0": 0.5454545454545454,
+            "2.0": 0.09523809523809523
+          },
+          "success_rate_by_required_lane_changes": {
+            "0.0": 0.6944444444444444,
+            "1.0": 0.5,
+            "2.0": 0.4
+          },
+          "average_reward_components": {
+            "goal": 27.5,
+            "collision": -3.5,
+            "progress": 2.38217434881263,
+            "time": -7.780500000000028,
+            "hold": 0.55,
+            "lane": 0.0,
+            "speed_match": 0.0,
+            "overtake": 0.0
+          },
+          "anchor_lost_rate": 0.0,
+          "average_max_hold_seconds": 0.275,
+          "success_rate_by_slot": {
+            "front": 0.0,
+            "back": 0.8148148148148148,
+            "left": 1.0,
+            "right": 0.0
+          },
+          "episodes_by_slot": {
+            "front": 18,
+            "back": 27,
+            "left": 33,
+            "right": 22
+          }
+        },
+        "by_goal": {
+          "front": {
+            "episodes": 18,
+            "success": 0,
+            "collision": 2,
+            "timeout": 16
+          },
+          "back": {
+            "episodes": 27,
+            "success": 22,
+            "collision": 5,
+            "timeout": 0
+          },
+          "left": {
+            "episodes": 33,
+            "success": 33,
+            "collision": 0,
+            "timeout": 0
+          },
+          "right": {
+            "episodes": 22,
+            "success": 0,
+            "collision": 0,
+            "timeout": 22
+          }
+        },
+        "provenance": {
+          "method": "saved direct PPO evaluation",
+          "path": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\results\\ppo_singlecar_committed57_seed7_200k\\evaluation_episodes.csv",
+          "sha256": "666fabae8fb42b77718bb96a461a1256fd0484dc2fb5ee4babcbce6cfde526bc"
+        }
+      },
+      "control": {
+        "summary": {
+          "episodes": 100,
+          "success_rate": 0.51,
+          "collision_rate": 0.0,
+          "timeout_rate": 0.49,
+          "average_episode_reward": 18.559439710441374,
+          "average_time_to_goal_seconds": 7.411764705882343,
+          "average_final_distance_meters": 17.279033288878267,
+          "success_rate_by_goal_lane": {
+            "0.0": 0.6285714285714286,
+            "1.0": 0.5227272727272727,
+            "2.0": 0.2857142857142857
+          },
+          "success_rate_by_required_lane_changes": {
+            "0.0": 0.6388888888888888,
+            "1.0": 0.4090909090909091,
+            "2.0": 0.5
+          },
+          "average_reward_components": {
+            "goal": 25.5,
+            "collision": 0.0,
+            "progress": 1.7594397104413722,
+            "time": -9.240000000000038,
+            "hold": 0.54,
+            "lane": 0.0,
+            "speed_match": 0.0,
+            "overtake": 0.0
+          },
+          "anchor_lost_rate": 0.0,
+          "average_max_hold_seconds": 0.27,
+          "success_rate_by_slot": {
+            "front": 0.0,
+            "back": 0.7037037037037037,
+            "left": 0.9696969696969697,
+            "right": 0.0
+          },
+          "episodes_by_slot": {
+            "front": 18,
+            "back": 27,
+            "left": 33,
+            "right": 22
+          }
+        },
+        "by_goal": {
+          "front": {
+            "episodes": 18,
+            "success": 0,
+            "collision": 0,
+            "timeout": 18
+          },
+          "back": {
+            "episodes": 27,
+            "success": 19,
+            "collision": 0,
+            "timeout": 8
+          },
+          "left": {
+            "episodes": 33,
+            "success": 32,
+            "collision": 0,
+            "timeout": 1
+          },
+          "right": {
+            "episodes": 22,
+            "success": 0,
+            "collision": 0,
+            "timeout": 22
+          }
+        },
+        "provenance": {
+          "method": "saved direct PPO evaluation",
+          "path": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\results\\ppo_singlecar_reward_baseline_seed7_200k\\evaluation_episodes.csv",
+          "sha256": "7f21f24ecf309b2b0981548920be0176c0e4cbe57522a2b0b252ff0df6093c61"
+        }
+      },
+      "guided": {
+        "summary": {
+          "episodes": 100,
+          "success_rate": 0.58,
+          "collision_rate": 0.02,
+          "timeout_rate": 0.4,
+          "average_episode_reward": 27.226440156678585,
+          "average_time_to_goal_seconds": 9.17931034482758,
+          "average_final_distance_meters": 13.770189604082717,
+          "success_rate_by_goal_lane": {
+            "0.0": 0.8285714285714286,
+            "1.0": 0.5454545454545454,
+            "2.0": 0.23809523809523808
+          },
+          "success_rate_by_required_lane_changes": {
+            "0.0": 0.6944444444444444,
+            "1.0": 0.5,
+            "2.0": 0.55
+          },
+          "average_reward_components": {
+            "goal": 29.0,
+            "collision": -1.0,
+            "progress": 2.110324078920927,
+            "time": -8.70400000000003,
+            "hold": 0.616,
+            "lane": 1.6380693396535855,
+            "speed_match": -0.012831514842755066,
+            "overtake": 3.578878252946825
+          },
+          "anchor_lost_rate": 0.0,
+          "average_max_hold_seconds": 0.302,
+          "success_rate_by_slot": {
+            "front": 0.0,
+            "back": 0.9259259259259259,
+            "left": 1.0,
+            "right": 0.0
+          },
+          "episodes_by_slot": {
+            "front": 18,
+            "back": 27,
+            "left": 33,
+            "right": 22
+          }
+        },
+        "by_goal": {
+          "front": {
+            "episodes": 18,
+            "success": 0,
+            "collision": 0,
+            "timeout": 18
+          },
+          "back": {
+            "episodes": 27,
+            "success": 25,
+            "collision": 2,
+            "timeout": 0
+          },
+          "left": {
+            "episodes": 33,
+            "success": 33,
+            "collision": 0,
+            "timeout": 0
+          },
+          "right": {
+            "episodes": 22,
+            "success": 0,
+            "collision": 0,
+            "timeout": 22
+          }
+        },
+        "provenance": {
+          "method": "saved direct PPO evaluation",
+          "path": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\results\\ppo_singlecar_reward_guided_seed7_200k\\evaluation_episodes.csv",
+          "sha256": "4295655dae90157d265765fcc612e5173af661210115b293e74bccf032bc0aab"
+        }
+      },
+      "fresh_init": {
+        "summary": {
+          "episodes": 100,
+          "success_rate": 0.3,
+          "collision_rate": 0.21,
+          "timeout_rate": 0.49,
+          "average_episode_reward": 1.6070708705857026,
+          "average_time_to_goal_seconds": 8.93333333333333,
+          "average_final_distance_meters": 6.920382825962192,
+          "success_rate_by_goal_lane": {
+            "0.0": 0.42857142857142855,
+            "1.0": 0.25,
+            "2.0": 0.19047619047619047
+          },
+          "success_rate_by_required_lane_changes": {
+            "0.0": 0.8333333333333334,
+            "1.0": 0.0,
+            "2.0": 0.0
+          },
+          "average_reward_components": {
+            "goal": 15.0,
+            "collision": -10.5,
+            "progress": 2.795304756732979,
+            "time": -9.766000000000039,
+            "hold": 0.358,
+            "lane": -0.48,
+            "speed_match": -0.00023388614727698712,
+            "overtake": 4.2
+          },
+          "anchor_lost_rate": 0.0,
+          "average_max_hold_seconds": 0.15,
+          "success_rate_by_slot": {
+            "front": 0.0,
+            "back": 0.4074074074074074,
+            "left": 0.45454545454545453,
+            "right": 0.18181818181818182
+          },
+          "episodes_by_slot": {
+            "front": 18,
+            "back": 27,
+            "left": 33,
+            "right": 22
+          }
+        },
+        "by_goal": {
+          "front": {
+            "episodes": 18,
+            "success": 0,
+            "collision": 6,
+            "timeout": 12
+          },
+          "back": {
+            "episodes": 27,
+            "success": 11,
+            "collision": 0,
+            "timeout": 16
+          },
+          "left": {
+            "episodes": 33,
+            "success": 15,
+            "collision": 5,
+            "timeout": 13
+          },
+          "right": {
+            "episodes": 22,
+            "success": 4,
+            "collision": 10,
+            "timeout": 8
+          }
+        },
+        "provenance": {
+          "method": "saved direct PPO evaluation",
+          "path": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\results\\ppo_singlecar_reward_guided_fresh_seed7_200k\\evaluation_episodes.csv",
+          "sha256": "17eefeb14add521b472cf84c6a6f712949ec55ac33f2e91285cdf052779fe50b"
+        }
+      },
+      "approach_followup": {
+        "summary": {
+          "episodes": 100,
+          "success_rate": 0.0,
+          "collision_rate": 0.06,
+          "timeout_rate": 0.94,
+          "average_episode_reward": -2.6463271898235536,
+          "average_time_to_goal_seconds": null,
+          "average_final_distance_meters": 14.515659223448916,
+          "success_rate_by_goal_lane": {
+            "0.0": 0.0,
+            "1.0": 0.0,
+            "2.0": 0.0
+          },
+          "success_rate_by_required_lane_changes": {
+            "0.0": 0.0,
+            "1.0": 0.0,
+            "2.0": 0.0
+          },
+          "average_reward_components": {
+            "goal": 0.0,
+            "collision": -6.0,
+            "progress": 10.178885584921535,
+            "time": -14.231000000000074,
+            "hold": 0.012,
+            "lane": -0.96,
+            "speed_match": 0.09254832726688178,
+            "overtake": 8.261238897988044
+          },
+          "anchor_lost_rate": 0.0,
+          "average_max_hold_seconds": 0.002,
+          "success_rate_by_slot": {
+            "front": 0.0,
+            "back": 0.0,
+            "left": 0.0,
+            "right": 0.0
+          },
+          "episodes_by_slot": {
+            "front": 18,
+            "back": 27,
+            "left": 33,
+            "right": 22
+          }
+        },
+        "by_goal": {
+          "front": {
+            "episodes": 18,
+            "success": 0,
+            "collision": 6,
+            "timeout": 12
+          },
+          "back": {
+            "episodes": 27,
+            "success": 0,
+            "collision": 0,
+            "timeout": 27
+          },
+          "left": {
+            "episodes": 33,
+            "success": 0,
+            "collision": 0,
+            "timeout": 33
+          },
+          "right": {
+            "episodes": 22,
+            "success": 0,
+            "collision": 0,
+            "timeout": 22
+          }
+        },
+        "provenance": {
+          "method": "saved direct PPO evaluation",
+          "path": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\results\\ppo_singlecar_reward_approach_seed7_200k\\evaluation_episodes.csv",
+          "sha256": "f84765bfec3c2ed5900683560b3d7adf0680ac872e938e546bea5c2047b5a35d"
+        }
+      }
+    },
+    "fresh": {
+      "source": {
+        "summary": {
+          "episodes": 200,
+          "success_rate": 0.51,
+          "collision_rate": 0.05,
+          "timeout_rate": 0.44,
+          "average_episode_reward": 17.58577388142657,
+          "average_time_to_goal_seconds": 6.109803921568621,
+          "average_final_distance_meters": 11.573622959237145,
+          "success_rate_by_goal_lane": {
+            "0.0": 0.8059701492537313,
+            "1.0": 0.4880952380952381,
+            "2.0": 0.14285714285714285
+          },
+          "success_rate_by_required_lane_changes": {
+            "0.0": 0.5081967213114754,
+            "1.0": 0.5376344086021505,
+            "2.0": 0.45652173913043476
+          },
+          "average_reward_components": {
+            "goal": 25.5,
+            "collision": -2.5,
+            "progress": 2.375773881426569,
+            "time": -8.346000000000034,
+            "hold": 0.556,
+            "lane": 0.0,
+            "speed_match": 0.0,
+            "overtake": 0.0
+          },
+          "anchor_lost_rate": 0.0,
+          "average_max_hold_seconds": 0.27449999999999997,
+          "success_rate_by_slot": {
+            "front": 0.0,
+            "back": 0.864406779661017,
+            "left": 1.0,
+            "right": 0.0
+          },
+          "episodes_by_slot": {
+            "front": 44,
+            "back": 59,
+            "left": 51,
+            "right": 46
+          }
+        },
+        "by_goal": {
+          "front": {
+            "episodes": 44,
+            "success": 0,
+            "collision": 2,
+            "timeout": 42
+          },
+          "back": {
+            "episodes": 59,
+            "success": 51,
+            "collision": 8,
+            "timeout": 0
+          },
+          "left": {
+            "episodes": 51,
+            "success": 51,
+            "collision": 0,
+            "timeout": 0
+          },
+          "right": {
+            "episodes": 46,
+            "success": 0,
+            "collision": 0,
+            "timeout": 46
+          }
+        },
+        "provenance": {
+          "method": "cached direct original PPO; no adapter applied",
+          "path": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\results\\ppo_singlecar_right_canonical_seed7\\fresh_before_episodes.csv",
+          "sha256": "98decd6b0662eef22107896c9719290cd52de9af184851549b4ee40d68def6d8"
+        }
+      },
+      "control": {
+        "summary": {
+          "episodes": 200,
+          "success_rate": 0.495,
+          "collision_rate": 0.0,
+          "timeout_rate": 0.505,
+          "average_episode_reward": 17.586768722941187,
+          "average_time_to_goal_seconds": 6.493939393939388,
+          "average_final_distance_meters": 20.101174544090963,
+          "success_rate_by_goal_lane": {
+            "0": 0.6716417910447762,
+            "1": 0.5,
+            "2": 0.24489795918367346
+          },
+          "success_rate_by_required_lane_changes": {
+            "0": 0.5737704918032787,
+            "1": 0.4946236559139785,
+            "2": 0.391304347826087
+          },
+          "average_reward_components": {
+            "goal": 24.75,
+            "collision": 0.0,
+            "progress": 1.523018722941188,
+            "time": -9.182250000000039,
+            "hold": 0.496,
+            "lane": 0.0,
+            "speed_match": 0.0,
+            "overtake": 0.0
+          },
+          "anchor_lost_rate": 0.0,
+          "average_max_hold_seconds": 0.248,
+          "success_rate_by_slot": {
+            "front": 0.0,
+            "back": 0.8135593220338984,
+            "left": 1.0,
+            "right": 0.0
+          },
+          "episodes_by_slot": {
+            "front": 44,
+            "back": 59,
+            "left": 51,
+            "right": 46
+          }
+        },
+        "by_goal": {
+          "front": {
+            "episodes": 44,
+            "success": 0,
+            "collision": 0,
+            "timeout": 44
+          },
+          "back": {
+            "episodes": 59,
+            "success": 48,
+            "collision": 0,
+            "timeout": 11
+          },
+          "left": {
+            "episodes": 51,
+            "success": 51,
+            "collision": 0,
+            "timeout": 0
+          },
+          "right": {
+            "episodes": 46,
+            "success": 0,
+            "collision": 0,
+            "timeout": 46
+          }
+        },
+        "provenance": {
+          "method": "new deterministic direct PPO evaluation",
+          "checkpoint": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\models\\ppo_singlecar_reward_baseline_seed7_200k.zip"
+        }
+      },
+      "guided": {
+        "summary": {
+          "episodes": 200,
+          "success_rate": 0.54,
+          "collision_rate": 0.01,
+          "timeout_rate": 0.45,
+          "average_episode_reward": 26.409774813901905,
+          "average_time_to_goal_seconds": 8.095370370370361,
+          "average_final_distance_meters": 15.385551757902908,
+          "success_rate_by_goal_lane": {
+            "0": 0.7910447761194029,
+            "1": 0.5119047619047619,
+            "2": 0.24489795918367346
+          },
+          "success_rate_by_required_lane_changes": {
+            "0": 0.5573770491803278,
+            "1": 0.5268817204301075,
+            "2": 0.5434782608695652
+          },
+          "average_reward_components": {
+            "goal": 27.0,
+            "collision": -0.5,
+            "progress": 1.9945810015599932,
+            "time": -8.961750000000034,
+            "hold": 0.564,
+            "lane": 1.7190054669437835,
+            "speed_match": 0.008624216827186771,
+            "overtake": 4.585314128570942
+          },
+          "anchor_lost_rate": 0.0,
+          "average_max_hold_seconds": 0.2805,
+          "success_rate_by_slot": {
+            "front": 0.0,
+            "back": 0.9830508474576272,
+            "left": 0.9803921568627451,
+            "right": 0.0
+          },
+          "episodes_by_slot": {
+            "front": 44,
+            "back": 59,
+            "left": 51,
+            "right": 46
+          }
+        },
+        "by_goal": {
+          "front": {
+            "episodes": 44,
+            "success": 0,
+            "collision": 0,
+            "timeout": 44
+          },
+          "back": {
+            "episodes": 59,
+            "success": 58,
+            "collision": 1,
+            "timeout": 0
+          },
+          "left": {
+            "episodes": 51,
+            "success": 50,
+            "collision": 1,
+            "timeout": 0
+          },
+          "right": {
+            "episodes": 46,
+            "success": 0,
+            "collision": 0,
+            "timeout": 46
+          }
+        },
+        "provenance": {
+          "method": "new deterministic direct PPO evaluation",
+          "checkpoint": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\models\\ppo_singlecar_reward_guided_seed7_200k.zip"
+        }
+      },
+      "fresh_init": {
+        "summary": {
+          "episodes": 200,
+          "success_rate": 0.24,
+          "collision_rate": 0.225,
+          "timeout_rate": 0.535,
+          "average_episode_reward": -1.874310515813657,
+          "average_time_to_goal_seconds": 10.49375,
+          "average_final_distance_meters": 7.249034621217367,
+          "success_rate_by_goal_lane": {
+            "0": 0.29850746268656714,
+            "1": 0.25,
+            "2": 0.14285714285714285
+          },
+          "success_rate_by_required_lane_changes": {
+            "0": 0.7868852459016393,
+            "1": 0.0,
+            "2": 0.0
+          },
+          "average_reward_components": {
+            "goal": 12.0,
+            "collision": -11.25,
+            "progress": 2.8082327152285473,
+            "time": -10.328500000000044,
+            "hold": 0.265,
+            "lane": -0.62,
+            "speed_match": 0.013456768957795904,
+            "overtake": 5.2375
+          },
+          "anchor_lost_rate": 0.0,
+          "average_max_hold_seconds": 0.12,
+          "success_rate_by_slot": {
+            "front": 0.0,
+            "back": 0.3220338983050847,
+            "left": 0.3137254901960784,
+            "right": 0.2826086956521739
+          },
+          "episodes_by_slot": {
+            "front": 44,
+            "back": 59,
+            "left": 51,
+            "right": 46
+          }
+        },
+        "by_goal": {
+          "front": {
+            "episodes": 44,
+            "success": 0,
+            "collision": 13,
+            "timeout": 31
+          },
+          "back": {
+            "episodes": 59,
+            "success": 19,
+            "collision": 0,
+            "timeout": 40
+          },
+          "left": {
+            "episodes": 51,
+            "success": 16,
+            "collision": 17,
+            "timeout": 18
+          },
+          "right": {
+            "episodes": 46,
+            "success": 13,
+            "collision": 15,
+            "timeout": 18
+          }
+        },
+        "provenance": {
+          "method": "new deterministic direct PPO evaluation",
+          "checkpoint": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\models\\ppo_singlecar_reward_guided_fresh_seed7_200k.zip"
+        }
+      },
+      "approach_followup": {
+        "summary": {
+          "episodes": 200,
+          "success_rate": 0.0,
+          "collision_rate": 0.065,
+          "timeout_rate": 0.935,
+          "average_episode_reward": -1.1040520169221741,
+          "average_time_to_goal_seconds": null,
+          "average_final_distance_meters": 14.680163710645395,
+          "success_rate_by_goal_lane": {
+            "0": 0.0,
+            "1": 0.0,
+            "2": 0.0
+          },
+          "success_rate_by_required_lane_changes": {
+            "0": 0.0,
+            "1": 0.0,
+            "2": 0.0
+          },
+          "average_reward_components": {
+            "goal": 0.0,
+            "collision": -6.5,
+            "progress": 10.325599031428721,
+            "time": -14.168500000000076,
+            "hold": 0.005,
+            "lane": -1.24,
+            "speed_match": 0.1588780113144826,
+            "overtake": 10.314970940334637
+          },
+          "anchor_lost_rate": 0.0,
+          "average_max_hold_seconds": 0.0015,
+          "success_rate_by_slot": {
+            "front": 0.0,
+            "back": 0.0,
+            "left": 0.0,
+            "right": 0.0
+          },
+          "episodes_by_slot": {
+            "front": 44,
+            "back": 59,
+            "left": 51,
+            "right": 46
+          }
+        },
+        "by_goal": {
+          "front": {
+            "episodes": 44,
+            "success": 0,
+            "collision": 13,
+            "timeout": 31
+          },
+          "back": {
+            "episodes": 59,
+            "success": 0,
+            "collision": 0,
+            "timeout": 59
+          },
+          "left": {
+            "episodes": 51,
+            "success": 0,
+            "collision": 0,
+            "timeout": 51
+          },
+          "right": {
+            "episodes": 46,
+            "success": 0,
+            "collision": 0,
+            "timeout": 46
+          }
+        },
+        "provenance": {
+          "method": "new deterministic direct PPO evaluation",
+          "checkpoint": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\models\\ppo_singlecar_reward_approach_seed7_200k.zip"
+        }
+      }
+    }
+  },
+  "verification": {
+    "matched_fixed_scenarios": {
+      "control": 100,
+      "guided": 100,
+      "fresh_init": 100,
+      "approach_followup": 100
+    },
+    "matched_fresh_scenarios": {
+      "control": 200,
+      "guided": 200,
+      "fresh_init": 200,
+      "approach_followup": 200
+    },
+    "all_source_checkpoints_unchanged": true,
+    "training_metadata_protocol_checks_passed": true,
+    "direct_ppo_only": true,
+    "followup_parent_sha_and_400k_lifetime_verified": true
+  },
+  "seconds": 260.0936481000099
+}

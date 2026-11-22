@@ -148,6 +148,16 @@ REWARD_GOAL_OVERRIDES["maneuver_side10"] = {
     "front_side_milestone": {"longitudinal_tolerance": 5.0, "lateral_tolerance": 1.8},
 }
 
+# Lateral-only route shaping: a fixed goal-lane target avoids staged target changes.
+# The original distance-progress reward and FRONT alongside milestone remain.
+REWARD_PROFILES["maneuver_lateral_side10"] = deepcopy(REWARD_PROFILES["maneuver_side10"])
+REWARD_GOAL_OVERRIDES["maneuver_lateral_side10"] = deepcopy(REWARD_GOAL_OVERRIDES["maneuver_side10"])
+REWARD_GOAL_OVERRIDES["maneuver_lateral_side10"]["maneuver_guidance"].update({
+    "route_longitudinal_weight": 0.0,
+    "route_speed_weight": 0.0,
+    "lateral_target": "goal_lane",
+})
+
 PPO_CONFIG = {
     "learning_rate": 1e-4,
     "n_steps": 256,  # Per environment: 4 * 256 = 1024 transitions per rollout.

@@ -1,0 +1,8 @@
+{
+  "source_model": "C:\\Users\\marco\\CODE\\Capstone\\HighwayEnv-Automaton-\\baseline_dynamic_waypoint\\models\\ppo_singlecar_reward_guided_seed7_200k.zip",
+  "direct_ppo": true,
+  "reflection_used": false,
+  "all_physics_ticks_recorded": true,
+  "episodes_checked": 4,
+  "outcome_reward_length_and_frame_counts_match": true
+}

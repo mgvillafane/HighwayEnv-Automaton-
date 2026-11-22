@@ -1,0 +1,1765 @@
+{
+  "controller": "scripted_untrained_demo",
+  "model": null,
+  "seed": 7,
+  "slot": "front",
+  "total_vehicles": 2,
+  "traffic_cars": 1,
+  "initial_ego_speed": 20.0,
+  "traffic_target_speed": 15.0,
+  "initial_gap": 35.0,
+  "target_offset_from_traffic": [
+    20.0,
+    0.0
+  ],
+  "required_hold_seconds": 1.0,
+  "speed_tolerance": 0.5,
+  "outcome": "GOAL REACHED",
+  "success": true,
+  "collision": false,
+  "simulated_seconds": 11.599999999999975,
+  "reward": 51.65685189178845,
+  "policy_steps": 116,
+  "trace": [
+    {
+      "time": 0.1,
+      "action": 0,
+      "ego_speed": 20.0,
+      "traffic_speed": 15.0,
+      "gap": 34.5456335445611,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        54.5456335445611,
+        0.42479613681765205
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 0.2,
+      "action": 3,
+      "ego_speed": 20.416666666666668,
+      "traffic_speed": 15.0,
+      "gap": 34.10924886154797,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        54.10924886154797,
+        0.9252103246582015
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 0.30000000000000004,
+      "action": 3,
+      "ego_speed": 20.76388888888889,
+      "traffic_speed": 15.0,
+      "gap": 33.62951302059011,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        53.62951302059011,
+        1.4242581959137413
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 0.4,
+      "action": 3,
+      "ego_speed": 21.05324074074074,
+      "traffic_speed": 15.0,
+      "gap": 33.10447586999041,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        53.10447586999041,
+        1.8831866833628106
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 0.5,
+      "action": 3,
+      "ego_speed": 21.294367283950617,
+      "traffic_speed": 15.0,
+      "gap": 32.53784790721133,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        52.53784790721133,
+        2.2849805612846152
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 0.6,
+      "action": 3,
+      "ego_speed": 21.911972736625515,
+      "traffic_speed": 15.0,
+      "gap": 31.935809282635603,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        51.9358092826356,
+        2.6254719723799123
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 0.7,
+      "action": 1,
+      "ego_speed": 22.42664394718793,
+      "traffic_speed": 15.0,
+      "gap": 31.26340790014183,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        51.26340790014183,
+        2.9118593419430794
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 0.7999999999999999,
+      "action": 1,
+      "ego_speed": 22.855536622656608,
+      "traffic_speed": 15.0,
+      "gap": 30.533106645595268,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        50.53310664559527,
+        3.147018652427371
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 0.8999999999999999,
+      "action": 1,
+      "ego_speed": 23.212947185547172,
+      "traffic_speed": 15.0,
+      "gap": 29.755430939761794,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        49.755430939761794,
+        3.3366206623110384
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 0.9999999999999999,
+      "action": 1,
+      "ego_speed": 23.51078932128931,
+      "traffic_speed": 15.0,
+      "gap": 28.939035473251465,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        48.939035473251465,
+        3.4873562358178045
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 1.0999999999999999,
+      "action": 1,
+      "ego_speed": 23.758991101074425,
+      "traffic_speed": 15.0,
+      "gap": 28.09094619184765,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        48.09094619184765,
+        3.605884172006164
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 1.2,
+      "action": 1,
+      "ego_speed": 23.96582591756202,
+      "traffic_speed": 15.0,
+      "gap": 27.21684441217397,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        47.21684441217397,
+        3.6982817972985176
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 1.3,
+      "action": 1,
+      "ego_speed": 24.13818826463502,
+      "traffic_speed": 15.0,
+      "gap": 26.321329573334992,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        46.32132957333499,
+        3.7698134407240045
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 1.4000000000000001,
+      "action": 1,
+      "ego_speed": 24.281823553862516,
+      "traffic_speed": 15.0,
+      "gap": 25.408139040092266,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        45.408139040092266,
+        3.824884097678041
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 1.5000000000000002,
+      "action": 1,
+      "ego_speed": 24.401519628218765,
+      "traffic_speed": 15.0,
+      "gap": 24.480323537777025,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        44.480323537777025,
+        3.8670911791563602
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 1.6000000000000003,
+      "action": 1,
+      "ego_speed": 24.50126635684897,
+      "traffic_speed": 15.0,
+      "gap": 23.54038442914262,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        43.54038442914262,
+        3.899320790071851
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 1.7000000000000004,
+      "action": 1,
+      "ego_speed": 24.584388630707473,
+      "traffic_speed": 15.0,
+      "gap": 22.590380658284886,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        42.590380658284886,
+        3.9238575721656983
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 1.8000000000000005,
+      "action": 1,
+      "ego_speed": 24.653657192256226,
+      "traffic_speed": 15.0,
+      "gap": 21.63201241487525,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        41.63201241487525,
+        3.942491499598816
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 1.9000000000000006,
+      "action": 1,
+      "ego_speed": 24.711380993546854,
+      "traffic_speed": 15.0,
+      "gap": 20.66668714369621,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        40.66668714369621,
+        3.956613709724302
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 2.0000000000000004,
+      "action": 1,
+      "ego_speed": 24.759484161289045,
+      "traffic_speed": 15.0,
+      "gap": 19.69557214394669,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        39.69557214394669,
+        3.9672984696758693
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 2.1000000000000005,
+      "action": 1,
+      "ego_speed": 24.79957013440754,
+      "traffic_speed": 15.0,
+      "gap": 18.719636887947814,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        38.719636887947814,
+        3.9753711044976496
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 2.2000000000000006,
+      "action": 1,
+      "ego_speed": 24.83297511200628,
+      "traffic_speed": 15.0,
+      "gap": 17.739687356887032,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        37.73968735688703,
+        3.9814630586465847
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 2.3000000000000007,
+      "action": 1,
+      "ego_speed": 24.86081259333857,
+      "traffic_speed": 15.0,
+      "gap": 16.756394092740607,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        36.75639409274061,
+        3.986055811667996
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 2.400000000000001,
+      "action": 1,
+      "ego_speed": 24.88401049444881,
+      "traffic_speed": 15.0,
+      "gap": 15.770315240671266,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        35.770315240671266,
+        3.98951547996656
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 2.500000000000001,
+      "action": 1,
+      "ego_speed": 24.90334207870734,
+      "traffic_speed": 15.0,
+      "gap": 14.781915554072725,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        34.781915554072725,
+        3.992119825301808
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 2.600000000000001,
+      "action": 1,
+      "ego_speed": 24.919451732256118,
+      "traffic_speed": 15.0,
+      "gap": 13.791582116997859,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        33.79158211699786,
+        3.9940791818607213
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 2.700000000000001,
+      "action": 1,
+      "ego_speed": 24.932876443546764,
+      "traffic_speed": 15.0,
+      "gap": 12.799637379354238,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        32.79963737935424,
+        3.995552576843328
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 2.800000000000001,
+      "action": 1,
+      "ego_speed": 24.94406370295564,
+      "traffic_speed": 15.0,
+      "gap": 11.806349980977302,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        31.806349980977302,
+        3.996660090471345
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 2.9000000000000012,
+      "action": 1,
+      "ego_speed": 24.9533864191297,
+      "traffic_speed": 15.0,
+      "gap": 10.811943749505815,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        30.811943749505815,
+        3.9974922968327427
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 3.0000000000000013,
+      "action": 1,
+      "ego_speed": 24.96115534927475,
+      "traffic_speed": 15.0,
+      "gap": 9.816605185902858,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        29.81660518590286,
+        3.9981174527781462
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 3.1000000000000014,
+      "action": 1,
+      "ego_speed": 24.96762945772896,
+      "traffic_speed": 15.0,
+      "gap": 8.820489695131073,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        28.820489695131073,
+        3.9985869582066424
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 3.2000000000000015,
+      "action": 1,
+      "ego_speed": 24.973024548107468,
+      "traffic_speed": 15.0,
+      "gap": 7.823726774246836,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        27.823726774246836,
+        3.998939494773211
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 3.3000000000000016,
+      "action": 1,
+      "ego_speed": 24.977520456756224,
+      "traffic_speed": 15.0,
+      "gap": 6.826424333460466,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        26.826424333460466,
+        3.9992041574966146
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 3.4000000000000017,
+      "action": 1,
+      "ego_speed": 24.981267047296853,
+      "traffic_speed": 15.0,
+      "gap": 5.828672295685408,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        25.828672295685408,
+        3.999402820957399
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 3.5000000000000018,
+      "action": 1,
+      "ego_speed": 24.98438920608071,
+      "traffic_speed": 15.0,
+      "gap": 4.830545595405454,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        24.830545595405454,
+        3.9995519250463083
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 3.600000000000002,
+      "action": 1,
+      "ego_speed": 24.98699100506726,
+      "traffic_speed": 15.0,
+      "gap": 3.832106677303102,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        23.832106677303102,
+        3.9996638213227973
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 3.700000000000002,
+      "action": 1,
+      "ego_speed": 24.989159170889383,
+      "traffic_speed": 15.0,
+      "gap": 2.8334075782071864,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        22.833407578207186,
+        3.9997477872606026
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 3.800000000000002,
+      "action": 1,
+      "ego_speed": 24.990965975741155,
+      "traffic_speed": 15.0,
+      "gap": 1.834491661912466,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        21.834491661912466,
+        3.9998107897774533
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 3.900000000000002,
+      "action": 1,
+      "ego_speed": 24.992471646450962,
+      "traffic_speed": 15.0,
+      "gap": 0.8353950647854163,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        20.835395064785416,
+        3.9998580596922766
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 4.000000000000002,
+      "action": 1,
+      "ego_speed": 24.993726372042467,
+      "traffic_speed": 15.0,
+      "gap": -0.16385209960805014,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        19.83614790039195,
+        3.999893523720125
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 4.100000000000001,
+      "action": 1,
+      "ego_speed": 24.994771976702054,
+      "traffic_speed": 15.0,
+      "gap": -1.1632247366707134,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        18.836775263329287,
+        3.9999201292021973
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 4.200000000000001,
+      "action": 1,
+      "ego_speed": 24.99564331391838,
+      "traffic_speed": 15.0,
+      "gap": -2.1627019342612357,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        17.837298065738764,
+        3.9999400881211535
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 4.300000000000001,
+      "action": 1,
+      "ego_speed": 24.996369428265314,
+      "traffic_speed": 15.0,
+      "gap": -3.1622662656082525,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        16.837733734391747,
+        3.9999550604110645
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 4.4,
+      "action": 1,
+      "ego_speed": 24.996974523554428,
+      "traffic_speed": 15.0,
+      "gap": -4.161903208409569,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        15.83809679159043,
+        3.9999662916304537
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 4.5,
+      "action": 1,
+      "ego_speed": 24.99747876962869,
+      "traffic_speed": 15.0,
+      "gap": -5.161600660750821,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        14.838399339249179,
+        3.9999747163388886
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 4.6,
+      "action": 1,
+      "ego_speed": 24.997898974690575,
+      "traffic_speed": 15.0,
+      "gap": -6.161348537705692,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        13.838651462294308,
+        3.9999810357073384
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 4.699999999999999,
+      "action": 1,
+      "ego_speed": 24.99824914557548,
+      "traffic_speed": 15.0,
+      "gap": -7.161138435170244,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        12.838861564829756,
+        3.999985775775835
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 4.799999999999999,
+      "action": 1,
+      "ego_speed": 24.99854095464623,
+      "traffic_speed": 15.0,
+      "gap": -8.16096334972525,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        11.83903665027475,
+        3.9999893311786923
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 4.899999999999999,
+      "action": 1,
+      "ego_speed": 24.998784128871858,
+      "traffic_speed": 15.0,
+      "gap": -9.160817445188457,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        10.839182554811543,
+        3.9999919979589373
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 4.999999999999998,
+      "action": 1,
+      "ego_speed": 24.99898677405988,
+      "traffic_speed": 15.0,
+      "gap": -10.16069585807486,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        9.83930414192514,
+        3.999993998192299
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 5.099999999999998,
+      "action": 2,
+      "ego_speed": 24.9991556450499,
+      "traffic_speed": 15.0,
+      "gap": -11.137717334902447,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        8.862282665097553,
+        3.6625654863099433
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 5.1999999999999975,
+      "action": 4,
+      "ego_speed": 24.58262970420825,
+      "traffic_speed": 15.0,
+      "gap": -12.09224124497473,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        7.90775875502527,
+        3.188339585986399
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 5.299999999999997,
+      "action": 4,
+      "ego_speed": 24.235524753506876,
+      "traffic_speed": 15.0,
+      "gap": -12.99923873776305,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        7.000761262236949,
+        2.688920021438866
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 5.399999999999997,
+      "action": 4,
+      "ego_speed": 23.946270627922395,
+      "traffic_speed": 15.0,
+      "gap": -13.87691555311119,
+      "ego_lane": 0,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        6.123084446888811,
+        2.2196018324302877
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 5.4999999999999964,
+      "action": 4,
+      "ego_speed": 23.705225523268663,
+      "traffic_speed": 15.0,
+      "gap": -14.735278345700237,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        5.264721654299763,
+        1.8044347475253195
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 5.599999999999996,
+      "action": 4,
+      "ego_speed": 23.08768793605722,
+      "traffic_speed": 15.0,
+      "gap": -15.57923140375891,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        4.420768596241089,
+        1.4505121109116148
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 5.699999999999996,
+      "action": 4,
+      "ego_speed": 22.57307328004768,
+      "traffic_speed": 15.0,
+      "gap": -16.369662830024936,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        3.630337169975064,
+        1.160103392205475
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 5.799999999999995,
+      "action": 4,
+      "ego_speed": 22.144227733373068,
+      "traffic_speed": 15.0,
+      "gap": -17.114626877375315,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        2.885373122624685,
+        0.9243645554215609
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 5.899999999999995,
+      "action": 4,
+      "ego_speed": 21.786856444477557,
+      "traffic_speed": 15.0,
+      "gap": -17.82089262320727,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        2.1791073767927287,
+        0.7344706960069245
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 5.999999999999995,
+      "action": 4,
+      "ego_speed": 21.48904703706463,
+      "traffic_speed": 15.0,
+      "gap": -18.494261646335246,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        1.5057383536647535,
+        0.5823581500729929
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 6.099999999999994,
+      "action": 4,
+      "ego_speed": 21.24087253088719,
+      "traffic_speed": 15.0,
+      "gap": -19.13973734006521,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        0.86026265993479,
+        0.4610095892011459
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 6.199999999999994,
+      "action": 4,
+      "ego_speed": 20.617393775739327,
+      "traffic_speed": 15.0,
+      "gap": -19.76163091095134,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        0.2383690890486605,
+        0.3644987993068134
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 6.299999999999994,
+      "action": 4,
+      "ego_speed": 20.097828146449437,
+      "traffic_speed": 15.0,
+      "gap": -20.321993528247162,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -0.32199352824716243,
+        0.2891652324934735
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 6.399999999999993,
+      "action": 4,
+      "ego_speed": 19.664856788707866,
+      "traffic_speed": 15.0,
+      "gap": -20.830904600041208,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -0.8309046000412081,
+        0.22997682429158184
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 6.499999999999993,
+      "action": 4,
+      "ego_speed": 19.30404732392322,
+      "traffic_speed": 15.0,
+      "gap": -21.29683497674563,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -1.2968349767456289,
+        0.18324697136317747
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 6.5999999999999925,
+      "action": 4,
+      "ego_speed": 19.003372769936018,
+      "traffic_speed": 15.0,
+      "gap": -21.726884562163548,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -1.7268845621635478,
+        0.14621956704302796
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 6.699999999999992,
+      "action": 4,
+      "ego_speed": 18.752810641613348,
+      "traffic_speed": 15.0,
+      "gap": -22.126994108148494,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -2.1269941081484944,
+        0.11680053258698209
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 6.799999999999992,
+      "action": 4,
+      "ego_speed": 18.544008868011122,
+      "traffic_speed": 15.0,
+      "gap": -22.502128899479544,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -2.502128899479544,
+        0.09337866370619707
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 6.8999999999999915,
+      "action": 4,
+      "ego_speed": 17.953340723342603,
+      "traffic_speed": 15.0,
+      "gap": -22.856435735864636,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -2.856435735864636,
+        0.07470232829893808
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 6.999999999999991,
+      "action": 4,
+      "ego_speed": 17.461117269452167,
+      "traffic_speed": 15.0,
+      "gap": -23.151710036432746,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -3.151710036432746,
+        0.06005251587950422
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 7.099999999999991,
+      "action": 4,
+      "ego_speed": 17.050931057876806,
+      "traffic_speed": 15.0,
+      "gap": -23.39778319206124,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -3.3977831920612402,
+        0.048446561837300006
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 7.19999999999999,
+      "action": 4,
+      "ego_speed": 16.70910921489734,
+      "traffic_speed": 15.0,
+      "gap": -23.602851150258232,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -3.602851150258232,
+        0.039186036225256515
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 7.29999999999999,
+      "action": 4,
+      "ego_speed": 16.424257679081116,
+      "traffic_speed": 15.0,
+      "gap": -23.773745563229795,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -3.773745563229795,
+        0.031758502717532
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 7.39999999999999,
+      "action": 4,
+      "ego_speed": 16.186881399234263,
+      "traffic_speed": 15.0,
+      "gap": -23.91616044395954,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -3.9161604439595408,
+        0.025778314930396284
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 7.499999999999989,
+      "action": 4,
+      "ego_speed": 15.572401166028552,
+      "traffic_speed": 15.0,
+      "gap": -24.034841381481783,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -4.034841381481783,
+        0.020949564489658457
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 7.599999999999989,
+      "action": 1,
+      "ego_speed": 15.060334305023794,
+      "traffic_speed": 15.0,
+      "gap": -24.092076763503655,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -4.0920767635036555,
+        0.017109546722767988
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 7.699999999999989,
+      "action": 1,
+      "ego_speed": 14.633611920853161,
+      "traffic_speed": 15.0,
+      "gap": -24.098107032147084,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -4.098107032147084,
+        0.01402349413174786
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 7.799999999999988,
+      "action": 1,
+      "ego_speed": 14.2780099340443,
+      "traffic_speed": 15.0,
+      "gap": -24.06146609189028,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -4.061466091890281,
+        0.011525341056950467
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 7.899999999999988,
+      "action": 1,
+      "ego_speed": 13.981674945036918,
+      "traffic_speed": 15.0,
+      "gap": -23.989265638346353,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -3.989265638346353,
+        0.009492631913645244
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 7.999999999999988,
+      "action": 1,
+      "ego_speed": 13.734729120864099,
+      "traffic_speed": 15.0,
+      "gap": -23.88743214697331,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -3.8874321469733104,
+        0.007832258277990167
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 8.099999999999987,
+      "action": 1,
+      "ego_speed": 13.528940934053416,
+      "traffic_speed": 15.0,
+      "gap": -23.760904385379774,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -3.7609043853797743,
+        0.006471904685704022
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 8.199999999999987,
+      "action": 3,
+      "ego_speed": 13.774117445044514,
+      "traffic_speed": 15.0,
+      "gap": -23.613798017407248,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -3.613798017407248,
+        0.005354590680880289
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 8.299999999999986,
+      "action": 4,
+      "ego_speed": 13.561764537537094,
+      "traffic_speed": 15.0,
+      "gap": -23.49120944429444,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -3.491209444294441,
+        0.0044191873469903165
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 8.399999999999986,
+      "action": 3,
+      "ego_speed": 13.801470447947578,
+      "traffic_speed": 15.0,
+      "gap": -23.347385681966728,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -3.3473856819667276,
+        0.0036536228556092176
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 8.499999999999986,
+      "action": 4,
+      "ego_speed": 13.584558706622982,
+      "traffic_speed": 15.0,
+      "gap": -23.227532578375758,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -3.227532578375758,
+        0.003013632114400089
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 8.599999999999985,
+      "action": 3,
+      "ego_speed": 13.820465588852485,
+      "traffic_speed": 15.0,
+      "gap": -23.085988348375906,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -3.0859883483759063,
+        0.0024906692850974466
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 8.699999999999985,
+      "action": 4,
+      "ego_speed": 13.600387990710404,
+      "traffic_speed": 15.0,
+      "gap": -22.96803483821361,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -2.9680348382136117,
+        0.0020538010095934034
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 8.799999999999985,
+      "action": 3,
+      "ego_speed": 13.833656658925337,
+      "traffic_speed": 15.0,
+      "gap": -22.828073590502754,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -2.828073590502754,
+        0.001697079299106008
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 8.899999999999984,
+      "action": 4,
+      "ego_speed": 13.611380549104448,
+      "traffic_speed": 15.0,
+      "gap": -22.71143922432327,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -2.7114392243232714,
+        0.0013991956549950224
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 8.999999999999984,
+      "action": 3,
+      "ego_speed": 13.842817124253706,
+      "traffic_speed": 15.0,
+      "gap": -22.572577257516343,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -2.5725772575163433,
+        0.0011560482617394285
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 9.099999999999984,
+      "action": 4,
+      "ego_speed": 13.619014270211421,
+      "traffic_speed": 15.0,
+      "gap": -22.456858955057044,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -2.4568589550570437,
+        0.0009530479773256495
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 9.199999999999983,
+      "action": 3,
+      "ego_speed": 13.849178558509518,
+      "traffic_speed": 15.0,
+      "gap": -22.31876037200192,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -2.3187603720019183,
+        0.0007873803360962661
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 9.299999999999983,
+      "action": 4,
+      "ego_speed": 13.624315465424598,
+      "traffic_speed": 15.0,
+      "gap": -22.20367822094778,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -2.203678220947779,
+        0.0006490836985140191
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 9.399999999999983,
+      "action": 3,
+      "ego_speed": 13.853596221187164,
+      "traffic_speed": 15.0,
+      "gap": -22.06610976281644,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -2.0661097628164384,
+        0.0005362324040714128
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 9.499999999999982,
+      "action": 4,
+      "ego_speed": 13.627996850989303,
+      "traffic_speed": 15.0,
+      "gap": -21.95146938173258,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -1.9514693817325792,
+        0.00044203314229562807
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 9.599999999999982,
+      "action": 3,
+      "ego_speed": 13.856664042491087,
+      "traffic_speed": 15.0,
+      "gap": -21.81426906466396,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -1.8142690646639608,
+        0.0003651705962033347
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 9.699999999999982,
+      "action": 4,
+      "ego_speed": 13.630553368742572,
+      "traffic_speed": 15.0,
+      "gap": -21.699935467427906,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -1.6999354674279061,
+        0.00030101501955748233
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 9.799999999999981,
+      "action": 3,
+      "ego_speed": 13.858794473952143,
+      "traffic_speed": 15.0,
+      "gap": -21.562990803297055,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -1.5629908032970548,
+        0.00024866892988084643
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 9.89999999999998,
+      "action": 4,
+      "ego_speed": 13.632328728293452,
+      "traffic_speed": 15.0,
+      "gap": -21.44887025000355,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -1.4488702500035515,
+        0.0002049781553488117
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 9.99999999999998,
+      "action": 3,
+      "ego_speed": 13.860273940244543,
+      "traffic_speed": 15.0,
+      "gap": -21.312103122366807,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -1.312103122366807,
+        0.0001693307286432244
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 10.09999999999998,
+      "action": 4,
+      "ego_speed": 13.633561616870452,
+      "traffic_speed": 15.0,
+      "gap": -21.1981305160719,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -1.198130516071899,
+        0.00013957818345611273
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 10.19999999999998,
+      "action": 3,
+      "ego_speed": 13.861301347392043,
+      "traffic_speed": 15.0,
+      "gap": -21.06148667754286,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -1.0614866775428595,
+        0.0001153034235001904
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 10.29999999999998,
+      "action": 1,
+      "ego_speed": 14.051084456160035,
+      "traffic_speed": 15.0,
+      "gap": -20.947616812134015,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -0.9476168121340152,
+        9.504319443598419e-05
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 10.399999999999979,
+      "action": 1,
+      "ego_speed": 14.20923704680003,
+      "traffic_speed": 15.0,
+      "gap": -20.852725257649126,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -0.8527252576491264,
+        7.820666699664969e-05
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 10.499999999999979,
+      "action": 1,
+      "ego_speed": 14.34103087233336,
+      "traffic_speed": 15.0,
+      "gap": -20.773648962260722,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -0.7736489622607223,
+        6.42644549238014e-05
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 10.599999999999978,
+      "action": 1,
+      "ego_speed": 14.4508590602778,
+      "traffic_speed": 15.0,
+      "gap": -20.707752049447834,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -0.7077520494478335,
+        5.275100549484435e-05
+      ],
+      "hold_steps": 0
+    },
+    {
+      "time": 10.699999999999978,
+      "action": 1,
+      "ego_speed": 14.5423825502315,
+      "traffic_speed": 15.0,
+      "gap": -20.652837955444454,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -0.6528379554444541,
+        4.3263749505584315e-05
+      ],
+      "hold_steps": 1
+    },
+    {
+      "time": 10.799999999999978,
+      "action": 1,
+      "ego_speed": 14.618652125192916,
+      "traffic_speed": 15.0,
+      "gap": -20.607076210446678,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -0.607076210446678,
+        3.545921030223553e-05
+      ],
+      "hold_steps": 2
+    },
+    {
+      "time": 10.899999999999977,
+      "action": 1,
+      "ego_speed": 14.68221010432743,
+      "traffic_speed": 15.0,
+      "gap": -20.568941422951923,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -0.568941422951923,
+        2.9047298561568624e-05
+      ],
+      "hold_steps": 3
+    },
+    {
+      "time": 10.999999999999977,
+      "action": 1,
+      "ego_speed": 14.735175086939524,
+      "traffic_speed": 15.0,
+      "gap": -20.537162433375215,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -0.5371624333752152,
+        2.3784877781984903e-05
+      ],
+      "hold_steps": 4
+    },
+    {
+      "time": 11.099999999999977,
+      "action": 1,
+      "ego_speed": 14.779312572449603,
+      "traffic_speed": 15.0,
+      "gap": -20.510679942062836,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -0.5106799420628363,
+        1.94693260171519e-05
+      ],
+      "hold_steps": 5
+    },
+    {
+      "time": 11.199999999999976,
+      "action": 1,
+      "ego_speed": 14.816093810374669,
+      "traffic_speed": 15.0,
+      "gap": -20.48861119930359,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -0.4886111993035911,
+        1.593250843345828e-05
+      ],
+      "hold_steps": 6
+    },
+    {
+      "time": 11.299999999999976,
+      "action": 1,
+      "ego_speed": 14.846744841978891,
+      "traffic_speed": 15.0,
+      "gap": -20.470220580338207,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -0.47022058033820713,
+        1.303536001806549e-05
+      ],
+      "hold_steps": 7
+    },
+    {
+      "time": 11.399999999999975,
+      "action": 1,
+      "ego_speed": 14.872287368315742,
+      "traffic_speed": 15.0,
+      "gap": -20.454895064534185,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -0.4548950645341847,
+        1.0663144234257516e-05
+      ],
+      "hold_steps": 8
+    },
+    {
+      "time": 11.499999999999975,
+      "action": 1,
+      "ego_speed": 14.893572806929786,
+      "traffic_speed": 15.0,
+      "gap": -20.442123801364517,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -0.44212380136451657,
+        8.721377294573784e-06
+      ],
+      "hold_steps": 9
+    },
+    {
+      "time": 11.599999999999975,
+      "action": 1,
+      "ego_speed": 14.911310672441488,
+      "traffic_speed": 15.0,
+      "gap": -20.43148108205662,
+      "ego_lane": 1,
+      "traffic_lane": 1,
+      "goal_lane": 1,
+      "slot_error": [
+        -0.43148108205662083,
+        7.132368376350229e-06
+      ],
+      "hold_steps": 10
+    }
+  ]
+}

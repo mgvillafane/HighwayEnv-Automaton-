@@ -1,0 +1,453 @@
+{
+  "controller": "scripted_untrained_demo",
+  "model": null,
+  "seed": 7,
+  "total_vehicles": 2,
+  "traffic_cars": 1,
+  "initial_ego_speed": 20.0,
+  "traffic_target_speed": 15.0,
+  "initial_gap": 35.0,
+  "target_gap": 15.0,
+  "required_hold_seconds": 1.0,
+  "speed_tolerance": 0.5,
+  "outcome": "GOAL REACHED",
+  "success": true,
+  "collision": false,
+  "simulated_seconds": 5.399999999999997,
+  "reward": 51.255491920595944,
+  "policy_steps": 54,
+  "trace": [
+    {
+      "time": 0.1,
+      "action": 3,
+      "ego_speed": 20.416666666666668,
+      "traffic_speed": 15.0,
+      "gap": 34.5,
+      "hold_steps": 0
+    },
+    {
+      "time": 0.2,
+      "action": 3,
+      "ego_speed": 20.76388888888889,
+      "traffic_speed": 15.0,
+      "gap": 33.95833333333334,
+      "hold_steps": 0
+    },
+    {
+      "time": 0.30000000000000004,
+      "action": 3,
+      "ego_speed": 21.05324074074074,
+      "traffic_speed": 15.0,
+      "gap": 33.38194444444446,
+      "hold_steps": 0
+    },
+    {
+      "time": 0.4,
+      "action": 3,
+      "ego_speed": 21.294367283950617,
+      "traffic_speed": 15.0,
+      "gap": 32.77662037037038,
+      "hold_steps": 0
+    },
+    {
+      "time": 0.5,
+      "action": 3,
+      "ego_speed": 21.911972736625515,
+      "traffic_speed": 15.0,
+      "gap": 32.14718364197532,
+      "hold_steps": 0
+    },
+    {
+      "time": 0.6,
+      "action": 4,
+      "ego_speed": 21.593310613854594,
+      "traffic_speed": 15.0,
+      "gap": 31.45598636831278,
+      "hold_steps": 0
+    },
+    {
+      "time": 0.7,
+      "action": 3,
+      "ego_speed": 22.16109217821216,
+      "traffic_speed": 15.0,
+      "gap": 30.796655306927306,
+      "hold_steps": 0
+    },
+    {
+      "time": 0.7999999999999999,
+      "action": 4,
+      "ego_speed": 21.800910148510134,
+      "traffic_speed": 15.0,
+      "gap": 30.080546089106093,
+      "hold_steps": 0
+    },
+    {
+      "time": 0.8999999999999999,
+      "action": 3,
+      "ego_speed": 22.334091790425113,
+      "traffic_speed": 15.0,
+      "gap": 29.400455074255092,
+      "hold_steps": 0
+    },
+    {
+      "time": 0.9999999999999999,
+      "action": 4,
+      "ego_speed": 21.945076492020927,
+      "traffic_speed": 15.0,
+      "gap": 28.667045895212567,
+      "hold_steps": 0
+    },
+    {
+      "time": 1.0999999999999999,
+      "action": 3,
+      "ego_speed": 22.454230410017438,
+      "traffic_speed": 15.0,
+      "gap": 27.972538246010487,
+      "hold_steps": 0
+    },
+    {
+      "time": 1.2,
+      "action": 4,
+      "ego_speed": 22.045192008347865,
+      "traffic_speed": 15.0,
+      "gap": 27.227115205008744,
+      "hold_steps": 0
+    },
+    {
+      "time": 1.3,
+      "action": 3,
+      "ego_speed": 22.537660006956553,
+      "traffic_speed": 15.0,
+      "gap": 26.52259600417395,
+      "hold_steps": 0
+    },
+    {
+      "time": 1.4000000000000001,
+      "action": 4,
+      "ego_speed": 22.114716672463793,
+      "traffic_speed": 15.0,
+      "gap": 25.768830003478286,
+      "hold_steps": 0
+    },
+    {
+      "time": 1.5000000000000002,
+      "action": 1,
+      "ego_speed": 21.762263893719826,
+      "traffic_speed": 15.0,
+      "gap": 25.057358336231914,
+      "hold_steps": 0
+    },
+    {
+      "time": 1.6000000000000003,
+      "action": 1,
+      "ego_speed": 21.46855324476652,
+      "traffic_speed": 15.0,
+      "gap": 24.381131946859938,
+      "hold_steps": 0
+    },
+    {
+      "time": 1.7000000000000004,
+      "action": 1,
+      "ego_speed": 21.223794370638768,
+      "traffic_speed": 15.0,
+      "gap": 23.734276622383277,
+      "hold_steps": 0
+    },
+    {
+      "time": 1.8000000000000005,
+      "action": 4,
+      "ego_speed": 20.603161975532306,
+      "traffic_speed": 15.0,
+      "gap": 23.111897185319407,
+      "hold_steps": 0
+    },
+    {
+      "time": 1.9000000000000006,
+      "action": 3,
+      "ego_speed": 20.91930164627692,
+      "traffic_speed": 15.0,
+      "gap": 22.551580987766187,
+      "hold_steps": 0
+    },
+    {
+      "time": 2.0000000000000004,
+      "action": 4,
+      "ego_speed": 20.3494180385641,
+      "traffic_speed": 15.0,
+      "gap": 21.959650823138503,
+      "hold_steps": 0
+    },
+    {
+      "time": 2.1000000000000005,
+      "action": 3,
+      "ego_speed": 20.707848365470085,
+      "traffic_speed": 15.0,
+      "gap": 21.42470901928209,
+      "hold_steps": 0
+    },
+    {
+      "time": 2.2000000000000006,
+      "action": 4,
+      "ego_speed": 20.17320697122507,
+      "traffic_speed": 15.0,
+      "gap": 20.853924182735085,
+      "hold_steps": 0
+    },
+    {
+      "time": 2.3000000000000007,
+      "action": 1,
+      "ego_speed": 19.727672476020892,
+      "traffic_speed": 15.0,
+      "gap": 20.336603485612585,
+      "hold_steps": 0
+    },
+    {
+      "time": 2.400000000000001,
+      "action": 1,
+      "ego_speed": 19.35639373001741,
+      "traffic_speed": 15.0,
+      "gap": 19.863836238010492,
+      "hold_steps": 0
+    },
+    {
+      "time": 2.500000000000001,
+      "action": 1,
+      "ego_speed": 19.046994775014507,
+      "traffic_speed": 15.0,
+      "gap": 19.428196865008772,
+      "hold_steps": 0
+    },
+    {
+      "time": 2.600000000000001,
+      "action": 1,
+      "ego_speed": 18.78916231251209,
+      "traffic_speed": 15.0,
+      "gap": 19.023497387507348,
+      "hold_steps": 0
+    },
+    {
+      "time": 2.700000000000001,
+      "action": 1,
+      "ego_speed": 18.57430192709341,
+      "traffic_speed": 15.0,
+      "gap": 18.64458115625615,
+      "hold_steps": 0
+    },
+    {
+      "time": 2.800000000000001,
+      "action": 4,
+      "ego_speed": 17.978584939244506,
+      "traffic_speed": 15.0,
+      "gap": 18.28715096354682,
+      "hold_steps": 0
+    },
+    {
+      "time": 2.9000000000000012,
+      "action": 3,
+      "ego_speed": 18.315487449370423,
+      "traffic_speed": 15.0,
+      "gap": 17.9892924696224,
+      "hold_steps": 0
+    },
+    {
+      "time": 3.0000000000000013,
+      "action": 4,
+      "ego_speed": 17.762906207808687,
+      "traffic_speed": 15.0,
+      "gap": 17.65774372468536,
+      "hold_steps": 0
+    },
+    {
+      "time": 3.1000000000000014,
+      "action": 3,
+      "ego_speed": 18.135755173173905,
+      "traffic_speed": 15.0,
+      "gap": 17.381453103904505,
+      "hold_steps": 0
+    },
+    {
+      "time": 3.2000000000000015,
+      "action": 4,
+      "ego_speed": 17.613129310978255,
+      "traffic_speed": 15.0,
+      "gap": 17.067877586587088,
+      "hold_steps": 0
+    },
+    {
+      "time": 3.3000000000000016,
+      "action": 3,
+      "ego_speed": 18.01094109248188,
+      "traffic_speed": 15.0,
+      "gap": 16.80656465548924,
+      "hold_steps": 0
+    },
+    {
+      "time": 3.4000000000000017,
+      "action": 4,
+      "ego_speed": 17.50911757706823,
+      "traffic_speed": 15.0,
+      "gap": 16.505470546241042,
+      "hold_steps": 0
+    },
+    {
+      "time": 3.5000000000000018,
+      "action": 3,
+      "ego_speed": 17.92426464755686,
+      "traffic_speed": 15.0,
+      "gap": 16.25455878853421,
+      "hold_steps": 0
+    },
+    {
+      "time": 3.600000000000002,
+      "action": 4,
+      "ego_speed": 17.436887206297385,
+      "traffic_speed": 15.0,
+      "gap": 15.962132323778519,
+      "hold_steps": 0
+    },
+    {
+      "time": 3.700000000000002,
+      "action": 1,
+      "ego_speed": 17.030739338581153,
+      "traffic_speed": 15.0,
+      "gap": 15.718443603148785,
+      "hold_steps": 0
+    },
+    {
+      "time": 3.800000000000002,
+      "action": 1,
+      "ego_speed": 16.69228278215096,
+      "traffic_speed": 15.0,
+      "gap": 15.515369669290692,
+      "hold_steps": 0
+    },
+    {
+      "time": 3.900000000000002,
+      "action": 1,
+      "ego_speed": 16.41023565179247,
+      "traffic_speed": 15.0,
+      "gap": 15.346141391075605,
+      "hold_steps": 0
+    },
+    {
+      "time": 4.000000000000002,
+      "action": 1,
+      "ego_speed": 16.175196376493723,
+      "traffic_speed": 15.0,
+      "gap": 15.205117825896366,
+      "hold_steps": 0
+    },
+    {
+      "time": 4.100000000000001,
+      "action": 1,
+      "ego_speed": 15.97933031374477,
+      "traffic_speed": 15.0,
+      "gap": 15.087598188247,
+      "hold_steps": 0
+    },
+    {
+      "time": 4.200000000000001,
+      "action": 1,
+      "ego_speed": 15.816108594787309,
+      "traffic_speed": 15.0,
+      "gap": 14.989665156872547,
+      "hold_steps": 0
+    },
+    {
+      "time": 4.300000000000001,
+      "action": 1,
+      "ego_speed": 15.68009049565609,
+      "traffic_speed": 15.0,
+      "gap": 14.90805429739379,
+      "hold_steps": 0
+    },
+    {
+      "time": 4.4,
+      "action": 1,
+      "ego_speed": 15.566742079713409,
+      "traffic_speed": 15.0,
+      "gap": 14.840045247828186,
+      "hold_steps": 0
+    },
+    {
+      "time": 4.5,
+      "action": 1,
+      "ego_speed": 15.47228506642784,
+      "traffic_speed": 15.0,
+      "gap": 14.783371039856831,
+      "hold_steps": 1
+    },
+    {
+      "time": 4.6,
+      "action": 1,
+      "ego_speed": 15.393570888689867,
+      "traffic_speed": 15.0,
+      "gap": 14.736142533214036,
+      "hold_steps": 2
+    },
+    {
+      "time": 4.699999999999999,
+      "action": 1,
+      "ego_speed": 15.327975740574889,
+      "traffic_speed": 15.0,
+      "gap": 14.69678544434504,
+      "hold_steps": 3
+    },
+    {
+      "time": 4.799999999999999,
+      "action": 1,
+      "ego_speed": 15.27331311714574,
+      "traffic_speed": 15.0,
+      "gap": 14.663987870287542,
+      "hold_steps": 4
+    },
+    {
+      "time": 4.899999999999999,
+      "action": 1,
+      "ego_speed": 15.227760930954783,
+      "traffic_speed": 15.0,
+      "gap": 14.636656558572952,
+      "hold_steps": 5
+    },
+    {
+      "time": 4.999999999999998,
+      "action": 1,
+      "ego_speed": 15.189800775795653,
+      "traffic_speed": 15.0,
+      "gap": 14.61388046547745,
+      "hold_steps": 6
+    },
+    {
+      "time": 5.099999999999998,
+      "action": 1,
+      "ego_speed": 15.158167313163045,
+      "traffic_speed": 15.0,
+      "gap": 14.594900387897894,
+      "hold_steps": 7
+    },
+    {
+      "time": 5.1999999999999975,
+      "action": 1,
+      "ego_speed": 15.131806094302537,
+      "traffic_speed": 15.0,
+      "gap": 14.579083656581588,
+      "hold_steps": 8
+    },
+    {
+      "time": 5.299999999999997,
+      "action": 1,
+      "ego_speed": 15.10983841191878,
+      "traffic_speed": 15.0,
+      "gap": 14.565903047151323,
+      "hold_steps": 9
+    },
+    {
+      "time": 5.399999999999997,
+      "action": 1,
+      "ego_speed": 15.091532009932317,
+      "traffic_speed": 15.0,
+      "gap": 14.554919205959436,
+      "hold_steps": 10
+    }
+  ]
+}

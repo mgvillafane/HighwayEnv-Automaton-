@@ -1,0 +1,16 @@
+{
+  "exact_additional_decisions": 200000,
+  "source_checkpoint_unchanged": true,
+  "source_evaluation_reproduced": true,
+  "policy_and_optimizer_resumed": true,
+  "only_sampling_changed": true,
+  "training_episode_counts": {
+    "right": 378,
+    "front": 372
+  },
+  "before_after_initial_scenarios_identical": true,
+  "evaluation_episodes": 100,
+  "tensorboard_final_step": 200000,
+  "video_replays_match_evaluation": true,
+  "tests": "15 single-car and committed-lane tests passed"
+}
