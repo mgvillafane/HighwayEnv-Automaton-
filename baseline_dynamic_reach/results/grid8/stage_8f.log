@@ -1,0 +1,43 @@
+﻿01:54:43 40 runs: N3_c05w0t1, O3_c1w0t4, N3_c05w0t1_n256, O3_c1w0t4_n256, O4_c1w0t4_n256 x seeds 7, 10, 13, 16, 19, 22, 25, 28; up to 32 runs and 24 evaluations at once
+01:56:03 done (1.3 min): evaluate N3_c05w0t1_n256_seed10 s60000 final
+01:56:03 done (1.3 min): evaluate N3_c05w0t1_n256_seed25 s60000 final
+01:56:12 done (1.5 min): evaluate N3_c05w0t1_seed16 s60000 final
+01:56:12 done (1.5 min): evaluate O3_c1w0t4_seed7 s60000 final
+01:56:12 done (1.5 min): evaluate O3_c1w0t4_seed22 s60000 final
+01:56:14 done (1.5 min): evaluate O3_c1w0t4_seed25 s60000 final
+01:56:14 done (1.5 min): evaluate O3_c1w0t4_seed19 s60000 final
+01:56:15 done (1.5 min): evaluate O3_c1w0t4_seed13 s60000 final
+01:56:15 done (1.5 min): evaluate N3_c05w0t1_seed7 s60000 final
+01:56:19 done (1.6 min): evaluate N3_c05w0t1_n256_seed22 s60000 final
+01:56:22 done (1.6 min): evaluate N3_c05w0t1_n256_seed13 s60000 final
+01:56:22 done (1.6 min): evaluate N3_c05w0t1_n256_seed16 s60000 final
+01:56:32 done (1.8 min): evaluate N3_c05w0t1_seed25 s60000 final
+01:56:42 done (2.0 min): evaluate N3_c05w0t1_seed13 s60000 final
+01:56:48 done (2.1 min): evaluate N3_c05w0t1_n256_seed7 s60000 final
+01:56:54 done (2.2 min): evaluate N3_c05w0t1_seed22 s60000 final
+01:56:57 done (2.2 min): evaluate N3_c05w0t1_seed28 s60000 final
+01:57:05 done (2.4 min): evaluate N3_c05w0t1_seed19 s60000 final
+01:57:05 done (2.4 min): evaluate N3_c05w0t1_seed10 s60000 final
+01:57:05 done (2.4 min): evaluate N3_c05w0t1_n256_seed19 s60000 final
+01:57:13 done (1.2 min): evaluate N3_c05w0t1_n256_seed28 s60000 final
+01:57:27 done (2.7 min): evaluate O3_c1w0t4_seed10 s60000 final
+01:57:31 done (2.8 min): evaluate O3_c1w0t4_seed16 s60000 final
+01:57:34 done (1.5 min): evaluate O3_c1w0t4_n256_seed7 s60000 final
+01:57:39 done (1.4 min): evaluate O3_c1w0t4_n256_seed25 s60000 final
+01:57:39 done (1.4 min): evaluate O3_c1w0t4_n256_seed16 s60000 final
+01:57:40 done (1.5 min): evaluate O3_c1w0t4_n256_seed10 s60000 final
+01:57:44 done (3.0 min): evaluate O3_c1w0t4_seed28 s60000 final
+01:57:44 done (1.5 min): evaluate O3_c1w0t4_n256_seed13 s60000 final
+01:57:46 done (1.5 min): evaluate O3_c1w0t4_n256_seed22 s60000 final
+01:57:46 done (3.0 min): references s60000
+01:57:48 done (1.4 min): evaluate O4_c1w0t4_n256_seed13 s60000 final
+01:57:49 done (1.6 min): evaluate O3_c1w0t4_n256_seed19 s60000 final
+01:57:51 done (1.6 min): evaluate O3_c1w0t4_n256_seed28 s60000 final
+01:57:52 done (1.2 min): evaluate O4_c1w0t4_n256_seed19 s60000 final
+01:57:53 done (1.5 min): evaluate O4_c1w0t4_n256_seed10 s60000 final
+01:57:53 done (1.3 min): evaluate O4_c1w0t4_n256_seed16 s60000 final
+01:57:54 done (1.1 min): evaluate O4_c1w0t4_n256_seed22 s60000 final
+01:57:54 done (1.6 min): evaluate O4_c1w0t4_n256_seed7 s60000 final
+01:57:58 done (1.1 min): evaluate O4_c1w0t4_n256_seed25 s60000 final
+01:58:04 done (1.1 min): evaluate O4_c1w0t4_n256_seed28 s60000 final
+01:58:04 Finished. Failed: none

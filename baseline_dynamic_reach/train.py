@@ -33,7 +33,8 @@ import torch
 
 from baseline_dynamic_reach.config import ARMS, EVAL_EPISODES, MODELS_DIR, RESULTS_DIR, SMOKE_DIR, arm_config, run_name
 from baseline_dynamic_reach.evaluate import evaluate_run
-from baseline_dynamic_reach.ivcheck import IVError, check, check_replicates, describe
+from baseline_dynamic_reach.ivcheck import IVError, check, check_replicates, check_round, describe
+from baseline_dynamic_reach.provenance import code_provenance
 from baseline_dynamic_reach.environment import SHAPING_TERMS, ReachEnv
 from baseline_waypoint.train import EpisodeMetrics
 from baseline_waypoint.plot_results import plot_training
@@ -143,7 +144,15 @@ def check_chain(metadata, models_dir, parent_in_progress=False):
     saved sidecars must then be checked with ivcheck once the parent finishes.
     """
     arm = ARMS[metadata["arm"]]
-    if arm["parent"] is not None:
+    if arm.get("iv") == "round":
+        # Step 8: a later round continues its init run; only the task, reward terms and weights may change.
+        inits = [s for s in sidecars(models_dir, arm["parent"]) if s["seed"] == metadata["seed"]]
+        if not inits:
+            raise IVError(f"Train round {arm['parent']} seed {metadata['seed']} before {metadata['arm']}.")
+        diffs = check_round(inits[0], metadata)
+        metadata["parent_check"] = "saved sidecar of the previous round"
+        print(f"Round change from {arm['parent']}:\n{describe(diffs)}", flush=True)
+    elif arm["parent"] is not None:
         parents = sidecars(models_dir, arm["parent"])
         if not parents and parent_in_progress:
             parents = [{**metadata, **arm_config(arm["parent"]), "seed": metadata["seed"]}]
@@ -178,6 +187,43 @@ def load_initial_weights(model, config, seed, models_dir=MODELS_DIR):
     return init_path, ratio
 
 
+def make_vec_env(config, seed, vec="subproc"):
+    """The run's environments: one per worker seed (seed, seed+1, ...).
+
+    vec="subproc" runs each environment in its own process (every arm up to Step 7); vec="dummy" steps
+    them one after another inside the learner's process. Both are required to give identical training
+    (speed.py replay); "dummy" avoids the inter-process transfer and lets more runs share the CPU.
+    """
+    factories = [partial(make_env, seed + index, config["environment"]) for index in range(config["num_envs"])]
+    if vec == "dummy" or config["num_envs"] == 1:
+        vec_env = DummyVecEnv(factories)
+    elif vec == "subproc":
+        vec_env = SubprocVecEnv(factories, start_method="spawn")
+    else:
+        raise ValueError(f"vec must be 'subproc' or 'dummy', not {vec!r}")
+    vec_env.seed(seed)
+    return vec_env
+
+
+def build_model(config, seed, run_dir, models_dir=MODELS_DIR, vec="subproc", tensorboard=True):
+    """Everything train.py does before model.learn, in the same order. Returns (model, vec_env, metrics, init).
+
+    init is (path, value scale) of the starting weights, or None for fresh weights.
+    """
+    torch.set_num_threads(1)  # Tiny MLPs are faster without a thread pool per inference.
+    set_random_seed(seed)
+    vec_env = make_vec_env(config, seed, vec)
+    model = PPO("MultiInputPolicy", vec_env, seed=seed, verbose=0, **config["ppo_config"])
+    init = None
+    if config.get("init_policy"):
+        # Policy and value networks start from the init_policy arm's trained weights (same seed);
+        # the Adam optimizer starts fresh, as in any new PPO run.
+        init = load_initial_weights(model, config, seed, models_dir)
+    model.set_logger(configure(str(run_dir), ["csv"] + (["tensorboard"] if tensorboard else [])))
+    metrics = ReachEpisodeMetrics(run_dir, list(config["environment"]["reward_weights"]))
+    return model, vec_env, metrics, init
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--arm", required=True, choices=list(ARMS))
@@ -185,8 +231,12 @@ def main():
     parser.add_argument("--smoke", action="store_true",
                         help="4,096 transitions and 8 evaluation episodes, saved under smoke/ and outside the chain.")
     parser.add_argument("--no-tensorboard", action="store_true")
+    parser.add_argument("--vec", choices=("subproc", "dummy"), default="subproc",
+                        help="Environments in worker processes (default) or inside this process; training is identical.")
     parser.add_argument("--parent-in-progress", action="store_true",
                         help="The parent arm is still training: check against its defined configuration.")
+    parser.add_argument("--skip-evaluation", action="store_true",
+                        help="Do not run the usual 200-episode evaluation after training (Step 8 evaluates separately).")
     parser.add_argument("--checkpoint-every", type=int, default=0,
                         help="Also save the policy every N transitions to <run>/checkpoints/ (does not affect training).")
     args = parser.parse_args()
@@ -209,7 +259,7 @@ def main():
         "parent_arm": arm["parent"], "iv": arm["iv"], "iv_value": arm["value"], "reason": arm["reason"],
         "seed": args.seed, "smoke": args.smoke, **config,
         "versions": {package: importlib.metadata.version(package) for package in PACKAGES},
-        "platform": platform_info(), "status": "running",
+        "platform": platform_info(), "status": "running", "vec": args.vec, "code": code_provenance(),
     }
     check_shaping(config)
     if not args.smoke:
@@ -227,22 +277,14 @@ def main():
 
     run_dir.mkdir(parents=True, exist_ok=True)
     models_dir.mkdir(parents=True, exist_ok=True)
-    torch.set_num_threads(1)  # Tiny MLPs are faster without a thread pool per inference.
-    set_random_seed(args.seed)
-    factories = [partial(make_env, args.seed + index, environment) for index in range(config["num_envs"])]
-    vec_env = DummyVecEnv(factories) if config["num_envs"] == 1 else SubprocVecEnv(factories, start_method="spawn")
-    vec_env.seed(args.seed)
     print(f"{name}: {config['requested_timesteps']:,} transitions on {config['num_envs']} environments; "
           f"reward {environment['reward_weights']}; hold {environment['goal_config']['hold_seconds']} s", flush=True)
-    model = PPO("MultiInputPolicy", vec_env, seed=args.seed, verbose=0, **config["ppo_config"])
-    if init_path is not None:
-        # Policy and value networks start from the parent arm's trained weights (same seed);
-        # the Adam optimizer starts fresh, as in any new PPO run.
-        _, ratio = load_initial_weights(model, config, args.seed, models_dir)
-        metadata["init_value_scale"] = ratio
+    model, vec_env, metrics, init = build_model(config, args.seed, run_dir, models_dir, vec=args.vec,
+                                                tensorboard=not args.no_tensorboard)
+    if init is not None:
+        metadata["init_value_scale"] = ratio = init[1]
         print(f"Initial weights: {init_path.name}" + (f" (value output x {ratio:g})" if ratio != 1.0 else ""), flush=True)
-    model.set_logger(configure(str(run_dir), ["csv"] + ([] if args.no_tensorboard else ["tensorboard"])))
-    callback = metrics = ReachEpisodeMetrics(run_dir, list(environment["reward_weights"]))
+    callback = metrics
     if args.checkpoint_every:
         metadata["checkpoint_every"] = args.checkpoint_every
         callback = CallbackList([callback, CheckpointCallback(
@@ -270,7 +312,7 @@ def main():
         vec_env.close()
     plot_training(run_dir)
     print(f"Saved {model_path}: {model.num_timesteps:,} transitions in {metadata['training_seconds'] / 60:.1f} min.", flush=True)
-    if status == "trained":
+    if status == "trained" and not args.skip_evaluation:
         evaluate_run(model_path, run_dir, episodes=eval_episodes)
 
 

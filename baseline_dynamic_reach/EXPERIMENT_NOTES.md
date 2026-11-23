@@ -4,7 +4,7 @@ A living record of the dynamic-waypoint *reach* experiments. Each step is added 
 the [experiment log](#9-experiment-log), and every decision gets a line in the
 [decision log](#10-decision-log). All numbers come from files in this folder.
 
-**Status (2026-11-15, evening).** Step 7a: training audit; B5 fixed a gradient-clip throttle without changing outcomes. Steps 7b–7e on the passing task (blocked episodes, slow car held in its lane): P1 learned to pass once and gave up; P1s, P2 and P3 (mixed practice starts) give up from the start. Cause: from fresh weights most attempts crash, and with crash = −goal stopping is learned first (B1's collapse). Step 7f (success-only reward first, then the crash cost, as B0 → B2): **P4 passes** (34–50% of the natural-start passing episodes, scripted 2.5%) but crashes in the rest; **P5** (crash cost from P4's policy) passes in 62–64% on seeds 7 and 8 and reaches 119 and 121 of 138 BACK/LEFT/RIGHT on the full task, the first arms above the scripted driver's 113 (seed 9 ends in a checkpoint dip). **P6** (full task from P5's policy) reaches 123–134 of 138 BACK/LEFT/RIGHT on every seed (scripted 113) and 41–48 of 62 FRONT on two seeds (scripted 40); crashes remain, mostly on FRONT. Since 2026-11-09 FRONT is set aside.
+**Status (2026-11-15, evening).** Step 7a: training audit; B5 fixed a gradient-clip throttle without changing outcomes. Steps 7b–7e on the passing task (blocked episodes, slow car held in its lane): P1 learned to pass once and gave up; P1s, P2 and P3 (mixed practice starts) give up from the start. Cause: from fresh weights most attempts crash, and with crash = −goal stopping is learned first (B1's collapse). Step 7f (success-only reward first, then the crash cost, as B0 → B2): **P4 passes** (34–50% of the natural-start passing episodes, scripted 2.5%) but crashes in the rest; **P5** (crash cost from P4's policy) passes in 62–64% on seeds 7 and 8 and reaches 119 and 121 of 138 BACK/LEFT/RIGHT on the full task, the first arms above the scripted driver's 113 (seed 9 ends in a checkpoint dip). **P6** (full task from P5's policy) reaches 123–134 of 138 BACK/LEFT/RIGHT on every seed (scripted 113) and 41–48 of 62 FRONT on two seeds (scripted 40); crashes remain, mostly on FRONT. Since 2026-11-09 FRONT is set aside. **Step 7h (2026-11-18, held-out episodes 40,000–40,199, no training):** P6's own success is unchanged on fresh episodes (±1.6 points) and it beats B5 on every seed (significant); only seed 7 beats the scripted driver beyond noise, while seeds 8 and 9 match it in success and crash 5–6× as often. **Step 8 (planned 2026-11-18):** a staged grid to settle network width, training order (no practice / practice / practice with easy starts / the original P4→P5→P6) and reward (crash cost 0–2 × progress on/off), scored as reached − crash. Step 8-0 (training speed on the PC) is done: training is bit-identical with today's code, and up to 32 runs at once give 2.3× the old throughput. **8a:** 64-64 is kept (256-256 missed the bar). **8b:** the rule chooses no practice (N), and the original order (O) scores highest within noise, so both got the reward grid. **8c and 8c2 (2026-11-19):** across 12 rewards per order, none beats success only (c0w0) by the rule; P6's reward (c1w01) scores highest in both orders. **8d:** the winner is no practice with crash 0.5 and a small time cost (N_c05w0t1). It is level with every other crash-cost recipe, including P6's, and below the scripted driver on the final test (−0.146, p 0.029). The whole gap is FRONT, where runs give up or crash. **8e (2026-11-20):** 256 wide and 3M more training (round 4) for three finalists on all 8 seeds. By the bars written beforehand nothing changes (64-64, 6M, N_c05w0t1). But 256 removes the FRONT give-up (13 → 2 of 24 runs), makes the original order beat no practice, and O_c1w0t4 at 256 and 9M is above the scripted driver on every seed (+0.797 against +0.725, selection episodes). Its learning curves are flat over the last 1M at both widths, so no further round; at 256 the original order already reaches that level by the end of its practice rounds (4M). **8f (2026-11-22), 500 fresh episodes:** the 256-wide original-order recipe (O_c1w0t4, 6M) beats the 64-wide winner by +0.177 (p 0.006, ahead on 8 of 8), without more crashes and with no seed giving up, so it is adopted as the Step 8 recipe. It is level with the scripted driver (+0.033, p 0.16): it reaches far more but crashes about four times as often, mostly on FRONT (23% against 4%).
 
 | Arm | Change | Success | Crash | BACK/LEFT/RIGHT reached of 138 (seeds 7, 8, 9) | Main failure |
 |---|---|---:|---:|---|---|
@@ -1043,6 +1043,886 @@ One IV from **P2** (fresh weights, no progress reward): **charge a timeout like 
 
 **Candidate for later: fewer traffic cars.** Most early crashes on the easy starts are random lane changes into other traffic, so fewer cars would raise a beginner's success there. It is a task change (one IV of its own, and it changes how often a blocked episode occurs), so it waits for P4's result.
 
+### Step 7h: P6 on held-out episodes (no training; 2026-11-18)
+
+**Why.** Since Step 5 the 200 evaluation episodes (seeds 10,000–10,199) have also been used to *choose* what to try: the blocked tag, the watch list, and the passing scenario were all built from what failed there. A lead found on episodes that also guided the design can be partly selection. This step measures P6 and its parent B5 on 200 episodes that no step has ever looked at.
+
+**Held-out episodes: seeds 40,000–40,199.**
+- Searched the repository before use: no code, notes or results use them. Seeds 20,000–20,059 appear in unit tests of the practice starts, and 30,000–30,049 in a DQN diagnosis, so both ranges were passed over.
+- Goals are sampled exactly as in training and in the usual evaluation, so the slot mix will differ somewhat from the 62/61/40/37 split. Rates are compared, with counts alongside.
+- No training and no change to any model. The measurement is the unchanged `evaluate.py` (deterministic PPO, uniform random and the scripted driver on identical episodes) with `--seed 40000`, for P6 and B5 on all three seeds. The blocked tag is computed at reset with `ReachEnv.blocking_cars()`, the same test `blocked.py` uses.
+
+**On the usual 200 episodes,** BACK/LEFT/RIGHT success was P6 97.1%, 90.6%, 89.1%, B5 81.9% on every seed, and the scripted driver 81.9%. FRONT was P6 77%, 66%, 32% against the scripted driver's 64.5%.
+
+**Prediction (written 2026-11-18, before any held-out episode was run):**
+1. **P6 beats the scripted driver on BACK/LEFT/RIGHT on all three seeds**, by at least 5 percentage points each.
+2. **P6 beats its parent B5 on BACK/LEFT/RIGHT on all three seeds**, by at least 5 points each.
+3. **The lead holds up:** on each seed, P6's BACK/LEFT/RIGHT lead over the scripted driver is at most 7 points smaller than on the usual episodes (there: +15.2, +8.7, +7.2). If it shrinks by more on two of three seeds, part of the usual-episode gain was selection.
+4. **FRONT:** seed 7 at least matches the scripted driver; nothing is claimed for seeds 8 and 9.
+5. **Safety:** P6 crashes more often than the scripted driver on every seed.
+
+**Results** ([`results/heldout_40000/summary.md`](results/heldout_40000/summary.md) and [`episodes.csv`](results/heldout_40000/episodes.csv), produced by [`heldout.py`](heldout.py); one evaluation folder per run). The automatic evaluation checks passed for all six runs.
+
+The held-out mix: FRONT 71, BACK 56, LEFT 39, RIGHT 34. That gives 129 BACK/LEFT/RIGHT episodes, of which 39 (30%) are blocked at reset; on the usual episodes it was 45 of 138 (33%).
+
+| Policy | BACK/LEFT/RIGHT | blocked | FRONT | All 200: reached / crash | Same on the usual episodes: B/L/R, all |
+|---|---:|---:|---:|---|---|
+| P6 seed 7 | **127/129 (98.4%)** | 39/39 (100%) | 51/71 (71.8%) | 178 / 22 | 97.1%, 182 / 18 |
+| P6 seed 8 | 116/129 (89.9%) | 31/39 (79.5%) | 45/71 (63.4%) | 161 / 39 | 90.6%, 166 / 34 |
+| P6 seed 9 | 117/129 (90.7%) | 28/39 (71.8%) | 29/71 (40.8%) | 146 / 52 | 89.1%, 143 / 57 |
+| B5 seeds 7 · 8 · 9 | 108 · 108 · 107 (83.7–82.9%) | 19/39 each (48.7%) | 0/71 | 108 · 108 · 107 / 23 · 21 · 34 | 81.9%, 113 / 25–34 |
+| Scripted | 111/129 (86.0%) | 23/39 (59.0%) | 39/71 (54.9%) | 150 / 8 | 81.9%, 153 / 5 |
+
+**The predictions, checked:**
+1. **Wrong, narrowly.** P6 leads the scripted driver on BACK/LEFT/RIGHT by +12.4, +3.9 and +4.7 points; seeds 8 and 9 are under the 5-point bar.
+2. **Correct:** P6 leads B5 by +14.7, +6.2 and +7.8 points.
+3. **Correct:** the lead shrank by only 2.8, 4.8 and 2.6 points.
+4. **Correct:** on FRONT, seed 7 reached 71.8% against the scripted driver's 54.9%.
+5. **Correct:** P6 crashed 22, 39 and 52 times against the scripted driver's 8.
+
+**Paired tests.** Every policy saw the same 200 episodes, so the comparison counts episodes that only one of the two policies reaches (exact McNemar test):
+
+| Comparison | Seed 7 | Seed 8 | Seed 9 |
+|---|---|---|---|
+| P6 vs scripted, BACK/LEFT/RIGHT (only P6 / only scripted) | 17 / 1, **p = 0.0001** | 10 / 5, p = 0.30 | 8 / 2, p = 0.11 |
+| P6 vs scripted, FRONT | 20 / 8, **p = 0.036** | 18 / 12, p = 0.36 | 12 / 22, p = 0.12 |
+| P6 vs scripted, all 200 | 37 / 9, **p < 0.0001** | 28 / 17, p = 0.14 | 20 / 24, p = 0.65 |
+| P6 vs B5, blocked BACK/LEFT/RIGHT (only P6 / only B5) | 20 / 0, **p < 0.0001** | 12 / 0, **p = 0.0005** | 10 / 1, **p = 0.012** |
+| P6 vs B5, all 200 | 71 / 1, **p < 10⁻¹⁹** | 57 / 4, **p < 10⁻¹²** | 40 / 1, **p < 10⁻¹⁰** |
+
+**What we learned.**
+- **No sign of selection in P6's own numbers.**
+  - On fresh episodes its BACK/LEFT/RIGHT success is 98.4%, 89.9% and 90.7%, against 97.1%, 90.6% and 89.1% on the usual episodes: within ±1.6 points.
+  - The lead over the scripted driver is smaller only because the scripted driver did better on this set (86.0% against 81.9%): fewer blocked episodes, and 97.8% on clear ones against 93.5%.
+- **The passing skill is real and carries over to new episodes.**
+  - On fresh blocked episodes P6 reaches 100%, 79.5% and 71.8%, against B5's 48.7% and the scripted driver's 59.0%.
+  - Only 1 of 39 blocked episodes goes the other way against B5, on any seed.
+  - The gain over the parent is significant on every seed.
+- **"Every seed beats the scripted driver" holds on the usual episodes but not as a general claim.**
+  - On fresh episodes only seed 7 beats it by more than noise: on BACK/LEFT/RIGHT, on FRONT and overall.
+  - Seeds 8 and 9 are level with it in success (5–6 more BACK/LEFT/RIGHT episodes of 129, not significant). Seed 9 is behind on FRONT.
+- **Safety is the main gap.**
+  - P6 crashes 22, 39 and 52 times in 200 episodes, against the scripted driver's 8.
+  - Most of those crashes are on FRONT (20, 26, 40).
+  - On BACK/LEFT/RIGHT, seed 7 crashes less than the scripted driver (2 against 4); seeds 8 and 9 crash more (13, 12).
+
+**How to state the result.** Passing practice, then the full task (P4 → P5 → P6), clearly improves on its parent B5 on every seed, also on episodes no step had seen. One of three seeds clearly beats the scripted driver, in success and on FRONT. The other two match it in success but crash 5–6× as often. The usual 200 episodes overstated the seed-to-seed picture slightly ("every seed beats it") but not P6's own level.
+
+### Step 8: settle the recipe (network width, training order, reward) (planned 2026-11-18)
+
+**Why.** P6 is the best policy so far, but its recipe was assembled one step at a time:
+- P4: practice with easy starts, success only;
+- P5: the same practice with a crash cost;
+- P6: the full task with crash cost and progress.
+
+No reward was ever compared side by side with another on the same path. On held-out episodes only one seed of three clearly beats the scripted driver, and crashes are 3–6× the scripted driver's. The user asked for a grid search that settles the best reward. It should also:
+- compare with and without practice;
+- compare the original P4 → P5 → P6 order with "practice with easy starts, then the full task with terms added";
+- treat easy starts as a variable;
+- train 2M transitions per round;
+- add one new B-style run: fresh weights, success-only reward, 1/50 reward scale.
+
+**The score (the user's choice).** Per episode: +1 reached, −1 crash, 0 timeout or anchor lost. It is averaged over all slots, FRONT included. Ties within noise go to the simpler option.
+
+**Fixed for every Step 8 run:**
+- SB3 PPO with P6's settings (lr 3e-4, n_steps 256 × 3 environments, batch 256, 5 epochs, γ 0.99, λ 0.95, clip 0.2, entropy 0.01, gradient clip 0.5);
+- reward scale 1/50, so the goal is +1;
+- trained on this Windows PC, as a new chain whose root is E1 = P4's settings at 2M;
+- earlier arms are references, not parents.
+
+**Training orders.** Each has 3 rounds of 2M transitions, so they get equal total training. Round 1 starts from fresh weights with the success-only reward, which is the study's way past the "give up" collapse (B1, P1–P3). Each later round starts from the previous round's policy (same seed).
+
+| Order | Round 1 (success only) | Round 2 (reward R) | Round 3 (reward R) |
+|---|---|---|---|
+| **N**: no practice (the new B) | full task | full task | full task |
+| **H**: practice, natural start only | blocked episodes | full task | full task |
+| **E**: practice with easy starts | blocked + easy starts | full task | full task |
+| **O**: original order (P4 → P5 → P6) | blocked + easy starts | blocked + easy starts | full task |
+
+Each pair of orders differs in one thing:
+- **O vs E:** is the P5-style round needed?
+- **E vs H:** do easy starts matter?
+- **H vs N:** does practice matter at all?
+
+O trains 2M on the full task and E trains 4M. That difference is part of what "a practice round or an extra full-task round" means.
+
+**Rewards** (from round 2 on): 4 crash costs × 2 progress levels = 8 rewards.
+
+| Term | Levels | Why |
+|---|---|---|
+| Crash cost (× goal) | 0, 0.5, 1, 2 | 0 = no term added (the control). 1 = P6. 0.5: discounting makes 1 more cautious than the score; a crash at ~2 s weighs 0.74, a success at ~8 s 0.45. 2 = the safety direction. Break-even success needed to keep trying: 45 / 62 / 77% at 0.5 / 1 / 2. |
+| Potential-based progress (per m, before scale) | 0, 0.1 | 0.1 came with P6 by inheritance from B5 and was never tested on this path. It cannot change the best policy, only learning speed. |
+
+A time cost is not in the grid, because no failure calls for it yet. It becomes a later grid only if crash 2 makes policies give up (timeouts ≥ 10%).
+
+**Design flaws found in review, and their fixes:**
+
+| Flaw | Fix |
+|---|---|
+| A test over pooled episodes treats episodes as replicates. The replicate is the training run: P6's seeds differ by 0.3 in score on the same episodes. | Compare per-seed scores, paired by seed. Report a paired t-test and 95% interval over seeds. |
+| The best of many cells with 3 seeds each is partly luck. | Screen with 3 seeds. Confirm the finalists with 5 new seeds, then test once on 500 fresh episodes (seeds 50,000–50,499). |
+| Seeds 7, 8, 9 share 2 of 3 worker layout streams. | Use spaced seeds: screening 7, 10, 13; confirmation 16, 19, 22, 25, 28. |
+| One final snapshot is noisy (P4/P5 checkpoints swung 0 ↔ 110 reached). | A run's score is the mean of its last 3 snapshots: ~1.6M, ~1.8M and the final model. |
+| Comparing orders at a reward tuned for some of them biases the result. | Compare all four orders at a reward fixed in advance (P6's), then run the grid on the chosen order. |
+| A larger crash cost raises value gradients and could bring back Step 7a's clip throttle. | `diagnose_updates.py start` for the crash-2 cell before trusting it. |
+
+**Network width.** The user's rule: the model becomes more complex only for a real need, meaning a large gain. Stage 8a tests 64-64 against 256-256 (learning rate unchanged) on the E order at P6's reward. **Bar, written before the runs:** 256-256 replaces 64-64 only if all three hold:
+- the mean score rises by at least 0.10;
+- it is ahead on all 3 seeds;
+- crashes do not rise.
+
+Otherwise 64-64 stays. Not considered now: a recurrent policy (the task is nearly Markov), the attention-over-vehicles network (a candidate later if FRONT crashes remain), and learning-rate changes.
+
+**Stages.** The study stops for review after each.
+
+| Stage | What runs | Runs |
+|---|---|---:|
+| 8-0 | Training speed on this PC: profiling, concurrency, bit-identical speed-ups | 0 |
+| 8a | Network width: E order, P6's reward, 64 vs 256, rounds 1–3 | 18 |
+| 8b | Training order: N, H, O at P6's reward (E reused from 8a) | 24 |
+| 8c | Reward grid: the other 7 rewards on the chosen order, rounds 2–3 | 42 |
+| 8d | Confirmation: top 3 cells and P6's reward on 5 new seeds; final test on 500 fresh episodes | ≤ 45 |
+
+**Measurement:**
+- **Selection episodes** (8a–8c): seeds 10,000–10,199 plus 40,000–40,199, 400 in all, with blocked and FRONT reported separately.
+- **References:** random and scripted are measured once per episode set.
+- **Every pair compared** is first checked with `ivcheck.check_pipeline`: the two runs must differ only in the factor being compared, at every round.
+- **Code:** [`grid_run.py`](grid_run.py) launches and evaluates; [`grid.py`](grid.py) scores, compares and applies the rules; [`test_step8.py`](test_step8.py) tests both.
+
+**Access to every trained model:**
+- Final models and sidecars stay in `models/`, as before.
+- Every Step 8 sidecar and evaluation records the code: git commit, branch, whether tracked files were modified, and a SHA-256 over all source files.
+- [`results/grid8/registry.csv`](results/grid8/registry.csv) has one row per run: settings, model file and hash, code, training time and scores.
+- [`results/grid8/checkpoints_manifest.csv`](results/grid8/checkpoints_manifest.csv) lists every checkpoint with its hash. The scored checkpoints of the finalists will be committed; the rest stay on this PC.
+- Any run or checkpoint can be re-scored with one command:
+  - `evaluate.py --run <run> --seed <first> --episodes <n> --output-name <folder>`;
+  - add `--checkpoint <file>` to score a checkpoint.
+- [`test_replay.py`](test_replay.py) replays saved episodes of P6_seed7 and B3_seed7 and fails if shared code ever changes what a saved model does.
+
+#### Step 8-0: training speed on this PC (2026-11-18, no experiment runs)
+
+**Machine:** Intel i9-14900K (8 performance cores and 16 efficiency cores, 32 threads), 48 GB RAM, RTX 4080 SUPER. Windows power plan already "High Performance". Everything is reproducible with [`speed.py`](speed.py); reports are in [`results/speed_check/`](results/speed_check/).
+
+**Rule.** A speed change is kept only if training stays bit-identical: the same training episodes in every logged column and the same final weights. Anything that changes what is computed is an IV, not a speed-up, and was not tried:
+- more environments per run;
+- larger rollouts or batches;
+- the GPU.
+
+**1. Today's code still trains exactly as before on this PC.** Re-running the first 61,440 transitions of B3_seed7 (trained here on 2026-11-08) with today's code gives the same 878 training episodes, identical in all 18 columns. That code includes the NumPy observation encoder and the refactored `train.build_model`. ([`replay_B3_seed7.md`](results/speed_check/replay_B3_seed7.md))
+
+**2. Where one run's time goes** (cProfile, own time; P6's full task and P4's practice task look the same; [`profile_P6_seed7.md`](results/speed_check/profile_P6_seed7.md)):
+
+| Part | Share |
+|---|---:|
+| highway-env simulator, with the NumPy and Python built-ins it calls | ~88% |
+| Observation encoder | 3% |
+| PPO networks and updates (torch) | 3% |
+| SB3 bookkeeping, gymnasium wrappers, our environment code | 6% |
+| Logging (CSV, TensorBoard) | ~0% |
+
+- The simulator dominates. The largest single function is `lane.local_coordinates` at 15%.
+- **The GPU cannot help:** the networks are 3% of the time.
+- **A Windows Defender exclusion would not matter:** logging and file I/O are about 0%.
+
+**3. Candidate speed-ups, one run alone, 61,440 transitions** ([`variants_P6_seed7.md`](results/speed_check/variants_P6_seed7.md), [`variants_P4_seed7.md`](results/speed_check/variants_P4_seed7.md)):
+
+| Setup | P6 (full task), transitions/s | P4 (practice), transitions/s | Training identical to train.py's? |
+|---|---:|---:|---|
+| Worker processes + TensorBoard (train.py until now) | 1,729 | 1,443 | reference |
+| Worker processes, no TensorBoard | 1,739 | 1,440 | yes: same episodes and same final weights |
+| In-process environments | 911 | 821 | yes: same episodes and same final weights |
+
+All variants train identically. In-process environments make one run slower, because the 3 environments step one after another, but they use 1 process instead of 4.
+
+**4. Total throughput with many runs at once** (P6, 30,720 transitions per run; [`concurrency_P6_subproc.md`](results/speed_check/concurrency_P6_subproc.md), [`concurrency_P6_dummy.md`](results/speed_check/concurrency_P6_dummy.md)):
+
+| Runs at once | Worker processes: total transitions/s (per run) | In-process environments: total (per run) |
+|---:|---|---|
+| 4 | 5,076 (1,270) | |
+| 8 | 7,180 (900) | 6,352 (795) |
+| 12 | 9,152 (760) | |
+| 16 | 9,919 (620) | 8,756 (545) |
+| 24 | | 10,496 (440) |
+| 32 | | **11,554** (345–400) |
+
+**Decisions:**
+- **Up to 12 runs ready at once:** worker processes, which are faster per run.
+- **More than 12:** in-process environments, up to 32 at once. That is about 21 runs of 2M per hour, against about 9 per hour with 4 runs as before.
+- The launcher ([`grid_run.py`](grid_run.py), `--vec auto`) chooses per run. Training is identical either way.
+- TensorBoard is switched off: no speed effect, but it saves disk space. `progress.csv` keeps the same numbers.
+
+**Not done:** rewriting simulator hot spots such as `lane.local_coordinates` and scalar `np.clip`. The gain would be about 15–25% at most. Bit-identical results are hard to guarantee, because NumPy's 2-vector dot product and norm can round differently from plain Python arithmetic. This can be done later, with the replay test as the guard.
+
+**Estimated wall time** (from the table; 256-wide runs are somewhat slower):
+
+| Stage | Runs per round | Estimate |
+|---|---:|---:|
+| 8a | 6 (worker processes) | ~1.7–2 h |
+| 8b | 6 / 9 / 9 | ~1.8 h |
+| 8c | 21 (in-process) | ~2.4 h |
+| 8d | 5 / 20 / 20 | ~2.9 h |
+
+**Side finding (cross-machine evaluation):**
+- P6 was evaluated on the Mac and replays on this PC with every outcome identical, but some real-valued columns (distances) differ in the last bits: at most 3×10⁻¹⁴ relative, in 7 of 20 episodes.
+- The cause is NumPy's vector norm, which uses each platform's own linear-algebra library.
+- Section 7's "the same 1,800 rows" holds for outcomes, not for every float bit. Runs evaluated on this PC replay bit for bit.
+- [`test_replay.py`](test_replay.py) checks both cases.
+
+#### Step 8a: network width (prediction, written before launch)
+
+**Runs:** E1 → E2_c1w01 → E3_c1w01 at 64-64 and the same at 256-256 (`_n256`), on seeds 7, 10 and 13. That is 18 runs of 2M.
+
+**Prediction:**
+1. **256-256 does not meet the bar.** The mean score change is below +0.10, or it is not ahead on all 3 seeds, so 64-64 stays. Reason: P6 seed 7 already reaches 98% of BACK/LEFT/RIGHT and 72% of FRONT on held-out episodes with 64-64, so the small network can represent a good policy. The failures look like learning variance (seed to seed, and checkpoint to checkpoint), not a lack of capacity.
+2. **E1 at 2M learns to pass:** at least P4's level, 34% of the 200 natural-start passing episodes, on every seed.
+3. **E3_c1w01 (64-64) at P6's level:** a selection score within ±0.15 of P6's on the same 400 episodes. P6 is the Mac reference (1M per round, with the P5 round); E3 has no practice round but 2M per round.
+   - P6 on these 400 episodes: score **+0.628** on average (seeds 7, 8, 9: +0.800, +0.635, +0.450); reached 81.3%, crash 18.5%.
+   - Scripted driver: **+0.725** (reached 75.8%, crash 3.3%).
+   - Random actions: −0.655.
+   - Under the user's score the scripted driver is ahead of P6 on average, because P6's crashes cost as much as its extra successes earn.
+4. **E1 near 1M vs P4 (the Mac):** passing rates within the seed spread P4 showed (34–50% on P2's episodes). This checks that the PC reproduces passing practice.
+
+#### Step 8a: results (2026-11-18, 18 runs, 18:44–21:27)
+
+All 18 runs trained and were evaluated without failures. Full tables: [`results/grid8/summary_8a.md`](results/grid8/summary_8a.md); per-run rows: [`registry.csv`](results/grid8/registry.csv).
+
+**Scoring.** Every row is scored on the full task over the 400 selection episodes, as reached − crash. A last-round run is the mean of its ~1.6M, ~1.8M and final snapshots; round 1 and 2 rows use the final model only.
+
+| Run | Score: mean (seeds 7, 10, 13) | Reached | Crash | Timeout | FRONT reached |
+|---|---|---:|---:|---:|---:|
+| E1, 64-64 (round 1, success only) | +0.171 (+0.300, −0.117, +0.330) | 58.4% | 41.3% | 0.2% | 25.8% |
+| E2_c1w01, 64-64 | +0.525 (+0.845, +0.217, +0.512) | 71.6% | 19.1% | 9.3% | 41.1% |
+| **E3_c1w01, 64-64** | **+0.685** (+0.801, +0.531, +0.723) | 78.3% | 9.8% | 11.9% | 55.2% |
+| E1_n256 | +0.367 (+0.762, +0.285, +0.055) | 68.2% | 31.5% | 0.2% | 44.9% |
+| E2_c1w01_n256 | +0.754 (+0.635, +0.790, +0.838) | 87.6% | 12.2% | 0.2% | 73.4% |
+| **E3_c1w01_n256** | **+0.752** (+0.802, +0.743, +0.712) | 87.3% | 12.1% | 0.5% | 75.2% |
+| P6 (Mac reference) | +0.628 (+0.800, +0.635, +0.450) | 81.3% | 18.5% | 0.2% | 58.6% |
+| Scripted driver | +0.725 | 75.8% | 3.2% | 21.0% | 59.4% |
+
+**The width test** (`check_pipeline`: the two pipelines differ only in `net_arch`, at every round):
+- 256-256 − 64-64 = +0.001, +0.212 and −0.012 on seeds 7, 10, 13.
+- Mean **+0.067**, 95% interval [−0.245, +0.379], paired t p = 0.45, ahead on 2 of 3 seeds.
+- Crash rate +2.4 points.
+- **The bar (+0.10, ahead on all 3 seeds, crashes not higher) is not met on any of its three conditions. 64-64 stays**, by the rule written before the runs.
+
+**The predictions, checked:**
+1. 256-256 does not meet the bar: **correct**.
+2. E1 passes at least 34% of the natural-start passing episodes on every seed: **wrong on seed 10.** Final E1 on the 200 passing episodes: seeds 7, 10, 13 reach 117, 12 and 120. Seed 10 stays at 3–9 at its ~1M, ~1.6M and ~1.8M checkpoints, so it never learned to pass in round 1.
+3. E3_c1w01 (64) within ±0.15 of P6: **correct.** +0.685 against +0.628, with half P6's crash rate (9.8% against 18.5%) but more timeouts (11.9%).
+4. E1 near 1M against P4: **inconclusive.**
+   - On the passing episodes, E1 at ~1M reaches 117, 3 and 8 (seeds 7, 10, 13); P4 (Mac, seeds 7, 8, 9) reached 88, 101 and 68.
+   - The seeds differ, so this is not a same-seed reproduction.
+   - Deterministic round-1 snapshots swing widely, as P4's did: E1 seed 13 goes from 8 at ~1M to 120 at 2M.
+
+**What we learned:**
+- **The 64-64 network is enough to match the best earlier recipe**, without P5's practice round. E3_c1w01 scores +0.685 against P6's +0.628 and crashes half as often. It is still below the scripted driver (+0.725), which almost never crashes but times out in 21% of episodes.
+- **The weak point is one seed, not capacity on average.**
+  - E3 seed 10 (64-64) times out in 35% of episodes, because its first round never learned to pass.
+  - With 256-256, every seed lands between +0.71 and +0.80, against +0.53 to +0.80 at 64-64.
+  - 256-256 also learns faster: after round 2 it is already at +0.754, against +0.525.
+  - This is recorded, not adopted. The average gain at the end is small and not significant, so by the user's rule 64-64 stays.
+  - If the 8d confirmation seeds (5 new) also show 64-64 runs that never learn to pass in round 1, the width question is worth reopening with that evidence.
+- **The practice round of the original order (P5) was not needed for this level.** E2/E3 go straight from practice to the full task. Whether O does better is 8b's question.
+
+**Launcher fixes during 8a** (decision log):
+- Practice runs' selection evaluations were redone on the full task.
+- The launcher now re-checks every minute for runs whose previous round was trained by another launcher. One 8b run (O2 seed 10) started 48 minutes late because of this.
+
+#### Step 8b: training order (prediction, written 2026-11-18 before any 8b run and before any 8a result)
+
+**Runs:** at P6's reward (crash 1, progress 0.1), 64-64, seeds 7, 10 and 13. E's runs come from 8a. Round 1 of N and H (success only, fresh weights) is started while 8a trains, because it depends neither on 8a's result nor on the width unless 256-256 wins. If 256-256 does win, these runs are kept as a record and repeated at 256.
+
+| Order | Runs |
+|---|---|
+| N | N1 → N2_c1w01 → N3_c1w01 |
+| H | H1 → H2_c1w01 → H3_c1w01 |
+| O | E1 → O2_c1w01 → O3_c1w01 |
+
+**Prediction** (scores are reached − crash on the 400 selection episodes; P6 +0.628, scripted +0.725):
+1. **N is clearly worst.**
+   - N3's mean score is at least 0.15 below E3's and below H3's.
+   - Its blocked BACK/LEFT/RIGHT success is at most 60%.
+   - Reason: no B arm (B0–B5) ever learned to pass without practice. N3 should look like B3 (+0.42 on the usual episodes).
+2. **H is between N and E.** Practice without easy starts can still work with the success-only round 1, because waiting then costs nothing: H1 does not collapse as P1s/P2 did with crash = −goal. But it learns passing more slowly than E1.
+   - H1 reaches at least 15% of the natural-start passing episodes on at least 2 of 3 seeds.
+   - H3's score is below E3's.
+3. **O vs E is within noise:** |mean difference| < 0.10. O is safer on blocked episodes; E has 2M more full-task training, which helps FRONT.
+4. **Rule outcome:** a practice order (E or O) beats N by the rule (paired t-test p < 0.05, ahead on ≥ 2 of 3 seeds). Whether H vs N and E vs H pass the rule is open with 3 seeds.
+
+#### Step 8b: results (2026-11-18, 21 new runs; E reused from 8a)
+
+All runs trained and were evaluated without failures. Full tables: [`results/grid8/summary_8b.md`](results/grid8/summary_8b.md).
+
+**Last round of each order, at P6's reward, 64-64** (400 selection episodes; mean of the ~1.6M, ~1.8M and final snapshots):
+
+| Order | Score: mean (seeds 7, 10, 13) | Reached | Crash | Timeout | Blocked reached | FRONT reached | FRONT crash |
+|---|---|---:|---:|---:|---:|---:|---:|
+| N: no practice | +0.641 (+0.838, +0.430, +0.653) | 72.5% | 8.4% | 19.1% | 71.3% | 40.1% | 7.2% |
+| H: practice, natural start | +0.580 (+0.532, +0.591, +0.617) | 66.2% | 8.3% | 25.5% | 65.3% | 31.2% | 8.4% |
+| E: practice with easy starts | +0.685 (+0.801, +0.531, +0.723) | 78.3% | 9.8% | 11.9% | 81.0% | 55.2% | 17.5% |
+| O: original order (P4 → P5 → P6) | +0.697 (+0.869, +0.406, +0.817) | 77.9% | 8.2% | 13.9% | 77.1% | 53.9% | 15.1% |
+| P6 (Mac reference) | +0.628 | 81.3% | 18.5% | 0.2% | 81.7% | 58.6% | 40.9% |
+| Scripted driver | +0.725 | 75.8% | 3.2% | 21.0% | 58.3% | 59.4% | 4.5% |
+
+**One-factor comparisons.** Each pair was checked with `check_pipeline`.
+
+| Comparison | Per-seed differences | Mean | 95% interval | p |
+|---|---|---:|---|---:|
+| H − N (practice in round 1) | −0.307, +0.161, −0.037 | −0.061 | [−0.644, +0.522] | 0.70 |
+| E − H (easy starts) | +0.269, −0.060, +0.107 | +0.105 | [−0.304, +0.514] | 0.38 |
+| E − N (practice with easy starts in round 1) | −0.038, +0.101, +0.070 | +0.044 | [−0.136, +0.225] | 0.40 |
+| O − E (practice or full task in round 2) | +0.068, −0.125, +0.093 | +0.012 | [−0.285, +0.309] | 0.88 |
+
+- O − N and O − H are not one-factor comparisons: they differ in rounds 1 and 2. `check_pipeline` refused them, and they were dropped from the analysis.
+- **The rule chooses order N** (no practice): no more complex order beats it.
+- **Order O scores highest.** Per the plan, both N and O get the reward grid in 8c.
+
+**The predictions, checked:**
+1. N clearly worst, at least 0.15 below E and H, with blocked success at most 60%: **wrong.** N3 is 0.044 below E3 and 0.061 above H3, and reaches 71.3% of blocked episodes. With the 1/50 reward scale (Step 7a's fix), a success-only first round and 2M per round, the full task alone learns to pass blocked cars. B0–B5 never did, at 1M per round and, until B5, with throttled updates.
+2. H between N and E:
+   - H1 reaches at least 15% of passing episodes on 2 of 3 seeds: **correct** (1%, 35%, 46%).
+   - H3 below E3: **correct**.
+   - H above N: **wrong**.
+3. O vs E within noise (|Δ| < 0.10): **correct** (+0.012).
+4. A practice order beats N by the rule: **wrong**. None does.
+
+**What we learned:**
+- **Practice is not needed at this resolution.** All four orders lie within 0.12 of each other, and no one-factor difference is beyond noise with 3 seeds. Effects smaller than about ±0.2 cannot be seen here.
+- **What practice does change is how FRONT is handled.** With practice (E, O), FRONT is reached in 54–55% of episodes, with 15–18% FRONT crashes. Without it (N), FRONT is reached in 40%, with 7% crashes; the rest are timeouts. The overall score comes out about the same.
+- **Seed 10 is low in three of four orders.** Its scores are N +0.43, E +0.53 and O +0.41; H is the exception. Seed 10's practice round never learned to pass:
+  - E1 seed 10 reaches 3–12 of 200 passing episodes;
+  - O2 seed 10 then gave up: 197 of 200 passing episodes time out, as P3 did when crash = −goal came before passing was learned.
+
+  Because the comparisons are paired by seed, this does not bias them, but it widens every interval.
+- **Every order times out in 12–26% of selection episodes at crash cost 1.** That is a measured "giving up" failure, already at crash 1. It is the condition the plan set for considering a time cost after 8c.
+
+**Added 2026-11-19, while 8c trained and before any 8c result: the timeouts are a FRONT give-up of whole runs, and it starts when the crash cost does.** Final-snapshot timeouts on the 133 FRONT episodes (of 400 selection episodes), seeds 7 / 10 / 13:
+
+| Run | Round 1 (success only) | Round 2 (crash 1, progress 0.1) | Round 3 |
+|---|---|---|---|
+| N | N1: 1 / 2 / 1 | N2: 56 / 124 / 48 | N3: 1 / 133 / 80 |
+| E | E1: 0 / 1 / 0 | E2: 0 / 91 / 1 | E3: 0 / 104 / 1 |
+| O | E1: 0 / 1 / 0 | O2 (practice): 1 / 130 / 0 | O3: 0 / 130 / 0 |
+| H | H1: 0 / 0 / 0 | H2: 88 / 73 / 96 | H3: 95 / 77 / 94 |
+| E, 256 wide | E1_n256: 2 / 0 / 0 | E2_n256: 0 / 0 / 3 | E3_n256: 4 / 2 / 2 |
+
+- No run times out in round 1. With the crash cost, a run either keeps overtaking (0–4 timeouts) or stops trying on many FRONT episodes (48–133 of 133). The scripted driver reaches about half of the FRONT episodes these runs give up on, so they are reachable.
+- This one failure is most of the difference between seeds. Seed 10 gives up in N, E and O; H gives up on all three seeds.
+- **The 256-wide network gave up on no seed.** That explains its steadier seeds in 8a (+0.80 / +0.74 / +0.71 against +0.80 / +0.53 / +0.72). 8a's bar was not met, so 64 stays, but this is a specific mechanism worth re-testing if the give-up persists in 8d's new seeds.
+- What 8c can show: whether a smaller crash cost (0.5, or 0) avoids the give-up. Then the next step is either the time cost (a reward fix aimed at exactly this) or width.
+
+#### Step 8c: reward grid on orders N and O (prediction, written 2026-11-18 before launch)
+
+**Runs:** the 7 rewards other than P6's (crash 0, 0.5, 1, 2 × progress 0, 0.1; c1w01 comes from 8b). Rounds 2 and 3 for orders N and O, reusing their round 1 (N1, E1), seeds 7, 10 and 13. That is 84 runs of 2M, up to 32 at once with in-process environments.
+
+**Before launch** (`diagnose_updates.py start`, seed 7, from E1): at crash 2 the value network takes 73–83% of the gradient and the shared clip scales gradients by 0.44–0.56. But one full PPO update still moves the policy as much as at crash 1 (KL 0.0091 against 0.0095), so crash 2 is not throttled the way B3m was (Step 7a).
+
+**Prediction:**
+1. **Crash 0** (success only, all rounds) crashes most, at least 25% of selection episodes, and has the lowest score of the four crash levels in both orders.
+2. **Crash 2** crashes least but times out more than crash 1, mostly on FRONT. Its score is not above crash 1's by more than noise.
+3. **The best mean score is at crash 0.5 or crash 1**, in both orders. Discounting makes crash 1 more cautious than the reached − crash score, so 0.5 may score as well or better.
+4. **Progress shaping:** no difference beyond noise at any crash level in either order (|Δ| < 0.10, p > 0.05). The simplicity rule then drops it.
+5. **The rule chooses a one-term reward** (a crash cost only, progress 0) in both orders.
+6. **Timeouts stay at 10% or more** at crash 1 and 2 in both orders. That would trigger the planned time-cost grid as the next step.
+
+#### Step 8c: results (2026-11-19, 84 runs, 21:44–04:13 including a 1 h 29 min pause; none failed)
+
+Full tables: [results/grid8/summary_8c.md](results/grid8/summary_8c.md); heatmaps `stage_8c_N.png`, `stage_8c_O.png`. Score after round 3 (mean of seeds 7, 10, 13), 400 selection episodes:
+
+| Reward (crash, progress) | N score | N crash | N timeout | O score | O crash | O timeout | O − N (per seed) |
+|---|---:|---:|---:|---:|---:|---:|---|
+| c0w0 (success only) | +0.534 | 23.3% | 0.1% | +0.681 | 15.9% | 0.1% | +0.03, +0.18, +0.23 |
+| c0w01 | +0.497 | 24.8% | 0.8% | +0.553 | 22.3% | 0.1% | −0.15, +0.19, +0.12 |
+| c05w0 | +0.535 | 12.2% | 22.2% | +0.578 | 13.4% | 15.4% | +0.24, −0.01, −0.10 |
+| c05w01 | +0.511 | 14.2% | 20.6% | +0.656 | 8.6% | 17.1% | +0.16, +0.07, +0.21 |
+| c1w0 | +0.545 | 10.2% | 25.1% | +0.672 | 8.0% | 16.8% | +0.23, +0.02, +0.13 |
+| **c1w01** (P6's) | **+0.641** | 8.4% | 19.1% | **+0.697** | 8.2% | 13.9% | +0.03, −0.02, +0.16 |
+| c2w0 | +0.490 | 5.5% | 40.0% | +0.451 | 13.0% | 28.9% | −0.00, −0.16, +0.05 |
+| c2w01 | +0.487 | 6.6% | 38.2% | +0.609 | 8.9% | 21.2% | +0.23, +0.04, +0.10 |
+| Scripted driver | +0.725 | 3.2% | 21.0% | | | | |
+| P6 (Mac, seeds 7–9) | +0.628 | 18.5% | 0.2% | | | | |
+
+**Rule result: success only in every round (c0w0), in both orders.** The best cell, c1w01, does not beat it by the rule:
+- N: c1w01 − c0w0 = +0.04, +0.15, +0.14 (mean +0.107, p 0.095, ahead 3 of 3). Close, but p > 0.05.
+- O: +0.04, −0.06, +0.07 (mean +0.017, p 0.71).
+
+**Predictions:**
+1. Crash 0 crashes most: **correct** in both orders. At least 25%: **wrong** (16–25%). Lowest score: **wrong**. Crash 2 is lowest in both orders, and O's c0w0 is second best.
+2. Crash 2 crashes least: **correct for N** (5.5–6.6%), **wrong for O** (13.0% at c2w0, above crash 1's 8.0%). Times out more than crash 1: **correct**. Score not above crash 1: **correct** (lower; O c2w0 − c1w0 = −0.22, p 0.022, 0 of 3).
+3. Best score at crash 0.5 or 1: **correct** (crash 1 with progress, in both orders). But it is within noise of crash 0.
+4. Progress no different beyond noise: **mostly correct**. Of the 8 tests, 7 are within noise. N at crash 0 is lower with progress by a small, consistent −0.037 (p 0.034). With 8 tests, about 0.4 such results are expected by chance.
+5. One-term reward chosen: **wrong**. The rule chose the zero-term reward.
+6. Timeouts ≥ 10% at crash 1 and 2: **correct** (N 19–40%, O 14–29%). The time-cost trigger is met.
+
+**What we learned:**
+- **Any crash cost brings the FRONT give-up; success only never does.** FRONT timeouts (final model, of 133) per run:
+  - With crash 0, every run in both orders has 0–6.
+  - With a crash cost, every N run gives up on 42–133.
+  - In O, only seed 10 gives up (129–133) at every crash level. Its practice round never learned to pass. Seeds 7 and 13 give up only at crash 2 (up to 42).
+- **The score swaps crashes for timeouts almost one for one.** O c1w01 against c0w0: crashes −7.7 points, timeouts +13.8, reached −6.1, score +0.016. So a crash cost buys safety mostly by giving up episodes, not by passing more carefully.
+- **O ≥ N at 7 of 8 rewards** (mean O − N +0.04 to +0.15). It is never beyond noise alone, but it is consistent; at crash 2 without progress it is −0.04.
+- **Nothing beats the scripted driver (+0.725) on average.**
+  - O's seeds 7 and 13 do, at +0.75 to +0.87.
+  - O's seed 10 holds every O cell at +0.41 to +0.46.
+  - P6's reward on this PC's pipeline (O c1w01, +0.697) is above P6 itself (+0.628).
+
+#### Step 8c2: time cost (prediction, written 2026-11-19 before launch)
+
+**Why now.** The plan added a time cost only after a measured failure: crash costs making policies give up, with timeouts ≥ 10%. 8c measured it at every crash cost in both orders. The give-up is a policy that stops trying on FRONT, and a time cost charges exactly that.
+
+**Design** (one IV: the time cost; each new cell is compared with the same crash cost and no time cost, from 8c):
+- **Time cost per decision (0.1 s), as a multiple of the goal: t1 = 0.001 and t4 = 0.004.**
+  - t1 is the inherited `time` term at Marcos's weight (0.05 before the 1/50 scale). A whole timed-out episode (250 decisions) then costs 0.25 goals, 0.09 after discounting.
+  - t4 is 4× that: 1 goal, 0.37 after discounting. That is the largest level that keeps waiting out a whole episode cheaper than the smallest crash cost tested (0.5). A crash then never pays better than waiting.
+- **Crash costs 0.5 and 1 only.**
+  - With crash 0, a time cost makes crashing free compared with waiting.
+  - Crash 2 is the worst level in both orders and would need its own, larger time levels.
+- **Progress 0.** Progress showed no consistent effect in 8c, so it is left out (simpler).
+- **Both orders, rounds 2–3, seeds 7, 10, 13.** That is 4 rewards × 2 orders × 2 rounds × 3 seeds = **48 runs**, about 3 h.
+- After 8c2, the reward rule is applied again over all 12 rewards of each order. Finalists for 8d are the rule's choice, the top 3 by score, and P6's reward.
+
+**Prediction:**
+1. The time cost reduces FRONT timeouts at both crash levels, more at t4 than t1.
+   - N's partial give-ups (42–133 of 133) shrink more than O seed 10's total give-up.
+   - That seed never learned to pass, and a time cost can only push it to try, not teach it how.
+2. Crashes rise with the time cost but stay below success only's (O ≤ 16%, N ≤ 23%).
+3. In N, at least one time-cost cell scores ≥ +0.05 above its no-time-cost cell. In O the change is within noise.
+4. No time-cost cell beats c1w01 by the rule.
+5. The rule's choice stays success only (c0w0) in both orders. With 3 seeds, a two-term reward is unlikely to beat it by p < 0.05.
+
+**Alongside, on spare CPU:** 8d's round-1 runs, N1 and E1 on the 5 confirmation seeds (16, 19, 22, 25, 28). Every 8d pipeline of orders N and O starts from them, whichever finalists are chosen. 8c2 trains only 24 runs at once, leaving 8 of 32 slots free.
+
+#### Step 8c2: results (2026-11-19, 48 runs, 04:20–07:33; none failed)
+
+Full tables: [results/grid8/summary_8c2.md](results/grid8/summary_8c2.md). Score after round 3 (mean of seeds 7, 10, 13), 400 selection episodes. FRONT timeouts are the final models', summed over the 3 seeds (of 399):
+
+| Reward | N score | N crash | N timeout | N FRONT timeouts | O score | O crash | O timeout | O FRONT timeouts |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| c05w0 (from 8c) | +0.535 | 12.2% | 22.2% | 257 | +0.578 | 13.4% | 15.4% | 133 |
+| c05w0t1 | +0.592 | 11.9% | 17.1% | 173 | +0.577 | 16.6% | 9.0% | 113 |
+| c05w0t4 | +0.490 | 20.5% | 10.1% | 118 | +0.629 | 18.4% | 0.3% | 0 |
+| c1w0 (from 8c) | +0.545 | 10.2% | 25.1% | 269 | +0.672 | 8.0% | 16.8% | 134 |
+| c1w0t1 | +0.565 | 8.6% | 26.2% | 287 | +0.662 | 8.3% | 17.2% | 134 |
+| c1w0t4 | +0.600 | 12.7% | 14.5% | 122 | +0.686 | 8.3% | 14.8% | 133 |
+| c1w01 (P6's, from 8c) | +0.641 | 8.4% | 19.1% | | +0.697 | 8.2% | 13.9% | |
+| c0w0 (success only, from 8c) | +0.534 | 23.3% | 0.1% | | +0.681 | 15.9% | 0.1% | |
+
+**No time-cost comparison is beyond noise.** Of the 8 neighbouring-level tests in the summary, none has p < 0.05. The direct t4 − no-time-cost differences (per seed 7, 10, 13) are:
+- N crash 0.5: −0.054, +0.044, −0.125 (mean −0.045, p 0.46).
+- N crash 1: +0.071, +0.071, +0.023 (mean +0.055, p 0.074, ahead 3 of 3). The closest to a real effect.
+- O crash 0.5: −0.088, +0.008, +0.235 (mean +0.052, p 0.64).
+- O crash 1: +0.006, +0.012, +0.023 (mean +0.014, p 0.12, ahead 3 of 3).
+
+**Rule result over all 12 rewards: still success only (c0w0) in both orders.** Best score is still P6's reward (c1w01) in both orders; second is crash 1 with t4 (c1w0t4) in both orders.
+- c1w01 − c1w0t4: N +0.040 (p 0.58), O +0.011 (p 0.74).
+- c1w0t4 − c0w0: N +0.067 (p 0.56), O +0.006 (p 0.64).
+
+**Finalists for 8d, by the rule written before 8c2** (the rule's choice, the top 3 of the 12 rewards, and P6's reward):
+- N: c0w0, c1w01, c1w0t4, c05w0t1.
+- O: c0w0, c1w01, c1w0t4 (c0w0 is in the top 3).
+
+**Predictions:**
+1. The time cost reduces FRONT timeouts, more at t4 than t1: **mostly correct.**
+   - t4 reduces them in 3 of 4 (order, crash) pairs. O at crash 1 is unchanged (133–134, all seed 10).
+   - t1 reduces them only at crash 0.5 (N 257 → 173, O 133 → 113), not at crash 1 (N 269 → 287).
+   - "N's partial give-ups shrink more than O seed 10's total give-up": **wrong at crash 0.5.** O seed 10 went from 133 to 0 at c05w0t4. **Correct at crash 1:** O seed 10 stays at 133, while N drops 269 → 122.
+   - "It can only push that seed to try, not teach it how": **correct.** At c05w0t4, O seed 10 tries FRONT and crashes. Its score is +0.433, against +0.425 without the time cost.
+2. Crashes rise with the time cost but stay below success only's:
+   - They rise at t4 at crash 0.5 (N 12.2 → 20.5%, O 13.4 → 18.4%). At crash 1 they are flat or +2.5 points.
+   - Below success only: **wrong for O c05w0t4** (18.4% against 15.9%), correct elsewhere.
+3. In N, at least one time-cost cell is ≥ +0.05 above its no-time-cost cell: **correct** (c05w0t1 +0.057, c1w0t4 +0.055), but both are within noise. In O the change is within noise: **correct.**
+4. No time-cost cell beats c1w01 by the rule: **correct.**
+5. The rule's choice stays success only: **correct.**
+
+**What we learned:**
+- **A time cost moves the give-up; it does not remove the trade.** Where t4 ends the give-up (crash 0.5), part of the timeouts become reaches and part become crashes:
+  - O: timeouts −15.1 points, reached +10.1, crashes +5.0; score +0.05.
+  - N: timeouts −12.1, reached +3.8, crashes +8.3; score −0.05.
+- At crash 1, t4 is too small to change much in O, and in N it gives a small, consistent gain (+0.055, 3 of 3, p 0.074).
+- **The screening cannot separate the top cells.** In O, c1w01, c1w0t4, c0w0 and c1w0 lie within 0.025 of each other. N's top three (c1w01, c1w0t4, c05w0t1) lie within 0.05, and the top two are p 0.58 apart. Only 8d's 5 new seeds can tell them apart.
+- O seed 10's failed practice round (8c) still makes seed 10 O's lowest in every cell (+0.23 to +0.46).
+
+#### Step 8d: results (2026-11-19; 80 runs, 04:20–11:36; final test 11:37–11:40; none failed)
+
+Full tables: [results/grid8/summary_8d.md](results/grid8/summary_8d.md); figures `stage_8d.png` (confirmation seeds) and `stage_8d_final.png` (final test). There was no separate 8d prediction in these notes; the plan's draft prediction 4 is checked below.
+
+**Confirmation seeds (16, 19, 22, 25, 28), 400 selection episodes, mean of the last 3 snapshots.** Every finalist was retrained from fresh weights:
+
+| Finalist | Score | Per seed | Reached | Crash | Timeout | FRONT timeouts by seed (final model, of 133) |
+|---|---:|---|---:|---:|---:|---|
+| **N_c05w0t1** (no practice; crash 0.5, time 0.001) | **+0.633** | +0.865, +0.553, +0.631, +0.595, +0.519 | 74.3% | 11.1% | 14.6% | 0 / 89 / 65 / 48 / 63 |
+| O_c1w0t4 (original order; crash 1, time 0.004) | +0.632 | +0.466, +0.834, +0.685, +0.768, +0.406 | 73.7% | 10.5% | 15.8% | 133 / 0 / 1 / 1 / 127 |
+| O_c1w01 (original order, P6's reward) | +0.614 | +0.452, +0.842, +0.782, +0.597, +0.397 | 71.5% | 10.1% | 18.5% | 133 / 1 / 0 / 0 / 127 |
+| N_c1w0t4 | +0.576 | +0.770, +0.412, +0.557, +0.563, +0.580 | 70.6% | 13.0% | 16.4% | 0 / 133 / 83 / 55 / 81 |
+| N_c1w01 (no practice, P6's reward) | +0.561 | +0.606, +0.432, +0.644, +0.575, +0.550 | 66.2% | 10.0% | 23.8% | 72 / 127 / 80 / 51 / 50 |
+| O_c0w0 (original order, success only) | +0.507 | +0.235, +0.425, +0.767, +0.721, +0.386 | 75.3% | 24.6% | 0.1% | 0 / 0 / 0 / 0 / 1 |
+| N_c0w0 (no practice, success only) | +0.471 | +0.628, +0.361, +0.483, +0.473, +0.409 | 73.4% | 26.3% | 0.3% | 0 / 0 / 1 / 0 / 1 |
+
+**Rule result: N_c05w0t1 wins.**
+- It is the best-scoring finalist on the confirmation seeds.
+- The simplest finalist, N_c0w0 (no practice, success only), is beaten by it: +0.162, p 0.002, ahead on 5 of 5.
+- The other no-practice rewards have the same number of terms (two), and the tie goes to the higher score.
+- **In order N, success only is now beaten by every crash-cost reward:** c1w01 +0.090 (p 0.049, 4 of 5), c1w0t4 +0.105 (p 0.009, 5 of 5), c05w0t1 +0.162 (p 0.002, 5 of 5). With 3 seeds, the screening could not show this. In order O the direction is the same (+0.107, +0.125) but within noise (p 0.32, 0.23).
+- **Order makes no detectable difference** at any reward: N − O ranges from −0.055 to −0.036 (p 0.64–0.78). The best O cell ties the winner (+0.001, p 0.99).
+
+**Final test: 500 fresh episodes (50,000–50,499, used once), final models, all 8 seeds.** Besides the winner and the best cell of each order (O_c1w0t4), O_c1w01 was added as the original P4→P5→P6 storyline retrained on this PC (the user asked to compare it). That is a descriptive row only; it does not affect the winner.
+
+| | Score | Per seed (7, 10, 13, 16, 19, 22, 25, 28) | Reached | Crash | Timeout | Score on B/L/R (364) | Score on FRONT (136) |
+|---|---:|---|---:|---:|---:|---:|---:|
+| **Winner N_c05w0t1** | **+0.628** | +0.796, +0.392, +0.592, +0.852, +0.568, +0.714, +0.594, +0.516 | 75.1% | 12.2% | 12.7% | +0.787 | +0.202 |
+| O_c1w0t4 | +0.694 | +0.868, +0.488, +0.852, +0.496, +0.868, +0.824, +0.792, +0.360 | 76.9% | 7.5% | 15.6% | +0.816 | +0.367 |
+| O_c1w01 (storyline, retrained) | +0.672 | +0.862, +0.456, +0.856, +0.486, +0.828, +0.692, +0.852, +0.346 | 75.4% | 8.2% | 16.4% | +0.798 | +0.336 |
+| P6 (Mac, seeds 7, 8, 9) | +0.677 | +0.848, +0.652, +0.530 | 83.7% | 16.1% | 0.2% | +0.869 | +0.162 |
+| Scripted driver | +0.774 | | 79.2% | 1.8% | 19.0% | +0.780 | +0.757 |
+| Random actions | −0.662 | | 12.8% | 79.0% | 8.2% | −0.621 | −0.772 |
+
+**Tests:**
+- Winner − scripted driver: −0.146 (95% interval −0.272 to −0.020, p 0.029, one-sample t over the 8 seeds). Ahead on 2 of 8. **The scripted driver is better beyond noise.**
+- Winner − P6: −0.049 (Welch t, p 0.68).
+- Winner − O_c1w0t4: −0.066 (p 0.43, 2 of 8).
+- Winner − O_c1w01: −0.044 (p 0.60).
+- None of these is beyond noise. On the final test the winner has the lowest mean of the four PPO rows.
+- Added after the user asked why P6 no longer beats the scripted driver (same one-sample t against the scripted driver's +0.774):
+  - O_c1w0t4: −0.081 (interval −0.255 to +0.094, p 0.31); ahead on 5 of 8 seeds.
+  - O_c1w01: −0.102 (p 0.22); ahead on 4 of 8.
+  - P6: −0.097 (p 0.40); ahead on 1 of 3, seed 7 (+0.848).
+  - So only the winner is behind the scripted driver beyond noise. The other three are level with it on average: their good seeds beat it, and the seeds that give up or crash on FRONT do not.
+- **Why this differs from Steps 6 and 7h.** Those steps counted successes only.
+  - On successes P6 still leads here: 83.7% reached against 79.2%.
+  - Step 8's score also subtracts crashes, at 16.1% for P6 against 1.8% for the scripted driver, which times out instead (a timeout scores 0).
+  - The scripted driver also does better on FRONT in this set: 76.5% reached, against 64.5% on the usual episodes and 54.9% on the Step 7h held-out set. P6 reaches 57.8% of FRONT here and crashes in 41.7%.
+
+**The plan's draft prediction 4, checked:**
+- "The winner beats P6's reward on the confirmation seeds": **wrong by the rule.** It is ahead of N_c1w01 by +0.071 (p 0.26, 3 of 5) and of O_c1w01 by +0.019 (p 0.88).
+- "It beats the scripted driver on the final test": **wrong.** The scripted driver is better (p 0.029).
+
+**What we learned:**
+- **The reward is settled as far as this design can resolve it.**
+  - A crash cost is needed: success only crashes about 25% of the time and is beaten on the 5 new seeds (beyond noise in order N, same direction in O).
+  - Beyond that, crash 0.5 to 1, with or without a small time cost or the progress term, and with or without the practice rounds, all lie within about 0.07 of each other. No pair is separable with 8 seeds.
+  - The rule chooses the simplest training order (no practice), which is equally good on this evidence.
+- **The whole gap to the scripted driver is FRONT.**
+  - On BACK/LEFT/RIGHT every PPO recipe matches or beats it (+0.79 to +0.87 against +0.78), with blocked episodes far better (winner 76% reached against 54%).
+  - On FRONT (27% of episodes), the scripted driver scores +0.757; the PPO recipes score +0.16 to +0.37.
+  - The winner reaches only 39% of FRONT episodes, and gives up on 43%.
+- **The FRONT give-up recurs on the new seeds.**
+  - With any crash cost, order N gives up on 48–133 of 133 FRONT episodes on 4 or 5 of the 5 seeds.
+  - In order O, seeds 16 and 28 give up on nearly all of them. Their practice round never learned to pass: E1 reached 13 and 9 of 200 passing episodes, as seed 10 did in screening.
+  - Success only never gives up, but crashes instead.
+- **This meets the condition written after 8a for reopening the width question.**
+  - The 64-wide practice round failed to learn passing on new seeds too (3 of 8 in all).
+  - 256-256 was the only setup that gave up on no seed in 8a. Its FRONT reached was 75% against 55% at 64-64 (E order, P6's reward).
+
+**Access check (plan item).**
+- A randomly drawn Step 8 run (N3_c1w0t4_seed16) was re-evaluated with only the documented command (`evaluate.py --run N3_c1w0t4_seed16 --seed 40000 --episodes 200 --no-references --output-name grid8/access_check/N3_c1w0t4_seed16`).
+- All 200 rows × 25 columns are identical to its saved evaluation.
+- The registry was regenerated: 254 runs, 2,540 checkpoints in the manifest.
+- The winner (seed 16) is added to [`test_replay.py`](test_replay.py), which passes.
+
+#### After 8d: learning curves. Would more training help? (2026-11-19; no training)
+
+**Why.** The user asked whether the tied recipes would improve with more steps.
+
+**Measurement.**
+- [`curves.py`](curves.py) scores every 200k checkpoint of all three rounds, the same way the grid scores (reached − crash on the 400 selection episodes, full task, with grid_run's evaluate command).
+- It covers the five tied finalists and success only in both orders, on all 8 seeds: 2,079 new evaluations, 81 min, none failed.
+- Tables: [results/grid8/curves/summary.md](results/grid8/curves/summary.md). Figures: `score.png`, `front_timeout.png`, and `training.png` (training episodes, stochastic policy).
+
+**Findings** (corrected 2026-11-20, see the note below):
+- **The third 2M round helped, a little.** In order N, rounds 2 and 3 have the same task and reward, so round 3 is exactly "2M more of the same". Mean of the last 3 snapshots of each round:
+  - winner +0.071 (95% interval +0.026 to +0.116, p 0.01, up on 7 of 8);
+  - N_c1w0t4 +0.064 (p 0.01, 8 of 8);
+  - N_c1w01 +0.091 (p 0.02, 7 of 8);
+  - success only +0.071 (p 0.06, 7 of 8).
+  - The gain is fewer crashes (−3 to −4 points) and more FRONT reached (+5 to +9 points).
+- **The gain is slowing.**
+  - Over 5.0–6.0M the winner gains +0.042 per 1M (slope, p 0.01). N_c1w01 gains +0.038 (p 0.02). The other recipes gain −0.004 to +0.056 per 1M, none beyond noise.
+  - Success only has been flat since about 4.4M.
+- **The FRONT give-up does not go away with training.**
+  - The winner's FRONT timeouts fall from 46% at the end of round 2 to 43% at the end of round 3. They are flat (39–41%) over the last 1.2M.
+  - At 6M, 5 of 8 winner seeds still time out on at least 30% of FRONT episodes.
+  - Order O seeds 10, 16 and 28 time out on almost every FRONT episode from the start of the full-task round and never recover.
+- **Rough projection (not a measurement).** At about +0.03 to +0.04 per 1M, another 2M would add roughly +0.06 to +0.08. That falls short of the 0.10–0.15 gap to the scripted driver, and the seeds that give up would stay as they are. (8e measured it: 3M more added +0.044 to the winner at 64 wide.)
+
+**Correction (2026-11-20).**
+- Checkpoints are saved a few steps short of their 200k mark: 3 environments step together, so the 5.6M checkpoint is at 5,599,994.
+- The windows above ("last 3 snapshots", "last 1M") started exactly at the mark, so they left out their first checkpoint. They averaged 2 snapshots instead of 3.
+- `curves.py` now snaps each checkpoint to its mark; the raw step is kept as `checkpoint_steps`.
+- Numbers before the fix: round-3 gains +0.083, +0.065, +0.095, +0.052; the winner's last-1M slope +0.035 (p 0.19); FRONT timeouts 47% → 41%. The 8e prediction below quotes two of them (+0.08, +0.035 per 1M).
+- The reading is unchanged. The grid's own scores never had this problem: `grid.snapshot_labels` allows 1,000 steps either side.
+
+**Reading.** More steps are a small and slowing lever. The main loss is a stable FRONT give-up, which more of the same training barely changes.
+
+#### Step 8e: 256 wide and longer training (prediction, written 2026-11-19 before any 8e run)
+
+**Why.**
+- The user asked for the 2–3 best recipes to be trained 256 wide and for longer ("5M steps"), after the curves showed round 3 still adding a little.
+- 8d met the condition written after 8a for reopening the width question:
+  - the 64-wide practice round failed to learn passing on 3 of 8 seeds;
+  - the winner gives up on FRONT on 5 of 8 seeds;
+  - in 8a, 256-256 gave up on no seed.
+
+**Recipes (3).** All three are within noise of each other at 64.
+- **N_c05w0t1:** the Step 8 winner.
+- **O_c1w0t4:** the best of the original order. It was highest on the final test (−0.081 against the scripted driver) and at 6M on the curves (+0.636).
+- **N_c1w0t4:** the winner's order with O_c1w0t4's reward. It links the other two by one factor each: order with O_c1w0t4, and reward with the winner.
+
+**Training length.**
+- The last stage on the full task goes from 2M to 5M.
+  - A round 4 of 3M continues round 3: same task, reward and seed, starting from round 3's final policy.
+  - This is the same kind of restart as between rounds 2 and 3 of order N.
+- Each pipeline trains 9M in all instead of 6M.
+- **Why 3M more:**
+  - The round-3 gain (+0.08) took 2M and was slowing (about +0.035 per 1M at the end).
+  - 3M more is enough to see whether the curve flattens at either width.
+  - If the last 1M still rises beyond noise, another round can start from the final model.
+
+**Runs.**
+- **256-256:** all four rounds of the three recipes on all 8 seeds (7, 10, 13, 16, 19, 22, 25, 28), 85 runs.
+  - N1_n256 is shared by the two order-N recipes.
+  - E1_n256 on seeds 7, 10 and 13 is reused from 8a.
+- **64-64:** round 4 only (rounds 1–3 exist from 8d), 24 runs.
+- **Size and time:** 109 runs and 266M transitions, about 7 h at 32 runs at once. In 8a, 256-wide runs took 51–54 min per 2M against 48–53 min at 64, about the same.
+- **Command:** `grid_run.py --stage 8e --cells N_c05w0t1 N_c1w0t4 O_c1w0t4`.
+- **Scoring:** rounds 3 and 4 are scored on the final model plus the checkpoints 400k and 200k before the end. Checkpoints are saved every 200k for `curves.py` afterwards.
+
+**Comparisons.** Each changes one factor, and `check_pipeline` verifies every pair at every round.
+1. **Width at the same training:** 256 against 64 per recipe, paired by seed. The primary point is the end of round 4 (9M); the end of round 3 (6M) is secondary.
+2. **More training:** end of round 4 against end of round 3, within the same runs, per recipe and width.
+3. **At 256:** order (O_c1w0t4 against N_c1w0t4) and reward (N_c05w0t1 against N_c1w0t4).
+
+**Bars (written before the runs).**
+- **256 is adopted** only if all of these hold at 9M on at least 2 of the 3 recipes:
+  - the score (reached − crash) is at least +0.10 above 64;
+  - paired over 8 seeds, p < 0.05;
+  - ahead on at least 6 of 8 seeds;
+  - the crash rate is not higher.
+  - One recipe passing alone could be luck among three tests. Otherwise 64 stays and the 256 result is recorded.
+- **Longer training is adopted** if round 4 raises the score beyond noise (p < 0.05) on at least 2 of 3 recipes at the chosen width. If the score also still rises over the last 1M (slope p < 0.05), another round is worth trying.
+- **Recipe at the chosen width:** the existing winner rule. Highest score; ties within noise go to the simpler option (no practice, then fewer reward terms).
+
+**Predictions.**
+1. **More training at 64:**
+   - Round 4 adds +0.02 to +0.06, beyond noise on at most one recipe.
+   - The winner still times out on at least 30% of FRONT episodes on at least 4 of 8 seeds.
+2. **Width:**
+   - 256 removes most of the FRONT give-up: at most 2 of 8 seeds per recipe with at least 30% FRONT timeouts.
+   - It crashes more on FRONT, as in 8a (22% of FRONT episodes).
+   - Net gain at 9M: +0.03 to +0.10 per recipe. It is largest in order O, where the 64-wide practice round fails on 3 of 8 seeds.
+   - The bar is met on at most one recipe, so 64 stays.
+   - This is the least certain prediction: 8a's 256 lead was +0.067 on 3 seeds, mostly from one seed.
+3. **Order at 256:** O and N are within noise.
+4. **Against the scripted driver:** even the best 8e recipe stays below it on FRONT.
+
+**Discount check (no training).** This answers the user's question about changing other settings. Selection episodes, final models:
+
+| Policy | FRONT reached, median decisions to goal (discount at γ 0.99) | FRONT crash, median decisions (discount) | FRONT timeout |
+|---|---|---|---:|
+| Winner, 64 (8 seeds) | 84 (0.45) | 74 (0.50) | 42% |
+| O_c1w0t4, 64 (8 seeds) | 87 (0.43) | 83 (0.46) | 37% |
+| E3_c1w01, 256 (8a, 3 seeds) | 106 (0.37) | 105 (0.41) | 2% |
+| Scripted driver | 89 | 51 | 29% |
+
+- On FRONT, PPO's successes and crashes happen at about the same time (8–10 s), so discounting weighs them about equally.
+- A larger γ would scale both by a similar factor and leave the attempt-or-wait trade-off nearly unchanged. γ is not a likely lever for the give-up.
+- The scripted driver also times out on 29% of FRONT episodes (25 s limit). Some FRONT episodes may not be finishable in time.
+
+#### Step 8e: results (2026-11-19 16:41 to 2026-11-20 00:30, 109 runs)
+
+All 109 runs trained and were scored, none failed. Tables: [`results/grid8/summary_8e.md`](results/grid8/summary_8e.md) (`grid.py 8e`).
+
+**Scores.** Mean of 8 seeds; reached − crash on the 400 selection episodes; end of a round = mean of its last 3 snapshots. The scripted driver scores +0.725 on these episodes.
+
+| Recipe | 64 wide, 6M | 64 wide, 9M | 256 wide, 6M | 256 wide, 9M | FRONT timeouts at 9M, 64 → 256 | Seeds giving up on FRONT (≥ 30% timeouts) at 9M, 64 → 256 | Worst seed at 9M, 64 → 256 |
+|---|---:|---:|---:|---:|---|---|---|
+| N_c05w0t1 (winner) | +0.617 | +0.661 | +0.609 | +0.725 | 34% → 5% | 5 → 1 | +0.420 → +0.570 |
+| N_c1w0t4 | +0.585 | +0.624 | +0.682 | +0.723 | 39% → 5% | 5 → 1 | +0.448 → +0.589 |
+| O_c1w0t4 | +0.652 | +0.672 | +0.768 | **+0.797** | 26% → 0.4% | 3 → 0 | +0.328 → +0.758 |
+
+**Width, at the same training (bar written before the runs: +0.10 or more, p < 0.05, ahead on ≥ 6 of 8, crashes not higher, on at least 2 of 3 recipes).**
+- At 9M, 256 − 64:
+  - winner +0.063 (95% interval −0.090 to +0.217; p 0.36; ahead on 5 of 8);
+  - N_c1w0t4 +0.100 (p 0.16; 5 of 8);
+  - O_c1w0t4 +0.125 (p 0.20; 4 of 8).
+- At 6M: −0.008, +0.096 (p 0.051, 7 of 8) and +0.116 (p 0.11).
+- **The bar is met on no recipe, so by the rule 64-64 stays.**
+- The gains are within noise because the 64-wide runs vary so much from seed to seed (O_c1w0t4 at 64: +0.33 to +0.88).
+
+**3M more training (round 4 − round 3, same runs).**
+- At 64:
+  - winner +0.044 (p 0.28);
+  - N_c1w0t4 +0.039 (p 0.07, 6 of 8);
+  - O_c1w0t4 +0.020 (p 0.63).
+  - **No recipe gains beyond noise, so by the rule training stays at 6M.**
+- At 256:
+  - winner +0.116 (p 0.015, 8 of 8);
+  - N_c1w0t4 +0.042 (p 0.24);
+  - O_c1w0t4 +0.029 (p 0.19).
+
+**What 256 changes is reliability, not the average.**
+- **The FRONT give-up nearly disappears.** Recipe runs with at least 30% FRONT timeouts at 9M fall from 13 of 24 to 2 of 24. FRONT reached rises from 44–54% to 71–80%.
+- **FRONT crashes rise** in order N (15–17% → 24%) but not in order O (20% → 19%).
+- **The practice rounds start to work.** At 256 the original order beats no practice at the same reward:
+  - O_c1w0t4 − N_c1w0t4 = +0.087 at 6M (p 0.023, 7 of 8) and +0.074 at 9M (p 0.027, 6 of 8).
+  - At 64 the same comparison is within noise (+0.067, p 0.44), because practice fails to learn passing on 3 of 8 seeds.
+- **At 256, O_c1w0t4 also beats the winner's recipe:** +0.159 at 6M (p 0.004, 8 of 8) and +0.072 at 9M (p 0.025, 7 of 8).
+- **O_c1w0t4 at 256 and 9M is the first recipe with every seed above the scripted driver:** +0.758 to +0.848 against +0.725, so +0.072 (p 0.0003, 8 of 8).
+  - On FRONT alone it scores +0.607 (80.1% reached, 19.4% crash) against the scripted driver's +0.549.
+  - Caveat: these are the selection episodes, which chose the recipes in 8c, so the margin may be slightly optimistic. The 256 runs themselves were never selected on them.
+- **Reward makes no difference at 256:** winner − N_c1w0t4 = +0.001 at 9M.
+
+**Predictions checked.**
+1. More training at 64 adds +0.02 to +0.06, beyond noise on at most one recipe: **correct** (+0.020 to +0.044, none). The winner still gives up on at least 4 of 8 seeds: **correct** (5 of 8).
+2. **Width:**
+   - 256 removes most of the give-up (at most 2 of 8 seeds per recipe): **correct** (1, 1, 0).
+   - It crashes more on FRONT: **correct in order N only**.
+   - The gain is +0.03 to +0.10, largest in order O: **partly correct**. O is largest at +0.125, above the range.
+   - The bar is met on at most one recipe: **correct** (none).
+3. Order at 256 within noise: **wrong**. The original order wins beyond noise.
+4. The best 8e recipe stays below the scripted driver on FRONT: **wrong** (+0.607 against +0.549).
+
+**Reading.**
+- By the bars written before the runs, nothing changes: 64-64, 6M, and the winner N_c05w0t1. The rule applied at 64 wide and 6M still chooses it.
+- The bar asks whether 256 raises the mean score of each recipe. It does by +0.06 to +0.13, but not beyond the seed-to-seed noise of the 64-wide runs.
+- What 256 does, as predicted, is remove the failure that causes that noise. Every 256 seed now learns to pass on FRONT, and the practice rounds work.
+- Together with the original order, this gives the only setup so far that beats the scripted driver on every seed.
+- Whether that reliability counts as the "real need" for a larger model is the user's rule to apply. It is not decided here.
+
+**Learning curves** (every 200k checkpoint of all four rounds, 8 seeds, both widths; 2,208 evaluations, 138 min, none failed).
+- Tables: [results/grid8/curves_8e/summary.md](results/grid8/curves_8e/summary.md). Figures: `score.png` and `front_timeout.png` in the same folder.
+- Its end-of-round scores equal the grid's for all 12 recipe × width × length cells, which checks both scripts.
+- **The curves have flattened by 9M.** Slope over the last 1M (8.0–9.0M), per 1M:
+  - at 64: winner +0.044 (p 0.23), N_c1w0t4 −0.042 (p 0.10), O_c1w0t4 −0.005 (p 0.90);
+  - at 256: −0.010 (p 0.62), −0.022 (p 0.43), +0.010 (p 0.66).
+  - None rises beyond noise, so by the bar written before the runs, another round is not worth trying.
+  - Every mean curve peaks between 8.2M and 9.0M. At 256 the order-N curves level off from about 7M.
+- **When the give-up starts.**
+  - In order N, FRONT timeouts jump at 2M at both widths, when the crash cost arrives (from about 2% to 25–35%).
+  - At 256 they then fall steadily through rounds 3 and 4, to 5%.
+  - At 64 they stay at 33–39%.
+- **In order O, the 64-wide give-up is learned in practice.**
+  - FRONT timeouts rise from about 1% to 35% during round 2 (practice episodes with the crash and time costs).
+  - The full-task rounds never undo it.
+  - At 256, FRONT timeouts stay at 0% through all four rounds.
+- **At 256 the original order is finished after its practice rounds.**
+  - O_c1w0t4 scores +0.795 on the full task at the end of round 2 (4M). It has trained only on practice episodes, and is already above the scripted driver from about 3M.
+  - The 5M of full-task training after that changes nothing: +0.768 at 6M, +0.797 at 9M.
+  - At 64 the same practice reaches only +0.437, and round 3 adds +0.215.
+
+**Fix during 8e.**
+- `grid.snapshot_labels` averaged every evaluated snapshot in a run's `eval8` folder. `curves.py` writes its curve points to the same folder, so a re-run of `grid.py` after `curves.py` would have scored round 3 on all 10 checkpoints instead of the last 3.
+- It now keeps only the scored snapshots (the final model, plus 400k and 200k before the end for rounds 3 and 4).
+- Earlier results are unaffected: they were computed before `curves.py` ran, and 7 re-scored runs match the registry exactly.
+
+#### Step 8f: the 256-wide recipe on fresh episodes (bar and predictions, written 2026-11-22 before any evaluation)
+
+**Why.**
+- In 8e, 256 wide missed its bar on average score, but it removed the FRONT give-up. With the original order (O_c1w0t4) every seed was above the scripted driver.
+- Those numbers are on the selection episodes, which picked the recipes in 8c, so they may be optimistic.
+- The 8d final-test episodes (50,000–50,499) cannot be used either: their result helped pick the 8e recipes.
+- The user approved a confirmation on fresh episodes with the bar written first (2026-11-22). No training.
+
+**Episodes.** 500 fresh episodes, seeds 60,000–60,499.
+- Checked unused: none of the 6,026 saved evaluation files with an episode-seed column has a seed above 50,499.
+- No code or notes file mentions 60,000.
+- Training episodes come from the training random stream, not from episode seeds (as for the 8d final test).
+
+**Models.** Final models, all 8 seeds (7–28), as in the 8d final test.
+- **Candidate: O3_c1w0t4_n256.** Original order, crash 1 + time cost 0.004, 256 wide, 6M. It is 6M because 8e kept 6M by its length rule.
+- **Current winner: N3_c05w0t1.** No practice, crash 0.5 + time cost 0.001, 64 wide, 6M.
+- **Reported, no decision:**
+  - O3_c1w0t4, the candidate at 64 wide (width is its only difference);
+  - N3_c05w0t1_n256, the winner's recipe at 256 wide;
+  - O4_c1w0t4_n256, the candidate with 3M more training.
+- **References:** the scripted driver and random actions on the same episodes.
+
+**Bar for adopting the 256-wide recipe.** All three must hold; otherwise the 64-wide winner stays.
+1. **Large gain over the winner.** Candidate − winner, paired by seed: mean +0.10 or more, p < 0.05, ahead on at least 6 of 8 seeds. This is the size of the 8e width bar.
+2. **Crashes not higher beyond noise.** Candidate − winner in crash rate must not be both positive and p < 0.05.
+   - This differs from 8e's "crash rate not higher", where any increase failed.
+   - On the selection episodes the two crash equally often (11.5% and 11.4%), so the 8e version would decide on noise.
+   - That condition was there to stop a higher score bought with more crashes; a crash increase beyond noise still fails here.
+   - It was set after seeing those selection rates. The 8e version is reported too.
+3. **Reliable.** At most 1 of the 8 candidate seeds times out on 30% or more of FRONT episodes.
+
+**How the comparison is checked.**
+- Candidate against winner is a choice between whole recipes: width, order and reward all differ. It is the same kind of comparison as 8d's `recipe`.
+- `check_pipeline` gets a factor `recipe and width` that allows exactly those settings to differ, and nothing else.
+- The one-factor width effect is the reported row O3_c1w0t4_n256 − O3_c1w0t4.
+
+**If adopted.** The Step 8 recipe becomes O_c1w0t4 at 256, 6M. Model files grow from about 225 KB to about 2 MB each. I report the repository size before any commit (plan, section 3).
+
+**Also reported, no decision.** Candidate − scripted driver, one-sample t over the 8 seeds on the same episodes. "Beats the scripted driver" means mean > 0 and p < 0.05.
+
+**Predictions.**
+1. **Candidate − winner:** +0.10 to +0.15, p < 0.05, ahead on at least 6 of 8 (selection episodes: +0.151). Some shrinkage is expected, because O_c1w0t4 was picked on the selection episodes. Bar 1 is met, but this is the least certain prediction: the low end of the range is at the bar.
+2. **Crash rates** within 1.5 points of each other, so bar 2 is met.
+3. **Giving up:** 0 or 1 candidate seeds, so bar 3 is met.
+4. **Scripted driver:** the candidate is within ±0.05 of it.
+   - On the 8d final test the scripted driver scored 0.05 higher than on the selection episodes (+0.774 against +0.725), while the winner barely moved. So the candidate's +0.04 lead may not survive.
+   - Above it beyond noise: less likely than not.
+5. **Width alone in order O** (O3_c1w0t4_n256 − O3_c1w0t4): about +0.10, near the edge of noise, because the 64-wide O runs vary a lot.
+
+**Command:** `grid_run.py --arms N3_c05w0t1 O3_c1w0t4 N3_c05w0t1_n256 O3_c1w0t4_n256 O4_c1w0t4_n256 --seeds 7 10 13 16 19 22 25 28 --final-test s60000 --evaluate-only`, then `grid.py 8f`.
+
+#### Step 8f: results (2026-11-22, 40 evaluations and 2 references in 3 min, none failed)
+
+Tables: [`results/grid8/summary_8f.md`](results/grid8/summary_8f.md). Figure: `stage_8f.png`.
+
+**Scores.** 500 fresh episodes (60,000–60,499), final models, mean of 8 seeds.
+
+| Model | Score | Seeds (lowest to highest) | Reached | Crash | FRONT reached | FRONT crash | FRONT timed out | Seeds giving up on FRONT |
+|---|---:|---|---:|---:|---:|---:|---:|---:|
+| N3_c05w0t1 (the winner until now, 64 wide) | +0.614 | +0.416 to +0.840 | 73.6% | 12.2% | 39.6% | 16.6% | 43.8% | 6 |
+| O3_c1w0t4 (64 wide) | +0.683 | +0.340 to +0.860 | 76.1% | 7.8% | 50.7% | 13.0% | 36.3% | 3 |
+| N3_c05w0t1_n256 | +0.573 | +0.276 to +0.824 | 76.8% | 19.6% | 58.4% | 32.5% | 9.1% | 1 |
+| **O3_c1w0t4_n256 (candidate)** | **+0.791** | +0.682 to +0.844 | 89.5% | 10.4% | 76.1% | 23.4% | 0.5% | 0 |
+| O4_c1w0t4_n256 (candidate, 9M) | +0.783 | +0.636 to +0.852 | 89.1% | 10.8% | 77.5% | 22.1% | 0.3% | 0 |
+| Scripted driver | +0.758 | | 78.2% | 2.4% | 62.7% | 3.9% | 33.4% | |
+
+**The bar: all three conditions met.**
+1. **Gain over the winner:** +0.177 (95% interval +0.069 to +0.286), p 0.006, ahead on 8 of 8. Met.
+2. **Crashes:** −1.8 points (p 0.21). Met. It is also met under 8e's stricter condition, so loosening it made no difference.
+3. **Giving up:** 0 of 8 seeds. Met.
+
+**So the Step 8 recipe is now O_c1w0t4 at 256 wide, 6M (O3_c1w0t4_n256).**
+
+**Against the scripted driver (no decision).**
+- The new recipe is level with it: +0.033 (95% interval −0.017 to +0.084, p 0.16, ahead on 6 of 8).
+- The old winner is below it: −0.144 (p 0.025), as on the 8d final test (−0.146).
+- They get to the same score differently.
+  - The new recipe reaches far more: B/L/R 95.4% against 85.0%, blocked 90.4% against 59.6%, FRONT 76.1% against 62.7%.
+  - It almost never times out: 0.1% against 19.4%.
+  - But it crashes about four times as often: 10.4% against 2.4%. On FRONT the gap is 23.4% against 3.9%.
+
+**One-factor rows (no decision).**
+- **Width alone, original order** (O3_c1w0t4_n256 − O3_c1w0t4): +0.108 (p 0.18, ahead on 3 of 8).
+  - The whole gain comes from seeds 10, 16 and 28, where the 64-wide practice rounds failed: about +0.35 each.
+  - On the other 5 seeds, 256 is level or slightly lower (−0.004 to −0.086).
+- **Width alone, the old winner's recipe** (no practice): −0.041 (p 0.35, ahead on 2 of 8), and crashes rise by 7.4 points.
+  - 256 removes the give-up there too (6 seeds to 1), but turns it into crashes.
+- **Reading of the two rows.** 256 is not a gain on its own. The gain comes from 256 together with the practice rounds: practice teaches passing, and at 256 it works on every seed instead of most.
+- **3M more training at 256** (O4 − O3): −0.008 (p 0.82). 6M stays.
+
+**Predictions checked.**
+1. **Candidate − winner** +0.10 to +0.15, bar 1 met: **correct**, but the gain was larger (+0.177). No shrinkage from the selection episodes (+0.768 there, +0.791 here).
+2. **Crash rates within 1.5 points:** **nearly** (−1.8 points). Bar 2 met.
+3. **0 or 1 seeds giving up:** **correct** (0).
+4. **Within ±0.05 of the scripted driver, not beyond noise:** **correct** (+0.033, p 0.16).
+5. **Width alone in order O** about +0.10, near the edge of noise: **correct** (+0.108, p 0.18).
+
+**Reading.**
+- On episodes no decision had seen, the 256-wide original-order recipe beats the 64-wide winner on every seed by a large margin. It does so without more crashes, and no seed gives up on FRONT.
+- By the user's rule, the larger model has earned its place.
+- It is now level with the scripted driver. The remaining loss is crashes, mostly on FRONT (23% against 4%).
+
+**Housekeeping.**
+- `O3_c1w0t4_n256_seed16` is added to [`test_replay.py`](test_replay.py), and the test passes.
+- Repository size, as the plan asks once 256 is chosen:
+  - 405 Step 8 model files are untracked, 243 MB in all. 94 of them are 256 wide (1.9 MB each, 176 MB).
+  - The repository's packed history is already 524 MB.
+  - Which models to commit is decided at commit time.
+
 ## 10. Decision log
 
 | Date | Decision | Reason |
@@ -1096,6 +1976,44 @@ One IV from **P2** (fresh weights, no progress reward): **charge a timeout like 
 | 2026-11-15 | P5 result: seeds 7, 8 reach 62–64% of the natural-start passing episodes and 119, 121 of 138 BACK/LEFT/RIGHT on the full task; seed 9 ends in a checkpoint dip | Evaluated also on the full task (B5's settings) to see transfer; FRONT opens to 21–27 of 62 on seeds 7, 8. Next step left to the user. |
 | 2026-11-15 | Step 7g: P6 = B5 with `init_policy` P5, approved by the user | Train on the full task from the passing policy so it learns when a pass is needed; FRONT back in the data. B5's progress reward comes with the parent and is noted as a difference from the P arms |
 | 2026-11-15 | P6 result: every seed beats the scripted driver on BACK/LEFT/RIGHT (123–134 vs 113); seeds 7, 8 also on FRONT (48, 41 vs 40) | All five predictions held; remaining gap is crashes (18–57 of 200 vs scripted 5), mostly on FRONT |
+| 2026-11-18 | Step 7h: P6 and B5 measured on 200 held-out episodes (seeds 40,000–40,199), no training | The usual 200 episodes had also guided the design since Step 5. The unused range was checked by searching the repository. |
+| 2026-11-18 | P6 result restated: clearly better than B5 on every seed; clearly better than the scripted driver on seed 7 only | Held-out, paired McNemar tests. P6's own success is unchanged within ±1.6 points; seeds 8 and 9 are level with the scripted driver in success and crash more |
+| 2026-11-18 | Step 8 planned: settle width, training order and reward with a staged grid (8-0 speed, 8a width, 8b order, 8c reward, 8d confirmation) | The user asked for a grid search to settle the best reward, with practice vs none, the original order vs "practice then full task", easy starts as a variable and 2M per round. A review found five design flaws (pooled-episode tests, winner's curse, shared seed streams, single snapshots, orders compared at a tuned reward); each has a fix in the design. |
+| 2026-11-18 | Winner score: +1 reached, −1 crash, 0 timeout, all slots; ties within noise go to the simpler option | The user's choice. |
+| 2026-11-18 | Model complexity rises only for a large measured gain: 256-256 needs +0.10 score, ahead on all 3 seeds, crashes not higher | The user's rule; the bar is written before 8a runs. |
+| 2026-11-18 | Step 8 runs on the Windows PC as a new chain (root E1 = P4's settings at 2M) with spaced seeds 7, 10, 13 | All runs on one machine; spaced seeds give each run its own worker layout streams. |
+| 2026-11-18 | Step 8-0: environments in worker processes for up to 12 runs at once, in-process beyond that (up to 32); TensorBoard off | Both are bit-identical to train.py's training (same episodes and weights); 32 in-process runs give 11,554 transitions/s in total, 2.3x four runs with worker processes. The simulator is ~88% of the time, so the GPU and file I/O do not matter. |
+| 2026-11-18 | Cross-machine replays compare outcomes exactly and real-valued columns to 1e-9 | P6 (Mac) replays on the PC with identical outcomes; distances differ by at most 3e-14 relative (platform linear-algebra libraries). Same-machine replays stay bit for bit. |
+| 2026-11-18 | 8a launched 18:44 (approved by the user: run it, report, continue with the best next step); 8b's round 1 (N1, H1 at 64-64) started alongside | 8b's prediction was written first, before any 8a result. Round 1 does not depend on 8a unless 256-256 wins, in which case these runs are kept as a record and repeated at 256. It uses spare CPU and saves about 35 min. |
+| 2026-11-18 | 8b's rounds 2–3 at 64-64 queued to start when its round 1 finishes, still before 8a's result | Same reasoning as for round 1: they depend on 8a only through the width. Running more at once raises total throughput (Step 8-0) but delays 8a's own result by roughly 45 min. |
+| 2026-11-18 | Launcher bug fixed: practice-trained runs (E1, H1, O2_*) had their 'full-task' selection evaluations run on their own practice task | Found because H1's selection numbers equalled its passing-episode numbers. Training was not affected, and neither were full-task runs (N*, E2_*, every round 3) or the passing-episode evaluations. The wrong folders are kept, renamed `own_task_*`, and the full-task evaluations redone (`grid_run.py --evaluate-only`). |
+| 2026-11-18 | 8a result: keep 64-64 | 256-256 − 64-64 = +0.067 mean score (95% interval −0.245 to +0.379; ahead on 2 of 3 seeds; crashes +2.4 points); the bar written beforehand (+0.10, all 3 seeds, crashes not higher) is not met. 256-256 is more consistent across seeds and learns faster; recorded, to revisit if 8d's new seeds show round-1 failures at 64-64. |
+| 2026-11-18 | Launcher re-checks waiting runs every minute | O2 seed 10 waited 48 min for a previous round trained by the other launcher; this affects only start times, not results. |
+| 2026-11-18 | 8b analysis compares only one-factor pairs of orders (H−N, E−H, E−N, O−E) | `check_pipeline` refused O−N and O−H: they differ in rounds 1 and 2. O is reached only through O−E. |
+| 2026-11-18 | 8b result: rule choice N (no practice); highest score O; both get the reward grid (8c, 84 runs) | No one-factor difference between orders is beyond noise (all within 0.12; 95% intervals ±0.2–0.6). The plan gives the grid to the rule's choice and to the best-scoring order when they differ. |
+| 2026-11-18 | 8c paused 22:18 at the user's request (all 32 runs suspended in memory); resumed 23:47 when the user said to continue (1 h 29 min) | Training does not depend on wall-clock time, so results are unaffected. The `training_seconds` (and the registry's training minutes) of these 32 round-2 runs include the pause. |
+| 2026-11-19 | 8d analysis written before any 8d run (`grid.py 8d --cells ...`): finalists ranked on the 5 confirmation seeds only; winner = simplest finalist (order first, then reward terms) that the best does not beat (p < 0.05, ahead on ≥ 4 of 5) | The screening seeds chose the finalists, so their scores there are biased upward (winner's curse). Order goes before reward terms in simplicity because it was decided first (8b). |
+| 2026-11-19 | Two comparison types added for 8d: `order` (any two orders at one reward; rounds 1–2) and `recipe` (finalists differing in order and reward) | 8d may have finalists from both orders. A `recipe` comparison chooses between whole recipes and is labelled as such: it does not measure either setting's effect. Both still refuse any other difference (width, PPO, machine). |
+| 2026-11-19 | Final test: seeds 50,000–50,499 confirmed unused (no saved evaluation starts above 40,000; the repository's other "50,000"s are checkpoint intervals); P6 seeds 7–9 are scored on it too | Winner vs scripted and random: one-sample t over the winner's 8 seeds on the same episodes. Winner vs P6: Welch t (P6's Mac seeds are not paired with Step 8 seeds). |
+| 2026-11-19 | 8c result: rule choice success only (c0w0) in both orders; best score c1w01 (N +0.641, O +0.697), within noise of it | N c1w01 − c0w0 +0.107 (p 0.095, 3 of 3); O +0.017 (p 0.71). Any crash cost makes runs give up on FRONT; success only never does. |
+| 2026-11-19 | 8c2 (time cost) launched before 8d: t1 = 0.001 and t4 = 0.004 per decision × crash 0.5 and 1, progress 0, orders N and O, seeds 7/10/13 (48 runs) | The plan's trigger for a time cost (timeouts ≥ 10% from a crash cost) is met. t4 is the largest level that keeps a whole timed-out episode cheaper than crash 0.5; crash 0 and 2 are left out (see Step 8c2). Existing arms are unchanged (all 148 configurations compared before and after the edit). |
+| 2026-11-19 | 8d round-1 runs (N1, E1 on seeds 16–28) started alongside 8c2 | Every 8d pipeline of orders N and O starts from them, whatever the finalists; they use CPU that 8c2 leaves idle. |
+| 2026-11-19 | 8d's P6-reward pipelines (N and O at c1w01, rounds 2–3, seeds 16–28) queued to start when those round-1 runs finish | The finalist rule written before 8c2 always includes P6's reward, so these runs are needed whatever 8c2 shows. The other finalists start after 8c2 is analysed. |
+| 2026-11-19 | 8c2 result: no time-cost cell beats its no-time-cost cell or P6's reward (c1w01); the rule's choice over all 12 rewards stays success only (c0w0) in both orders | The largest time-cost effect is N at crash 1 (+0.055, ahead 3 of 3, p 0.074). The best two cells, c1w01 and c1w0t4, are within 0.04 (N) and 0.011 (O) of each other; see Step 8c2 results. |
+| 2026-11-19 | 8d finalists by the rule written before 8c2: N c0w0, c1w01, c1w0t4, c05w0t1; O c0w0, c1w01, c1w0t4. The 5 cells not yet running (50 runs) launched at 07:34, 25 at once, alongside the P6-reward pipelines | The rule (rule choice, top 3 of 12, P6's reward) was fixed before 8c2's results. This is 80 runs in all (10 round 1, 70 rounds 2–3), above the plan's ≤45, because two orders went to the grid (8b) and the time cost put c1w0t4 and c05w0t1 into a top 3. Round-1 runs took 89 min each while sharing the CPU with 8c2. |
+| 2026-11-19 | Step 8 winner: N_c05w0t1 (no practice; crash 0.5, time cost 0.001 per decision, no progress term), by the rule on the 5 confirmation seeds | Best score on those seeds (+0.633); beats success only (+0.162, p 0.002, 5 of 5); ties the best original-order cell (+0.001). The rule's tie-break (simpler order, then fewer terms, then higher score) picks it. |
+| 2026-11-19 | Final test run on 50,000–50,499 for the winner, O_c1w0t4 (best of order O) and O_c1w01 (the P4→P5→P6 storyline, added as a descriptive row), plus P6, scripted and random | The storyline row answers the user's request to compare the original order; it does not enter the winner rule. Result: the winner is level with P6 and the O cells (p 0.43–0.68) and below the scripted driver (−0.146, p 0.029). The gap is all FRONT. |
+| 2026-11-19 | Step 8e: width 256 and a 3M round 4 for N_c05w0t1, N_c1w0t4 and O_c1w0t4 on all 8 seeds, with a 64-wide round 4 as the control; bars and predictions written first | The user asked for the 2–3 best recipes at 256 with longer training ("5M"), read as the last full-task stage going from 2M to 5M. The 64-wide round 4 keeps width and length as separate one-factor comparisons. N_c1w0t4 links the winner and O_c1w0t4 by one factor each. |
+| 2026-11-19 | γ (discount) left at 0.99; no other PPO setting changed in 8e | On FRONT, successes and crashes come at about the same time (median 84 and 74 decisions for the winner), so a larger γ barely changes the trade-off. Every other setting would be its own IV. |
+| 2026-11-20 | 8e result: keep 64-64 and 6M by the bars written before the runs; the winner stays N_c05w0t1 | 256 − 64 at 9M: +0.063, +0.100, +0.125 (p 0.16–0.36, ahead on 4–5 of 8), the bar met on no recipe. Round 4 at 64: +0.020 to +0.044, none beyond noise. |
+| 2026-11-20 | Recorded, not decided: at 256, FRONT give-up falls from 13 to 2 of 24 runs, the original order beats no practice (p 0.023), and O_c1w0t4 at 256 and 9M is above the scripted driver on all 8 seeds (selection episodes) | The bar measured the mean gain per recipe; reliability was predicted but was not part of the bar. Whether it counts as the "real need" for a larger model is the user's call. |
+| 2026-11-20 | `grid.snapshot_labels` keeps only the scored snapshots | `curves.py` writes curve points into the same `eval8` folders; without this, a re-run of `grid.py` would average every checkpoint of round 3. Earlier results unaffected (7 runs re-scored, identical). |
+| 2026-11-20 | No round 5: the 8e curves are flat over the last 1M (slopes −0.042 to +0.044 per 1M, none p < 0.05) | The bar written before 8e: another round only if the last 1M still rises beyond noise. Every mean curve peaks at 8.2–9.0M. |
+| 2026-11-20 | `curves.py` snaps each checkpoint to its 200k mark; the after-8d curve numbers are corrected | Checkpoints fall a few steps short of the mark (e.g. 5,599,994), so the window means had averaged 2 snapshots instead of 3. Changes of up to 0.02 in the after-8d findings; the reading is unchanged. The 8e curve summary now equals the grid's scores in all 12 cells. |
+| 2026-11-22 | Step 8f approved by the user: O_c1w0t4 at 256 (6M) against the 64-wide winner on 500 fresh episodes (60,000–60,499), bar and predictions written first | 8e's reliability gain was measured on the selection episodes, which chose the recipes, and the 8d final-test set helped choose the 8e recipes. Bar: +0.10, p < 0.05, ahead on at least 6 of 8; crashes not higher beyond noise; at most 1 seed giving up on FRONT. |
+| 2026-11-22 | 8f crash condition: "not higher beyond noise" instead of 8e's "not higher" | The two recipes crash equally often on the selection episodes (11.5% and 11.4%), so the 8e version would decide on noise. Set after seeing those rates; the 8e version is reported too. |
+| 2026-11-22 | 8f result: the Step 8 recipe is now O_c1w0t4 at 256 wide, 6M (O3_c1w0t4_n256) | All three conditions met on 500 fresh episodes: +0.177 over the 64-wide winner (p 0.006, ahead on 8 of 8), crashes −1.8 points (p 0.21; the 8e version is met too), no seed giving up on FRONT. Level with the scripted driver (+0.033, p 0.16). |
+| 2026-11-22 | `O3_c1w0t4_n256_seed16` added to `test_replay.py` | The adopted model must replay identically after any change to shared code; the test passes. |
 
 ## 11. Investigating failures yourself
 

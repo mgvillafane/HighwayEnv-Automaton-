@@ -1,15 +1,33 @@
 # Reaching a slot of a moving car with PPO: report
 
-*Branch `dynamic-reach-b4` (B3m, B4 and the diagnosis, on top of `dynamic-reach` with B0–B3), 2026-11-09. The full log, with every prediction as written before the run, is [`EXPERIMENT_NOTES.md`](EXPERIMENT_NOTES.md). Tables in this report are produced by [`report.py`](report.py) from the saved evaluations.*
+*Branch `reach-step7`, updated 2026-11-22 through Step 8. Sections 1–4 describe the first chain of arms (B0–B4, Steps 1–6, written 2026-11-09). Section 5 covers Steps 7 and 8. The full log, with every prediction as written before the run, is [`EXPERIMENT_NOTES.md`](EXPERIMENT_NOTES.md). The tables in sections 3–4 are produced by [`report.py`](report.py), and those in section 5 by [`grid.py`](grid.py), both from the saved evaluations.*
 
 ## Summary
 
-- **Task.** Ego must drive into a slot (FRONT, BACK, LEFT or RIGHT) of a moving traffic car within 25 s. One decision inside the slot box counts as success ("reach"; holding comes later).
-- **Method.** A chain of PPO arms. Each arm changes exactly one setting of its parent, checked automatically on the saved configurations. Each arm is trained on 3 seeds and evaluated on the same 200 fixed episodes as every other arm and as a rule-based driver. Predictions are written before training.
-- **Where we stand (B3/B3m; B4 did not improve on it).** 56% overall against the scripted driver's 76.5%. The whole gap is FRONT: 0 of 62 for every arm, against 40 for the scripted driver. FRONT is now set aside. On BACK/LEFT/RIGHT, PPO reaches as many episodes as the scripted driver (110–113 of 138 against 113), but it **crashes in all the others (25–28), where the scripted driver waits (22 timeouts, 3 crashes).**
-- **Main finding.** BACK/LEFT/RIGHT has one failure: a slower car in the slot's lane between ego and the slot. PPO's value function recognises it, but the policy keeps accelerating, because under the current reward ramming (wins about half the time) and waiting are worth about the same.
-- **B4 (crash penalty 50 → 150) failed.** The value function learned the higher price of a crash, but the policy still does not brake: crashes on BACK/LEFT/RIGHT stayed at 25–29 per seed. The incentive was not the missing piece.
-- **Proposed next (waiting for review):** a safety shield (the scripted driver's following rule enforced in training), so that training time goes to **passing** the slower car, which is where a lead over the scripted driver has to come from; or, as the alternative, a local input for the car ahead.
+- **Task.** Ego must drive into a slot of a moving traffic car within 25 s. The slot is FRONT, BACK, LEFT or RIGHT. One decision inside the slot box counts as success ("reach"; holding comes later).
+- **Method.** Every change is tested alone: a run differs from the one it is compared with in exactly one setting, checked automatically on the saved configurations.
+  - Runs are replicated over training seeds.
+  - They are evaluated on fixed episodes, the same as a rule-based scripted driver.
+  - Predictions and pass bars are written before each run.
+- **Where we stand (Step 8f, 2026-11-22).** The adopted recipe is **O_c1w0t4 at 256 wide**:
+  - training order: practice on blocked episodes first, then the full task;
+  - reward: crash cost 1 × goal, plus a small time cost;
+  - network: 256-256;
+  - training: 6M transitions.
+- **How it scores on 500 fresh episodes** (score = reached − crash):
+  - **+0.791**, with every one of 8 seeds between +0.68 and +0.84;
+  - the scripted driver scores +0.758, so it is level with it (+0.033, p 0.16);
+  - the best 64-wide recipe scores +0.614, which it beats by +0.177 (p 0.006, ahead on 8 of 8).
+- **How it differs from the scripted driver.**
+  - It reaches far more: 89.5% against 78.2%, including 90% of blocked episodes against 60%, and 76% of FRONT against 63%.
+  - It almost never gives up: 0.1% timeouts against 19.4%.
+  - But it crashes about four times as often: 10.4% against 2.4%, and on FRONT 23% against 4%. Those crashes are the main remaining loss.
+- **What got it there** (section 5):
+  - success-only training first, which avoids the give-up collapse of B1;
+  - practice rounds on blocked episodes, which teach passing, something no B arm ever did;
+  - a crash cost and a small time cost added after that;
+  - a 256-wide network, which makes the practice rounds work on every seed instead of most.
+- **First chain (B0–B4, sections 1–4).** PPO reached the scripted driver's BACK/LEFT/RIGHT success but crashed into slower cars where the scripted driver waited, and it never reached FRONT. A larger crash penalty (B4) did not change that.
 
 ## 1. How the experiments are built
 
@@ -120,23 +138,89 @@ An episode is **blocked** if at reset a car is in the slot's lane between ego an
 
 *Episode 10002, BACK slot in ego's lane behind the 12 m/s lead car. B3 accelerates to 25 m/s and crashes at 2.6 s; B4 holds 20 m/s (it presses LANE_RIGHT in the rightmost lane, which does nothing) and crashes at 3.6 s. The scripted driver brakes to 13 m/s behind the car; at about 4 s the lead car changes lane by itself (the jump in the gap), and the scripted driver then reaches the slot at 11.4 s. Waiting pays here because the car leaves. Full per-episode figures and videos: [`results/examples/`](results/examples/README.md).*
 
-## 5. Limitations
+## 5. Steps 7 and 8: from passing practice to the adopted recipe
 
-- Three seeds per arm, with partly shared training episodes (section 1).
-- The scripted driver reads the exact simulator state; PPO reads the 53-number observation. The comparison is a yardstick, not a fair contest.
-- FRONT is set aside; all arms still train on it (31% of training episodes) and report it.
-- Reach (one decision in the box), not holding the slot.
-- B0–B3 were trained on a Windows PC, B3m and B4 on a Mac. Evaluation gives identical results on both; training differs within the noise floor above.
+The proposals at the end of Step 6 (a safety shield, a local input for the car ahead) were not run. Step 7 attacked the blocked episodes directly, by training on them.
 
-## 6. Next (proposed, waiting for review)
+### Step 7: passing practice (2026-11-15 to 2026-11-18)
 
-One change from B4 each; every arm still starts from B0's weights.
+- **7a, training audit.** Value gradients were large enough that gradient clipping shrank every update. B5, with the reward scaled by 1/50 (goal = +1), fixed that throttle without changing outcomes. Every later run uses the 1/50 scale.
+- **7b–7e, practice on blocked episodes from the start.** These are episodes where a slow car is held in ego's lane, between ego and the slot. With crash = −goal from fresh weights, P1s, P2 and P3 gave up from the start, and P1 learned to pass once, then gave up. Most early attempts crash, so stopping is learned first: B1's collapse again.
+- **7f, success first.** P4 trains on the practice episodes with a success-only reward. It **passes**: 34–50% of the natural-start practice episodes, where the scripted driver manages 2.5%.
+  - P5 adds the crash cost from P4's policy, and passes in 62–64% on two seeds.
+- **7g, P6.** The full task, starting from P5's policy.
+  - BACK/LEFT/RIGHT: 123–134 of 138 reached on every seed, against the scripted driver's 113.
+  - FRONT: 41–48 of 62 reached on two seeds, against the scripted driver's 40.
+  - Crashes remained, mostly on FRONT.
+- **7h, held-out episodes (40,000–40,199).** P6's success was unchanged on fresh episodes. Only seed 7 beat the scripted driver beyond noise; seeds 8 and 9 crashed 5–6 times as often.
 
-1. **Recommended: a safety shield.** The scripted driver's following rule is enforced in training and evaluation: FASTER becomes IDLE, and SLOWER is forced, when the car ahead is closer than 12 m + 0.8 s × speed. The policy learns from its own choices; the shield's overrides are logged. This removes the failure PPO could not learn its way out of, so training time goes to the situation where passing pays: behind a slow car with time left. A pass there needs a lane change and FASTER, which the policy already samples. The agent becomes "policy + rule", the standard shielding approach in safe RL. *Prediction:* crashes ≤ 8 per seed, reached ≥ 113 on two seeds, passes in ≥ 5 of 45 blocked episodes on two seeds.
-2. **Alternative: a local input for the car ahead** in ego's lane (gap ÷ 30 m, closing speed ÷ 10 m/s), with zero initial weights so the start is unchanged. It tests the representation explanation and keeps everything learned. *Prediction:* crashes ≤ 15 per seed; no passing expected.
+### Step 8: settling the recipe (2026-11-18 to 2026-11-22)
+
+**The score.** Reached − crash per episode: +1 reached, −1 crash, 0 timeout. Its scale runs from −1 to +1.
+
+**The design.** A staged grid. Every pipeline has three 2M rounds; round 1 is always success only.
+- Training orders compared:
+  - **N:** no practice;
+  - **H:** practice in round 1;
+  - **E:** practice with easy starts in round 1;
+  - **O:** the original P4 → P5 → P6 order, with practice in rounds 1 and 2.
+- Rewards: crash cost 0–2 × goal, progress shaping on or off, and a small time cost.
+- Seeds: screening on 3 (7, 10, 13), confirmation on 5 new ones (16–28).
+- Each set of fresh test episodes is used once. Stages are decided by paired t-tests over seeds, with bars written before each run.
+
+| Stage | Question | Answer |
+|---|---|---|
+| 8-0 | Training speed on this PC | Training is bit-identical. 32 runs at once give 2.3× the old throughput. |
+| 8a | 64-64 or 256-256 (order E, 3 seeds) | 256 missed the pass bar (+0.10 on all 3 seeds); 64 kept. |
+| 8b | Training order | The rule picks N (simplest); O scores highest, within noise. |
+| 8c, 8c2 | 12 rewards per order | None beats success only by the rule. Any crash cost makes some runs give up on FRONT. |
+| 8d | Finalists on 5 new seeds, final test on 50,000–50,499 | Winner N_c05w0t1 (no practice, crash 0.5, time cost 0.001). Below the scripted driver (−0.146, p 0.029); the gap is all FRONT. |
+| 8e | 256 wide, and 3M more training, for three recipes on 8 seeds | Average gain below the bar, but 256 removes the FRONT give-up (13 → 2 of 24 runs). The curves are flat by 9M. |
+| 8f | 256 + order O against the winner, on fresh episodes 60,000–60,499 | **+0.177 (p 0.006, ahead on 8 of 8): adopted.** |
+
+**Step 8f, the final comparison.** 500 fresh episodes, final models, mean of 8 seeds:
+
+| Model | Score | Seeds | Reached | Crash | FRONT reached | FRONT crash | Seeds giving up on FRONT |
+|---|---:|---|---:|---:|---:|---:|---:|
+| N3_c05w0t1 (64 wide, no practice) | +0.614 | +0.42 to +0.84 | 73.6% | 12.2% | 39.6% | 16.6% | 6 of 8 |
+| O3_c1w0t4 (64 wide, original order) | +0.683 | +0.34 to +0.86 | 76.1% | 7.8% | 50.7% | 13.0% | 3 of 8 |
+| N3_c05w0t1_n256 (256 wide, no practice) | +0.573 | +0.28 to +0.82 | 76.8% | 19.6% | 58.4% | 32.5% | 1 of 8 |
+| **O3_c1w0t4_n256 (adopted)** | **+0.791** | +0.68 to +0.84 | 89.5% | 10.4% | 76.1% | 23.4% | 0 of 8 |
+| Scripted driver | +0.758 | | 78.2% | 2.4% | 62.7% | 3.9% | |
+| Random actions | −0.652 | | 14.0% | 79.2% | 2.6% | 88.2% | |
+
+![Step 8f: score by seed on 500 fresh episodes](results/grid8/stage_8f.png)
+
+**What the rows show.**
+- **The network size helps only together with practice.**
+  - With the original order, 256 wide fixes the 3 seeds where 64-wide practice failed to learn passing (about +0.35 each). On the other 5 seeds it changes little.
+  - Without practice, 256 wide stops giving up on FRONT but crashes instead (−0.041, crashes +7 points).
+- **Longer training does not help.** At 256 wide, 9M scores the same as 6M (−0.008). The learning curves are flat by then: [`results/grid8/curves_8e/score.png`](results/grid8/curves_8e/score.png).
+- **The adopted recipe, round by round.** Each round is 2M transitions.
+  1. Success only, on practice episodes with easy starts.
+  2. Practice episodes, with crash cost 1 + time cost 0.004 per decision.
+  3. The full task, with the same reward.
+
+## 6. Limitations
+
+- **Seeds.** 8 seeds per Step 8 recipe; the earlier B arms had 3, with partly shared training episodes (section 1).
+- **Unequal inputs.** The scripted driver reads the exact simulator state; PPO reads the 53-number observation. The comparison is a yardstick, not a fair contest.
+- **Reach only.** One decision in the box, not holding the slot.
+- **Machines.** B0–B3 and all of Step 8 were trained on a Windows PC; B3m, B4, B5 and P1–P6 on a Mac. Evaluation is identical on both (`test_replay.py`).
+- **Recipe choice.** Recipes were chosen on the selection episodes (10,000–10,199 and 40,000–40,199). The 8f comparison is on fresh episodes, but its candidate was picked after seeing 8e.
+
+## 7. Next
+
+1. **Diagnose the adopted recipe's FRONT crashes (no training).** They are the main remaining gap to the scripted driver.
+2. **Consecutive goals**, a separate skill (proposed by the user, 2026-11-22). Test whether the model can complete a series of slots one after another, by changing the goal in the observation once a slot is reached. To be planned before any change.
 
 ## Where the data is
 
-- Full log and decisions: [`EXPERIMENT_NOTES.md`](EXPERIMENT_NOTES.md); per-arm summaries: `results/<ARM>_summary.md`.
-- Per-episode outcomes for every arm and seed, with the blocked tag: [`results/step5_blocked/episodes.csv`](results/step5_blocked/episodes.csv); diagnosis tables in the same folder.
-- Videos and figures of the same 10 episodes for every arm: [`results/examples/README.md`](results/examples/README.md).
+- **Full log and decisions:** [`EXPERIMENT_NOTES.md`](EXPERIMENT_NOTES.md).
+- **Step 8 tables:** `results/grid8/summary_<stage>.md`.
+- **Every Step 8 run:**
+  - [`results/grid8/registry.csv`](results/grid8/registry.csv), with model hashes and scores;
+  - [`results/grid8/checkpoints_manifest.csv`](results/grid8/checkpoints_manifest.csv), listing the checkpoints, which stay on the training PC.
+- **B-arm summaries:** `results/<ARM>_summary.md`.
+- **Per-episode outcomes** for every B arm and seed, with the blocked tag: [`results/step5_blocked/episodes.csv`](results/step5_blocked/episodes.csv). Diagnosis tables are in the same folder.
+- **Videos and figures** of the same 10 episodes for every stage, including the adopted recipe and the 8d winner: [`results/examples/README.md`](results/examples/README.md).

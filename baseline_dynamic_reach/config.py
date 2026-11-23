@@ -148,6 +148,8 @@ def arm_config(name):
     """The full configuration of an arm: its parent's, with its one IV applied."""
     if name not in ARMS:
         raise KeyError(f"Unknown arm {name!r}; defined arms: {', '.join(ARMS)}")
+    if name in STEP8_ARMS:  # Generated from the Step 8 tables below.
+        return step8_config(name)
     arm = ARMS[name]
     if arm["parent"] is None:
         return deepcopy(ROOT)
@@ -159,3 +161,135 @@ def arm_config(name):
 
 def run_name(arm, seed):
     return experiment_name(f"{arm}_seed{seed}")
+
+
+# ---------------------------------------------------------------------------------------------
+# Step 8: settle the recipe (network width, training order, reward). EXPERIMENT_NOTES.md, Step 8.
+#
+# A new chain on the Windows PC. Every pipeline has three rounds of 2,000,000 transitions; round 1
+# starts from fresh weights with the success-only reward, and each later round starts from the
+# previous round's policy (same seed). Arms are generated from the tables below, not written one by
+# one. Names: <order><round>[_<reward>][_<width>], e.g. E1, O2_c1w01, E3_c05w0, E1_n256.
+# Comparisons between pipelines are checked with ivcheck.check_pipeline: two runs may differ only in
+# the factor being compared, at every round.
+# Step 8e (after 8d) adds round 4: 3,000,000 more transitions of round 3's training (same task and
+# reward, from round 3's final policy), so the last stage on the full task is 5M instead of 2M.
+# ---------------------------------------------------------------------------------------------
+STEP8_ROUND_TIMESTEPS = 2_000_000
+STEP8_ROUNDS = (1, 2, 3, 4)
+ROUND_LENGTHS = {1: STEP8_ROUND_TIMESTEPS, 2: STEP8_ROUND_TIMESTEPS, 3: STEP8_ROUND_TIMESTEPS, 4: 3_000_000}
+STEP8_SCREEN_SEEDS = (7, 10, 13)  # Spaced by 3: a run's workers use seed, seed+1, seed+2, so no two share a layout stream.
+STEP8_CONFIRM_SEEDS = (16, 19, 22, 25, 28)
+STEP8_CHECKPOINT_EVERY = 200_000
+
+PRACTICE = {"require_blocked": True, "blocker_stays": True}  # Blocked BACK/LEFT/RIGHT episodes, natural start.
+EASY_STARTS = {**PRACTICE, "start_offsets": ["past", "beside", "behind", "natural"]}  # P3/P4's practice task.
+# Task of each round (None = the full task). Round 1 is always the success-only reward; round 4 repeats round 3.
+ORDERS = {
+    "N": (None, None, None, None),                # No practice: the "one more B".
+    "H": (PRACTICE, None, None, None),            # Practice from the natural start only.
+    "E": (EASY_STARTS, None, None, None),         # Practice with easy starts, then the full task.
+    "O": (EASY_STARTS, EASY_STARTS, None, None),  # The original order: P4 -> P5 -> P6.
+}
+CRASH_LEVELS = {"c0": 0.0, "c05": 0.5, "c1": 1.0, "c2": 2.0}  # Crash cost as a multiple of the goal.
+PROGRESS_LEVELS = {"w0": 0.0, "w01": 0.1}                     # Potential-based progress, per meter before scaling.
+REWARDS = [f"{c}{w}" for c in CRASH_LEVELS for w in PROGRESS_LEVELS]
+P6_REWARD = "c1w01"                                            # P6's reward: crash = goal, progress 0.1.
+# Step 8c2 (added after 8c): a time cost per decision (0.1 s), as a multiple of the goal; the inherited
+# "time" term (Marcos's weight 0.05 before scaling is t1). Only with a crash cost: with crash 0, any time
+# cost makes crashing cheaper than waiting. t4 keeps a whole timed-out episode (250 decisions, discounted:
+# 0.004 x 91.9 = 0.37) below the smallest crash cost tested (0.5), so a crash never pays better than waiting.
+TIME_LEVELS = {"t1": 0.001, "t4": 0.004}
+TIME_REWARDS = [f"{c}w0{t}" for c in ("c05", "c1") for t in TIME_LEVELS]
+ALL_REWARDS = REWARDS + TIME_REWARDS
+
+
+def reward_parts(reward):
+    """('c1', 'w0', 't1') for 'c1w0t1'; the time part is '' when there is no time cost."""
+    crash, rest = reward.split("w", 1)
+    progress, _, time = rest.partition("t")
+    return crash, "w" + progress, f"t{time}" if time else ""
+WIDTHS = {"": [64, 64], "n256": [256, 256]}
+GOAL_WEIGHT = 50.0  # Unscaled goal; reward_scale 0.02 makes it +1.
+
+
+def step8_name(order, round_number, reward=None, width=""):
+    if round_number == 1:
+        order = "E" if order == "O" else order  # O's first round is E's first round: the same run.
+        name = f"{order}1"
+    else:
+        name = f"{order}{round_number}_{reward}"
+    return f"{name}_{width}" if width else name
+
+
+def parse_step8(name):
+    """(order, round, reward or None, width) of a Step 8 arm name; None if the name is not one."""
+    parts = name.split("_")
+    head = parts[0]
+    if len(head) != 2 or head[0] not in ORDERS or head[1] not in "".join(map(str, STEP8_ROUNDS)):
+        return None
+    order, round_number = head[0], int(head[1])
+    rest = parts[1:]
+    width = rest.pop() if rest and rest[-1] in WIDTHS and rest[-1] else ""
+    reward = rest.pop(0) if rest else None
+    if rest or (round_number == 1) != (reward is None) or (reward is not None and reward not in ALL_REWARDS):
+        return None
+    if round_number == 1 and order == "O":
+        return None
+    return order, round_number, reward, width
+
+
+def step8_config(name):
+    """The full configuration of a Step 8 arm, built from P4's recorded configuration."""
+    order, round_number, reward, width = parse_step8(name)
+    config = arm_config("P4")  # Practice with easy starts, success only, fresh weights, reward scale 1/50.
+    config["requested_timesteps"] = ROUND_LENGTHS[round_number]
+    config["environment"]["scenario"] = deepcopy(ORDERS[order][round_number - 1])
+    config["ppo_config"]["policy_kwargs"]["net_arch"] = {"pi": list(WIDTHS[width]), "vf": list(WIDTHS[width])}
+    weights = config["environment"]["reward_weights"]
+    if reward is None:
+        weights["collision"] = 0.0
+        weights["potential_progress"] = {"weight": 0.0, "gamma": config["ppo_config"]["gamma"]}
+        config["init_policy"] = None
+    else:
+        crash, progress, time = reward_parts(reward)
+        weights["collision"] = CRASH_LEVELS[crash] * GOAL_WEIGHT
+        weights["potential_progress"] = {"weight": PROGRESS_LEVELS[progress], "gamma": config["ppo_config"]["gamma"]}
+        if time:  # Rewards without a time cost keep P4's recorded time weight (0), untouched.
+            weights["time"] = TIME_LEVELS[time] * GOAL_WEIGHT
+        config["init_policy"] = step8_name(order, round_number - 1, reward, width)
+    return config
+
+
+def _step8_arms():
+    arms = {}
+    for width in WIDTHS:
+        for order in ORDERS:
+            for round_number in STEP8_ROUNDS:
+                for reward in ([None] if round_number == 1 else ALL_REWARDS):
+                    name = step8_name(order, round_number, reward, width)
+                    if name in arms:
+                        continue
+                    task = ORDERS[order][round_number - 1]
+                    task_text = "the full task" if task is None else (
+                        "practice with easy starts" if "start_offsets" in task else "practice from the natural start")
+                    if round_number == 1:
+                        # Round-1 arms are one IV from E1 (the root), so train.py can check them like any arm.
+                        parent, iv, value = {
+                            "E": (None, None, None), "H": ("E1", "environment.scenario.start_offsets", None),
+                            "N": ("E1", "environment.scenario", None)}[order]
+                        if width:
+                            parent, iv, value = step8_name(order, 1), "ppo_config.policy_kwargs.net_arch", None
+                        reason = f"Step 8, round 1 of order {order}: {task_text}, success-only reward, fresh weights."
+                    else:
+                        parent, iv, value = step8_name(order, round_number - 1, reward, width), "round", None
+                        reason = (f"Step 8, round {round_number} of order {order}: {task_text}, reward {reward}, "
+                                  f"from the previous round's policy"
+                                  + (", 3M more of round 3's training (Step 8e)." if round_number == 4 else "."))
+                    arms[name] = {"parent": parent, "iv": iv, "value": value, "reason": reason, "step": 8,
+                                  "order": order, "round": round_number, "reward": reward, "width": width or "n64"}
+    return arms
+
+
+STEP8_ARMS = _step8_arms()
+ARMS.update(STEP8_ARMS)

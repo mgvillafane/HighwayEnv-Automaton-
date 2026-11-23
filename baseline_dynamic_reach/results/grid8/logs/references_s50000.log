@@ -1,0 +1,4 @@
+
+=== 2026-11-19 11:37:15 E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\.venv\Scripts\python.exe -B E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\evaluate.py --references N3_c1w01 --seed 50000 --episodes 500 --output-name grid8\references\s50000 --results-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results
+  random: success 12.8% [10.2%, 16.0%], collision 79.0%, timeout 8.2%, anchor lost 0.0% | front 7/136, back 34/157, left 10/95, right 13/112
+scripted: success 79.2% [75.4%, 82.5%], collision 1.8%, timeout 19.0%, anchor lost 0.0% | front 104/136, back 146/157, left 70/95, right 76/112

@@ -5,9 +5,12 @@ Every arm is measured the same way, so differences between arms come from the ar
     python -B baseline_dynamic_reach/evaluate.py --run B0_seed7
     python -B baseline_dynamic_reach/evaluate.py --references B0     # Step 0: no trained policy
     python -B baseline_dynamic_reach/evaluate.py --run P1_seed7 --environment-of B5   # a run on another arm's task
+    python -B baseline_dynamic_reach/evaluate.py --run E3_c1w01_seed7 --seed 50000 --episodes 500 --output-name retest/E3_c1w01_seed7
+    python -B baseline_dynamic_reach/evaluate.py --run E3_c1w01_seed7 --checkpoint E3_c1w01_seed7_1599984_steps.zip --no-references
 """
 import argparse
 from copy import deepcopy
+import hashlib
 import json
 from pathlib import Path
 import sys
@@ -21,6 +24,7 @@ import torch
 
 from baseline_dynamic_reach.config import EVAL_EPISODES, EVAL_SEED, MODELS_DIR, RESULTS_DIR, SLOTS, arm_config
 from baseline_dynamic_reach.environment import ReachEnv
+from baseline_dynamic_reach.provenance import code_provenance
 from baseline_dynamic_waypoint.evaluate import evaluate_policy, summarize
 from baseline_waypoint.evaluate import save_rows
 
@@ -82,16 +86,19 @@ def describe(rows):
     return summary
 
 
-def run_policies(environment, model=None, episodes=EVAL_EPISODES, seed=EVAL_SEED):
-    """Row lists for PPO (if a model is given), uniform random and scripted, all on the same seeds."""
+def run_policies(environment, model=None, episodes=EVAL_EPISODES, seed=EVAL_SEED, references=True):
+    """Row lists for PPO (if a model is given), uniform random and scripted, all on the same seeds.
+
+    references=False measures PPO only (Step 8 measures the references once per episode set)."""
     torch.set_num_threads(1)
     env = ReachEnv(**deepcopy(environment))
     rows = {}
     try:
         if model is not None:
             rows["ppo"] = evaluate_policy(env, model, episodes, seed, "ppo")
-        rows["random"] = evaluate_policy(env, None, episodes, seed, "random")
-        rows["scripted"] = evaluate_policy(env, "scripted", episodes, seed, "scripted")
+        if references:
+            rows["random"] = evaluate_policy(env, None, episodes, seed, "random")
+            rows["scripted"] = evaluate_policy(env, "scripted", episodes, seed, "scripted")
     finally:
         env.close()
     for policy_rows in rows.values():
@@ -117,15 +124,19 @@ def write(output_dir, header, rows):
     return summary
 
 
-def evaluate_run(model_path, output_dir, episodes=EVAL_EPISODES, seed=EVAL_SEED, environment_of=None):
-    """The run's policy on its own task, or on arm `environment_of`'s task (rewards then in that arm's units)."""
+def evaluate_run(model_path, output_dir, episodes=EVAL_EPISODES, seed=EVAL_SEED, environment_of=None,
+                 sidecar_path=None, references=True):
+    """The run's policy on its own task, or on arm `environment_of`'s task (rewards then in that arm's units).
+
+    model_path may also be a checkpoint saved during training; sidecar_path is then the run's sidecar."""
     model_path = Path(model_path)
-    with model_path.with_suffix(".json").open(encoding="utf-8") as handle:
+    with Path(sidecar_path or model_path.with_suffix(".json")).open(encoding="utf-8") as handle:
         sidecar = json.load(handle)
     model = PPO.load(model_path, device="cpu")
     environment = sidecar["environment"] if environment_of is None else arm_config(environment_of)["environment"]
-    rows = run_policies(environment, model, episodes, seed)
+    rows = run_policies(environment, model, episodes, seed, references)
     header = {"run": sidecar.get("run_name"), "arm": sidecar.get("arm"), "model": str(model_path.resolve()),
+              "model_sha256": hashlib.sha256(model_path.read_bytes()).hexdigest(), "code": code_provenance(),
               "first_seed": seed, "episodes": episodes, "environment": environment,
               "environment_of": environment_of or sidecar.get("arm")}
     return write(output_dir, header, rows)
@@ -135,7 +146,7 @@ def evaluate_references(arm, output_dir, episodes=EVAL_EPISODES, seed=EVAL_SEED)
     """Step 0: what the task looks like before any training, for an arm's environment."""
     environment = arm_config(arm)["environment"]
     rows = run_policies(environment, None, episodes, seed)
-    header = {"arm": arm, "first_seed": seed, "episodes": episodes, "environment": environment}
+    header = {"arm": arm, "first_seed": seed, "episodes": episodes, "environment": environment, "code": code_provenance()}
     return write(output_dir, header, rows)
 
 
@@ -147,15 +158,26 @@ def main():
     parser.add_argument("--episodes", type=int, default=EVAL_EPISODES)
     parser.add_argument("--seed", type=int, default=EVAL_SEED)
     parser.add_argument("--output-name", help="Results subfolder; defaults to <run>/evaluation_repeat or step0_<arm>.")
+    parser.add_argument("--checkpoint", metavar="ZIP", help="With --run: evaluate this saved checkpoint of the run "
+                        "instead of its final model (path, or a file name inside results/<run>/checkpoints/).")
+    parser.add_argument("--no-references", action="store_true", help="With --run: measure PPO only.")
+    parser.add_argument("--models-dir", type=Path, default=MODELS_DIR, help=argparse.SUPPRESS)  # smoke tests
+    parser.add_argument("--results-dir", type=Path, default=RESULTS_DIR, help=argparse.SUPPRESS)
     parser.add_argument("--environment-of", metavar="ARM", help="With --run: evaluate on this arm's task instead of the run's own; "
                         "output defaults to <run>/evaluation_on_<ARM>.")
     args = parser.parse_args()
     if args.run:
         default = f"{args.run}/evaluation_on_{args.environment_of}" if args.environment_of else f"{args.run}/evaluation_repeat"
-        output = RESULTS_DIR / (args.output_name or default)
-        evaluate_run(MODELS_DIR / f"{args.run}.zip", output, args.episodes, args.seed, args.environment_of)
+        output = args.results_dir / (args.output_name or default)
+        model = args.models_dir / f"{args.run}.zip"
+        if args.checkpoint:
+            model = Path(args.checkpoint)
+            if not model.exists():
+                model = args.results_dir / args.run / "checkpoints" / args.checkpoint
+        evaluate_run(model, output, args.episodes, args.seed, args.environment_of,
+                     sidecar_path=args.models_dir / f"{args.run}.json", references=not args.no_references)
     else:
-        output = RESULTS_DIR / (args.output_name or f"step0_{args.references}")
+        output = args.results_dir / (args.output_name or f"step0_{args.references}")
         evaluate_references(args.references, output, args.episodes, args.seed)
 
 

@@ -70,7 +70,10 @@ def tags():
 def saved_row(run, episode):
     """The same episode's row in the saved evaluation."""
     source, policy = (SCRIPTED_SAVED_IN, "scripted") if run == SCRIPTED else (run, "ppo")
-    with (RESULTS_DIR / source / "evaluation_episodes.csv").open(encoding="utf-8") as handle:
+    path = RESULTS_DIR / source / "evaluation_episodes.csv"
+    if not path.exists():  # Step 8 runs keep their evaluations in eval8/; the watch list is in s10000.
+        path = RESULTS_DIR / source / "eval8" / "s10000_final" / "evaluation_episodes.csv"
+    with path.open(encoding="utf-8") as handle:
         for row in csv.DictReader(handle):
             if row["policy"] == policy and int(row["seed"]) == episode:
                 return row
@@ -321,6 +324,21 @@ def index():
                      f"{row['lane_changes_required']} | {entry['group']}: {entry['reason']} | "
                      + " | ".join(cell(arm, episode) for arm in arms)
                      + f" | {row['scripted']}{links(SCRIPTED, episode)} |")
+    # Runs recorded after the Step 5 tag file (Step 8 recipes): one letter each, from its own recording.
+    later = [run for run in summaries if run != SCRIPTED and run.rsplit("_seed", 1)[0] not in arms]
+    if later:
+        letter = {"success": "S", "collision": "C", "timeout": "T", "anchor_lost": "L"}
+        lines += ["", "## Watch list, later runs", "",
+                  "Runs recorded after the Step 5 tag file was written, such as the Step 8 recipes. One letter per run: "
+                  "the outcome of its own recording, which is checked against its saved evaluation below.", "",
+                  "| Episode | Slot | " + " | ".join(later) + " | Scripted |", "|---:|---|" + "---|" * (len(later) + 1)]
+        for entry in watchlist():
+            episode = entry["episode"]
+            items = [summaries[run].get(episode) for run in later]
+            lines.append(f"| {episode} | {tag_rows[episode]['slot']} | "
+                         + " | ".join("" if item is None else letter[item["outcome"]] + links(run, episode)
+                                      for run, item in zip(later, items))
+                         + f" | {tag_rows[episode]['scripted']}{links(SCRIPTED, episode)} |")
     listed = {entry["episode"] for entry in watchlist()}
     others = [(run, item) for run, items in summaries.items() for episode, item in items.items()
               if episode not in listed]
