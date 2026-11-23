@@ -59,6 +59,21 @@
     "saved_outcome": "success",
     "saved_length": 27
   },
+  "10011": {
+    "episode": 10011,
+    "slot": "front",
+    "group": "demo",
+    "reason": "attempts.py rule: first reached / first crash",
+    "outcome": "collision",
+    "elapsed": 10.899999999999977,
+    "length": 109,
+    "reward": -0.6090000000000001,
+    "video": "front_seed10011.mp4",
+    "figure": "front_seed10011.png",
+    "matches_saved_evaluation": true,
+    "saved_outcome": "collision",
+    "saved_length": 109
+  },
   "10023": {
     "episode": 10023,
     "slot": "right",

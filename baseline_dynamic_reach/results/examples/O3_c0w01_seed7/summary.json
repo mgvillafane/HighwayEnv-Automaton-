@@ -1,0 +1,32 @@
+{
+  "10001": {
+    "episode": 10001,
+    "slot": "front",
+    "group": "demo",
+    "reason": "attempts.py rule: first reached / first crash",
+    "outcome": "collision",
+    "elapsed": 2.600000000000001,
+    "length": 26,
+    "reward": 0.2602578461572653,
+    "video": "front_seed10001.mp4",
+    "figure": "front_seed10001.png",
+    "matches_saved_evaluation": true,
+    "saved_outcome": "collision",
+    "saved_length": 26
+  },
+  "10003": {
+    "episode": 10003,
+    "slot": "front",
+    "group": "demo",
+    "reason": "attempts.py rule: first reached / first crash",
+    "outcome": "success",
+    "elapsed": 9.399999999999983,
+    "length": 94,
+    "reward": 1.3048916408134041,
+    "video": "front_seed10003.mp4",
+    "figure": "front_seed10003.png",
+    "matches_saved_evaluation": true,
+    "saved_outcome": "success",
+    "saved_length": 94
+  }
+}

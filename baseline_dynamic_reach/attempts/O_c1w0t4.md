@@ -1,0 +1,170 @@
+# O_c1w0t4: original order, c1w0t4
+
+*Step 8c2, trained 2026-11-18 to 2026-11-20. Seeds: 7, 10, 13, 16, 19, 22, 25, 28. [All attempts](README.md) · [Experiment notes](../EXPERIMENT_NOTES.md)*
+
+**Status:** 8d finalist: confirmed on 5 new seeds (8 in all); not chosen.
+
+## Idea
+
+**Order O, the original order.** P4 → P5 → P6 at 2M per round: round 1 practice with easy starts, success only (P4); round 2 the same practice with the reward under test (P5); round 3 the full task (P6).
+
+**Crash cost 1 × goal**, P6's level: a crash costs as much as a goal.
+
+**Time cost 0.004 per decision:** a whole timed-out episode costs 1 goal, the largest level that keeps waiting cheaper than the smallest crash cost tested (0.5). Aimed at the FRONT give-up.
+
+Step 8c2 added a time cost, because 8c measured that every crash cost makes runs give up on FRONT (timeouts of 10% or more).
+
+## Approach
+
+Three rounds of 2M transitions on the Windows PC, each starting from the previous round's trained policy (same seed); round 1 from fresh weights, success only. A fourth round of 3M (9M in all) continued round 3 in Step 8e.
+
+| Run | Arm | Task | Reward | Transitions | Starts from | Trained on |
+|---|---|---|---:|---:|---|---|
+| 1 | `E1` | practice with easy starts | +1 reach, crash 0 | 2M | fresh weights | PC |
+| 2 | `O2_c1w0t4` | practice with easy starts | +1 reach, −1 crash, −0.004/decision | 2M | `E1`'s trained policy (same seed) | PC |
+| 3 | `O3_c1w0t4` | full task | +1 reach, −1 crash, −0.004/decision | 2M | `O2_c1w0t4`'s trained policy (same seed) | PC |
+| 4 | `O4_c1w0t4` | full task | +1 reach, −1 crash, −0.004/decision | 3M | `O3_c1w0t4`'s trained policy (same seed) | PC |
+
+## Reward function
+
+Of the last run, `O3_c1w0t4` (per decision, in goal units after the reward scale):
+
+- +1 when ego reaches the slot (the episode ends)
+- −1 on a crash (the episode ends)
+- −0.004 per decision (0.1 s); a whole 25 s episode costs 1
+- 0 on a timeout (25 s) or a lost anchor
+
+Written out: `r = 0.02 × (50·[reached] − 50·[crash] − 0.2 per decision)`, where [reached] and [crash] are 1 on the decision the episode ends that way and 0 otherwise.
+
+Earlier runs of the pipeline used:
+
+- `E1`: +1 reach, crash 0 (`r = 0.02 × (50·[reached])`)
+
+## Hyperparameters
+
+From `O3_c1w0t4`'s saved configuration (identical for every run of the pipeline except the task, reward and starting weights shown above).
+
+| Setting | Value |
+|---|---|
+| Algorithm | PPO, Stable-Baselines3 2.9.2 |
+| Policy network | MLP 64-64 (tanh), separate from the value network |
+| Value network | MLP 64-64 |
+| Learning rate | 0.0003 (constant) |
+| Environments in parallel | 3 |
+| Steps per environment per update (n_steps) | 256 |
+| Transitions per update | 768 |
+| Minibatch size | 256 |
+| Epochs per update | 5 |
+| Discount γ | 0.99 |
+| GAE λ | 0.95 |
+| Clip range | 0.2 |
+| Entropy coefficient | 0.01 |
+| Value-loss coefficient | 0.5 |
+| Gradient-norm clip (policy and value together) | 0.5 |
+| Device | cpu |
+
+<details><summary>Environment and task settings</summary>
+
+| Setting | Value |
+|---|---|
+| Simulator | highway-env 1.12.1, highway-v0, 3 lanes |
+| Traffic | 8 cars, density 0.7, preferred speeds 12–17 m/s (IDM and MOBIL) |
+| Start | ego at 20 m/s; a car 35 m ahead in ego's lane |
+| Decisions | 10 per second; episode limit 25 s (250 decisions) |
+| Actions | LANE_LEFT, IDLE, LANE_RIGHT, FASTER, SLOWER; target speeds 10, 12.5, 15, 17.5, 20, 22.5, 25 m/s |
+| Observation | 7 cars × 5 (presence, x, y, vx, vy), x ±200 m, plus goal, anchor, slot type, slot error and hold progress (53 numbers) |
+| Anchor and slot | anchor: a random car 30–120 m ahead, held in its lane; FRONT 35 m ahead of it, BACK 15 m behind, LEFT/RIGHT beside |
+| Success | ego's center within ±3 m along and ±1.5 m across the slot for 0.1 s (one decision) |
+| Reward scale | 0.02 |
+| Task | the full task: all four slots, natural start (ego at 20 m/s, a 12 m/s car 35 m ahead), traffic free to change lanes |
+
+</details>
+
+Software: highway-env 1.12.1, gymnasium 1.4.0, Stable-Baselines3 2.9.2, PyTorch 2.15.0, NumPy 2.5.4, Python 3.13.1.
+
+## Results
+
+Score = reached − crash per episode (+1, −1, 0 for a timeout), the study's measure since Step 8.
+
+### Full task: 200 fixed episodes (10,000–10,199), final model of every seed
+
+|  | Reached | Crash | Timeout | Score | B/L/R reached | B/L/R crash | FRONT reached | FRONT crash |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| seed 7 | 93.5% | 6.5% | 0.0% | +0.870 | 99.3% | 0.7% | 80.6% | 19.4% |
+| seed 10 | 57.0% | 7.5% | 35.5% | +0.495 | 82.6% | 10.9% | 0.0% | 0.0% |
+| seed 13 | 91.5% | 8.5% | 0.0% | +0.830 | 96.4% | 3.6% | 80.6% | 19.4% |
+| seed 16 | 54.5% | 4.0% | 41.5% | +0.505 | 79.0% | 5.8% | 0.0% | 0.0% |
+| seed 19 | 94.0% | 6.0% | 0.0% | +0.880 | 97.8% | 2.2% | 85.5% | 14.5% |
+| seed 22 | 91.0% | 8.5% | 0.5% | +0.825 | 94.2% | 5.8% | 83.9% | 14.5% |
+| seed 25 | 87.0% | 13.0% | 0.0% | +0.740 | 91.3% | 8.7% | 77.4% | 22.6% |
+| seed 28 | 41.0% | 6.5% | 52.5% | +0.345 | 59.4% | 6.5% | 0.0% | 6.5% |
+| **mean of 8** | **76.2%** | **7.6%** | 16.2% | **+0.686** | 87.5% | 5.5% | 51.0% | 12.1% |
+| scripted driver | 76.5% | 2.5% | 21.0% | +0.740 | 81.9% | 2.2% | 64.5% | 3.2% |
+| random driver | 11.5% | 79.0% | 9.5% | -0.675 | 15.2% | 76.1% | 3.2% | 85.5% |
+
+### Practice task: 200 fixed practice episodes, final model
+
+Step 8 measures every practice round on one practice task: the 200 natural-start practice episodes (blocked BACK/LEFT/RIGHT, blocker held), whatever starts the round trained on.
+
+| Run | Task | Reached | Crash | Timeout | Reached, by seed |
+|---|---|---:|---:|---:|---:|
+| `E1` | practice, natural start (blocker held) | 36.9% | 63.1% | 0.0% | 58%, 6%, 60%, 6%, 42%, 60%, 57%, 4% |
+| `O2_c1w0t4` | practice, natural start (blocker held) | 48.8% | 16.9% | 34.3% | 71%, 5%, 38%, 9%, 83%, 90%, 94%, 0% |
+
+### Step 8's own measure: 400 selection episodes (10,000–10,199 and 40,000–40,199), full task
+
+Every round's model on the full task. Rounds 3 and 4 are the mean of the final model and the checkpoints 400k and 200k before the end, as the grid scored them; rounds 1–2 are the final model.
+
+| Model | Score | Reached | Crash | Timeout | FRONT reached | Seeds giving up on FRONT (≥ 30% timeouts) | Score by seed |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| `E1` (after 2M) | +0.169 | 58.3% | 41.4% | 0.3% | 24.3% | 0 of 8 | +0.30, -0.12, +0.33, +0.01, +0.22, +0.41, +0.27, -0.06 |
+| `O2_c1w0t4` (after 4M) | +0.446 | 57.4% | 12.8% | 29.8% | 39.1% | 3 of 8 | +0.60, +0.17, +0.38, +0.12, +0.65, +0.77, +0.86, +0.03 |
+| `O3_c1w0t4` (after 6M) | +0.652 | 74.9% | 9.7% | 15.4% | 47.5% | 3 of 8 | +0.85, +0.45, +0.76, +0.47, +0.83, +0.69, +0.77, +0.41 |
+| `O4_c1w0t4` (after 9M) | +0.672 | 78.2% | 11.0% | 10.8% | 54.0% | 3 of 8 | +0.79, +0.33, +0.88, +0.33, +0.84, +0.83, +0.88, +0.49 |
+
+### 8d final test: 500 fresh episodes (50,000–50,499)
+
+| Model | Score | Reached | Crash | Timeout | FRONT reached | Score by seed |
+|---|---:|---:|---:|---:|---:|---:|
+| O_c1w0t4 (8 seeds) | +0.694 | 76.9% | 7.5% | 15.6% | 50.2% | +0.87, +0.49, +0.85, +0.50, +0.87, +0.82, +0.79, +0.36 |
+| scripted driver | +0.774 | 79.2% | 1.8% | 19.0% | 76.5% |  |
+| random driver | -0.662 | 12.8% | 79.0% | 8.2% | 5.1% |  |
+
+### 8f test: 500 fresh episodes (60,000–60,499)
+
+| Model | Score | Reached | Crash | Timeout | FRONT reached | Score by seed |
+|---|---:|---:|---:|---:|---:|---:|
+| O_c1w0t4 (8 seeds) | +0.683 | 76.1% | 7.8% | 16.1% | 50.7% | +0.86, +0.49, +0.85, +0.47, +0.85, +0.82, +0.78, +0.34 |
+| scripted driver | +0.758 | 78.2% | 2.4% | 19.4% | 62.7% |  |
+| random driver | -0.652 | 14.0% | 79.2% | 6.8% | 2.6% |  |
+
+## Training curves
+
+![O_c1w0t4 training curves](figures/O_c1w0t4_training.png)
+
+
+## Demos
+
+Training seed 7's final model on its own evaluation episodes (the full task), chosen by a fixed rule: the first FRONT episode it reaches (else the first blocked BACK/LEFT/RIGHT episode, else the first it reaches; on practice episodes simply the first), and the first it crashes in; a timeout fills either place if it never happens. Each figure shows four frames, then per decision the slot error, lanes, speeds, gap to the car ahead, the action and the critic's value. In the videos the anchor is outlined in magenta and the slot is the green box.
+
+**Reached: episode 10001, FRONT slot, success at 12.2 s.** [Video](../results/examples/O3_c1w0t4_seed7/front_seed10001.mp4)
+
+![O_c1w0t4 reached, episode 10001](../results/examples/O3_c1w0t4_seed7/front_seed10001.png)
+
+**Crash: episode 10011, FRONT slot, collision at 11.2 s.** [Video](../results/examples/O3_c1w0t4_seed7/front_seed10011.mp4)
+
+![O_c1w0t4 crash, episode 10011](../results/examples/O3_c1w0t4_seed7/front_seed10011.png)
+
+## Analysis
+
+- On the screening seeds (7, 10, 13) it ranks 2 of the 26 64-64 pipelines (score +0.686; the best is O_c1w01, +0.697).
+- Against success only, same order (`O3_c0w0`): +0.080 (95% interval -0.054 to +0.214, p 0.20, ahead on 6 of 8 seeds; crash rate -11.7 points).
+- Against P6's reward, same order (`O3_c1w01`): +0.007 (95% interval -0.059 to +0.073, p 0.81, ahead on 4 of 8 seeds; crash rate +0.3 points).
+- Against order N, same reward (`N3_c1w0t4`): +0.067 (95% interval -0.126 to +0.259, p 0.44, ahead on 5 of 8 seeds; crash rate -3.2 points).
+
+Across 8c2: a time cost moves the give-up but does not remove the trade. Where t4 ends it (crash 0.5), part of the timeouts become reaches and part crashes. No time-cost cell is beyond noise of its no-time-cost cell.
+
+**Best of the original order at 64 wide.** It tied the winner on the confirmation seeds (+0.632 against +0.633) and
+scored highest on the 8d final test (+0.694, level with the scripted driver: −0.081, p 0.31). Seeds 10, 16 and 28
+never learned to pass in practice and give up on FRONT. It is the recipe that became the adopted one at 256 wide.
+

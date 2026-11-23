@@ -205,10 +205,9 @@ def figure(run, entry, record, tag_row, path):
     plt.close(fig)
 
 
-def record(run, episodes=None, changed=False):
+def record(run, episodes=None, changed=False, group="chosen by hand", reason="requested with --episodes"):
     if episodes:
-        entries = [{"episode": episode, "group": "chosen by hand", "reason": "requested with --episodes"}
-                   for episode in episodes]
+        entries = [{"episode": episode, "group": group, "reason": reason} for episode in episodes]
     else:
         entries = list(watchlist())
         if changed:

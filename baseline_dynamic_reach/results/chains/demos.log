@@ -1,0 +1,9 @@
+﻿new_car_chain70000.mp4 {'outcome': 'COLLISION', 'elapsed': 11.399999999999975, 'length': 114, 'goals_reached_before_end': 0}
+new_car_chain70001.mp4 {'outcome': 'COLLISION', 'elapsed': 13.09999999999997, 'length': 131, 'goals_reached_before_end': 1}
+new_car_chain70002.mp4 {'outcome': 'GOAL REACHED', 'elapsed': 34.200000000000216, 'length': 342, 'goals_reached_before_end': 4}
+same_car_chain70000.mp4 {'outcome': 'COLLISION', 'elapsed': 11.399999999999975, 'length': 114, 'goals_reached_before_end': 0}
+same_car_chain70001.mp4 {'outcome': 'COLLISION', 'elapsed': 23.700000000000067, 'length': 237, 'goals_reached_before_end': 2}
+same_car_chain70002.mp4 {'outcome': 'GOAL REACHED', 'elapsed': 10.09999999999998, 'length': 101, 'goals_reached_before_end': 1}
+origin_kept_chain70000.mp4 {'outcome': 'COLLISION', 'elapsed': 11.399999999999975, 'length': 114, 'goals_reached_before_end': 0}
+origin_kept_chain70001.mp4 {'outcome': 'COLLISION', 'elapsed': 27.200000000000117, 'length': 272, 'goals_reached_before_end': 2}
+origin_kept_chain70002.mp4 {'outcome': 'COLLISION', 'elapsed': 30.100000000000158, 'length': 301, 'goals_reached_before_end': 3}

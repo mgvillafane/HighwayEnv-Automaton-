@@ -51,10 +51,31 @@ Scenario (passing practice)
 Observations are assembled with Marcos's NumPy encoder (baseline_DQN/fast_observation.py). It
 reproduces highway-env's Kinematics observation exactly (tested here on seeded episodes); it only
 avoids building a pandas DataFrame on every step.
+
+Chained goals (Step 9; evaluation only)
+---------------------------------------
+``chain`` (a constructor setting; default none, which changes nothing) turns one episode into a series of
+goals: when a goal is reached before the last one, the episode does not end; the next goal is drawn and
+everything that depends on the goal is recomputed as at reset. Settings:
+
+- ``goals``: the most goals per chain (K). ``per_goal_seconds``: each goal's own time limit (25 s, the
+  training limit; the simulation's own limit is raised to K x that).
+- ``mode``: ``"new car"`` draws the next anchor as reset does (a car 30-120 m ahead of ego, not the current
+  anchor) with a valid slot; the old anchor may change lanes again. ``"same car"`` keeps the anchor and draws
+  a different valid slot of it.
+- ``origin``: ``"reset"`` restarts the episode origin at ego (so the goal inputs are what a fresh episode
+  from here would show); ``"keep"`` leaves the origin at the first goal's start.
+- Feasibility: a candidate goal is used only if ``goal_time_needed`` (time to close the gap along the road at
+  the speed limits, plus 2 s per lane change) is at most ``CHAIN_TIME_LIMIT``, the 95th percentile of the same
+  measure over goals drawn at reset (computed on seeds 90,000-91,999). So every chained goal is within the
+  range of goals the task itself poses. If no candidate qualifies, the chain ends ("no feasible goal"), which
+  is recorded and is not a failure of the policy.
+- Goal draws come from their own random stream, seeded by the episode seed; the simulator's stream is untouched.
 """
 import numpy as np
 
 from baseline_DQN.fast_observation import enable_fast_observation
+from baseline_dynamic_waypoint.config import SLOTS
 from baseline_dynamic_waypoint.environment import DynamicGoalHighwayEnv
 
 SHAPING_TERMS = ("potential_progress",)
@@ -63,10 +84,43 @@ MAX_SCENARIO_RESETS = 1000
 START_OFFSETS = {"past": 10.0, "beside": 0.0, "behind": -15.0}  # Ego center minus blocking car center, m.
 START_CLEARANCE = 8.0  # Minimum bumper-to-bumper gap to any car in ego's new lane, m.
 START_BEFORE_SLOT = 10.0  # Ego must start at least this far before the slot center, m.
+CHAIN_MODES = ("new car", "same car")
+CHAIN_ORIGINS = ("reset", "keep")
+CHAIN_STREAM = 9  # Distinguishes the chain's goal-draw stream from any other stream seeded by the episode seed.
+LANE_CHANGE_SECONDS = 2.0  # As the inherited goal check (baseline_waypoint) counts a lane change.
+# 95th percentile of goal_time_needed over 2,000 goals drawn at reset (chain_envelope.py, seeds 90,000-91,999;
+# median 8.2 s, max 21.1 s; results/chains/envelope.json).
+CHAIN_TIME_LIMIT = 15.72
+
+
+def goal_time_needed(env, anchor, slot):
+    """Seconds needed at best to bring ego to `anchor`'s `slot`: the gap along the road closed at the top speed
+    (slot ahead) or the lowest speed (slot behind) relative to the anchor's current speed, plus 2 s per lane
+    change. Infinite if the speed limits cannot close it."""
+    ego = env.highway.vehicle
+    offsets = env.goal_config["slot_offsets"]
+    along = {"front": offsets["front"], "back": -offsets["back"]}.get(slot, 0.0)
+    gap = anchor.position[0] + along - ego.position[0]
+    speeds = env.env_config["action"]["target_speeds"]
+    relative = (max(speeds) - anchor.speed) if gap >= 0 else (anchor.speed - min(speeds))
+    if relative <= 0:
+        return float("inf")
+    lane = anchor.lane_index[2] + {"left": -1, "right": 1}.get(slot, 0)
+    return abs(gap) / relative + LANE_CHANGE_SECONDS * abs(lane - ego.lane_index[2])
 
 
 class ReachEnv(DynamicGoalHighwayEnv):
-    def __init__(self, render_mode=None, reward_scale=1.0, scenario=None, fast_observation=True, **settings):
+    def __init__(self, render_mode=None, reward_scale=1.0, scenario=None, fast_observation=True, chain=None,
+                 **settings):
+        self.chain = None
+        if chain is not None:
+            chain = {"goals": 5, "per_goal_seconds": 25.0, "mode": "new car", "origin": "reset", **chain}
+            if chain["mode"] not in CHAIN_MODES or chain["origin"] not in CHAIN_ORIGINS or chain["goals"] < 1:
+                raise ValueError(f"chain needs mode in {CHAIN_MODES}, origin in {CHAIN_ORIGINS}, goals >= 1: {chain}")
+            settings = dict(settings)
+            settings["env_config"] = {**settings["env_config"],
+                                      "duration": chain["goals"] * chain["per_goal_seconds"] + 1.0}
+            self.chain = chain
         super().__init__(render_mode=render_mode, **settings)
         self.scenario = dict(scenario or {})
         unknown = set(self.scenario) - {"require_blocked", "blocker_stays", "start_offsets"}
@@ -135,7 +189,80 @@ class ReachEnv(DynamicGoalHighwayEnv):
                     info["start_reference"] = self.start_reference
                 info["start"] = start
         self.previous_potential = self.potential()
+        if self.chain is not None:
+            entropy = [CHAIN_STREAM, seed] if seed is not None else [CHAIN_STREAM, int(self.highway.np_random.integers(2**31))]
+            self.chain_rng = np.random.default_rng(entropy)
+            self.goal_index, self.goal_start_time = 1, float(self.highway.time)
+            info["goal_index"] = 1
         return observation, info
+
+    def _chain_options(self):
+        """[(car, valid slots, feasible slots)] for the next goal of a chain."""
+        ego, road = self.highway.vehicle, self.highway.road
+        if self.chain["mode"] == "same car":
+            cars = [] if self.anchor_lost() else [self.anchor]
+        else:
+            low, high = self.goal_config["distance_range"]
+            cars = sorted((car for car in road.vehicles if car is not ego and car is not self.anchor and not car.crashed
+                           and car.on_road and low <= car.position[0] - ego.position[0] <= high),
+                          key=lambda car: car.position[0])
+        last = self.env_config["lanes_count"] - 1
+        options = []
+        for car in cars:
+            lane = car.lane_index[2]
+            valid = [s for s in SLOTS if (s != "left" or lane > 0) and (s != "right" or lane < last)]
+            if self.chain["mode"] == "same car":
+                valid = [s for s in valid if s != self.slot]
+            options.append((car, valid, [s for s in valid if goal_time_needed(self, car, s) <= CHAIN_TIME_LIMIT]))
+        return options
+
+    def _chain_switch(self, info):
+        """Draw and install the next goal after a reached one. Returns the new observation, or None when the chain
+        cannot continue (info["chain_end"] says why)."""
+        options = self._chain_options()
+        usable = [(car, feasible) for car, _, feasible in options if feasible]
+        info["chain_candidates"] = sum(len(valid) for _, valid, _ in options)
+        info["chain_excluded"] = sum(len(valid) - len(feasible) for _, valid, feasible in options)
+        if not usable:
+            info["chain_end"] = "no car in range" if not options else "no feasible goal"
+            return None
+        car, feasible = usable[int(self.chain_rng.integers(len(usable)))]
+        slot = feasible[int(self.chain_rng.integers(len(feasible)))]
+        ego = self.highway.vehicle
+        if car is not self.anchor:
+            self.anchor.enable_lane_change = True  # Back to ordinary traffic.
+        car.enable_lane_change = False
+        car.target_lane_index = car.lane_index
+        info["next_slot"], info["next_time_needed"] = slot, goal_time_needed(self, car, slot)
+        self.anchor, self.slot = car, slot
+        self.anchor_id = self.highway.road.vehicles.index(car)
+        self.hold_steps = self.hold_gap_steps = 0
+        if self.chain["origin"] == "reset":
+            self.episode_origin = np.array([ego.position[0], 0.0])
+        self._update_goal()
+        self.previous_distance = self.distance_to_goal()
+        self.previous_shaping_errors = self.shaping_errors()
+        self.previous_potential = self.potential()
+        self.goal_index += 1
+        self.goal_start_time = float(self.highway.time)
+        self.status = "Driving"
+        info["goal_switched"] = True
+        return self._observation(self.highway.observation_type.observe())
+
+    def _chain_step(self, observation, reward, terminated, truncated, info):
+        info["goal_index"] = self.goal_index
+        if not (terminated or truncated) and \
+                self.highway.time - self.goal_start_time >= self.chain["per_goal_seconds"] - 1e-9:
+            truncated = True  # This goal's own time limit; the simulation's limit is K goals long.
+            self.status = "TIMED OUT"
+            info.update(is_timeout=True, termination_reason="TIMED OUT")
+        if info["is_success"] and self.goal_index < self.chain["goals"]:
+            switched = self._chain_switch(info)
+            if switched is not None:
+                return switched, reward, False, False, info
+        elif info["is_success"]:
+            info["chain_end"] = "all goals reached"
+        return observation, reward, terminated, truncated, info
 
     def _place_ego(self, offset):
         """Move ego to the lane beside the slot's lane, `offset` m from the nearest blocking car. False if unsafe."""
@@ -174,6 +301,11 @@ class ReachEnv(DynamicGoalHighwayEnv):
         return observation, {**info, **fresh}
 
     def step(self, action):
+        if self.chain is not None:
+            return self._chain_step(*self._step(action))
+        return self._step(action)
+
+    def _step(self, action):
         observation, reward, terminated, truncated, info = super().step(action)
         spec = self._shaping("potential_progress")
         if spec is None:

@@ -1,6 +1,6 @@
 # Reaching a slot of a moving car with PPO: report
 
-*Branch `reach-step7`, updated 2026-11-22 through Step 8. Sections 1–4 describe the first chain of arms (B0–B4, Steps 1–6, written 2026-11-09). Section 5 covers Steps 7 and 8. The full log, with every prediction as written before the run, is [`EXPERIMENT_NOTES.md`](EXPERIMENT_NOTES.md). The tables in sections 3–4 are produced by [`report.py`](report.py), and those in section 5 by [`grid.py`](grid.py), both from the saved evaluations.*
+*Branch `reach-step7`, updated 2026-11-23 through Step 9. Sections 1–4 describe the first chain of arms (B0–B4, Steps 1–6, written 2026-11-09). Section 5 covers Steps 7 and 8. The full log, with every prediction as written before the run, is [`EXPERIMENT_NOTES.md`](EXPERIMENT_NOTES.md). The tables in sections 3–4 are produced by [`report.py`](report.py), and those in section 5 by [`grid.py`](grid.py), both from the saved evaluations.*
 
 ## Summary
 
@@ -209,13 +209,32 @@ The proposals at the end of Step 6 (a safety shield, a local input for the car a
 - **Machines.** B0–B3 and all of Step 8 were trained on a Windows PC; B3m, B4, B5 and P1–P6 on a Mac. Evaluation is identical on both (`test_replay.py`).
 - **Recipe choice.** Recipes were chosen on the selection episodes (10,000–10,199 and 40,000–40,199). The 8f comparison is on fresh episodes, but its candidate was picked after seeing 8e.
 
-## 7. Next
+## 7. Since then, and next
 
-1. **Diagnose the adopted recipe's FRONT crashes (no training).** They are the main remaining gap to the scripted driver.
-2. **Consecutive goals**, a separate skill (proposed by the user, 2026-11-22). Test whether the model can complete a series of slots one after another, by changing the goal in the observation once a slot is reached. To be planned before any change.
+- **Step 8g (no training): FRONT crashes diagnosed.** 91% are rear-ends at full speed. The policy passes but does not brake.
+- **Step 9 (no training): consecutive goals.** When a slot is reached, the goal in the observation is replaced by the next one. Tested on the adopted recipe: 12,000 chains of up to 5 feasible goals, in three conditions ([`results/chains/summary.md`](results/chains/summary.md)).
+  - **Chaining breaks in every condition.** Later goals score about 0.4 below the first (+0.78 → about +0.37), on every seed.
+  - **Part of that drop is not the model's.** With a new car, the scripted driver also scores lower after goal 1 (+0.73 → +0.48, a drop of 0.25), because its later goals time out more (24% → 47%).
+    - The model's own extra drop is about 0.16 (95% interval +0.13 to +0.19), and it is all crashes (11% → 31%; scripted 2.5%).
+    - Around one car, the scripted driver does better on later goals (+0.88), so there the whole drop (0.49) is the model's.
+    - The two drivers face different later goals, since each starts from where its own previous goal ended, so this split is a rough guide.
+    - The first write-up gave only the model's drop; this was added after the user asked why the model looked much weaker.
+  - **Cause of the model's own part:** it reaches a slot by passing through it at 25 m/s, 11 m/s faster than the anchor. So the next goal starts close behind slower cars, and 63% of later-goal crashes come within 3 s of the switch.
+  - **Around one car,** it also cannot drop back to a slot behind it.
+
+![consecutive goals](results/chains/chains.png)
+
+*Top: score of goal k among chains that got to it. Purple is the model (line = mean of the 8 seeds, band = lowest to highest seed); the dashed black line is the scripted driver. The numbers under each goal are how many goals were scored (model, 8 seeds · scripted). Bottom: what happened on goal 1 and on goals 2–5, for each driver.*
+
+- **The adopted model is unchanged on single goals.** On goal 1 of every chain it gives exactly the ordinary episode's outcome: +0.778 (88.8% reached, 10.9% crash), against +0.79 on the 200 shared and 500 fresh episodes.
+- **Next step: not yet decided.**
+  - Two candidates were recorded: train on chained goals, or require the slot to be held.
+  - The user dropped holding: it restricts an intermediate task, and the long-term aim is a DFA-conditioned driving policy.
+  - The direction will be set at the user's team meeting.
 
 ## Where the data is
 
+- **Every attempt, one page each:** [`attempts/README.md`](attempts/README.md). Each page has the full reward function, approach, all hyperparameters, results, training curves, a success and a crash demo, and the analysis. This covers B0–B5, P1–P6 and all 30 Step 8 pipelines.
 - **Full log and decisions:** [`EXPERIMENT_NOTES.md`](EXPERIMENT_NOTES.md).
 - **Step 8 tables:** `results/grid8/summary_<stage>.md`.
 - **Every Step 8 run:**

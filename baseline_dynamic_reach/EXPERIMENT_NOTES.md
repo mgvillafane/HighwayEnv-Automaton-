@@ -4,7 +4,7 @@ A living record of the dynamic-waypoint *reach* experiments. Each step is added 
 the [experiment log](#9-experiment-log), and every decision gets a line in the
 [decision log](#10-decision-log). All numbers come from files in this folder.
 
-**Status (2026-11-15, evening).** Step 7a: training audit; B5 fixed a gradient-clip throttle without changing outcomes. Steps 7b–7e on the passing task (blocked episodes, slow car held in its lane): P1 learned to pass once and gave up; P1s, P2 and P3 (mixed practice starts) give up from the start. Cause: from fresh weights most attempts crash, and with crash = −goal stopping is learned first (B1's collapse). Step 7f (success-only reward first, then the crash cost, as B0 → B2): **P4 passes** (34–50% of the natural-start passing episodes, scripted 2.5%) but crashes in the rest; **P5** (crash cost from P4's policy) passes in 62–64% on seeds 7 and 8 and reaches 119 and 121 of 138 BACK/LEFT/RIGHT on the full task, the first arms above the scripted driver's 113 (seed 9 ends in a checkpoint dip). **P6** (full task from P5's policy) reaches 123–134 of 138 BACK/LEFT/RIGHT on every seed (scripted 113) and 41–48 of 62 FRONT on two seeds (scripted 40); crashes remain, mostly on FRONT. Since 2026-11-09 FRONT is set aside. **Step 7h (2026-11-18, held-out episodes 40,000–40,199, no training):** P6's own success is unchanged on fresh episodes (±1.6 points) and it beats B5 on every seed (significant); only seed 7 beats the scripted driver beyond noise, while seeds 8 and 9 match it in success and crash 5–6× as often. **Step 8 (planned 2026-11-18):** a staged grid to settle network width, training order (no practice / practice / practice with easy starts / the original P4→P5→P6) and reward (crash cost 0–2 × progress on/off), scored as reached − crash. Step 8-0 (training speed on the PC) is done: training is bit-identical with today's code, and up to 32 runs at once give 2.3× the old throughput. **8a:** 64-64 is kept (256-256 missed the bar). **8b:** the rule chooses no practice (N), and the original order (O) scores highest within noise, so both got the reward grid. **8c and 8c2 (2026-11-19):** across 12 rewards per order, none beats success only (c0w0) by the rule; P6's reward (c1w01) scores highest in both orders. **8d:** the winner is no practice with crash 0.5 and a small time cost (N_c05w0t1). It is level with every other crash-cost recipe, including P6's, and below the scripted driver on the final test (−0.146, p 0.029). The whole gap is FRONT, where runs give up or crash. **8e (2026-11-20):** 256 wide and 3M more training (round 4) for three finalists on all 8 seeds. By the bars written beforehand nothing changes (64-64, 6M, N_c05w0t1). But 256 removes the FRONT give-up (13 → 2 of 24 runs), makes the original order beat no practice, and O_c1w0t4 at 256 and 9M is above the scripted driver on every seed (+0.797 against +0.725, selection episodes). Its learning curves are flat over the last 1M at both widths, so no further round; at 256 the original order already reaches that level by the end of its practice rounds (4M). **8f (2026-11-22), 500 fresh episodes:** the 256-wide original-order recipe (O_c1w0t4, 6M) beats the 64-wide winner by +0.177 (p 0.006, ahead on 8 of 8), without more crashes and with no seed giving up, so it is adopted as the Step 8 recipe. It is level with the scripted driver (+0.033, p 0.16): it reaches far more but crashes about four times as often, mostly on FRONT (23% against 4%).
+**Status (2026-11-15, evening).** Step 7a: training audit; B5 fixed a gradient-clip throttle without changing outcomes. Steps 7b–7e on the passing task (blocked episodes, slow car held in its lane): P1 learned to pass once and gave up; P1s, P2 and P3 (mixed practice starts) give up from the start. Cause: from fresh weights most attempts crash, and with crash = −goal stopping is learned first (B1's collapse). Step 7f (success-only reward first, then the crash cost, as B0 → B2): **P4 passes** (34–50% of the natural-start passing episodes, scripted 2.5%) but crashes in the rest; **P5** (crash cost from P4's policy) passes in 62–64% on seeds 7 and 8 and reaches 119 and 121 of 138 BACK/LEFT/RIGHT on the full task, the first arms above the scripted driver's 113 (seed 9 ends in a checkpoint dip). **P6** (full task from P5's policy) reaches 123–134 of 138 BACK/LEFT/RIGHT on every seed (scripted 113) and 41–48 of 62 FRONT on two seeds (scripted 40); crashes remain, mostly on FRONT. Since 2026-11-09 FRONT is set aside. **Step 7h (2026-11-18, held-out episodes 40,000–40,199, no training):** P6's own success is unchanged on fresh episodes (±1.6 points) and it beats B5 on every seed (significant); only seed 7 beats the scripted driver beyond noise, while seeds 8 and 9 match it in success and crash 5–6× as often. **Step 8 (planned 2026-11-18):** a staged grid to settle network width, training order (no practice / practice / practice with easy starts / the original P4→P5→P6) and reward (crash cost 0–2 × progress on/off), scored as reached − crash. Step 8-0 (training speed on the PC) is done: training is bit-identical with today's code, and up to 32 runs at once give 2.3× the old throughput. **8a:** 64-64 is kept (256-256 missed the bar). **8b:** the rule chooses no practice (N), and the original order (O) scores highest within noise, so both got the reward grid. **8c and 8c2 (2026-11-19):** across 12 rewards per order, none beats success only (c0w0) by the rule; P6's reward (c1w01) scores highest in both orders. **8d:** the winner is no practice with crash 0.5 and a small time cost (N_c05w0t1). It is level with every other crash-cost recipe, including P6's, and below the scripted driver on the final test (−0.146, p 0.029). The whole gap is FRONT, where runs give up or crash. **8e (2026-11-20):** 256 wide and 3M more training (round 4) for three finalists on all 8 seeds. By the bars written beforehand nothing changes (64-64, 6M, N_c05w0t1). But 256 removes the FRONT give-up (13 → 2 of 24 runs), makes the original order beat no practice, and O_c1w0t4 at 256 and 9M is above the scripted driver on every seed (+0.797 against +0.725, selection episodes). Its learning curves are flat over the last 1M at both widths, so no further round; at 256 the original order already reaches that level by the end of its practice rounds (4M). **8f (2026-11-22), 500 fresh episodes:** the 256-wide original-order recipe (O_c1w0t4, 6M) beats the 64-wide winner by +0.177 (p 0.006, ahead on 8 of 8), without more crashes and with no seed giving up, so it is adopted as the Step 8 recipe. It is level with the scripted driver (+0.033, p 0.16): it reaches far more but crashes about four times as often, mostly on FRONT (23% against 4%). **8g (2026-11-23, diagnosis):** 91% of those FRONT crashes are rear-ends at full speed (25 m/s, 12 m/s faster than the car hit, almost never braking). It passes but does not brake, which is the B chain's old failure moved to FRONT. **Step 9 (2026-11-23, consecutive goals, evaluation only, adopted recipe):** chaining breaks in every condition. Later goals score about 0.4 below the first, because the model reaches each slot at full speed and then rams a car right after the switch; with the same car, it also cannot drop back to a slot behind. With a new car the scripted driver drops too (0.25, by timing out), so the model's own part there is about 0.16; with the same car the scripted driver does better on later goals, so the whole drop is the model's. Every attempt so far has its own page in [`attempts/`](attempts/README.md).
 
 | Arm | Change | Success | Crash | BACK/LEFT/RIGHT reached of 138 (seeds 7, 8, 9) | Main failure |
 |---|---|---:|---:|---|---|
@@ -1922,6 +1922,246 @@ Tables: [`results/grid8/summary_8f.md`](results/grid8/summary_8f.md). Figure: `s
   - 405 Step 8 model files are untracked, 243 MB in all. 94 of them are 256 wide (1.9 MB each, 176 MB).
   - The repository's packed history is already 524 MB.
   - Which models to commit is decided at commit time.
+- Committed and pushed on 2026-11-22 at the user's request: everything, as in earlier steps (`4c4b9bc`, `a973c83`). The two scored checkpoints of the adopted recipe and of the 8d winner are included, on all 8 seeds.
+
+#### Step 8g: how the adopted recipe crashes on FRONT (diagnosis, no training; 2026-11-23)
+
+**Why.** The adopted recipe is level with the scripted driver. Its remaining loss is crashes, mostly on FRONT: 23% of FRONT episodes against 4% on the fresh episodes. Find out what kind of crashes they are before choosing any change.
+
+**How.**
+- [`front_crashes.py`](front_crashes.py) replays the adopted model (8 seeds) and the scripted driver on the 133 FRONT episodes of the selection sets.
+- Every replayed outcome and length matches the saved evaluations.
+- Tables: [`results/front_crashes/summary.md`](results/front_crashes/summary.md). One row per crash: `crashes.csv`.
+
+**Overall.** 233 crashes in 1,064 episodes across the 8 seeds (21.9%), against 6 of 133 (4.5%) for the scripted driver. PPO reaches 77.9% of these FRONT episodes, against 59%.
+
+**Findings.**
+- **Nearly every crash is the same mistake: a rear-end at full speed.** At the crash (medians):
+  - ego drives at 25 m/s, the top of its speed range, 12 m/s faster than the car it hits;
+  - that car is ahead of ego in 91% of crashes;
+  - in the last 2 s the policy chose SLOWER in only 2% of crashes, and FASTER in 46%.
+- **Where in the FRONT maneuver the crashes happen.** Ego has to pass the anchor and get into the anchor's lane, 35 m ahead of it.
+  - **40% before ego has passed the anchor.**
+    - Into the lead car: 21%, median 3.8 s. This is the 12 m/s car that starts 35 m ahead.
+    - Into the anchor itself: 14%.
+  - **21% beside the anchor,** mostly into another car ahead in the passing lane (10%).
+  - **39% after passing the anchor,** into another car ahead:
+    - while merging into the anchor's lane (15%);
+    - already in that lane, near the slot (15%; median 4 m before the slot center);
+    - in another lane (6%).
+- **Partly the episode, partly the seed.**
+  - 18 of the 133 episodes make at least half the seeds crash; they hold 111 of the 233 crashes.
+  - 49 episodes never crash.
+  - The other 122 crashes are spread over 66 episodes, each crashed by only 1–3 seeds.
+- **The scripted driver on the episodes where PPO crashes:** it reaches the slot in 89 (38%), crashes in 27 (12%) and times out in 117 (50%).
+  - In about half of PPO's crashes, waiting does not finish within 25 s either.
+  - In about 4 of 10, a safe completion exists.
+
+**Reading.**
+- On FRONT the policy passes at full speed and does not brake. When a slower car is in the way, it rams it.
+- This is the B chain's BACK/LEFT/RIGHT failure (Step 5) moved to FRONT. The practice rounds taught passing, which fixed most blocked BACK/LEFT/RIGHT episodes, but they did not teach braking.
+- Candidate changes for later, each one IV, none decided:
+  - the Step 6 proposals: a safety shield (the scripted driver's following rule), or a local input for the car ahead (gap and closing speed on a short scale);
+  - a larger crash cost, now that practice comes first.
+
+### Step 9: consecutive goals (plan revised 2026-11-23 after the user's direction; written before any chain run)
+
+**The user's direction (2026-11-23).**
+- Test only the best recipe found so far.
+- Test more scenarios: many more chains, and more combinations of tasks.
+- Make sure every task in the test is feasible.
+
+**What is tested.** One model: the adopted recipe O3_c1w0t4_n256, on all 8 seeds. The scripted driver runs the same chains, only as a yardstick and an empirical feasibility check.
+
+**How a chain works.** This is the user's way.
+- When ego reaches a slot (one decision in the box), the episode does not end. The next goal replaces the old one in the observation, recomputed exactly as at reset:
+  - the goal and the goal delta;
+  - the anchor's 4 numbers;
+  - the slot one-hot;
+  - the slot error;
+  - the hold progress.
+- Traffic, ego's state and the clock carry on.
+- A chain has up to 5 goals, with 25 s for each.
+
+**Scenarios.** 3 conditions × 500 chains: 1,500 chains per seed, 12,000 chains in all.
+1. **New car (the main condition).** The next anchor is drawn as at reset: a car 30–120 m ahead of ego, not the current anchor, with a random slot on the road. The episode origin restarts at ego, so the goal inputs are what a fresh episode from here would show.
+2. **Same car.** The same anchor, with a different slot, for example BACK → LEFT → FRONT around one car. This is the furthest from training: the next slot may be beside ego or behind it.
+3. **New car, origin kept (a check).** As condition 1, but the episode origin stays at the first goal's start. This is the most literal "change only the goal". The goal inputs then drift outside the range seen in training as the chain goes on.
+- **All three use the same 500 chain seeds** (70,000–70,499, checked unused). So goal 1 is the same episode in every condition, and the conditions are paired.
+- **Combinations:** every goal records the slot that came before it, so the results include the whole from-slot × to-slot table: 16 pairs for a new car, 12 for the same car.
+
+**Feasibility: no goal may be impossible by construction.**
+- **On the road:** a slot must be on the road, as at reset (no LEFT slot of a car in the leftmost lane).
+- **Kinematic check** (`goal_time_needed`):
+  - It is the time needed to close the gap along the road at the speed limits, relative to the anchor's speed (25 m/s toward a slot ahead, 10 m/s to drop back to one behind), plus 2 s per lane change.
+  - A candidate goal is used only if this is at most **15.72 s**, the 95th percentile of the same measure over 2,000 goals drawn at reset ([`chain_envelope.py`](chain_envelope.py), seeds 90,000–91,999; median 8.2 s, maximum 21.1 s).
+  - So no chained goal is harder, by this measure, than 95% of the task's own goals.
+- **How the next goal is drawn:** only among feasible candidates; first a car with at least one feasible slot, then one of its feasible slots.
+  - If there is none, the chain ends as "no feasible goal" or "no car in range".
+  - These are recorded separately and never counted against the model.
+- **Empirical check:** the scripted driver runs every chain.
+  - A from → to pair that the scripted driver reaches in under 20% of its goals is flagged as possibly infeasible in practice.
+  - The bar is reported with and without the flagged pairs.
+
+**Measures.**
+- **Score per goal:** +1 reached, −1 crash, 0 for a timeout or a lost anchor. Chain endings that are not the model's doing (no car, no feasible goal) are not goals.
+- **The drop** = score of goal 1 − score of goals 2–5 (every later goal a chain gets to). It is computed per seed and paired over the 8 seeds, for each condition.
+- **Also reported:**
+  - goals completed per chain;
+  - the reached, crash and timeout rates of goal k;
+  - the from → to table;
+  - crashes in the first 3 s after a switch;
+  - time per goal;
+  - how often the feasibility check removed candidates.
+
+**Bar (written before any chain run), for each condition.**
+- **Carries over:** the whole 95% interval of the drop is below 0.10.
+- **Breaks:** the drop is 0.10 or more, with p < 0.05.
+- **Otherwise:** inconclusive.
+- **What each result leads to:**
+  - "New car" carries over: the skill chains without training.
+  - "Same car" breaks while "new car" carries over: the gap is moving between the slots of one car. The next step is training on chained goals (one IV).
+  - "New car" breaks: training on chains is needed in general.
+
+**Predictions.**
+1. **Goal 1 equals the single-goal episode exactly** (the same outcome and length) in every condition. This is a code check.
+2. **New car:** a drop of 0.05–0.15, so inconclusive or carries over. Low confidence.
+3. **Same car breaks** (a drop of 0.10 or more).
+   - Moves to a slot behind ego (for example LEFT → BACK, FRONT → LEFT) were never needed in training, where every slot starts ahead. These fail most, mostly by timeouts.
+   - Moves to a slot ahead (BACK → LEFT, BACK → FRONT) do about as well as goal 1.
+4. **Origin kept is worse than origin reset** from goal 3 on, by at least 0.10, because the goal inputs leave the training range.
+5. **Crashes cluster in the first 3 s after a switch**: more than in goal 1's first 3 s.
+6. **The feasibility check removes** under 5% of "new car" candidates, and 15–35% of "same car" candidates (mostly FRONT ↔ BACK).
+7. **Traffic runs out** ("no car in range") in under 5% of new-car chains before goal 3, and 20–40% before goal 5.
+8. **The scripted driver:**
+   - its drop is under 0.05 for a new car;
+   - with the same car it reaches at least 60% of goals in every pair, which would confirm the pairs are feasible.
+
+**Implementation.**
+- [`environment.py`](environment.py): the `chain` setting (default none, which changes nothing).
+- [`chain_envelope.py`](chain_envelope.py): the feasibility threshold.
+- `chain.py`: runs the evaluation and writes the tables, figures and 3 demo chains per condition (chain seeds 70,000–70,002, training seed 7).
+- Tests: `test_chain.py`.
+
+#### Step 9: results (2026-11-23; 12,000 model chains and 1,500 scripted chains; none failed)
+
+Tables: [`results/chains/summary.md`](results/chains/summary.md) (`chain.py summary`); figure `chains.png`; rows in `goals.csv` and `chains.csv`.
+
+**Checks.**
+- Goal 1 matched the ordinary episode (outcome and length) in all of the first 50 chains of every policy and condition.
+- Goal 1 is identical across the three conditions, as designed (+0.778 for the model, +0.726 for the scripted driver).
+- `test_chain.py` passes: 8 tests, plus the 63 earlier ones.
+
+**The bar: every condition breaks.** The drop is the score of goal 1 minus the score of goals 2–5, paired over the 8 seeds.
+
+| Condition | Goal 1 | Goals 2–5 | Drop (95% interval, p) | Verdict | Without flagged pairs |
+|---|---:|---:|---|---|---|
+| New car | +0.778 | about +0.37 | **+0.407** (+0.379 to +0.436, p < 0.001) | breaks | the same (none flagged) |
+| Same car | +0.778 | about +0.28 | **+0.502** (+0.333 to +0.671, p < 0.001) | breaks | +0.366, breaks |
+| Origin kept | +0.778 | about +0.34 | **+0.434** (+0.375 to +0.494, p < 0.001) | breaks | the same (none flagged) |
+
+Every seed drops in every condition. The smallest single drop is +0.176 (seed 28, same car).
+
+**The scripted driver drops too (added 2026-11-23, after the results).** The user asked why the model now looked much weaker. The drop above is the model's own, which is what the bar measures. Reported alone, it makes the model look worse than it is: with a new car, the scripted driver also scores lower after goal 1.
+
+| Condition | Driver | Goal 1: reached / crash / timeout | Goal 1 score | Goals 2–5: reached / crash / timeout | Goals 2–5 score | Drop |
+|---|---|---|---:|---|---:|---:|
+| New car | model (8 seeds pooled) | 88.8% / 10.9% / 0.2% | +0.778 | 68.6% / 31.1% / 0.2% | +0.375 | +0.404 |
+| New car | scripted | 74.4% / 1.8% / 23.8% | +0.726 | 50.4% / 2.5% / 47.1% | +0.479 | +0.247 |
+| Same car | model (8 seeds pooled) | 88.8% / 10.9% / 0.2% | +0.778 | 55.9% / 26.8% / 17.3% | +0.291 | +0.487 |
+| Same car | scripted | 74.4% / 1.8% / 23.8% | +0.726 | 88.5% / 0.2% / 11.4% | +0.883 | −0.157 |
+| Origin kept | model (8 seeds pooled) | 88.8% / 10.9% / 0.2% | +0.778 | 67.1% / 32.1% / 0.9% | +0.350 | +0.428 |
+
+The scripted driver reads the true state, so "origin kept" is identical to "new car" for it.
+
+- **New car: about 60% of the model's drop is shared, about 40% is its own.**
+  - The scripted driver drops by 0.25 (95% bootstrap interval over its chains: 0.19 to 0.31). Almost all of it is timeouts (24% → 47%); it hardly crashes.
+  - The model drops by 0.41. Almost all of it is crashes (11% → 31%).
+  - The model's extra drop is +0.16 (95% interval +0.13 to +0.19 over the 8 seeds, with the scripted drop held fixed). Allowing for the scripted driver's own noise widens this by about ±0.06; it stays above zero.
+  - At goal 2 the two are level (+0.47 against +0.46). On goals 2–5 the model still reaches more (69% against 50%) but crashes 12 times as often (31% against 2.5%).
+- **Origin kept:** the same picture. The model's extra drop is +0.19 (+0.13 to +0.25).
+- **Same car: the whole drop is the model's.**
+  - The scripted driver does better on later goals than on goal 1 (+0.88 against +0.73). Likely reason: the next slot of the same car is close, and it arrives near the anchor's speed.
+  - The model's extra drop is +0.66 (+0.49 to +0.83).
+- **Caveat: this is a rough split, not a matched comparison.**
+  - Each driver's later goals start where its own previous goal ended, so the two face different later goals.
+  - The scripted driver also gets to goal 2 less often, because a goal-1 timeout ends its chain (24%).
+- **The verdicts stay.** The bar, written before the run, was about the model's own drop. What changes is the reading: with a new car, part of the drop is later goals being harder for any driver, and the model's own failure is the crashes.
+- The figure `chains.png` was redrawn at the same time. It now has one column per condition, with the scripted driver as one dashed black line, and the outcome shares of goal 1 against goals 2–5 for both drivers. The old figure drew the scripted driver in each condition's color, so "origin kept" hid "new car" and the dashed colors were unexplained.
+
+**New car, by goal.** Reached / crash / timeout:
+- Goal 1: 88.8% / 10.9% / 0.2%.
+- Goal 2: 73.2% / 26.6% / 0.1%.
+- Goal 3: 62.4% / 37.5% / 0.2%.
+- **The extra losses are crashes, not timeouts.**
+- How chains end: 70% by a crash, 24% because no car was left in range, 5% with all 5 goals reached.
+- On average a chain reaches 2.2 goals (scripted driver: 1.4, because its chains end by timeout).
+
+**Why: it reaches a slot at full speed, so the next goal starts in a crash course.**
+- **At the moment it reaches a slot**, the model drives at 25 m/s (median), 11 m/s faster than that slot's anchor. This holds in 99.8% of successes.
+- The scripted driver arrives at 16 m/s, 2.7 m/s faster than the anchor.
+- **Today's success rule counts one decision inside the slot box, so the policy passes through the box at top speed.** A single episode ends there and never shows the consequence. A chain does.
+- **Crashes come right after the switch.** 18.7% of later goals crash within 3 s of starting, against 2.6% of first goals.
+- A replay of 1,600 chains ([`chain_crashes.py`](chain_crashes.py), [`crashes_new_car.md`](results/chains/crashes_new_car.md)) finds:
+  - 63% of crashes on later goals happen in the first 3 s;
+  - 91% are rear-ends into a car ahead;
+  - after a BACK slot (ego 15 m behind the old anchor in its lane, at 25 m/s), half the crashes are into that old anchor, at a median of 1.5 s.
+- **It is Step 8g's failure in a new place:** full speed, no braking. Chains start ego close behind slower cars far more often than the training start does.
+
+**Same car: dropping back is missing.**
+- Moves to a slot ahead work about as well as goal 1: BACK → LEFT 96.7%, BACK → RIGHT 91.5%, LEFT → FRONT 86.9%, RIGHT → FRONT 88.9%.
+- **From FRONT to a slot behind, it fails:**
+  - LEFT 14.9% reached, RIGHT 9.3%, BACK 10.2%;
+  - about half of these goals time out, and a third crash;
+  - the scripted driver reaches FRONT → LEFT and FRONT → RIGHT in 100% of its goals, so these goals are feasible.
+- **Three pairs are flagged as infeasible in practice:** FRONT → BACK, LEFT → RIGHT and RIGHT → LEFT, which the scripted driver reaches 0–6% of the time.
+  - LEFT ↔ RIGHT means crossing the anchor's own lane next to it. The model crashes on all 255 such goals.
+  - These pairs are excluded in the "without flagged pairs" column; same car still breaks (+0.366).
+
+**Origin kept ≈ origin reset.** The goal inputs drifting outside the training range barely matters (drop +0.434 against +0.407). What breaks chains is the driving, not the coordinates.
+
+**Feasibility.**
+- The check removed 4.5% of candidate goals in "new car" and 3.1% in "same car".
+- In "same car", 32% of chains end because no other slot of that car is feasible. This is mostly after FRONT, where every other slot is behind and the anchor is slow.
+- In "new car", traffic runs out ("no car in range") in 24% of chains, almost all after goal 3 or 4.
+
+**Predictions checked.**
+1. Goal 1 identical to the ordinary episode: **correct.**
+2. New car drops 0.05–0.15: **wrong.** It drops +0.41 and breaks.
+3. Same car breaks: **correct.**
+   - Moves to a slot behind fail, mostly by timeouts: **correct.**
+   - Moves to a slot ahead are about as good as goal 1: **mostly correct.** BACK → FRONT is lower, at 71%.
+4. Origin kept worse by at least 0.10 from goal 3: **wrong.** It is about the same.
+5. Crashes cluster after a switch: **correct**, strongly (7 times goal 1's rate in the first 3 s).
+6. Feasibility removals:
+   - "new car" under 5%: **correct** (4.5%);
+   - "same car" 15–35%: **wrong** (3.1% at switches; instead 32% of chains end with no feasible slot).
+7. Traffic runs out:
+   - under 5% before goal 3: **correct** (0.9%);
+   - 20–40% before goal 5: **correct** (24%).
+8. The scripted driver:
+   - drops under 0.05 for a new car: **wrong.** Its later goals time out (47%), so its score drops by 0.25 (goal 1 against goals 2–5; first written here as "about 0.27", which was goal 2 alone).
+   - reaches at least 60% of same-car pairs: **correct** for every pair except the three flagged ones.
+
+**Reading.**
+- **The adopted recipe does not chain.** Later goals score about +0.4 below the first, in every condition and on every seed.
+  - With a new car, about 0.25 of that is the later goals being harder for any driver (the scripted driver drops as much, by timing out). The model's own part is about 0.16, and it is all crashes.
+  - With the same car, the scripted driver does better on later goals, so the whole drop is the model's.
+- **The cause is how it "reaches".** It counts a slot by passing through it at top speed. A chained goal therefore starts at 25 m/s, close behind or beside slower cars, and the policy does not brake (the same failure as Step 8g).
+- **The same-car test adds a second gap:** dropping back to a slot behind, which training never needed.
+- **What the bar written before says comes next:** training on chained goals. The finding also points to the reach definition itself: requiring ego to hold the slot (match the anchor's speed for a while) would remove the fly-through.
+  - Both are candidates, one IV each, and the choice is the user's.
+  - Holding was set aside on 2026-11-08 ("reach before hold").
+  - **Later the same day the user dropped holding** (see the decision log): it restricts an intermediate task. The next direction waits for the user's team meeting.
+
+**Demos** ([`results/chains/demos/`](results/chains/demos/), training seed 7):
+- **By the rule fixed before the run** (chains 70,000–70,002 in each condition):
+  - chain 70,000 crashes on goal 1 in every condition;
+  - in "new car", 70,001 crashes on goal 2 and 70,002 reaches all 5 goals.
+- **Chosen after the results, by stated rules, to illustrate them:**
+  - `illustrative_new_car_chain70007.mp4`: rams the previous anchor right after a switch;
+  - `illustrative_new_car_chain70003.mp4`: all 5 goals reached;
+  - `illustrative_same_car_chain70004.mp4`: after FRONT, fails to drop back to a slot behind.
 
 ## 10. Decision log
 
@@ -2014,6 +2254,19 @@ Tables: [`results/grid8/summary_8f.md`](results/grid8/summary_8f.md). Figure: `s
 | 2026-11-22 | 8f crash condition: "not higher beyond noise" instead of 8e's "not higher" | The two recipes crash equally often on the selection episodes (11.5% and 11.4%), so the 8e version would decide on noise. Set after seeing those rates; the 8e version is reported too. |
 | 2026-11-22 | 8f result: the Step 8 recipe is now O_c1w0t4 at 256 wide, 6M (O3_c1w0t4_n256) | All three conditions met on 500 fresh episodes: +0.177 over the 64-wide winner (p 0.006, ahead on 8 of 8), crashes −1.8 points (p 0.21; the 8e version is met too), no seed giving up on FRONT. Level with the scripted driver (+0.033, p 0.16). |
 | 2026-11-22 | `O3_c1w0t4_n256_seed16` added to `test_replay.py` | The adopted model must replay identically after any change to shared code; the test passes. |
+| 2026-11-22 | Step 7h and Step 8 committed with all data, and pushed to `reach-step7` | The user chose to commit everything, as in earlier steps (about 665 MB compressed), after seeing the size. |
+| 2026-11-23 | Step 8g: FRONT crashes diagnosed, no change chosen | 91% are full-speed rear-ends (ego at 25 m/s, 12 m/s faster than the car hit; SLOWER in the last 2 s in 2%). The user asked for consecutive goals next, so a fix for the crashes is recorded as a later candidate. |
+| 2026-11-23 | Step 9 (consecutive goals) planned, nothing built | The user asked for the plan first. It has a bar, predictions, implementation and tests; four design defaults are left for the user to confirm. |
+| 2026-11-23 | Attempts catalogue: [`attempts/README.md`](attempts/README.md), generated by [`attempts.py`](attempts.py) (written parts in [`attempts_text.py`](attempts_text.py)) | The user asked for full documentation of every attempt: reward function, approach, hyperparameters, results, curves, demos and analysis. 44 attempts in all: B0–B5, P1–P6 and the 30 Step 8 pipelines. |
+| 2026-11-23 | Step 9 revised at the user's direction, then built and run: only the adopted recipe (8 seeds); 3 conditions (new car, same car, origin kept) × 500 chains of up to 5 goals; every chained goal must pass a feasibility check | The user asked to test only the best recipe, with more scenarios and combinations of tasks, all of them feasible. The scripted driver runs the same chains as a yardstick and an empirical feasibility check. Bar and predictions were written before the run. |
+| 2026-11-23 | Feasibility threshold: a chained goal's time needed ≤ 15.72 s, the 95th percentile over 2,000 goals drawn at reset (seeds 90,000–91,999) | This defines "feasible" by the task's own goals, rather than by a number chosen by hand. A chain with no feasible next goal ends as "no feasible goal", which is not counted against the model. |
+| 2026-11-23 | Chain seeds 70,000–70,499 checked unused (no saved evaluation has a seed above 60,499) | Each test set is used once. |
+| 2026-11-23 | Step 9 result: chaining breaks in all 3 conditions (drop +0.41 new car, +0.50 same car, +0.43 origin kept; p < 0.001, every seed) | The model reaches slots at 25 m/s, 11 m/s faster than the anchor (99.8% of successes), so each next goal starts in a rear-end course. 63% of later-goal crashes come within 3 s of a switch. Same car also lacks dropping back to a slot behind. |
+| 2026-11-23 | Recorded, not decided: two candidate next steps, one IV each — training on chained goals (what the Step 9 bar names), or requiring the slot to be held (the reach definition) | The user's choice. |
+| 2026-11-23 | Step 9 write-up corrected: the scripted driver's own drop is reported beside the model's (new car 0.25, same car −0.16), and `chains.png` redrawn | The user noticed the model looked much weaker than in Step 8. The first write-up gave only the model's drop, which overstated its own failure with a new car. The bar and verdicts are unchanged. |
+| 2026-11-23 | Requiring the slot to be held is dropped as a next step; the next direction waits for the user's team meeting | The user: chained goals are a stepping stone toward a DFA-conditioned policy, so restricting the intermediate task to score better on it does not help that goal. |
+| 2026-11-23 | P1, P1s, P2 and P3 evaluated on the full task (`results/<run>/evaluation_on_B5/`, 200 episodes from 10,000) | Only P4 and P5 had full-task results, so the catalogue could not compare every attempt on the same episodes. No training. |
+| 2026-11-23 | Demo rule for the catalogue, fixed before recording | Seed 7's final model on its own evaluation episodes. The success demo is the first FRONT episode reached; else the first blocked B/L/R episode reached; else the first reached. The crash demo is the first crash. A timeout fills either place if it never happens. All 185 recorded episodes match their saved evaluations. |
 
 ## 11. Investigating failures yourself
 

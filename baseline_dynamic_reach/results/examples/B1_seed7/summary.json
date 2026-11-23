@@ -134,6 +134,21 @@
     "saved_outcome": "timeout",
     "saved_length": 250
   },
+  "10048": {
+    "episode": 10048,
+    "slot": "left",
+    "group": "demo",
+    "reason": "attempts.py rule: first reached / first crash",
+    "outcome": "collision",
+    "elapsed": 22.100000000000044,
+    "length": 221,
+    "reward": -50.0,
+    "video": "left_seed10048.mp4",
+    "figure": "left_seed10048.png",
+    "matches_saved_evaluation": true,
+    "saved_outcome": "collision",
+    "saved_length": 221
+  },
   "10051": {
     "episode": 10051,
     "slot": "right",
@@ -193,5 +208,20 @@
     "matches_saved_evaluation": true,
     "saved_outcome": "timeout",
     "saved_length": 250
+  },
+  "10129": {
+    "episode": 10129,
+    "slot": "back",
+    "group": "demo",
+    "reason": "attempts.py rule: first reached / first crash",
+    "outcome": "success",
+    "elapsed": 5.699999999999996,
+    "length": 57,
+    "reward": 50.0,
+    "video": "back_seed10129.mp4",
+    "figure": "back_seed10129.png",
+    "matches_saved_evaluation": true,
+    "saved_outcome": "success",
+    "saved_length": 57
   }
 }
