@@ -1,0 +1,26 @@
+21:26:39 18 runs: E1, E2_c1w01, E3_c1w01, E1_n256, E2_c1w01_n256, E3_c1w01_n256 x seeds 7, 10, 13; up to 32 runs and 4 evaluations at once
+21:26:39 renamed practice-task evaluation to E1_seed7\eval8\own_task_s10000_final
+21:26:39 renamed practice-task evaluation to E1_seed7\eval8\own_task_s40000_final
+21:26:39 renamed practice-task evaluation to E1_seed10\eval8\own_task_s10000_final
+21:26:39 renamed practice-task evaluation to E1_seed10\eval8\own_task_s40000_final
+21:26:39 renamed practice-task evaluation to E1_seed13\eval8\own_task_s10000_final
+21:26:39 renamed practice-task evaluation to E1_seed13\eval8\own_task_s40000_final
+21:26:39 renamed practice-task evaluation to E1_n256_seed7\eval8\own_task_s10000_final
+21:26:39 renamed practice-task evaluation to E1_n256_seed7\eval8\own_task_s40000_final
+21:26:39 renamed practice-task evaluation to E1_n256_seed10\eval8\own_task_s10000_final
+21:26:39 renamed practice-task evaluation to E1_n256_seed10\eval8\own_task_s40000_final
+21:26:39 renamed practice-task evaluation to E1_n256_seed13\eval8\own_task_s10000_final
+21:26:39 renamed practice-task evaluation to E1_n256_seed13\eval8\own_task_s40000_final
+21:26:55 done (0.3 min): evaluate E1_seed7 s40000 final
+21:26:57 done (0.3 min): evaluate E1_seed7 s10000 final
+21:26:59 done (0.3 min): evaluate E1_seed10 s40000 final
+21:27:00 done (0.4 min): evaluate E1_seed10 s10000 final
+21:27:14 done (0.3 min): evaluate E1_seed13 s10000 final
+21:27:15 done (0.3 min): evaluate E1_seed13 s40000 final
+21:27:22 done (0.4 min): evaluate E1_n256_seed7 s10000 final
+21:27:22 done (0.4 min): evaluate E1_n256_seed7 s40000 final
+21:27:32 done (0.3 min): evaluate E1_n256_seed10 s40000 final
+21:27:32 done (0.3 min): evaluate E1_n256_seed10 s10000 final
+21:27:36 done (0.2 min): evaluate E1_n256_seed13 s40000 final
+21:27:37 done (0.3 min): evaluate E1_n256_seed13 s10000 final
+21:27:37 Finished. Failed: none

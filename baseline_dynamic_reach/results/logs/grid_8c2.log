@@ -1,0 +1,302 @@
+04:20:01 48 runs: N2_c05w0t1, N3_c05w0t1, N2_c05w0t4, N3_c05w0t4, N2_c1w0t1, N3_c1w0t1, N2_c1w0t4, N3_c1w0t4, O2_c05w0t1, O3_c05w0t1, O2_c05w0t4, O3_c05w0t4, O2_c1w0t1, O3_c1w0t1, O2_c1w0t4, O3_c1w0t4 x seeds 7, 10, 13; up to 24 runs and 4 evaluations at once
+04:20:01 train N2_c05w0t1_seed7 (dummy)
+04:20:01 train N2_c05w0t1_seed10 (dummy)
+04:20:01 train N2_c05w0t1_seed13 (dummy)
+04:20:01 train N2_c05w0t4_seed7 (dummy)
+04:20:01 train N2_c05w0t4_seed10 (dummy)
+04:20:01 train N2_c05w0t4_seed13 (dummy)
+04:20:01 train N2_c1w0t1_seed7 (dummy)
+04:20:01 train N2_c1w0t1_seed10 (dummy)
+04:20:01 train N2_c1w0t1_seed13 (dummy)
+04:20:01 train N2_c1w0t4_seed7 (dummy)
+04:20:01 train N2_c1w0t4_seed10 (dummy)
+04:20:01 train N2_c1w0t4_seed13 (dummy)
+04:20:01 train O2_c05w0t1_seed7 (dummy)
+04:20:01 train O2_c05w0t1_seed10 (dummy)
+04:20:01 train O2_c05w0t1_seed13 (dummy)
+04:20:01 train O2_c05w0t4_seed7 (dummy)
+04:20:01 train O2_c05w0t4_seed10 (dummy)
+04:20:01 train O2_c05w0t4_seed13 (dummy)
+04:20:01 train O2_c1w0t1_seed7 (dummy)
+04:20:01 train O2_c1w0t1_seed10 (dummy)
+04:20:01 train O2_c1w0t1_seed13 (dummy)
+04:20:01 train O2_c1w0t4_seed7 (dummy)
+04:20:01 train O2_c1w0t4_seed10 (dummy)
+04:20:01 train O2_c1w0t4_seed13 (dummy)
+05:51:03 done (91.0 min): N2_c05w0t1_seed10
+05:51:03 train N3_c05w0t1_seed10 (dummy)
+05:51:13 done (91.2 min): N2_c1w0t1_seed10
+05:51:13 train N3_c1w0t1_seed10 (dummy)
+05:51:42 done (91.7 min): N2_c1w0t1_seed13
+05:51:42 train N3_c1w0t1_seed13 (dummy)
+05:52:07 done (92.1 min): N2_c05w0t4_seed10
+05:52:07 train N3_c05w0t4_seed10 (dummy)
+05:52:08 done (92.1 min): N2_c1w0t4_seed10
+05:52:08 train N3_c1w0t4_seed10 (dummy)
+05:52:16 done (1.2 min): evaluate N2_c05w0t1_seed10 s10000 final
+05:52:28 done (1.4 min): evaluate N2_c05w0t1_seed10 s40000 final
+05:52:42 done (92.7 min): N2_c1w0t4_seed7
+05:52:42 train N3_c1w0t4_seed7 (dummy)
+05:52:48 done (1.6 min): evaluate N2_c1w0t1_seed10 s10000 final
+05:52:58 done (92.9 min): N2_c1w0t1_seed7
+05:52:58 train N3_c1w0t1_seed7 (dummy)
+05:53:02 done (1.8 min): evaluate N2_c1w0t1_seed10 s40000 final
+05:53:05 done (93.1 min): N2_c1w0t4_seed13
+05:53:05 train N3_c1w0t4_seed13 (dummy)
+05:53:09 done (93.1 min): N2_c05w0t1_seed7
+05:53:09 train N3_c05w0t1_seed7 (dummy)
+05:53:12 done (93.2 min): N2_c05w0t1_seed13
+05:53:12 train N3_c05w0t1_seed13 (dummy)
+05:53:38 done (93.6 min): N2_c05w0t4_seed13
+05:53:38 train N3_c05w0t4_seed7 (dummy)
+05:53:40 done (93.7 min): N2_c05w0t4_seed7
+05:53:40 train N3_c05w0t4_seed13 (dummy)
+05:53:57 done (1.7 min): evaluate N2_c1w0t1_seed13 s10000 final
+05:53:58 done (1.5 min): evaluate N2_c1w0t1_seed13 s40000 final
+05:54:13 done (1.4 min): evaluate N2_c05w0t4_seed10 s10000 final
+05:54:30 done (1.5 min): evaluate N2_c05w0t4_seed10 s40000 final
+05:55:18 done (1.3 min): evaluate N2_c1w0t4_seed10 s10000 final
+05:55:18 done (1.3 min): evaluate N2_c1w0t4_seed10 s40000 final
+05:55:35 done (1.1 min): evaluate N2_c1w0t4_seed7 s40000 final
+05:55:44 done (1.5 min): evaluate N2_c1w0t4_seed7 s10000 final
+05:56:03 done (96.0 min): O2_c1w0t1_seed10
+05:56:03 train O3_c1w0t1_seed10 (dummy)
+05:56:30 done (1.2 min): evaluate N2_c1w0t1_seed7 s40000 final
+05:56:30 done (1.2 min): evaluate N2_c1w0t1_seed7 s10000 final
+05:56:56 done (96.9 min): O2_c1w0t4_seed10
+05:56:56 train O3_c1w0t4_seed10 (dummy)
+05:57:01 done (1.3 min): evaluate N2_c1w0t4_seed13 s40000 final
+05:57:18 done (1.7 min): evaluate N2_c1w0t4_seed13 s10000 final
+05:57:29 done (97.5 min): O2_c05w0t1_seed10
+05:57:29 train O3_c05w0t1_seed10 (dummy)
+05:57:31 done (1.0 min): evaluate N2_c05w0t1_seed7 s10000 final
+05:57:48 done (1.3 min): evaluate N2_c05w0t1_seed7 s40000 final
+05:58:31 done (1.5 min): evaluate N2_c05w0t1_seed13 s10000 final
+05:58:35 done (1.1 min): evaluate N2_c05w0t4_seed13 s10000 final
+05:58:46 done (1.5 min): evaluate N2_c05w0t1_seed13 s40000 final
+05:58:52 done (1.1 min): evaluate N2_c05w0t4_seed13 s40000 final
+05:59:29 done (1.0 min): evaluate N2_c05w0t4_seed7 s10000 final
+05:59:43 done (1.1 min): evaluate N2_c05w0t4_seed7 s40000 final
+06:01:12 done (101.2 min): O2_c1w0t1_seed7
+06:01:12 train O3_c1w0t1_seed7 (dummy)
+06:01:18 done (2.4 min): evaluate O2_c1w0t1_seed10 s40000 final
+06:01:21 done (2.6 min): evaluate O2_c1w0t1_seed10 s10000 final
+06:01:38 done (101.6 min): O2_c1w0t1_seed13
+06:01:38 train O3_c1w0t1_seed13 (dummy)
+06:01:47 done (101.8 min): O2_c05w0t4_seed13
+06:01:47 train O3_c05w0t4_seed13 (dummy)
+06:01:55 done (2.2 min): evaluate O2_c1w0t4_seed10 s10000 final
+06:02:04 done (102.1 min): O2_c05w0t1_seed13
+06:02:04 train O3_c05w0t1_seed13 (dummy)
+06:02:07 done (2.6 min): evaluate O2_c1w0t1_seed10 pass10000 final
+06:02:51 done (102.8 min): O2_c1w0t4_seed13
+06:02:51 train O3_c1w0t4_seed13 (dummy)
+06:03:06 done (103.1 min): O2_c05w0t1_seed7
+06:03:06 train O3_c05w0t1_seed7 (dummy)
+06:03:33 done (2.3 min): evaluate O2_c1w0t4_seed10 s40000 final
+06:03:39 done (103.6 min): O2_c1w0t4_seed7
+06:03:39 train O3_c1w0t4_seed7 (dummy)
+06:03:57 done (103.9 min): O2_c05w0t4_seed7
+06:03:57 train O3_c05w0t4_seed7 (dummy)
+06:04:10 done (2.8 min): evaluate O2_c1w0t4_seed10 pass10000 final
+06:04:18 done (2.4 min): evaluate O2_c05w0t1_seed10 s10000 final
+06:04:23 done (2.3 min): evaluate O2_c05w0t1_seed10 s40000 final
+06:05:03 done (0.9 min): evaluate O2_c1w0t1_seed7 s10000 final
+06:05:19 done (1.0 min): evaluate O2_c1w0t1_seed7 s40000 final
+06:05:34 done (1.2 min): evaluate O2_c1w0t1_seed7 pass10000 final
+06:05:54 done (0.9 min): evaluate O2_c1w0t1_seed13 s10000 final
+06:06:06 done (0.8 min): evaluate O2_c1w0t1_seed13 s40000 final
+06:06:09 done (2.6 min): evaluate O2_c05w0t1_seed10 pass10000 final
+06:06:26 done (106.4 min): O2_c05w0t4_seed10
+06:06:26 train O3_c05w0t4_seed10 (dummy)
+06:06:36 done (1.0 min): evaluate O2_c1w0t1_seed13 pass10000 final
+06:06:48 done (0.9 min): evaluate O2_c05w0t4_seed13 s10000 final
+06:06:57 done (0.8 min): evaluate O2_c05w0t4_seed13 s40000 final
+06:07:04 done (0.9 min): evaluate O2_c05w0t4_seed13 pass10000 final
+06:07:29 done (0.9 min): evaluate O2_c05w0t1_seed13 s10000 final
+06:07:37 done (0.8 min): evaluate O2_c05w0t1_seed13 s40000 final
+06:07:46 done (0.8 min): evaluate O2_c05w0t1_seed13 pass10000 final
+06:08:01 done (1.0 min): evaluate O2_c1w0t4_seed13 s10000 final
+06:08:25 done (0.8 min): evaluate O2_c1w0t4_seed13 pass10000 final
+06:08:26 done (0.9 min): evaluate O2_c1w0t4_seed13 s40000 final
+06:08:33 done (0.8 min): evaluate O2_c05w0t1_seed7 s10000 final
+06:08:44 done (0.7 min): evaluate O2_c05w0t1_seed7 s40000 final
+06:09:09 done (0.7 min): evaluate O2_c05w0t1_seed7 pass10000 final
+06:09:17 done (0.7 min): evaluate O2_c1w0t4_seed7 s40000 final
+06:09:17 done (0.9 min): evaluate O2_c1w0t4_seed7 s10000 final
+06:09:32 done (0.8 min): evaluate O2_c1w0t4_seed7 pass10000 final
+06:09:57 done (0.8 min): evaluate O2_c05w0t4_seed7 s10000 final
+06:10:00 done (0.7 min): evaluate O2_c05w0t4_seed7 s40000 final
+06:10:02 done (0.7 min): evaluate O2_c05w0t4_seed7 pass10000 final
+06:10:09 done (0.6 min): evaluate O2_c05w0t4_seed10 s10000 final
+06:10:28 done (0.5 min): evaluate O2_c05w0t4_seed10 pass10000 final
+06:10:30 done (0.6 min): evaluate O2_c05w0t4_seed10 s40000 final
+07:12:55 done (81.7 min): N3_c1w0t1_seed10
+07:12:59 done (81.9 min): N3_c05w0t1_seed10
+07:13:37 done (81.9 min): N3_c1w0t1_seed13
+07:13:59 done (1.1 min): evaluate N3_c1w0t1_seed10 s10000 final
+07:14:02 done (1.1 min): evaluate N3_c1w0t1_seed10 s40000 final
+07:14:03 done (1.1 min): evaluate N3_c1w0t1_seed10 s10000 1599984
+07:14:03 done (1.1 min): evaluate N3_c1w0t1_seed10 s40000 1599984
+07:14:27 done (82.3 min): N3_c1w0t4_seed10
+07:14:48 done (81.8 min): N3_c1w0t1_seed7
+07:14:52 done (82.8 min): N3_c05w0t4_seed10
+07:15:05 done (1.1 min): evaluate N3_c1w0t1_seed10 s10000 1799982
+07:15:08 done (1.1 min): evaluate N3_c05w0t1_seed10 s10000 final
+07:15:09 done (1.1 min): evaluate N3_c1w0t1_seed10 s40000 1799982
+07:15:10 done (1.1 min): evaluate N3_c05w0t1_seed10 s40000 final
+07:15:11 done (82.1 min): N3_c1w0t4_seed13
+07:15:15 done (81.6 min): N3_c05w0t4_seed13
+07:15:16 done (82.1 min): N3_c05w0t1_seed13
+07:15:23 done (81.7 min): N3_c05w0t4_seed7
+07:15:26 done (82.3 min): N3_c05w0t1_seed7
+07:15:52 done (83.2 min): N3_c1w0t4_seed7
+07:15:54 done (79.9 min): O3_c1w0t1_seed10
+07:15:58 done (0.9 min): evaluate N3_c05w0t1_seed10 s10000 1599984
+07:16:01 done (0.9 min): evaluate N3_c05w0t1_seed10 s40000 1599984
+07:16:02 done (0.9 min): evaluate N3_c05w0t1_seed10 s10000 1799982
+07:16:05 done (0.9 min): evaluate N3_c05w0t1_seed10 s40000 1799982
+07:16:48 done (0.7 min): evaluate N3_c1w0t1_seed13 s40000 1599984
+07:16:50 done (0.9 min): evaluate N3_c1w0t1_seed13 s10000 final
+07:16:50 done (79.9 min): O3_c1w0t4_seed10
+07:16:50 done (0.8 min): evaluate N3_c1w0t1_seed13 s10000 1599984
+07:16:51 done (0.8 min): evaluate N3_c1w0t1_seed13 s40000 final
+07:17:17 done (79.8 min): O3_c05w0t1_seed10
+07:17:25 done (0.6 min): evaluate N3_c1w0t4_seed10 s40000 final
+07:17:25 done (0.6 min): evaluate N3_c1w0t4_seed10 s10000 final
+07:17:28 done (0.7 min): evaluate N3_c1w0t1_seed13 s10000 1799982
+07:17:30 done (0.7 min): evaluate N3_c1w0t1_seed13 s40000 1799982
+07:18:03 done (0.6 min): evaluate N3_c1w0t4_seed10 s10000 1799982
+07:18:04 done (0.7 min): evaluate N3_c1w0t4_seed10 s40000 1599984
+07:18:05 done (0.6 min): evaluate N3_c1w0t4_seed10 s40000 1799982
+07:18:05 done (0.7 min): evaluate N3_c1w0t4_seed10 s10000 1599984
+07:18:42 done (0.6 min): evaluate N3_c1w0t1_seed7 s40000 final
+07:18:43 done (0.7 min): evaluate N3_c1w0t1_seed7 s10000 final
+07:18:45 done (0.7 min): evaluate N3_c1w0t1_seed7 s10000 1599984
+07:18:46 done (0.7 min): evaluate N3_c1w0t1_seed7 s40000 1599984
+07:19:19 done (0.6 min): evaluate N3_c05w0t4_seed10 s10000 final
+07:19:19 done (0.5 min): evaluate N3_c05w0t4_seed10 s40000 final
+07:19:24 done (0.7 min): evaluate N3_c1w0t1_seed7 s40000 1799982
+07:19:24 done (0.7 min): evaluate N3_c1w0t1_seed7 s10000 1799982
+07:19:53 done (0.6 min): evaluate N3_c05w0t4_seed10 s40000 1599984
+07:19:53 done (0.6 min): evaluate N3_c05w0t4_seed10 s10000 1599984
+07:19:58 done (0.6 min): evaluate N3_c05w0t4_seed10 s40000 1799982
+07:19:58 done (0.6 min): evaluate N3_c05w0t4_seed10 s10000 1799982
+07:20:10 done (78.5 min): O3_c1w0t1_seed13
+07:20:32 done (79.3 min): O3_c1w0t1_seed7
+07:20:33 done (0.7 min): evaluate N3_c1w0t4_seed13 s40000 final
+07:20:36 done (0.7 min): evaluate N3_c1w0t4_seed13 s10000 final
+07:20:39 done (0.7 min): evaluate N3_c1w0t4_seed13 s40000 1599984
+07:20:40 done (0.7 min): evaluate N3_c1w0t4_seed13 s10000 1599984
+07:20:40 done (78.9 min): O3_c05w0t4_seed13
+07:20:52 done (78.8 min): O3_c05w0t1_seed13
+07:21:08 done (0.5 min): evaluate N3_c05w0t4_seed13 s10000 final
+07:21:09 done (0.6 min): evaluate N3_c1w0t4_seed13 s10000 1799982
+07:21:09 done (0.5 min): evaluate N3_c05w0t4_seed13 s40000 final
+07:21:10 done (0.6 min): evaluate N3_c1w0t4_seed13 s40000 1799982
+07:21:17 done (78.4 min): O3_c1w0t4_seed13
+07:21:23 done (78.3 min): O3_c05w0t1_seed7
+07:21:33 done (0.4 min): evaluate N3_c05w0t4_seed13 s40000 1599984
+07:21:33 done (0.4 min): evaluate N3_c05w0t4_seed13 s10000 1599984
+07:21:36 done (0.4 min): evaluate N3_c05w0t4_seed13 s10000 1799982
+07:21:37 done (0.4 min): evaluate N3_c05w0t4_seed13 s40000 1799982
+07:21:47 done (78.1 min): O3_c1w0t4_seed7
+07:21:56 done (78.0 min): O3_c05w0t4_seed7
+07:21:57 done (0.4 min): evaluate N3_c05w0t1_seed13 s10000 final
+07:21:58 done (0.4 min): evaluate N3_c05w0t1_seed13 s40000 final
+07:22:05 done (0.5 min): evaluate N3_c05w0t1_seed13 s10000 1599984
+07:22:06 done (0.5 min): evaluate N3_c05w0t1_seed13 s40000 1599984
+07:22:26 done (0.5 min): evaluate N3_c05w0t1_seed13 s40000 1799982
+07:22:27 done (0.4 min): evaluate N3_c05w0t4_seed7 s40000 final
+07:22:28 done (0.5 min): evaluate N3_c05w0t1_seed13 s10000 1799982
+07:22:28 done (0.4 min): evaluate N3_c05w0t4_seed7 s10000 final
+07:22:41 done (76.2 min): O3_c05w0t4_seed10
+07:22:50 done (0.4 min): evaluate N3_c05w0t4_seed7 s40000 1599984
+07:22:50 done (0.4 min): evaluate N3_c05w0t4_seed7 s10000 1599984
+07:22:52 done (0.4 min): evaluate N3_c05w0t4_seed7 s10000 1799982
+07:22:52 done (0.4 min): evaluate N3_c05w0t4_seed7 s40000 1799982
+07:23:10 done (0.3 min): evaluate N3_c05w0t1_seed7 s40000 1599984
+07:23:10 done (0.3 min): evaluate N3_c05w0t1_seed7 s40000 final
+07:23:11 done (0.3 min): evaluate N3_c05w0t1_seed7 s10000 1599984
+07:23:12 done (0.4 min): evaluate N3_c05w0t1_seed7 s10000 final
+07:23:35 done (0.4 min): evaluate N3_c1w0t4_seed7 s40000 final
+07:23:36 done (0.4 min): evaluate N3_c1w0t4_seed7 s10000 final
+07:23:36 done (0.4 min): evaluate N3_c05w0t1_seed7 s40000 1799982
+07:23:38 done (0.5 min): evaluate N3_c05w0t1_seed7 s10000 1799982
+07:24:04 done (0.5 min): evaluate N3_c1w0t4_seed7 s10000 1799982
+07:24:04 done (0.4 min): evaluate N3_c1w0t4_seed7 s40000 1799982
+07:24:08 done (0.6 min): evaluate N3_c1w0t4_seed7 s10000 1599984
+07:24:09 done (0.5 min): evaluate N3_c1w0t4_seed7 s40000 1599984
+07:24:57 done (0.8 min): evaluate O3_c1w0t1_seed10 s10000 1599984
+07:24:58 done (0.8 min): evaluate O3_c1w0t1_seed10 s40000 1599984
+07:24:58 done (0.9 min): evaluate O3_c1w0t1_seed10 s40000 final
+07:25:01 done (1.0 min): evaluate O3_c1w0t1_seed10 s10000 final
+07:25:41 done (0.7 min): evaluate O3_c1w0t4_seed10 s10000 final
+07:25:44 done (0.7 min): evaluate O3_c1w0t4_seed10 s40000 final
+07:25:45 done (0.8 min): evaluate O3_c1w0t1_seed10 s40000 1799982
+07:25:48 done (0.9 min): evaluate O3_c1w0t1_seed10 s10000 1799982
+07:26:26 done (0.7 min): evaluate O3_c1w0t4_seed10 s10000 1599984
+07:26:30 done (0.8 min): evaluate O3_c1w0t4_seed10 s40000 1599984
+07:26:41 done (0.9 min): evaluate O3_c1w0t4_seed10 s10000 1799982
+07:26:42 done (0.9 min): evaluate O3_c1w0t4_seed10 s40000 1799982
+07:27:05 done (0.7 min): evaluate O3_c05w0t1_seed10 s10000 final
+07:27:12 done (0.7 min): evaluate O3_c05w0t1_seed10 s40000 final
+07:27:14 done (0.5 min): evaluate O3_c05w0t1_seed10 s40000 1599984
+07:27:14 done (0.6 min): evaluate O3_c05w0t1_seed10 s10000 1599984
+07:27:41 done (0.4 min): evaluate O3_c1w0t1_seed13 s40000 final
+07:27:43 done (0.5 min): evaluate O3_c1w0t1_seed13 s10000 final
+07:27:48 done (0.7 min): evaluate O3_c05w0t1_seed10 s10000 1799982
+07:27:56 done (0.7 min): evaluate O3_c05w0t1_seed10 s40000 1799982
+07:28:07 done (0.4 min): evaluate O3_c1w0t1_seed13 s10000 1599984
+07:28:08 done (0.4 min): evaluate O3_c1w0t1_seed13 s40000 1599984
+07:28:15 done (0.4 min): evaluate O3_c1w0t1_seed13 s10000 1799982
+07:28:21 done (0.4 min): evaluate O3_c1w0t1_seed13 s40000 1799982
+07:28:32 done (0.4 min): evaluate O3_c1w0t1_seed7 s40000 final
+07:28:33 done (0.4 min): evaluate O3_c1w0t1_seed7 s10000 final
+07:28:45 done (0.5 min): evaluate O3_c1w0t1_seed7 s10000 1599984
+07:28:51 done (0.5 min): evaluate O3_c1w0t1_seed7 s40000 1599984
+07:29:02 done (0.5 min): evaluate O3_c1w0t1_seed7 s40000 1799982
+07:29:03 done (0.5 min): evaluate O3_c1w0t1_seed7 s10000 1799982
+07:29:13 done (0.5 min): evaluate O3_c05w0t4_seed13 s10000 final
+07:29:16 done (0.4 min): evaluate O3_c05w0t4_seed13 s40000 final
+07:29:34 done (0.5 min): evaluate O3_c05w0t4_seed13 s40000 1599984
+07:29:34 done (0.5 min): evaluate O3_c05w0t4_seed13 s10000 1599984
+07:29:37 done (0.4 min): evaluate O3_c05w0t4_seed13 s10000 1799982
+07:29:39 done (0.4 min): evaluate O3_c05w0t4_seed13 s40000 1799982
+07:29:57 done (0.4 min): evaluate O3_c05w0t1_seed13 s40000 final
+07:29:58 done (0.4 min): evaluate O3_c05w0t1_seed13 s10000 final
+07:30:01 done (0.4 min): evaluate O3_c05w0t1_seed13 s40000 1599984
+07:30:02 done (0.4 min): evaluate O3_c05w0t1_seed13 s10000 1599984
+07:30:25 done (0.4 min): evaluate O3_c1w0t4_seed13 s10000 final
+07:30:26 done (0.5 min): evaluate O3_c05w0t1_seed13 s40000 1799982
+07:30:27 done (0.5 min): evaluate O3_c05w0t1_seed13 s10000 1799982
+07:30:28 done (0.4 min): evaluate O3_c1w0t4_seed13 s40000 final
+07:30:50 done (0.4 min): evaluate O3_c1w0t4_seed13 s40000 1599984
+07:30:52 done (0.4 min): evaluate O3_c1w0t4_seed13 s10000 1599984
+07:30:53 done (0.4 min): evaluate O3_c1w0t4_seed13 s40000 1799982
+07:30:56 done (0.5 min): evaluate O3_c1w0t4_seed13 s10000 1799982
+07:31:17 done (0.4 min): evaluate O3_c05w0t1_seed7 s10000 final
+07:31:17 done (0.4 min): evaluate O3_c05w0t1_seed7 s40000 final
+07:31:20 done (0.5 min): evaluate O3_c05w0t1_seed7 s10000 1599984
+07:31:21 done (0.4 min): evaluate O3_c05w0t1_seed7 s40000 1599984
+07:31:44 done (0.4 min): evaluate O3_c1w0t4_seed7 s40000 final
+07:31:46 done (0.4 min): evaluate O3_c1w0t4_seed7 s10000 final
+07:31:48 done (0.5 min): evaluate O3_c05w0t1_seed7 s40000 1799982
+07:31:50 done (0.6 min): evaluate O3_c05w0t1_seed7 s10000 1799982
+07:32:12 done (0.5 min): evaluate O3_c1w0t4_seed7 s10000 1599984
+07:32:13 done (0.4 min): evaluate O3_c1w0t4_seed7 s40000 1599984
+07:32:14 done (0.4 min): evaluate O3_c1w0t4_seed7 s10000 1799982
+07:32:15 done (0.4 min): evaluate O3_c1w0t4_seed7 s40000 1799982
+07:32:38 done (0.4 min): evaluate O3_c05w0t4_seed7 s40000 1599984
+07:32:39 done (0.4 min): evaluate O3_c05w0t4_seed7 s10000 1599984
+07:32:39 done (0.4 min): evaluate O3_c05w0t4_seed7 s40000 final
+07:32:41 done (0.5 min): evaluate O3_c05w0t4_seed7 s10000 final
+07:33:02 done (0.4 min): evaluate O3_c05w0t4_seed10 s40000 final
+07:33:03 done (0.4 min): evaluate O3_c05w0t4_seed10 s10000 final
+07:33:03 done (0.4 min): evaluate O3_c05w0t4_seed7 s40000 1799982
+07:33:04 done (0.4 min): evaluate O3_c05w0t4_seed7 s10000 1799982
+07:33:25 done (0.4 min): evaluate O3_c05w0t4_seed10 s40000 1599984
+07:33:27 done (0.4 min): evaluate O3_c05w0t4_seed10 s10000 1599984
+07:33:30 done (0.5 min): evaluate O3_c05w0t4_seed10 s10000 1799982
+07:33:31 done (0.4 min): evaluate O3_c05w0t4_seed10 s40000 1799982
+07:33:31 Finished. Failed: none

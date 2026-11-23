@@ -1,0 +1,240 @@
+{
+  "run": "N3_c2w01_seed10",
+  "arm": "N3_c2w01",
+  "model": "E:\\Multi_Agent_Auto_Drive\\third_party\\HighwayEnv-Automaton\\baseline_dynamic_reach\\results\\N3_c2w01_seed10\\checkpoints\\N3_c2w01_seed10_1799982_steps.zip",
+  "model_sha256": "f924a889a0af5fb0ea6dc105abf2d91da43aa11a70633c103f5cdccd3bb24b4c",
+  "code": {
+    "git_head": "ddea40586d62d6120ed7b8ea4112e13ebaf576b3",
+    "git_branch": "reach-step7",
+    "tracked_files_modified": true,
+    "source_sha256": "1ab2528f29139401e4adc7be59a2dc5558c6f8e802a12fee9bfcd629e689a4e1",
+    "source_files": 100
+  },
+  "first_seed": 40000,
+  "episodes": 200,
+  "environment": {
+    "env_config": {
+      "lanes_count": 3,
+      "vehicles_count": 8,
+      "controlled_vehicles": 1,
+      "vehicles_density": 0.7,
+      "traffic_speed_range": [
+        12.0,
+        17.0
+      ],
+      "lead_vehicle_gap": 35.0,
+      "ego_spacing": 2.0,
+      "duration": 25.0,
+      "simulation_frequency": 10,
+      "policy_frequency": 10,
+      "offroad_terminal": false,
+      "action": {
+        "type": "DiscreteMetaAction",
+        "target_speeds": [
+          10.0,
+          12.5,
+          15.0,
+          17.5,
+          20.0,
+          22.5,
+          25.0
+        ]
+      },
+      "observation": {
+        "type": "Kinematics",
+        "vehicles_count": 7,
+        "features": [
+          "presence",
+          "x",
+          "y",
+          "vx",
+          "vy"
+        ],
+        "absolute": false,
+        "normalize": true,
+        "clip": true,
+        "see_behind": true,
+        "include_obstacles": false,
+        "order": "sorted",
+        "features_range": {
+          "x": [
+            -200,
+            200
+          ],
+          "y": [
+            -12,
+            12
+          ],
+          "vx": [
+            -30,
+            30
+          ],
+          "vy": [
+            -10,
+            10
+          ]
+        }
+      },
+      "screen_width": 1200,
+      "screen_height": 360,
+      "scaling": 5.0,
+      "centering_position": [
+        0.18,
+        0.55
+      ],
+      "real_time_rendering": false
+    },
+    "goal_config": {
+      "distance_range": [
+        30.0,
+        120.0
+      ],
+      "slot_offsets": {
+        "front": 35.0,
+        "back": 15.0
+      },
+      "radius": 3.0,
+      "lateral_tolerance": 1.5,
+      "hold_seconds": 0.1,
+      "initial_speed": 20.0,
+      "position_scale": [
+        200.0,
+        12.0
+      ],
+      "slot_error_features": true,
+      "slot_error_scale": [
+        10.0,
+        4.0,
+        10.0
+      ],
+      "shaping_range": 30.0,
+      "pass_margin": 10.0
+    },
+    "reward_weights": {
+      "goal": 50.0,
+      "collision": 100.0,
+      "progress": 0.0,
+      "time": 0.0,
+      "hold": 0.0,
+      "potential_progress": {
+        "weight": 0.1,
+        "gamma": 0.99
+      }
+    },
+    "reward_scale": 0.02,
+    "scenario": null
+  },
+  "environment_of": "N3_c2w01",
+  "ppo": {
+    "episodes": 200,
+    "success_rate": 0.49,
+    "collision_rate": 0.015,
+    "timeout_rate": 0.495,
+    "average_episode_reward": 0.7675485523952357,
+    "average_time_to_goal_seconds": 4.848979591836731,
+    "average_final_distance_meters": 79.34270674815218,
+    "success_rate_by_goal_lane": {
+      "0": 0.4098360655737705,
+      "1": 0.4931506849315068,
+      "2": 0.5606060606060606
+    },
+    "success_rate_by_required_lane_changes": {
+      "0": 0.24096385542168675,
+      "1": 0.6590909090909091,
+      "2": 0.6896551724137931
+    },
+    "average_reward_components": {
+      "goal": 0.49,
+      "collision": -0.03,
+      "progress": 0.0,
+      "time": 0.0,
+      "hold": 0.0,
+      "potential_progress": 0.3075485523952357
+    },
+    "average_steps_to_success": 48.48979591836735,
+    "successful_episodes": 98,
+    "anchor_lost_rate": 0.0,
+    "average_max_hold_seconds": 0.048999999999999995,
+    "success_rate_by_slot": {
+      "front": 0.0,
+      "back": 0.9107142857142857,
+      "left": 0.5897435897435898,
+      "right": 0.7058823529411765
+    },
+    "episodes_by_slot": {
+      "front": 71,
+      "back": 56,
+      "left": 39,
+      "right": 34
+    },
+    "successes": 98,
+    "success_ci95": [
+      0.4215627827839354,
+      0.5588141237494438
+    ],
+    "outcome_counts": {
+      "success": 98,
+      "collision": 3,
+      "timeout": 99,
+      "anchor_lost": 0
+    },
+    "by_slot": {
+      "front": {
+        "episodes": 71,
+        "successes": 0,
+        "success_rate": 0.0,
+        "success_ci95": [
+          0.0,
+          0.051327952965064906
+        ],
+        "collision_rate": 0.0,
+        "timeout_rate": 1.0,
+        "anchor_lost_rate": 0.0,
+        "mean_time_to_reach_seconds": null,
+        "mean_final_distance_meters": 149.16748583076307
+      },
+      "back": {
+        "episodes": 56,
+        "successes": 51,
+        "success_rate": 0.9107142857142857,
+        "success_ci95": [
+          0.8074399851212337,
+          0.9612578517956019
+        ],
+        "collision_rate": 0.017857142857142856,
+        "timeout_rate": 0.07142857142857142,
+        "anchor_lost_rate": 0.0,
+        "mean_time_to_reach_seconds": 4.907843137254897,
+        "mean_final_distance_meters": 15.559472113742569
+      },
+      "left": {
+        "episodes": 39,
+        "successes": 23,
+        "success_rate": 0.5897435897435898,
+        "success_ci95": [
+          0.4341862276510412,
+          0.7292069009395471
+        ],
+        "collision_rate": 0.0,
+        "timeout_rate": 0.41025641025641024,
+        "anchor_lost_rate": 0.0,
+        "mean_time_to_reach_seconds": 5.047826086956517,
+        "mean_final_distance_meters": 70.12938662331399
+      },
+      "right": {
+        "episodes": 34,
+        "successes": 24,
+        "success_rate": 0.7058823529411765,
+        "success_ci95": [
+          0.5383109006960254,
+          0.8316536940601198
+        ],
+        "collision_rate": 0.058823529411764705,
+        "timeout_rate": 0.23529411764705882,
+        "anchor_lost_rate": 0.0,
+        "mean_time_to_reach_seconds": 4.5333333333333306,
+        "mean_final_distance_meters": 49.15509820492439
+      }
+    }
+  }
+}

@@ -1,0 +1,47 @@
+04:20:01 10 runs: N1, E1 x seeds 16, 19, 22, 25, 28; up to 8 runs and 2 evaluations at once
+04:20:01 train N1_seed16 (dummy)
+04:20:01 train N1_seed19 (dummy)
+04:20:01 train N1_seed22 (dummy)
+04:20:01 train N1_seed25 (dummy)
+04:20:01 train N1_seed28 (dummy)
+04:20:01 train E1_seed16 (dummy)
+04:20:01 train E1_seed19 (dummy)
+04:20:01 train E1_seed22 (dummy)
+05:52:50 done (92.8 min): N1_seed28
+05:52:50 train E1_seed25 (dummy)
+05:53:18 done (93.3 min): N1_seed19
+05:53:18 train E1_seed28 (dummy)
+05:53:21 done (93.3 min): N1_seed16
+05:53:52 done (93.9 min): N1_seed25
+05:53:53 done (93.9 min): N1_seed22
+05:53:57 done (1.1 min): evaluate N1_seed28 s10000 final
+05:53:59 done (1.1 min): evaluate N1_seed28 s40000 final
+05:54:59 done (1.0 min): evaluate N1_seed19 s10000 final
+05:55:04 done (1.1 min): evaluate N1_seed19 s40000 final
+05:56:01 done (1.0 min): evaluate N1_seed16 s40000 final
+05:56:02 done (1.0 min): evaluate N1_seed16 s10000 final
+05:56:59 done (1.0 min): evaluate N1_seed25 s40000 final
+05:57:00 done (1.0 min): evaluate N1_seed25 s10000 final
+05:58:00 done (1.0 min): evaluate N1_seed22 s40000 final
+05:58:06 done (1.1 min): evaluate N1_seed22 s10000 final
+06:02:31 done (102.5 min): E1_seed22
+06:02:50 done (102.8 min): E1_seed19
+06:03:22 done (0.9 min): evaluate E1_seed22 s10000 final
+06:03:24 done (0.9 min): evaluate E1_seed22 s40000 final
+06:04:12 done (0.8 min): evaluate E1_seed22 pass10000 final
+06:04:21 done (0.9 min): evaluate E1_seed19 s10000 final
+06:05:07 done (105.1 min): E1_seed16
+06:05:10 done (1.0 min): evaluate E1_seed19 s40000 final
+06:05:14 done (0.9 min): evaluate E1_seed19 pass10000 final
+06:06:07 done (0.9 min): evaluate E1_seed16 s40000 final
+06:06:15 done (1.1 min): evaluate E1_seed16 s10000 final
+06:06:49 done (0.7 min): evaluate E1_seed16 pass10000 final
+07:20:59 done (88.1 min): E1_seed25
+07:21:21 done (0.4 min): evaluate E1_seed25 s40000 final
+07:21:21 done (0.4 min): evaluate E1_seed25 s10000 final
+07:21:42 done (0.4 min): evaluate E1_seed25 pass10000 final
+07:22:29 done (89.2 min): E1_seed28
+07:22:49 done (0.3 min): evaluate E1_seed28 s40000 final
+07:22:52 done (0.4 min): evaluate E1_seed28 s10000 final
+07:23:04 done (0.2 min): evaluate E1_seed28 pass10000 final
+07:23:04 Finished. Failed: none

@@ -1,0 +1,258 @@
+
+=== 2026-11-18 19:33:33 E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\.venv\Scripts\python.exe -B E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\train.py --arm O2_c1w01 --seed 7 --vec subproc --no-tensorboard --checkpoint-every 200000 --skip-evaluation
+Round change from E1:
+  environment.reward_weights.collision: 0.0 -> 50.0
+  environment.reward_weights.potential_progress.weight: 0.0 -> 0.1
+  init_policy: None -> 'E1'
+O2_c1w01_seed7: 2,000,000 transitions on 3 environments; reward {'goal': 50.0, 'collision': 50.0, 'progress': 0.0, 'time': 0.0, 'hold': 0.0, 'potential_progress': {'weight': 0.1, 'gamma': 0.99}}; hold 0.1 s
+Initial weights: E1_seed7.zip
+10,002 transitions; recent success: 81.0%
+20,004 transitions; recent success: 85.0%
+30,006 transitions; recent success: 73.0%
+40,008 transitions; recent success: 82.0%
+50,010 transitions; recent success: 89.0%
+60,012 transitions; recent success: 78.0%
+70,014 transitions; recent success: 76.0%
+80,016 transitions; recent success: 85.0%
+90,018 transitions; recent success: 86.0%
+100,020 transitions; recent success: 78.0%
+110,022 transitions; recent success: 84.0%
+120,024 transitions; recent success: 74.0%
+130,026 transitions; recent success: 86.0%
+140,028 transitions; recent success: 78.0%
+150,030 transitions; recent success: 80.0%
+160,032 transitions; recent success: 83.0%
+170,034 transitions; recent success: 85.0%
+180,036 transitions; recent success: 88.0%
+190,038 transitions; recent success: 85.0%
+200,040 transitions; recent success: 84.0%
+210,042 transitions; recent success: 82.0%
+220,044 transitions; recent success: 77.0%
+230,046 transitions; recent success: 87.0%
+240,048 transitions; recent success: 79.0%
+250,050 transitions; recent success: 82.0%
+260,052 transitions; recent success: 90.0%
+270,054 transitions; recent success: 84.0%
+280,056 transitions; recent success: 88.0%
+290,058 transitions; recent success: 82.0%
+300,060 transitions; recent success: 87.0%
+310,062 transitions; recent success: 90.0%
+320,064 transitions; recent success: 84.0%
+330,066 transitions; recent success: 78.0%
+340,068 transitions; recent success: 78.0%
+350,070 transitions; recent success: 84.0%
+360,072 transitions; recent success: 86.0%
+370,074 transitions; recent success: 84.0%
+380,076 transitions; recent success: 90.0%
+390,078 transitions; recent success: 88.0%
+400,080 transitions; recent success: 82.0%
+410,082 transitions; recent success: 83.0%
+420,084 transitions; recent success: 84.0%
+430,086 transitions; recent success: 90.0%
+440,088 transitions; recent success: 83.0%
+450,090 transitions; recent success: 87.0%
+460,092 transitions; recent success: 89.0%
+470,094 transitions; recent success: 85.0%
+480,096 transitions; recent success: 88.0%
+490,098 transitions; recent success: 90.0%
+500,100 transitions; recent success: 84.0%
+510,102 transitions; recent success: 83.0%
+520,104 transitions; recent success: 88.0%
+530,106 transitions; recent success: 86.0%
+540,108 transitions; recent success: 85.0%
+550,110 transitions; recent success: 87.0%
+560,112 transitions; recent success: 90.0%
+570,114 transitions; recent success: 87.0%
+580,116 transitions; recent success: 83.0%
+590,118 transitions; recent success: 91.0%
+600,120 transitions; recent success: 83.0%
+610,122 transitions; recent success: 86.0%
+620,124 transitions; recent success: 89.0%
+630,126 transitions; recent success: 88.0%
+640,128 transitions; recent success: 84.0%
+650,130 transitions; recent success: 85.0%
+660,132 transitions; recent success: 84.0%
+670,134 transitions; recent success: 82.0%
+680,136 transitions; recent success: 88.0%
+690,138 transitions; recent success: 83.0%
+700,140 transitions; recent success: 92.0%
+710,142 transitions; recent success: 89.0%
+720,144 transitions; recent success: 88.0%
+730,146 transitions; recent success: 80.0%
+740,148 transitions; recent success: 90.0%
+750,150 transitions; recent success: 83.0%
+760,152 transitions; recent success: 82.0%
+770,154 transitions; recent success: 83.0%
+780,156 transitions; recent success: 89.0%
+790,158 transitions; recent success: 92.0%
+800,160 transitions; recent success: 89.0%
+810,162 transitions; recent success: 83.0%
+820,164 transitions; recent success: 89.0%
+830,166 transitions; recent success: 85.0%
+840,168 transitions; recent success: 86.0%
+850,170 transitions; recent success: 83.0%
+860,172 transitions; recent success: 87.0%
+870,174 transitions; recent success: 85.0%
+880,176 transitions; recent success: 91.0%
+890,178 transitions; recent success: 83.0%
+900,180 transitions; recent success: 87.0%
+910,182 transitions; recent success: 88.0%
+920,184 transitions; recent success: 94.0%
+930,186 transitions; recent success: 88.0%
+940,188 transitions; recent success: 87.0%
+950,190 transitions; recent success: 92.0%
+960,192 transitions; recent success: 83.0%
+970,194 transitions; recent success: 90.0%
+980,196 transitions; recent success: 88.0%
+990,198 transitions; recent success: 87.0%
+1,000,200 transitions; recent success: 92.0%
+1,010,202 transitions; recent success: 88.0%
+1,020,204 transitions; recent success: 89.0%
+1,030,206 transitions; recent success: 88.0%
+1,040,208 transitions; recent success: 90.0%
+1,050,210 transitions; recent success: 83.0%
+1,060,212 transitions; recent success: 81.0%
+1,070,214 transitions; recent success: 89.0%
+1,080,216 transitions; recent success: 86.0%
+1,090,218 transitions; recent success: 92.0%
+1,100,220 transitions; recent success: 84.0%
+1,110,222 transitions; recent success: 88.0%
+1,120,224 transitions; recent success: 86.0%
+1,130,226 transitions; recent success: 83.0%
+1,140,228 transitions; recent success: 84.0%
+1,150,230 transitions; recent success: 96.0%
+1,160,232 transitions; recent success: 88.0%
+1,170,234 transitions; recent success: 87.0%
+1,180,236 transitions; recent success: 93.0%
+1,190,238 transitions; recent success: 88.0%
+1,200,240 transitions; recent success: 89.0%
+1,210,242 transitions; recent success: 82.0%
+1,220,244 transitions; recent success: 90.0%
+1,230,246 transitions; recent success: 85.0%
+1,240,248 transitions; recent success: 87.0%
+1,250,250 transitions; recent success: 83.0%
+1,260,252 transitions; recent success: 88.0%
+1,270,254 transitions; recent success: 82.0%
+1,280,256 transitions; recent success: 90.0%
+1,290,258 transitions; recent success: 89.0%
+1,300,260 transitions; recent success: 84.0%
+1,310,262 transitions; recent success: 79.0%
+1,320,264 transitions; recent success: 87.0%
+1,330,266 transitions; recent success: 91.0%
+1,340,268 transitions; recent success: 89.0%
+1,350,270 transitions; recent success: 93.0%
+1,360,272 transitions; recent success: 86.0%
+1,370,274 transitions; recent success: 92.0%
+1,380,276 transitions; recent success: 86.0%
+1,390,278 transitions; recent success: 88.0%
+1,400,280 transitions; recent success: 90.0%
+1,410,282 transitions; recent success: 93.0%
+1,420,284 transitions; recent success: 89.0%
+1,430,286 transitions; recent success: 83.0%
+1,440,288 transitions; recent success: 90.0%
+1,450,290 transitions; recent success: 76.0%
+1,460,292 transitions; recent success: 87.0%
+1,470,294 transitions; recent success: 88.0%
+1,480,296 transitions; recent success: 88.0%
+1,490,298 transitions; recent success: 89.0%
+1,500,300 transitions; recent success: 88.0%
+1,510,302 transitions; recent success: 85.0%
+1,520,304 transitions; recent success: 94.0%
+1,530,306 transitions; recent success: 85.0%
+1,540,308 transitions; recent success: 84.0%
+1,550,310 transitions; recent success: 90.0%
+1,560,312 transitions; recent success: 92.0%
+1,570,314 transitions; recent success: 89.0%
+1,580,316 transitions; recent success: 93.0%
+1,590,318 transitions; recent success: 94.0%
+1,600,320 transitions; recent success: 87.0%
+1,610,322 transitions; recent success: 88.0%
+1,620,324 transitions; recent success: 93.0%
+1,630,326 transitions; recent success: 89.0%
+1,640,328 transitions; recent success: 86.0%
+1,650,330 transitions; recent success: 81.0%
+1,660,332 transitions; recent success: 88.0%
+1,670,334 transitions; recent success: 89.0%
+1,680,336 transitions; recent success: 93.0%
+1,690,338 transitions; recent success: 93.0%
+1,700,340 transitions; recent success: 83.0%
+1,710,342 transitions; recent success: 88.0%
+1,720,344 transitions; recent success: 84.0%
+1,730,346 transitions; recent success: 87.0%
+1,740,348 transitions; recent success: 87.0%
+1,750,350 transitions; recent success: 85.0%
+1,760,352 transitions; recent success: 88.0%
+1,770,354 transitions; recent success: 84.0%
+1,780,356 transitions; recent success: 84.0%
+1,790,358 transitions; recent success: 89.0%
+1,800,360 transitions; recent success: 87.0%
+1,810,362 transitions; recent success: 87.0%
+1,820,364 transitions; recent success: 91.0%
+1,830,366 transitions; recent success: 83.0%
+1,840,368 transitions; recent success: 87.0%
+1,850,370 transitions; recent success: 88.0%
+1,860,372 transitions; recent success: 88.0%
+1,870,374 transitions; recent success: 83.0%
+1,880,376 transitions; recent success: 84.0%
+1,890,378 transitions; recent success: 94.0%
+1,900,380 transitions; recent success: 91.0%
+1,910,382 transitions; recent success: 88.0%
+1,920,384 transitions; recent success: 93.0%
+1,930,386 transitions; recent success: 86.0%
+1,940,388 transitions; recent success: 85.0%
+1,950,390 transitions; recent success: 86.0%
+1,960,392 transitions; recent success: 88.0%
+1,970,394 transitions; recent success: 90.0%
+1,980,396 transitions; recent success: 88.0%
+1,990,398 transitions; recent success: 91.0%
+2,000,400 transitions; recent success: 89.0%
+Saved E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\models\O2_c1w01_seed7.zip: 2,000,640 transitions in 56.4 min.
+
+=== 2026-11-18 20:30:09 E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\.venv\Scripts\python.exe -B E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\evaluate.py --run O2_c1w01_seed7 --seed 10000 --episodes 200 --no-references --output-name O2_c1w01_seed7\eval8\s10000_final --models-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\models --results-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results
+     ppo: success 90.5% [85.6%, 93.8%], collision 9.5%, timeout 0.0%, anchor lost 0.0% | back 83/93, left 52/54, right 46/53
+t_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\evaluate.py --run O2_c1w01_seed7 --seed 10000 --episodes 200 --no-references --output-name O2_c1w01_seed7\eval8\pass10000_final --models-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\models --results-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results --environment-of H1
+     ppo: success 69.5% [62.8%, 75.5%], collision 30.5%, timeout 0.0%, anchor lost 0.0% | back 64/93, left 50/54, right 25/53
+_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\evaluate.py --run O2_c1w01_seed7 --seed 40000 --episodes 200 --no-references --output-name O2_c1w01_seed7\eval8\s40000_final --models-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\models --results-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results
+     ppo: success 87.0% [81.6%, 91.0%], collision 13.0%, timeout 0.0%, anchor lost 0.0% | back 78/90, left 54/55, right 42/55
+
+=== 2026-11-18 21:41:51 E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\.venv\Scripts\python.exe -B E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\evaluate.py --run O2_c1w01_seed7 --seed 10000 --episodes 200 --no-references --output-name O2_c1w01_seed7\eval8\s10000_final --models-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\models --results-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results --environment-of N3_c1w01
+     ppo: success 79.5% [73.4%, 84.5%], collision 20.0%, timeout 0.5%, anchor lost 0.0% | front 34/62, back 60/61, left 37/40, right 28/37
+hird_party\HighwayEnv-Automaton\baseline_dynamic_reach\evaluate.py --run O2_c1w01_seed7 --seed 40000 --episodes 200 --no-references --output-name O2_c1w01_seed7\eval8\s40000_final --models-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\models --results-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results --environment-of N3_c1w01
+     ppo: success 81.5% [75.5%, 86.3%], collision 18.5%, timeout 0.0%, anchor lost 0.0% | front 39/71, back 56/56, left 38/39, right 30/34
+
+=== 2026-11-19 14:04:22 E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\.venv\Scripts\python.exe -B E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\evaluate.py --run O2_c1w01_seed7 --seed 10000 --episodes 200 --no-references --output-name O2_c1w01_seed7\eval8\s10000_199998 --models-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\models --results-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results --checkpoint E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results\O2_c1w01_seed7\checkpoints\O2_c1w01_seed7_199998_steps.zip --environment-of N3_c1w01
+     ppo: success 67.0% [60.2%, 73.1%], collision 32.5%, timeout 0.5%, anchor lost 0.0% | front 19/62, back 55/61, left 35/40, right 25/37
+hird_party\HighwayEnv-Automaton\baseline_dynamic_reach\evaluate.py --run O2_c1w01_seed7 --seed 40000 --episodes 200 --no-references --output-name O2_c1w01_seed7\eval8\s40000_199998 --models-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\models --results-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results --checkpoint E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results\O2_c1w01_seed7\checkpoints\O2_c1w01_seed7_199998_steps.zip --environment-of N3_c1w01
+     ppo: success 66.5% [59.7%, 72.7%], collision 33.5%, timeout 0.0%, anchor lost 0.0% | front 19/71, back 54/56, left 34/39, right 26/34
+hird_party\HighwayEnv-Automaton\baseline_dynamic_reach\evaluate.py --run O2_c1w01_seed7 --seed 10000 --episodes 200 --no-references --output-name O2_c1w01_seed7\eval8\s10000_399996 --models-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\models --results-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results --checkpoint E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results\O2_c1w01_seed7\checkpoints\O2_c1w01_seed7_399996_steps.zip --environment-of N3_c1w01
+     ppo: success 70.5% [63.8%, 76.4%], collision 29.5%, timeout 0.0%, anchor lost 0.0% | front 21/62, back 57/61, left 36/40, right 27/37
+hird_party\HighwayEnv-Automaton\baseline_dynamic_reach\evaluate.py --run O2_c1w01_seed7 --seed 40000 --episodes 200 --no-references --output-name O2_c1w01_seed7\eval8\s40000_399996 --models-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\models --results-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results --checkpoint E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results\O2_c1w01_seed7\checkpoints\O2_c1w01_seed7_399996_steps.zip --environment-of N3_c1w01
+     ppo: success 65.0% [58.2%, 71.3%], collision 35.0%, timeout 0.0%, anchor lost 0.0% | front 18/71, back 52/56, left 31/39, right 29/34
+hird_party\HighwayEnv-Automaton\baseline_dynamic_reach\evaluate.py --run O2_c1w01_seed7 --seed 10000 --episodes 200 --no-references --output-name O2_c1w01_seed7\eval8\s10000_599994 --models-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\models --results-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results --checkpoint E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results\O2_c1w01_seed7\checkpoints\O2_c1w01_seed7_599994_steps.zip --environment-of N3_c1w01
+     ppo: success 68.5% [61.8%, 74.5%], collision 31.0%, timeout 0.5%, anchor lost 0.0% | front 14/62, back 60/61, left 36/40, right 27/37
+hird_party\HighwayEnv-Automaton\baseline_dynamic_reach\evaluate.py --run O2_c1w01_seed7 --seed 40000 --episodes 200 --no-references --output-name O2_c1w01_seed7\eval8\s40000_599994 --models-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\models --results-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results --checkpoint E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results\O2_c1w01_seed7\checkpoints\O2_c1w01_seed7_599994_steps.zip --environment-of N3_c1w01
+     ppo: success 64.5% [57.7%, 70.8%], collision 35.5%, timeout 0.0%, anchor lost 0.0% | front 9/71, back 55/56, left 36/39, right 29/34
+third_party\HighwayEnv-Automaton\baseline_dynamic_reach\evaluate.py --run O2_c1w01_seed7 --seed 10000 --episodes 200 --no-references --output-name O2_c1w01_seed7\eval8\s10000_799992 --models-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\models --results-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results --checkpoint E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results\O2_c1w01_seed7\checkpoints\O2_c1w01_seed7_799992_steps.zip --environment-of N3_c1w01
+     ppo: success 78.0% [71.8%, 83.2%], collision 21.5%, timeout 0.5%, anchor lost 0.0% | front 32/62, back 60/61, left 38/40, right 26/37
+hird_party\HighwayEnv-Automaton\baseline_dynamic_reach\evaluate.py --run O2_c1w01_seed7 --seed 40000 --episodes 200 --no-references --output-name O2_c1w01_seed7\eval8\s40000_799992 --models-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\models --results-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results --checkpoint E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results\O2_c1w01_seed7\checkpoints\O2_c1w01_seed7_799992_steps.zip --environment-of N3_c1w01
+     ppo: success 78.0% [71.8%, 83.2%], collision 22.0%, timeout 0.0%, anchor lost 0.0% | front 35/71, back 56/56, left 36/39, right 29/34
+hird_party\HighwayEnv-Automaton\baseline_dynamic_reach\evaluate.py --run O2_c1w01_seed7 --seed 10000 --episodes 200 --no-references --output-name O2_c1w01_seed7\eval8\s10000_999990 --models-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\models --results-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results --checkpoint E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results\O2_c1w01_seed7\checkpoints\O2_c1w01_seed7_999990_steps.zip --environment-of N3_c1w01
+     ppo: success 60.5% [53.6%, 67.0%], collision 39.5%, timeout 0.0%, anchor lost 0.0% | front 13/62, back 56/61, left 28/40, right 24/37
+hird_party\HighwayEnv-Automaton\baseline_dynamic_reach\evaluate.py --run O2_c1w01_seed7 --seed 40000 --episodes 200 --no-references --output-name O2_c1w01_seed7\eval8\s40000_999990 --models-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\models --results-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results --checkpoint E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results\O2_c1w01_seed7\checkpoints\O2_c1w01_seed7_999990_steps.zip --environment-of N3_c1w01
+     ppo: success 55.0% [48.1%, 61.7%], collision 45.0%, timeout 0.0%, anchor lost 0.0% | front 12/71, back 47/56, left 21/39, right 30/34
+hird_party\HighwayEnv-Automaton\baseline_dynamic_reach\evaluate.py --run O2_c1w01_seed7 --seed 10000 --episodes 200 --no-references --output-name O2_c1w01_seed7\eval8\s10000_1199988 --models-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\models --results-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results --checkpoint E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results\O2_c1w01_seed7\checkpoints\O2_c1w01_seed7_1199988_steps.zip --environment-of N3_c1w01
+     ppo: success 65.5% [58.7%, 71.7%], collision 34.0%, timeout 0.5%, anchor lost 0.0% | front 21/62, back 57/61, left 31/40, right 22/37
+hird_party\HighwayEnv-Automaton\baseline_dynamic_reach\evaluate.py --run O2_c1w01_seed7 --seed 40000 --episodes 200 --no-references --output-name O2_c1w01_seed7\eval8\s40000_1199988 --models-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\models --results-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results --checkpoint E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results\O2_c1w01_seed7\checkpoints\O2_c1w01_seed7_1199988_steps.zip --environment-of N3_c1w01
+     ppo: success 62.5% [55.6%, 68.9%], collision 37.5%, timeout 0.0%, anchor lost 0.0% | front 25/71, back 50/56, left 26/39, right 24/34
+hird_party\HighwayEnv-Automaton\baseline_dynamic_reach\evaluate.py --run O2_c1w01_seed7 --seed 10000 --episodes 200 --no-references --output-name O2_c1w01_seed7\eval8\s10000_1399986 --models-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\models --results-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results --checkpoint E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results\O2_c1w01_seed7\checkpoints\O2_c1w01_seed7_1399986_steps.zip --environment-of N3_c1w01
+     ppo: success 76.5% [70.2%, 81.8%], collision 23.0%, timeout 0.5%, anchor lost 0.0% | front 27/62, back 60/61, left 38/40, right 28/37
+hird_party\HighwayEnv-Automaton\baseline_dynamic_reach\evaluate.py --run O2_c1w01_seed7 --seed 40000 --episodes 200 --no-references --output-name O2_c1w01_seed7\eval8\s40000_1399986 --models-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\models --results-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results --checkpoint E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results\O2_c1w01_seed7\checkpoints\O2_c1w01_seed7_1399986_steps.zip --environment-of N3_c1w01
+     ppo: success 76.5% [70.2%, 81.8%], collision 23.0%, timeout 0.5%, anchor lost 0.0% | front 35/71, back 53/56, left 34/39, right 31/34
+hird_party\HighwayEnv-Automaton\baseline_dynamic_reach\evaluate.py --run O2_c1w01_seed7 --seed 10000 --episodes 200 --no-references --output-name O2_c1w01_seed7\eval8\s10000_1599984 --models-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\models --results-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results --checkpoint E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results\O2_c1w01_seed7\checkpoints\O2_c1w01_seed7_1599984_steps.zip --environment-of N3_c1w01
+     ppo: success 64.0% [57.1%, 70.3%], collision 35.5%, timeout 0.5%, anchor lost 0.0% | front 26/62, back 48/61, left 31/40, right 23/37
+hird_party\HighwayEnv-Automaton\baseline_dynamic_reach\evaluate.py --run O2_c1w01_seed7 --seed 40000 --episodes 200 --no-references --output-name O2_c1w01_seed7\eval8\s40000_1599984 --models-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\models --results-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results --checkpoint E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results\O2_c1w01_seed7\checkpoints\O2_c1w01_seed7_1599984_steps.zip --environment-of N3_c1w01
+     ppo: success 63.5% [56.6%, 69.9%], collision 36.0%, timeout 0.5%, anchor lost 0.0% | front 29/71, back 44/56, left 27/39, right 27/34
+hird_party\HighwayEnv-Automaton\baseline_dynamic_reach\evaluate.py --run O2_c1w01_seed7 --seed 10000 --episodes 200 --no-references --output-name O2_c1w01_seed7\eval8\s10000_1799982 --models-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\models --results-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results --checkpoint E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results\O2_c1w01_seed7\checkpoints\O2_c1w01_seed7_1799982_steps.zip --environment-of N3_c1w01
+     ppo: success 71.5% [64.9%, 77.3%], collision 28.0%, timeout 0.5%, anchor lost 0.0% | front 32/62, back 48/61, left 38/40, right 25/37
+hird_party\HighwayEnv-Automaton\baseline_dynamic_reach\evaluate.py --run O2_c1w01_seed7 --seed 40000 --episodes 200 --no-references --output-name O2_c1w01_seed7\eval8\s40000_1799982 --models-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\models --results-dir E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results --checkpoint E:\Multi_Agent_Auto_Drive\third_party\HighwayEnv-Automaton\baseline_dynamic_reach\results\O2_c1w01_seed7\checkpoints\O2_c1w01_seed7_1799982_steps.zip --environment-of N3_c1w01
+     ppo: success 73.5% [67.0%, 79.1%], collision 26.5%, timeout 0.0%, anchor lost 0.0% | front 40/71, back 45/56, left 35/39, right 27/34
