@@ -1,6 +1,6 @@
 # Reaching a slot of a moving car with PPO: report
 
-*Branch `reach-step7`, updated 2026-11-23 through Step 9. Sections 1–4 describe the first chain of arms (B0–B4, Steps 1–6, written 2026-11-09). Section 5 covers Steps 7 and 8. The full log, with every prediction as written before the run, is [`EXPERIMENT_NOTES.md`](EXPERIMENT_NOTES.md). The tables in sections 3–4 are produced by [`report.py`](report.py), and those in section 5 by [`grid.py`](grid.py), both from the saved evaluations.*
+*Branch `reach-step7`, updated 2026-11-23 through Step 9. Sections 1–4 describe the first chain of arms (B0–B4, Steps 1–6, written 2026-11-09). Section 5 covers Steps 7 and 8, and **section 5b gives the adopted recipe exactly: every reward term, task and setting**. Section 7 covers Steps 8g and 9 (consecutive goals). Terms are defined at the end. The full log, with every prediction as written before the run, is [`EXPERIMENT_NOTES.md`](EXPERIMENT_NOTES.md). The tables in sections 3–4 are produced by [`report.py`](report.py), those in section 5 by [`grid.py`](grid.py), and those in section 7 by [`chain.py`](chain.py), all from the saved evaluations.*
 
 ## Summary
 
@@ -28,6 +28,10 @@
   - a crash cost and a small time cost added after that;
   - a 256-wide network, which makes the practice rounds work on every seed instead of most.
 - **First chain (B0–B4, sections 1–4).** PPO reached the scripted driver's BACK/LEFT/RIGHT success but crashed into slower cars where the scripted driver waited, and it never reached FRONT. A larger crash penalty (B4) did not change that.
+- **Consecutive goals (Step 9, section 7, no training).** When the goal in the observation is replaced by the next one after each reached slot, later goals score about 0.4 lower than the first.
+  - With a new car, the scripted driver also drops by 0.25, so the model's own part is about 0.16, and it is all crashes. The model reaches each slot at full speed, then rams a car right after the switch.
+  - Around one car, the model also cannot drop back to a slot behind.
+  - The next step is not decided yet.
 
 ## 1. How the experiments are built
 
@@ -168,15 +172,37 @@ The proposals at the end of Step 6 (a safety shield, a local input for the car a
 - Seeds: screening on 3 (7, 10, 13), confirmation on 5 new ones (16–28).
 - Each set of fresh test episodes is used once. Stages are decided by paired t-tests over seeds, with bars written before each run.
 
-| Stage | Question | Answer |
-|---|---|---|
-| 8-0 | Training speed on this PC | Training is bit-identical. 32 runs at once give 2.3× the old throughput. |
-| 8a | 64-64 or 256-256 (order E, 3 seeds) | 256 missed the pass bar (+0.10 on all 3 seeds); 64 kept. |
-| 8b | Training order | The rule picks N (simplest); O scores highest, within noise. |
-| 8c, 8c2 | 12 rewards per order | None beats success only by the rule. Any crash cost makes some runs give up on FRONT. |
-| 8d | Finalists on 5 new seeds, final test on 50,000–50,499 | Winner N_c05w0t1 (no practice, crash 0.5, time cost 0.001). Below the scripted driver (−0.146, p 0.029); the gap is all FRONT. |
-| 8e | 256 wide, and 3M more training, for three recipes on 8 seeds | Average gain below the bar, but 256 removes the FRONT give-up (13 → 2 of 24 runs). The curves are flat by 9M. |
-| 8f | 256 + order O against the winner, on fresh episodes 60,000–60,499 | **+0.177 (p 0.006, ahead on 8 of 8): adopted.** |
+**The selection rule (the user's choice, fixed before 8a).** The highest mean score wins, but a more complex option must beat a simpler one beyond noise: paired t-test over seeds, p < 0.05. Otherwise the simpler one is kept. "Simpler" means no practice before practice, and fewer reward terms before more. Every compared pair is checked by `check_pipeline` to differ only in the factor under test.
+
+**The levels tested.**
+
+| Factor | Levels |
+|---|---|
+| Training order | **N** full task in all rounds; **H** practice (natural start) in round 1; **E** practice with easy starts in round 1; **O** practice with easy starts in rounds 1 and 2 (the P4 → P5 → P6 order). Round 1 is always success only. |
+| Crash cost (× goal) | 0, 0.5, 1, 2 |
+| Progress shaping | none, or potential-based 0.002 per m (0.1 per m before the 1/50 scale) |
+| Time cost (× goal, per 0.1 s decision) | none, 0.001, 0.004 (added in 8c2, only with crash 0.5 or 1) |
+| Network | 64-64 or 256-256, separate policy and value networks |
+| Training length | 3 rounds × 2M = 6M, or a 4th round of 3M (9M) |
+
+**The decision trail.** Each bar was written before the runs it judges.
+
+| Stage | Question | Bar written before | Result | Decision |
+|---|---|---|---|---|
+| 8-0 | Training speed on this PC | Speed-ups only if training stays bit-identical | Bit-identical; 32 runs at once give 2.3× the old throughput | Adopted |
+| 8a | 64-64 or 256-256 (order E, 3 seeds) | 256 ≥ +0.10, ahead on all 3 seeds, crashes not higher | +0.067 (p 0.45, 2 of 3) | **64 kept** |
+| 8b | Training order (crash 1 + progress, 3 seeds) | The selection rule | All four within 0.12; no one-factor difference beyond noise (p ≥ 0.38) | Rule picks **N**; **O** scores highest, so both go on to 8c |
+| 8c | 8 rewards (crash × progress) per order | The selection rule | No reward beats success only (c0w0) beyond noise; best is c1w01 (N +0.107, p 0.095). Any crash cost makes some runs give up on FRONT | Trigger met for a time cost (timeouts ≥ 10%) |
+| 8c2 | Time cost 0.001 or 0.004 with crash 0.5 or 1 | The selection rule | No time-cost difference beyond noise | Finalists: the rule's choice, the top 3, and P6's reward |
+| 8d | Finalists on 5 new seeds; final test on 50,000–50,499 | The selection rule | **A crash cost is needed:** success only crashes about 25% and loses to every crash-cost reward in order N (p 0.002–0.049). Beyond that, all within 0.07 | Winner **N_c05w0t1** (no practice, crash 0.5, time 0.001). Below the scripted driver on the final test (−0.146, p 0.029); the gap is all FRONT |
+| 8e | 256 wide and 3M more training, 3 recipes, 8 seeds | 256: ≥ +0.10, p < 0.05, ahead on ≥ 6 of 8, crashes not higher, on ≥ 2 of 3 recipes. Longer: p < 0.05 on ≥ 2 of 3 | Width +0.06 to +0.13 (p ≥ 0.16); 3M more +0.02 to +0.04 at 64. But 256 removes the FRONT give-up (13 → 2 of 24 runs), and with it O beats N (p 0.023) | By the bars, **nothing changes**; the reliability gain was put to a fresh test |
+| 8f | O_c1w0t4 at 256 against the winner, 500 fresh episodes 60,000–60,499 | Gain ≥ +0.10, p < 0.05, ahead on ≥ 6 of 8; crashes not higher beyond noise; at most 1 seed giving up on FRONT | **+0.177 (p 0.006, 8 of 8)**; crashes −1.8 points (p 0.21); 0 seeds give up | **Adopted: O_c1w0t4 at 256 wide, 6M** |
+
+**Why this choice holds up.**
+- **The crash cost is backed by new seeds**, not by the screening. Success only crashes about 25% and is beaten beyond noise on the 5 confirmation seeds.
+- **The width was not adopted on 8e's own numbers.** 8e's selection episodes had helped pick the recipes, so the 256-wide recipe was confirmed on 500 episodes no one had used, against a bar written first. It passed every condition.
+- **The reward inside the adopted recipe (crash 1 + time 0.004) is one of several equal choices.** The reward makes no detectable difference at 256 wide (8e: +0.001). What decides the result is the order and the width together. At 256, the two practice rounds end with every seed passing (86–95% of the practice episodes reached). At 64, practice failed to learn passing on 3 of 8 seeds, and those seeds then gave up on FRONT.
+- **One condition was changed before 8f, and it is flagged.** 8e's crash condition ("not higher", failed by any increase) became "not higher beyond noise". On the selection episodes the two recipes crashed equally often, so the 8e version would have decided on noise. The change was made after seeing those rates. 8f also met the stricter 8e version, so the decision does not depend on it.
 
 **Step 8f, the final comparison.** 500 fresh episodes, final models, mean of 8 seeds:
 
@@ -201,18 +227,84 @@ The proposals at the end of Step 6 (a safety shield, a local input for the car a
   2. Practice episodes, with crash cost 1 + time cost 0.004 per decision.
   3. The full task, with the same reward.
 
+## 5b. The adopted recipe, exactly (O_c1w0t4, 256 wide, 6M)
+
+Every value below is read from the saved configuration of `O3_c1w0t4_n256` and its parent runs; the page [`attempts/O_c1w0t4_n256.md`](attempts/O_c1w0t4_n256.md) has the same with per-seed results and demos.
+
+**Training stages.** Each round starts from the previous round's trained policy, same seed; round 1 starts from fresh weights.
+
+| Round | Run | Task | Reward per decision (goal units) | Transitions |
+|---:|---|---|---|---:|
+| 1 | `E1_n256` | Practice with easy starts | +1 on reaching the slot; nothing else | 2M |
+| 2 | `O2_c1w0t4_n256` | Practice with easy starts | +1 reached, −1 crash, −0.004 per decision | 2M |
+| 3 | `O3_c1w0t4_n256` | Full task | +1 reached, −1 crash, −0.004 per decision | 2M |
+
+**The reward, written out** (rounds 2 and 3):
+
+`r_t = 0.02 × ( 50·[reached at t] − 50·[crash at t] − 0.2 )`
+
+- [reached at t] and [crash at t] are 1 on the decision where the episode ends that way, and 0 otherwise. If both happen on the same decision, it counts as a crash.
+- A timeout (25 s) or a lost anchor adds nothing; the time cost has already been charged.
+- So: reaching = +1, a crash = −1, and each 0.1 s costs 0.004, which is 1.0 over a whole 25 s episode (0.37 after discounting at γ 0.99).
+- Why 0.004: it is the largest time cost that keeps waiting out a whole episode cheaper than the smallest crash cost tested (0.5), so crashing never pays better than waiting.
+- Terms switched off: progress shaping 0, the hold bonus 0, the inherited per-step progress 0.
+- Round 1 is `r_t = 0.02 × 50·[reached at t]`: a crash ends the episode with 0, like a timeout. This avoids the give-up collapse that a crash cost causes from fresh weights (B1, P1–P3).
+
+**The two tasks.**
+- **Full task** (round 3 and every test): all four slots, drawn as in section 1. Ego starts at 20 m/s with a 12 m/s car 35 m ahead in its lane. Traffic may change lanes, except the anchor.
+- **Practice with easy starts** (rounds 1 and 2):
+  - Only BACK, LEFT and RIGHT slots that are blocked at reset, meaning a car sits in the slot's lane between ego and the slot. The episode is redrawn, continuing the seeded stream, until this holds (4.9 draws on average).
+  - The blocking cars' lane changes are switched off, so waiting never clears the way: the only way to succeed is to pass.
+  - Each episode picks one start uniformly. Ego keeps 20 m/s:
+    - **past:** next lane, 10 m ahead of the slow car;
+    - **beside:** next lane, level with it;
+    - **behind:** next lane, 15 m behind it;
+    - **natural:** the normal start.
+  - A moved start needs 8 m of clear space in that lane and 10 m before the slot; otherwise the natural start is kept.
+
+**PPO** (Stable-Baselines3 2.9.2), identical in all three rounds:
+
+| Setting | Value | Setting | Value |
+|---|---|---|---|
+| Policy network | MLP 256-256, tanh | Value network | MLP 256-256, separate |
+| Learning rate | 3e-4, constant | Parallel environments | 3 |
+| Steps per environment per update | 256 (768 transitions) | Minibatch | 256 |
+| Epochs per update | 5 | Discount γ | 0.99 |
+| GAE λ | 0.95 | Clip range | 0.2 |
+| Entropy coefficient | 0.01 | Value-loss coefficient | 0.5 |
+| Gradient-norm clip | 0.5 | Device | CPU |
+
+**Environment:** highway-env 1.12.1 `highway-v0`, 3 lanes, 8 traffic cars (density 0.7, preferred speeds 12–17 m/s, IDM + MOBIL). 10 decisions per second; 25 s limit (250 decisions). Actions LANE_LEFT, IDLE, LANE_RIGHT, FASTER, SLOWER on target speeds 10–25 m/s in 2.5 m/s steps. Observation: the 53 numbers of section 1. Success: ego's center within ±3 m along and ±1.5 m across the slot for one decision.
+
+**Replication and testing.** 8 training seeds: 7, 10, 13, 16, 19, 22, 25, 28. Final models are tested deterministically. Selection used 400 episodes (10,000–10,199 and 40,000–40,199); the adoption test used 500 fresh episodes (60,000–60,499), used once.
+
+**Software:** Python 3.13.1, gymnasium 1.4.0, PyTorch 2.15.0, NumPy 2.5.4, trained on a Windows PC (i9-14900K, CPU only).
+
 ## 6. Limitations
 
 - **Seeds.** 8 seeds per Step 8 recipe; the earlier B arms had 3, with partly shared training episodes (section 1).
 - **Unequal inputs.** The scripted driver reads the exact simulator state; PPO reads the 53-number observation. The comparison is a yardstick, not a fair contest.
 - **Reach only.** One decision in the box, not holding the slot.
 - **Machines.** B0–B3 and all of Step 8 were trained on a Windows PC; B3m, B4, B5 and P1–P6 on a Mac. Evaluation is identical on both (`test_replay.py`).
-- **Recipe choice.** Recipes were chosen on the selection episodes (10,000–10,199 and 40,000–40,199). The 8f comparison is on fresh episodes, but its candidate was picked after seeing 8e.
+- **Recipe choice.** Recipes were chosen on the selection episodes (10,000–10,199 and 40,000–40,199). The 8f comparison is on fresh episodes, but its candidate was picked after seeing 8e, and one 8f condition was relaxed before the test (section 5, "Why this choice holds up"; the stricter version was also met).
+- **Effects smaller than about ±0.07 are not resolved.** With 8 seeds, the rewards from crash 0.5 to 1, with or without a time cost or progress shaping, cannot be told apart. The adopted reward is one of these equal choices.
+- **"Reach" is passing through the slot.** One decision inside the box counts, whatever the speed. The adopted model arrives at 25 m/s, about 11 m/s faster than the anchor. This is invisible on single goals and is the main cause of crashes after a goal switch (section 7).
+- **Step 9's comparison with the scripted driver is a rough split.** Each driver's later goals start where its own previous goal ended, so the two face different later goals.
 
 ## 7. Since then, and next
 
 - **Step 8g (no training): FRONT crashes diagnosed.** 91% are rear-ends at full speed. The policy passes but does not brake.
 - **Step 9 (no training): consecutive goals.** When a slot is reached, the goal in the observation is replaced by the next one. Tested on the adopted recipe: 12,000 chains of up to 5 feasible goals, in three conditions ([`results/chains/summary.md`](results/chains/summary.md)).
+  - **Setup.**
+    - The episode continues after each reached slot. Only the goal inputs change, and each goal has its own 25 s clock.
+    - Three conditions:
+      - **new car:** the next goal is a random slot of a different car;
+      - **same car:** a different slot of the same anchor;
+      - **origin kept:** like new car, but the goal coordinates keep the first goal's origin, the most literal "swap only the goal".
+    - **Every next goal is feasible.** The time needed to reach it (gap along the road at the speed limits, plus 2 s per lane change) is at most 15.72 s, the 95th percentile of goals drawn at a normal reset.
+    - The scripted driver runs the same chains as a yardstick.
+    - Chain seeds 70,000–70,499 (500 chains per condition), up to 5 goals each.
+  - **The bar (written before the run).** The drop is the score of goal 1 minus the score of goals 2–5, paired over the 8 seeds. "Carries over" if its whole 95% interval is below 0.10; "breaks" if it is 0.10 or more with p < 0.05.
   - **Chaining breaks in every condition.** Later goals score about 0.4 below the first (+0.78 → about +0.37), on every seed.
   - **Part of that drop is not the model's.** With a new car, the scripted driver also scores lower after goal 1 (+0.73 → +0.48, a drop of 0.25), because its later goals time out more (24% → 47%).
     - The model's own extra drop is about 0.16 (95% interval +0.13 to +0.19), and it is all crashes (11% → 31%; scripted 2.5%).
@@ -243,3 +335,23 @@ The proposals at the end of Step 6 (a safety shield, a local input for the car a
 - **B-arm summaries:** `results/<ARM>_summary.md`.
 - **Per-episode outcomes** for every B arm and seed, with the blocked tag: [`results/step5_blocked/episodes.csv`](results/step5_blocked/episodes.csv). Diagnosis tables are in the same folder.
 - **Videos and figures** of the same 10 episodes for every stage, including the adopted recipe and the 8d winner: [`results/examples/README.md`](results/examples/README.md).
+- **Step 8g (FRONT crashes):** [`results/front_crashes/summary.md`](results/front_crashes/summary.md).
+- **Step 9 (consecutive goals):**
+  - [`results/chains/summary.md`](results/chains/summary.md), with `goals.csv`, `chains.csv` and the figure;
+  - crash replay: [`results/chains/crashes_new_car.md`](results/chains/crashes_new_car.md);
+  - demo videos: [`results/chains/demos/`](results/chains/demos/).
+
+## Terms
+
+| Term | Meaning |
+|---|---|
+| Score | Per episode or goal: +1 reached, −1 crash, 0 timeout or lost anchor; averaged over all slots, FRONT included. Runs from −1 to +1. |
+| Blocked episode | At reset, a car is in the slot's lane between ego and the slot. |
+| Practice task | Blocked BACK/LEFT/RIGHT episodes only, with the blocking car held in its lane (section 5b). |
+| Easy starts | Ego placed past, beside or behind the slow car in the next lane, or at the normal start (section 5b). |
+| FRONT give-up | A run that times out on 30% or more of FRONT episodes: it stops trying rather than risk a crash. |
+| Selection episodes | Seeds 10,000–10,199 and 40,000–40,199, used to choose recipes during Step 8. |
+| Fresh test sets | Seeds 50,000–50,499 (8d) and 60,000–60,499 (8f), and chain seeds 70,000–70,499 (Step 9); each used once. |
+| Paired over seeds | Two recipes trained on the same seeds and tested on the same episodes; the test is a t-test on the per-seed differences. |
+| Order N / H / E / O | No practice / practice from the natural start / practice with easy starts / practice with easy starts for two rounds (P4 → P5 → P6). |
+| `c1w0t4` | Crash cost 1, progress weight 0, time cost 0.004 (per decision, in goal units); `_n256` means 256-256 networks. |
